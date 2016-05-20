@@ -15,6 +15,9 @@
 	height: 60px;
 }
 
+.jiathis_style_0{
+	cursor:pointer;
+}
 .weiboshare{
 	background-position: 10px -259px;
 	background-image: url(/static/images/sharebackground.png);

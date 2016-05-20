@@ -154,6 +154,7 @@ def topic_detail(request, topic_id):
 	else:
 		page = 1;
 	request.session['lastpage'] = request.get_full_path()
+	sharelink = request.get_host()+request.get_full_path()
 	context = {
 		'topic':topic,
 		'user':user,
@@ -168,6 +169,7 @@ def topic_detail(request, topic_id):
 		"commentorderbyreaders":commentorderbyreaders,#热门回复
 		"ifhotcomment": ifhotcomment,
 		'page': page,
+		'sharelink': sharelink,
 		'collection': collection,
 	}
 	#print "topic_detail"

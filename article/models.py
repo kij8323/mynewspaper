@@ -106,7 +106,7 @@ def categoryofarticle(sender, **kwargs):
     if thisrelationtag: #如果文章已经被分类直接返回
     	return;
     else:	#如果文章未分类则直接分类
-		category = Category.objects.get(id = 3)
+		category = Category.objects.get(id = 7)
 		relation = Relation(article= article, category = category)
 		relation.save()
 		os.system('echo yes | python /home/shen/Documents/paperproject/mynewspaper/manage.py collectstatic')

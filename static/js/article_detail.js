@@ -12,6 +12,13 @@ $(document).ready(function(){
   $(".weichatshare").mouseleave(function(){
       $(this).css("background-color","#fafafa");
   });
+  $(".jiathis_style_0").mouseenter(function(){
+      $(this).children().children().children('.weichatshare').css("background-color","#46BC45");
+  });
+  $(".jiathis_style_0").mouseleave(function(){
+      $(this).children().children().children('.weichatshare').css("background-color","#fafafa");
+  });
+
 /*  $(".jiathis_button_weixin").mouseenter(function(){
       $(this).children().children().css("background-color","#46BC45");
   });

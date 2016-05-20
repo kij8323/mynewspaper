@@ -26,8 +26,8 @@ print BASE_DIR
 SECRET_KEY = '!#r2*ilc^es(zl5d0bkvsy5!br-w*7w$-sm*57*8q5^m(ko$+*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-#DEBUG = True
+#DEBUG = False
+DEBUG = True
 ALLOWED_HOSTS = ['*']
 AUTH_USER_MODEL = 'accounts.MyUser'
 

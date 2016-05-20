@@ -271,6 +271,17 @@ $(function(){
 }); 
 </script>
 
+<script type="text/javascript">
+var jiathis_config = {
+    title:"{{article.title}}",
+    summary:"{{article.title}}",
+    appkey:{
+        "tsina":"3493318260",
+        "tqq":"您网站的腾讯微博APPKEY",
+         "tpeople":"您网站的人民微博APPKEY"
+    },
+}
+</script>
 {% endblock %}
 
 
@@ -279,22 +290,30 @@ $(function(){
 <div class="col-xs-1">
 <ul id="sidebar">
   <li>
-	<a href="http://www.jiathis.com/send/?webid=tsina&url={{sharelink}}&title={{article.title}}">
+	<a href="http://www.jiathis.com/send/?webid=tsina&url=http://{{sharelink}}&title={{article.title}}">
 	<i class="weiboshare">
 	</i>
 	</a>
   </li>
 
-  <li>
-  <a  href="http://www.jiathis.com/send/?webid=weixin&url={{sharelink}}&title={{article.title}}">
-  <i class="weichatshare">
+
+
+
+ <li>
+    <div class="jiathis_style_0" >
+  <a class="jiathis_button_weixin">
+   <i class="weichatshare">
   </i>
   </a>
+  </div>
   </li>
 
 
-  <li> 
-	<a href="http://www.jiathis.com/send/?webid=qzone&url={{sharelink}}&title={{article.title}}">
+
+
+
+
+	<a href="http://www.jiathis.com/send/?webid=qzone&url=http://{{sharelink}}&title={{article.title}}">
 	<i class="qqzoneshare">
 	</i>
 	</a> 
@@ -665,5 +684,6 @@ var jiathis_config = {
 </div><!-- <div class="col-xs-3"> -->
 
 </div><!-- <div class="container"> -->
+  <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
  {% endblock %}
  

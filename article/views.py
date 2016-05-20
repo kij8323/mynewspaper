@@ -53,7 +53,9 @@ def article_detail(request, article_id):
 	cachekey = "article_readers_" + str(article_id)
 	if cache.get(cachekey):
 		cache.incr(cachekey)
+	#	print cache.incr(cachekey)
 	else:
+	#	print 'test'
 		cache.set(cachekey, article.readers, settings.CACHE_EXPIRETIME)
 
 	#当前读者对象
@@ -87,6 +89,7 @@ def article_detail(request, article_id):
 	request.session['lastpage'] = request.get_full_path()
 	#分享链接的地址
 	sharelink = request.get_host()+request.get_full_path()
+
 	print sharelink
 	#文章属于哪些类别
 	thisrelationtag = Relation.objects.filter(article=article)
