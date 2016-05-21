@@ -1,0 +1,132 @@
+2016-05-21 11:14:46,143 CRIT Supervisor running as root (no user in config file)
+2016-05-21 11:14:46,147 INFO RPC interface 'supervisor' initialized
+2016-05-21 11:14:46,147 INFO supervisord started with pid 20352
+2016-05-21 11:14:47,149 INFO spawned: 'celery' with pid 20358
+2016-05-21 11:14:47,568 INFO exited: celery (exit status 1; not expected)
+2016-05-21 11:14:48,571 INFO spawned: 'celery' with pid 20363
+2016-05-21 11:14:48,958 INFO exited: celery (exit status 1; not expected)
+2016-05-21 11:14:50,962 INFO spawned: 'celery' with pid 20368
+2016-05-21 11:14:51,350 INFO exited: celery (exit status 1; not expected)
+2016-05-21 11:14:54,355 INFO spawned: 'celery' with pid 20373
+2016-05-21 11:14:54,742 INFO exited: celery (exit status 1; not expected)
+2016-05-21 11:14:55,744 INFO gave up: celery entered FATAL state, too many start retries too quickly
+2016-05-21 11:15:36,360 WARN received SIGINT indicating exit request
+2016-05-21 11:19:28,939 CRIT Supervisor running as root (no user in config file)
+2016-05-21 11:19:28,943 INFO RPC interface 'supervisor' initialized
+2016-05-21 11:19:28,943 INFO supervisord started with pid 20433
+2016-05-21 11:19:29,945 INFO spawnerr: can't find command 'export'
+2016-05-21 11:19:30,946 INFO spawnerr: can't find command 'export'
+2016-05-21 11:19:32,949 INFO spawnerr: can't find command 'export'
+2016-05-21 11:19:35,954 INFO spawnerr: can't find command 'export'
+2016-05-21 11:19:35,954 INFO gave up: celery entered FATAL state, too many start retries too quickly
+2016-05-21 11:19:45,137 WARN received SIGINT indicating exit request
+2016-05-21 11:20:30,636 CRIT Supervisor running as root (no user in config file)
+2016-05-21 11:20:30,640 INFO RPC interface 'supervisor' initialized
+2016-05-21 11:20:30,640 INFO supervisord started with pid 20440
+2016-05-21 11:20:31,643 INFO spawned: 'celery' with pid 20446
+2016-05-21 11:20:33,107 INFO success: celery entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-21 11:54:58,691 CRIT Supervisor running as root (no user in config file)
+2016-05-21 11:55:54,305 INFO waiting for celery to die
+2016-05-21 11:55:55,853 INFO stopped: celery (exit status 0)
+2016-05-21 11:55:56,776 CRIT Supervisor running as root (no user in config file)
+2016-05-21 11:55:56,779 INFO RPC interface 'supervisor' initialized
+2016-05-21 11:55:56,780 INFO supervisord started with pid 20554
+2016-05-21 11:55:57,782 INFO spawned: 'celery' with pid 20560
+2016-05-21 11:55:57,785 INFO spawnerr: can't find command './redis-server'
+2016-05-21 11:55:57,788 INFO spawned: 'uwsgi' with pid 20561
+2016-05-21 11:55:58,554 INFO exited: celery (exit status 1; not expected)
+2016-05-21 11:55:59,623 INFO spawned: 'celery' with pid 20580
+2016-05-21 11:55:59,624 INFO spawnerr: can't find command './redis-server'
+2016-05-21 11:55:59,624 INFO success: uwsgi entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-21 11:56:00,017 INFO exited: celery (exit status 1; not expected)
+2016-05-21 11:56:02,021 INFO spawned: 'celery' with pid 20585
+2016-05-21 11:56:02,022 INFO spawnerr: can't find command './redis-server'
+2016-05-21 11:56:02,418 INFO exited: celery (exit status 1; not expected)
+2016-05-21 11:56:05,423 INFO spawned: 'celery' with pid 20590
+2016-05-21 11:56:05,425 INFO spawnerr: can't find command './redis-server'
+2016-05-21 11:56:05,425 INFO gave up: redis-server entered FATAL state, too many start retries too quickly
+2016-05-21 11:56:05,811 INFO exited: celery (exit status 1; not expected)
+2016-05-21 11:56:06,812 INFO gave up: celery entered FATAL state, too many start retries too quickly
+2016-05-21 11:56:06,864 WARN received SIGINT indicating exit request
+2016-05-21 11:56:06,864 INFO waiting for uwsgi to die
+2016-05-21 11:56:11,738 INFO waiting for uwsgi to die
+2016-05-21 11:56:15,216 INFO waiting for uwsgi to die
+2016-05-21 11:56:17,417 WARN killing 'uwsgi' (20561) with SIGKILL
+2016-05-21 11:56:17,446 INFO stopped: uwsgi (terminated by SIGKILL)
+2016-05-21 11:56:51,974 CRIT Supervisor running as root (no user in config file)
+2016-05-21 11:56:51,994 INFO RPC interface 'supervisor' initialized
+2016-05-21 11:56:51,994 INFO supervisord started with pid 20763
+2016-05-21 11:56:52,997 INFO spawned: 'celery' with pid 20769
+2016-05-21 11:56:52,998 INFO spawnerr: can't find command './redis-server'
+2016-05-21 11:56:52,999 INFO spawned: 'uwsgi' with pid 20770
+2016-05-21 11:56:54,229 INFO success: celery entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-21 11:56:54,229 INFO spawnerr: can't find command './redis-server'
+2016-05-21 11:56:54,230 INFO success: uwsgi entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-21 11:56:56,509 INFO spawnerr: can't find command './redis-server'
+2016-05-21 11:56:59,512 INFO spawnerr: can't find command './redis-server'
+2016-05-21 11:56:59,513 INFO gave up: redis-server entered FATAL state, too many start retries too quickly
+2016-05-21 11:57:04,339 WARN received SIGINT indicating exit request
+2016-05-21 11:57:04,339 INFO waiting for celery, uwsgi to die
+2016-05-21 11:57:08,471 INFO waiting for celery, uwsgi to die
+2016-05-21 11:57:16,945 INFO waiting for celery, uwsgi to die
+2016-05-21 11:57:17,000 WARN killing 'uwsgi' (20770) with SIGKILL
+2016-05-21 11:57:17,000 WARN received SIGINT indicating exit request
+2016-05-21 11:57:17,020 INFO stopped: uwsgi (terminated by SIGKILL)
+2016-05-21 11:57:19,616 INFO stopped: celery (exit status 0)
+2016-05-21 12:13:03,480 CRIT Supervisor running as root (no user in config file)
+2016-05-21 12:13:03,491 INFO RPC interface 'supervisor' initialized
+2016-05-21 12:13:03,492 INFO supervisord started with pid 1271
+2016-05-21 12:13:04,494 INFO spawned: 'celery' with pid 1277
+2016-05-21 12:13:04,495 INFO spawnerr: can't find command './redis-server'
+2016-05-21 12:13:04,497 INFO spawned: 'uwsgi' with pid 1278
+2016-05-21 12:13:06,413 INFO success: celery entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-21 12:13:06,414 INFO spawnerr: can't find command './redis-server'
+2016-05-21 12:13:06,414 INFO success: uwsgi entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-21 12:13:09,299 INFO spawnerr: can't find command './redis-server'
+2016-05-21 12:13:12,303 INFO spawnerr: can't find command './redis-server'
+2016-05-21 12:13:12,305 INFO gave up: redis-server entered FATAL state, too many start retries too quickly
+2016-05-21 12:13:15,471 WARN received SIGINT indicating exit request
+2016-05-21 12:13:15,471 INFO waiting for celery, uwsgi to die
+2016-05-21 12:13:19,018 INFO waiting for celery, uwsgi to die
+2016-05-21 12:13:22,021 INFO waiting for celery, uwsgi to die
+2016-05-21 12:13:25,024 INFO waiting for celery, uwsgi to die
+2016-05-21 12:13:26,025 WARN killing 'uwsgi' (1278) with SIGKILL
+2016-05-21 12:13:26,059 INFO stopped: uwsgi (terminated by SIGKILL)
+2016-05-21 12:13:27,655 INFO stopped: celery (exit status 0)
+2016-05-21 12:13:46,272 CRIT Supervisor running as root (no user in config file)
+2016-05-21 12:13:46,276 INFO RPC interface 'supervisor' initialized
+2016-05-21 12:13:46,276 INFO supervisord started with pid 1332
+2016-05-21 12:13:47,278 INFO spawned: 'celery' with pid 1338
+2016-05-21 12:13:47,281 INFO spawned: 'redis-server' with pid 1339
+2016-05-21 12:13:47,287 INFO spawned: 'uwsgi' with pid 1340
+2016-05-21 12:13:49,192 INFO success: celery entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-21 12:13:49,192 INFO success: redis-server entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-21 12:13:49,192 INFO success: uwsgi entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-21 12:14:15,725 WARN received SIGINT indicating exit request
+2016-05-21 12:14:15,725 INFO waiting for celery, redis-server, uwsgi to die
+2016-05-21 12:14:19,276 INFO waiting for celery, redis-server, uwsgi to die
+2016-05-21 12:14:22,279 INFO waiting for celery, redis-server, uwsgi to die
+2016-05-21 12:14:25,282 INFO waiting for celery, redis-server, uwsgi to die
+2016-05-21 12:14:26,283 WARN killing 'uwsgi' (1340) with SIGKILL
+2016-05-21 12:14:26,317 INFO stopped: uwsgi (terminated by SIGKILL)
+2016-05-21 12:14:26,359 INFO stopped: redis-server (exit status 0)
+2016-05-21 12:14:27,909 INFO stopped: celery (exit status 0)
+2016-05-21 12:14:33,004 CRIT Supervisor running as root (no user in config file)
+2016-05-21 12:14:33,008 INFO RPC interface 'supervisor' initialized
+2016-05-21 12:14:33,008 INFO supervisord started with pid 1380
+2016-05-21 12:14:34,011 INFO spawned: 'celery' with pid 1386
+2016-05-21 12:14:34,012 INFO spawned: 'redis-server' with pid 1387
+2016-05-21 12:14:34,014 INFO spawned: 'uwsgi' with pid 1388
+2016-05-21 12:14:35,913 INFO success: celery entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-21 12:14:35,914 INFO success: redis-server entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-21 12:14:35,914 INFO success: uwsgi entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-21 14:25:53,392 WARN received SIGHUP indicating restart request
+2016-05-21 18:35:29,373 CRIT Supervisor running as root (no user in config file)
+2016-05-21 18:35:29,395 INFO RPC interface 'supervisor' initialized
+2016-05-21 18:35:29,395 INFO supervisord started with pid 1201
+2016-05-21 18:35:30,398 INFO spawned: 'celery' with pid 1207
+2016-05-21 18:35:30,400 INFO spawned: 'redis-server' with pid 1208
+2016-05-21 18:35:30,402 INFO spawned: 'uwsgi' with pid 1209
+2016-05-21 18:35:32,331 INFO success: celery entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-21 18:35:32,331 INFO success: redis-server entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-21 18:35:32,331 INFO success: uwsgi entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
