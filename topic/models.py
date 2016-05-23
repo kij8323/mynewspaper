@@ -119,6 +119,7 @@ class CollectionTopic(models.Model):
 def subtopicount(sender, **kwargs):
 	topic = kwargs.pop("instance")
 	group = Group.objects.get(id =topic.group.id)
+	value = topic.group.id
 	group.topicount -= 1
 	group.save()
 	cachekey = "group_topic_count_" + str(group.id)

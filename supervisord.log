@@ -130,3 +130,886 @@
 2016-05-21 18:35:32,331 INFO success: celery entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
 2016-05-21 18:35:32,331 INFO success: redis-server entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
 2016-05-21 18:35:32,331 INFO success: uwsgi entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-21 20:46:49,688 WARN received SIGHUP indicating restart request
+2016-05-23 22:37:51,486 CRIT Supervisor running as root (no user in config file)
+2016-05-23 22:37:51,547 INFO RPC interface 'supervisor' initialized
+2016-05-23 22:37:51,547 INFO supervisord started with pid 4538
+2016-05-23 22:37:52,550 INFO spawned: 'autoreload' with pid 4544
+2016-05-23 22:37:52,558 INFO spawned: 'celery' with pid 4545
+2016-05-23 22:37:52,560 INFO spawned: 'redis-server' with pid 4546
+2016-05-23 22:37:52,575 INFO spawned: 'uwsgi' with pid 4547
+2016-05-23 22:37:52,629 DEBG 'uwsgi' stdout output:
+[uWSGI] getting INI configuration from mynewspaper.ini
+
+2016-05-23 22:37:52,630 DEBG 'uwsgi' stdout output:
+*** Starting uWSGI 2.0.13.1 (64bit) on [Mon May 23 22:37:52 2016] ***
+
+2016-05-23 22:37:52,630 DEBG 'uwsgi' stdout output:
+compiled with version: 4.8.2 on 18 May 2016 23:08:05
+
+2016-05-23 22:37:52,631 DEBG 'uwsgi' stdout output:
+os: Linux-3.13.0-32-generic #57-Ubuntu SMP Tue Jul 15 03:51:08 UTC 2014
+
+2016-05-23 22:37:52,631 DEBG 'uwsgi' stdout output:
+nodename: iZ25vn4n5xvZ
+
+2016-05-23 22:37:52,631 DEBG 'uwsgi' stdout output:
+machine: x86_64
+
+2016-05-23 22:37:52,632 DEBG 'uwsgi' stdout output:
+clock source: unix
+
+2016-05-23 22:37:52,632 DEBG 'uwsgi' stdout output:
+pcre jit disabled
+
+2016-05-23 22:37:52,632 DEBG 'uwsgi' stdout output:
+detected number of CPU cores: 1
+
+2016-05-23 22:37:52,638 DEBG 'uwsgi' stdout output:
+current working directory: /home/shen/Documents/paperproject/mynewspaper
+
+2016-05-23 22:37:52,639 DEBG 'uwsgi' stdout output:
+detected binary path: /usr/local/bin/uwsgi
+
+2016-05-23 22:37:52,639 DEBG 'uwsgi' stdout output:
+uWSGI running as root, you can use --uid/--gid/--chroot options
+
+2016-05-23 22:37:52,640 DEBG 'uwsgi' stdout output:
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+chdir() to /home/shen/Documents/paperproject/mynewspaper
+your processes number limit is 7770
+your memory page size is 4096 bytes
+detected max file descriptor number: 65535
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+
+2016-05-23 22:37:52,641 DEBG 'uwsgi' stdout output:
+uwsgi socket 0 bound to UNIX address /home/shen/Documents/paperproject/mynewspaper/mynewspaper.sock fd 3
+
+2016-05-23 22:37:52,645 DEBG 'uwsgi' stdout output:
+Python version: 2.7.6 (default, Mar 22 2014, 23:03:41)  [GCC 4.8.2]
+
+2016-05-23 22:37:52,645 DEBG 'redis-server' stdout output:
+[4546] 23 May 22:37:52.641 # Warning: no config file specified, using the default config. In order to specify a config file use redis-server /path/to/redis.conf
+[4546] 23 May 22:37:52.642 # Creating Server TCP listening socket *:6379: bind: Address already in use
+
+2016-05-23 22:37:52,645 DEBG fd 13 closed, stopped monitoring <POutputDispatcher at 140228339369672 for <Subprocess at 140228339945840 with name redis-server in state STARTING> (stdout)>
+2016-05-23 22:37:52,645 INFO exited: redis-server (exit status 1; not expected)
+2016-05-23 22:37:52,646 DEBG received SIGCLD indicating a child quit
+2016-05-23 22:37:52,699 DEBG 'uwsgi' stdout output:
+Python main interpreter initialized at 0x1f57490
+
+2016-05-23 22:37:52,709 DEBG 'uwsgi' stdout output:
+python threads support enabled
+
+2016-05-23 22:37:52,709 DEBG 'uwsgi' stdout output:
+your server socket listen backlog is limited to 100 connections
+
+2016-05-23 22:37:52,709 DEBG 'uwsgi' stdout output:
+your mercy for graceful operations on workers is 60 seconds
+
+2016-05-23 22:37:52,710 DEBG 'uwsgi' stdout output:
+mapped 800360 bytes (781 KB) for 10 cores
+
+2016-05-23 22:37:52,721 DEBG 'uwsgi' stdout output:
+*** Operational MODE: preforking ***
+
+2016-05-23 22:37:53,726 INFO success: autoreload entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-23 22:37:53,733 INFO success: celery entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-23 22:37:53,734 INFO spawned: 'redis-server' with pid 4558
+2016-05-23 22:37:53,735 INFO success: uwsgi entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-23 22:37:53,779 DEBG 'redis-server' stdout output:
+[4558] 23 May 22:37:53.779 # Warning: no config file specified, using the default config. In order to specify a config file use redis-server /path/to/redis.conf
+
+2016-05-23 22:37:53,809 DEBG 'redis-server' stdout output:
+[4558] 23 May 22:37:53.809 # Creating Server TCP listening socket *:6379: bind: Address already in use
+
+2016-05-23 22:37:53,809 DEBG fd 13 closed, stopped monitoring <POutputDispatcher at 140228339369672 for <Subprocess at 140228339945840 with name redis-server in state STARTING> (stdout)>
+2016-05-23 22:37:53,809 INFO exited: redis-server (exit status 1; not expected)
+2016-05-23 22:37:53,810 DEBG received SIGCLD indicating a child quit
+2016-05-23 22:37:54,151 DEBG 'uwsgi' stdout output:
+/home/shen/Documents/paperproject/mynewspaper
+
+2016-05-23 22:37:54,913 DEBG 'celery' stdout output:
+/usr/local/lib/python2.7/dist-packages/django/core/management/base.py:259: RemovedInDjango19Warning: "requires_model_validation" is deprecated in favor of "requires_system_checks".
+  RemovedInDjango19Warning)
+
+
+2016-05-23 22:37:55,137 DEBG 'uwsgi' stdout output:
+WSGI app 0 (mountpoint='') ready in 3 seconds on interpreter 0x1f57490 pid: 4547 (default app)
+
+2016-05-23 22:37:55,138 DEBG 'uwsgi' stdout output:
+*** uWSGI is running in multiple interpreter mode ***
+
+2016-05-23 22:37:55,138 DEBG 'uwsgi' stdout output:
+spawned uWSGI master process (pid: 4547)
+
+2016-05-23 22:37:55,139 DEBG 'uwsgi' stdout output:
+spawned uWSGI worker 1 (pid: 4562, cores: 1)
+
+2016-05-23 22:37:55,140 DEBG 'uwsgi' stdout output:
+spawned uWSGI worker 2 (pid: 4563, cores: 1)
+
+2016-05-23 22:37:55,142 DEBG 'uwsgi' stdout output:
+spawned uWSGI worker 3 (pid: 4564, cores: 1)
+
+2016-05-23 22:37:55,144 DEBG 'uwsgi' stdout output:
+spawned uWSGI worker 4 (pid: 4565, cores: 1)
+
+2016-05-23 22:37:55,150 DEBG 'uwsgi' stdout output:
+spawned uWSGI worker 5 (pid: 4566, cores: 1)
+
+2016-05-23 22:37:55,151 DEBG 'uwsgi' stdout output:
+spawned uWSGI worker 6 (pid: 4567, cores: 1)
+
+2016-05-23 22:37:55,157 DEBG 'uwsgi' stdout output:
+spawned uWSGI worker 7 (pid: 4568, cores: 1)
+
+2016-05-23 22:37:55,158 DEBG 'uwsgi' stdout output:
+spawned uWSGI worker 8 (pid: 4569, cores: 1)
+
+2016-05-23 22:37:55,161 DEBG 'uwsgi' stdout output:
+spawned uWSGI worker 9 (pid: 4570, cores: 1)
+
+2016-05-23 22:37:55,167 DEBG 'uwsgi' stdout output:
+spawned uWSGI worker 10 (pid: 4571, cores: 1)
+
+2016-05-23 22:37:55,195 DEBG 'celery' stdout output:
+/usr/local/lib/python2.7/dist-packages/celery/platforms.py:812: RuntimeWarning: You are running the worker with superuser privileges, which is
+absolutely not recommended!
+
+Please specify a different user using the -u option.
+
+User information: uid=0 euid=0 gid=0 egid=0
+
+  uid=uid, euid=euid, gid=gid, egid=egid,
+
+
+2016-05-23 22:37:55,316 DEBG 'celery' stdout output:
+/usr/local/lib/python2.7/dist-packages/celery/apps/worker.py:161: CDeprecationWarning: 
+Starting from version 3.2 Celery will refuse to accept pickle by default.
+
+The pickle serializer is a security concern as it may give attackers
+the ability to execute any command.  It's important to secure
+your broker from unauthorized access when using pickle, so we think
+that enabling pickle should require a deliberate action and not be
+the default choice.
+
+If you depend on pickle then you should set a setting to disable this
+warning and to be sure that everything will continue working
+when you upgrade to Celery 3.2::
+
+    CELERY_ACCEPT_CONTENT = ['pickle', 'json', 'msgpack', 'yaml']
+
+You must only enable the serializers that you will actually use.
+
+
+  warnings.warn(CDeprecationWarning(W_PICKLE_DEPRECATED))
+
+[2016-05-23 22:37:55,309: WARNING/MainProcess] /usr/local/lib/python2.7/dist-packages/celery/apps/worker.py:161: CDeprecationWarning: 
+Starting from version 3.2 Celery will refuse to accept pickle by default.
+
+The pickle serializer is a security concern as it may give attackers
+the ability to execute any command.  It's important to secure
+your broker from unauthorized access when using pickle, so we think
+that enabling pickle should require a deliberate action and not be
+the default choice.
+
+If you depend on pickle then you should set a setting to disable this
+warning and to be sure that everything will continue working
+when you upgrade to Celery 3.2::
+
+    CELERY_ACCEPT_CONTENT = ['pickle', 'json', 'msgpack', 'yaml']
+
+You must only enable the serializers that you will actually use.
+
+
+  warnings.warn(CDeprecationWarning(W_PICKLE_DEPRECATED))
+
+
+2016-05-23 22:37:55,403 DEBG 'celery' stdout output:
+[2016-05-23 22:37:55,403: INFO/MainProcess] Connected to redis://localhost:6379/0
+
+2016-05-23 22:37:55,421 DEBG 'celery' stdout output:
+[2016-05-23 22:37:55,421: INFO/MainProcess] mingle: searching for neighbors
+
+2016-05-23 22:37:56,424 INFO spawned: 'redis-server' with pid 4577
+2016-05-23 22:37:56,434 DEBG 'celery' stdout output:
+[2016-05-23 22:37:56,433: INFO/MainProcess] mingle: all alone
+
+2016-05-23 22:37:56,458 DEBG 'redis-server' stdout output:
+[4577] 23 May 22:37:56.458 # Warning: no config file specified, using the default config. In order to specify a config file use redis-server /path/to/redis.conf
+
+2016-05-23 22:37:56,459 DEBG 'celery' stdout output:
+/usr/local/lib/python2.7/dist-packages/djcelery/loaders.py:136: UserWarning: Using settings.DEBUG leads to a memory leak, never use this setting in production environments!
+  warn('Using settings.DEBUG leads to a memory leak, never '
+
+
+2016-05-23 22:37:56,459 DEBG 'celery' stdout output:
+[2016-05-23 22:37:56,459: WARNING/MainProcess] /usr/local/lib/python2.7/dist-packages/djcelery/loaders.py:136: UserWarning: Using settings.DEBUG leads to a memory leak, never use this setting in production environments!
+  warn('Using settings.DEBUG leads to a memory leak, never '
+
+
+2016-05-23 22:37:56,460 DEBG 'celery' stdout output:
+[2016-05-23 22:37:56,460: WARNING/MainProcess] celery@iZ25vn4n5xvZ ready.
+
+2016-05-23 22:37:56,468 DEBG 'redis-server' stdout output:
+[4577] 23 May 22:37:56.466 # Creating Server TCP listening socket *:6379: bind: Address already in use
+
+2016-05-23 22:37:56,468 DEBG fd 13 closed, stopped monitoring <POutputDispatcher at 140228339369888 for <Subprocess at 140228339945840 with name redis-server in state STARTING> (stdout)>
+2016-05-23 22:37:56,469 INFO exited: redis-server (exit status 1; not expected)
+2016-05-23 22:37:56,480 DEBG received SIGCLD indicating a child quit
+2016-05-23 22:37:59,484 INFO spawned: 'redis-server' with pid 4583
+2016-05-23 22:37:59,497 DEBG 'redis-server' stdout output:
+[4583] 23 May 22:37:59.497 # Warning: no config file specified, using the default config. In order to specify a config file use redis-server /path/to/redis.conf
+
+2016-05-23 22:37:59,500 DEBG 'redis-server' stdout output:
+[4583] 23 May 22:37:59.500 # Creating Server TCP listening socket *:6379: bind: Address already in use
+
+2016-05-23 22:37:59,501 DEBG fd 13 closed, stopped monitoring <POutputDispatcher at 140228339369888 for <Subprocess at 140228339945840 with name redis-server in state STARTING> (stdout)>
+2016-05-23 22:37:59,505 INFO exited: redis-server (exit status 1; not expected)
+2016-05-23 22:37:59,505 DEBG received SIGCLD indicating a child quit
+2016-05-23 22:38:00,506 INFO gave up: redis-server entered FATAL state, too many start retries too quickly
+2016-05-23 22:38:12,530 WARN received SIGINT indicating exit request
+2016-05-23 22:38:12,530 DEBG killing uwsgi (pid 4547) with signal SIGTERM
+2016-05-23 22:38:12,530 INFO waiting for autoreload, celery, uwsgi to die
+2016-05-23 22:38:12,605 DEBG 'uwsgi' stdout output:
+...brutally killing workers...
+
+2016-05-23 22:38:14,537 DEBG 'uwsgi' stdout output:
+worker 1 buried after 2 seconds
+worker 2 buried after 2 seconds
+worker 3 buried after 2 seconds
+worker 4 buried after 2 seconds
+worker 5 buried after 2 seconds
+worker 6 buried after 2 seconds
+worker 7 buried after 2 seconds
+worker 8 buried after 2 seconds
+worker 9 buried after 2 seconds
+worker 10 buried after 2 seconds
+binary reloading uWSGI...
+chdir() to /home/shen/Documents/paperproject/mynewspaper
+closing all non-uwsgi socket fds > 2 (max_fd = 65535)...
+found fd 3 mapped to socket 0 (/home/shen/Documents/paperproject/mynewspaper/mynewspaper.sock)
+
+2016-05-23 22:38:14,598 DEBG 'uwsgi' stdout output:
+running /usr/local/bin/uwsgi
+
+2016-05-23 22:38:14,705 DEBG 'uwsgi' stdout output:
+[uWSGI] getting INI configuration from mynewspaper.ini
+
+2016-05-23 22:38:14,720 DEBG 'uwsgi' stdout output:
+*** Starting uWSGI 2.0.13.1 (64bit) on [Mon May 23 22:38:14 2016] ***
+
+2016-05-23 22:38:14,721 DEBG 'uwsgi' stdout output:
+compiled with version: 4.8.2 on 18 May 2016 23:08:05
+
+2016-05-23 22:38:14,721 DEBG 'uwsgi' stdout output:
+os: Linux-3.13.0-32-generic #57-Ubuntu SMP Tue Jul 15 03:51:08 UTC 2014
+
+2016-05-23 22:38:14,721 DEBG 'uwsgi' stdout output:
+nodename: iZ25vn4n5xvZ
+
+2016-05-23 22:38:14,721 DEBG 'uwsgi' stdout output:
+machine: x86_64
+
+2016-05-23 22:38:14,722 DEBG 'uwsgi' stdout output:
+clock source: unix
+
+2016-05-23 22:38:14,722 DEBG 'uwsgi' stdout output:
+pcre jit disabled
+
+2016-05-23 22:38:14,723 DEBG 'uwsgi' stdout output:
+detected number of CPU cores: 1
+
+2016-05-23 22:38:14,723 DEBG 'uwsgi' stdout output:
+current working directory: /home/shen/Documents/paperproject/mynewspaper
+
+2016-05-23 22:38:14,723 DEBG 'uwsgi' stdout output:
+detected binary path: /usr/local/bin/uwsgi
+
+2016-05-23 22:38:14,724 DEBG 'uwsgi' stdout output:
+uWSGI running as root, you can use --uid/--gid/--chroot options
+
+2016-05-23 22:38:14,724 DEBG 'uwsgi' stdout output:
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+
+2016-05-23 22:38:14,729 DEBG 'uwsgi' stdout output:
+chdir() to /home/shen/Documents/paperproject/mynewspaper
+your processes number limit is 7770
+your memory page size is 4096 bytes
+detected max file descriptor number: 65535
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+
+2016-05-23 22:38:14,732 DEBG 'uwsgi' stdout output:
+uwsgi socket 0 inherited UNIX address /home/shen/Documents/paperproject/mynewspaper/mynewspaper.sock fd 3
+
+2016-05-23 22:38:14,925 DEBG 'uwsgi' stdout output:
+Python version: 2.7.6 (default, Mar 22 2014, 23:03:41)  [GCC 4.8.2]
+
+2016-05-23 22:38:15,035 DEBG 'uwsgi' stdout output:
+Python main interpreter initialized at 0x1adc320
+
+2016-05-23 22:38:15,035 DEBG 'uwsgi' stdout output:
+python threads support enabled
+
+2016-05-23 22:38:15,035 DEBG 'uwsgi' stdout output:
+your server socket listen backlog is limited to 100 connections
+
+2016-05-23 22:38:15,036 DEBG 'uwsgi' stdout output:
+your mercy for graceful operations on workers is 60 seconds
+
+2016-05-23 22:38:15,037 DEBG 'uwsgi' stdout output:
+mapped 800360 bytes (781 KB) for 10 cores
+
+2016-05-23 22:38:15,038 DEBG 'uwsgi' stdout output:
+*** Operational MODE: preforking ***
+
+2016-05-23 22:38:15,798 DEBG 'uwsgi' stdout output:
+/home/shen/Documents/paperproject/mynewspaper
+
+2016-05-23 22:38:15,798 INFO waiting for autoreload, celery, uwsgi to die
+2016-05-23 22:38:16,148 DEBG 'uwsgi' stdout output:
+WSGI app 0 (mountpoint='') ready in 1 seconds on interpreter 0x1adc320 pid: 4547 (default app)
+
+2016-05-23 22:38:16,149 DEBG 'uwsgi' stdout output:
+*** uWSGI is running in multiple interpreter mode ***
+
+2016-05-23 22:38:16,151 DEBG 'uwsgi' stdout output:
+gracefully (RE)spawned uWSGI master process (pid: 4547)
+
+2016-05-23 22:38:16,152 DEBG 'uwsgi' stdout output:
+spawned uWSGI worker 1 (pid: 4588, cores: 1)
+
+2016-05-23 22:38:16,153 DEBG 'uwsgi' stdout output:
+spawned uWSGI worker 2 (pid: 4589, cores: 1)
+
+2016-05-23 22:38:16,157 DEBG 'uwsgi' stdout output:
+spawned uWSGI worker 3 (pid: 4590, cores: 1)
+
+2016-05-23 22:38:16,158 DEBG 'uwsgi' stdout output:
+spawned uWSGI worker 4 (pid: 4591, cores: 1)
+
+2016-05-23 22:38:16,159 DEBG 'uwsgi' stdout output:
+spawned uWSGI worker 5 (pid: 4592, cores: 1)
+
+2016-05-23 22:38:16,166 DEBG 'uwsgi' stdout output:
+spawned uWSGI worker 6 (pid: 4593, cores: 1)
+
+2016-05-23 22:38:16,168 DEBG 'uwsgi' stdout output:
+spawned uWSGI worker 7 (pid: 4594, cores: 1)
+
+2016-05-23 22:38:16,171 DEBG 'uwsgi' stdout output:
+spawned uWSGI worker 8 (pid: 4595, cores: 1)
+
+2016-05-23 22:38:16,172 DEBG 'uwsgi' stdout output:
+spawned uWSGI worker 9 (pid: 4596, cores: 1)
+
+2016-05-23 22:38:16,177 DEBG 'uwsgi' stdout output:
+spawned uWSGI worker 10 (pid: 4597, cores: 1)
+
+2016-05-23 22:38:19,181 INFO waiting for autoreload, celery, uwsgi to die
+2016-05-23 22:38:22,184 INFO waiting for autoreload, celery, uwsgi to die
+2016-05-23 22:38:23,185 WARN killing 'uwsgi' (4547) with SIGKILL
+2016-05-23 22:38:23,185 DEBG killing uwsgi (pid 4547) with signal SIGKILL
+2016-05-23 22:38:23,193 DEBG 'uwsgi' stdout output:
+Mon May 23 22:38:23 2016 - uWSGI worker 1 screams: UAAAAAAH my master disconnected: i will kill myself !!!
+
+2016-05-23 22:38:23,199 DEBG 'uwsgi' stdout output:
+Mon May 23 22:38:23 2016 - uWSGI worker 2 screams: UAAAAAAH my master disconnected: i will kill myself !!!
+
+2016-05-23 22:38:23,206 DEBG 'uwsgi' stdout output:
+Mon May 23 22:38:23 2016 - uWSGI worker 3 screams: UAAAAAAH my master disconnected: i will kill myself !!!
+
+2016-05-23 22:38:23,249 DEBG 'uwsgi' stdout output:
+Mon May 23 22:38:23 2016 - uWSGI worker 4 screams: UAAAAAAH my master disconnected: i will kill myself !!!
+Mon May 23 22:38:23 2016 - uWSGI worker 5 screams: UAAAAAAH my master disconnected: i will kill myself !!!
+Mon May 23 22:38:23 2016 - uWSGI worker 6 screams: UAAAAAAH my master disconnected: i will kill myself !!!
+Mon May 23 22:38:23 2016 - uWSGI worker 7 screams: UAAAAAAH my master disconnected: i will kill myself !!!
+Mon May 23 22:38:23 2016 - uWSGI worker 8 screams: UAAAAAAH my master disconnected: i will kill myself !!!
+Mon May 23 22:38:23 2016 - uWSGI worker 9 screams: UAAAAAAH my master disconnected: i will kill myself !!!
+
+2016-05-23 22:38:23,257 DEBG 'uwsgi' stdout output:
+Mon May 23 22:38:23 2016 - uWSGI worker 10 screams: UAAAAAAH my master disconnected: i will kill myself !!!
+
+2016-05-23 22:38:23,257 INFO stopped: uwsgi (terminated by SIGKILL)
+2016-05-23 22:38:23,258 DEBG received SIGCLD indicating a child quit
+2016-05-23 22:38:23,265 DEBG killing celery (pid 4545) with signal SIGTERM
+2016-05-23 22:38:23,282 DEBG 'celery' stdout output:
+
+worker: Warm shutdown (MainProcess)
+
+2016-05-23 22:38:24,387 DEBG 'celery' stdout output:
+/home/shen/Documents/paperproject/mynewspaper
+ 
+ -------------- celery@iZ25vn4n5xvZ v3.1.23 (Cipater)
+---- **** ----- 
+--- * ***  * -- Linux-3.13.0-32-generic-x86_64-with-Ubuntu-14.04-trusty
+-- * - **** --- 
+- ** ---------- [config]
+- ** ---------- .> app:         default:0x7f9d25eb6d10 (djcelery.loaders.DjangoLoader)
+- ** ---------- .> transport:   redis://localhost:6379/0
+- ** ---------- .> results:     
+- *** --- * --- .> concurrency: 1 (prefork)
+-- ******* ---- 
+--- ***** ----- [queues]
+ -------------- .> celery           exchange=celery(direct) key=celery
+                
+
+[tasks]
+  . article.tasks.add
+  . article.tasks.instancedelete
+  . article.tasks.instancesave
+  . article.tasks.readersin
+  . article.tasks.readersout
+
+
+2016-05-23 22:38:24,949 DEBG fd 10 closed, stopped monitoring <POutputDispatcher at 140228339369168 for <Subprocess at 140228339945696 with name celery in state STOPPING> (stdout)>
+2016-05-23 22:38:24,953 INFO stopped: celery (exit status 0)
+2016-05-23 22:38:24,953 DEBG received SIGCLD indicating a child quit
+2016-05-23 22:38:24,953 DEBG killing autoreload (pid 4544) with signal SIGTERM
+2016-05-23 22:38:24,956 DEBG fd 7 closed, stopped monitoring <POutputDispatcher at 140228339368592 for <Subprocess at 140228339945552 with name autoreload in state STOPPING> (stdout)>
+2016-05-23 22:38:24,969 INFO stopped: autoreload (terminated by SIGTERM)
+2016-05-23 22:38:24,969 DEBG received SIGCLD indicating a child quit
+2016-05-23 22:38:29,413 CRIT Supervisor running as root (no user in config file)
+2016-05-23 22:38:29,426 INFO RPC interface 'supervisor' initialized
+2016-05-23 22:38:29,426 INFO supervisord started with pid 4598
+2016-05-23 22:38:30,429 INFO spawned: 'autoreload' with pid 4604
+2016-05-23 22:38:30,431 INFO spawned: 'celery' with pid 4605
+2016-05-23 22:38:30,445 INFO spawned: 'redis-server' with pid 4606
+2016-05-23 22:38:30,458 INFO spawned: 'uwsgi' with pid 4607
+2016-05-23 22:38:30,497 DEBG 'redis-server' stdout output:
+[4606] 23 May 22:38:30.492 # Warning: no config file specified, using the default config. In order to specify a config file use redis-server /path/to/redis.conf
+
+2016-05-23 22:38:30,506 DEBG 'redis-server' stdout output:
+[4606] 23 May 22:38:30.506 # Creating Server TCP listening socket *:6379: bind: Address already in use
+
+2016-05-23 22:38:30,513 DEBG fd 13 closed, stopped monitoring <POutputDispatcher at 139888093034184 for <Subprocess at 139888093610352 with name redis-server in state STARTING> (stdout)>
+2016-05-23 22:38:30,513 INFO exited: redis-server (exit status 1; not expected)
+2016-05-23 22:38:30,513 DEBG received SIGCLD indicating a child quit
+2016-05-23 22:38:30,514 DEBG 'uwsgi' stdout output:
+[uWSGI] getting INI configuration from mynewspaper.ini
+
+2016-05-23 22:38:30,515 DEBG 'uwsgi' stdout output:
+*** Starting uWSGI 2.0.13.1 (64bit) on [Mon May 23 22:38:30 2016] ***
+
+2016-05-23 22:38:30,515 DEBG 'uwsgi' stdout output:
+compiled with version: 4.8.2 on 18 May 2016 23:08:05
+
+2016-05-23 22:38:30,516 DEBG 'uwsgi' stdout output:
+os: Linux-3.13.0-32-generic #57-Ubuntu SMP Tue Jul 15 03:51:08 UTC 2014
+
+2016-05-23 22:38:30,516 DEBG 'uwsgi' stdout output:
+nodename: iZ25vn4n5xvZ
+
+2016-05-23 22:38:30,516 DEBG 'uwsgi' stdout output:
+machine: x86_64
+
+2016-05-23 22:38:30,517 DEBG 'uwsgi' stdout output:
+clock source: unix
+
+2016-05-23 22:38:30,517 DEBG 'uwsgi' stdout output:
+pcre jit disabled
+
+2016-05-23 22:38:30,517 DEBG 'uwsgi' stdout output:
+detected number of CPU cores: 1
+
+2016-05-23 22:38:30,517 DEBG 'uwsgi' stdout output:
+current working directory: /home/shen/Documents/paperproject/mynewspaper
+
+2016-05-23 22:38:30,518 DEBG 'uwsgi' stdout output:
+detected binary path: /usr/local/bin/uwsgi
+
+2016-05-23 22:38:30,521 DEBG 'uwsgi' stdout output:
+uWSGI running as root, you can use --uid/--gid/--chroot options
+
+2016-05-23 22:38:30,522 DEBG 'uwsgi' stdout output:
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+chdir() to /home/shen/Documents/paperproject/mynewspaper
+your processes number limit is 7770
+your memory page size is 4096 bytes
+detected max file descriptor number: 65535
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+
+2016-05-23 22:38:30,524 DEBG 'uwsgi' stdout output:
+uwsgi socket 0 bound to UNIX address /home/shen/Documents/paperproject/mynewspaper/mynewspaper.sock fd 3
+
+2016-05-23 22:38:30,525 DEBG 'uwsgi' stdout output:
+Python version: 2.7.6 (default, Mar 22 2014, 23:03:41)  [GCC 4.8.2]
+
+2016-05-23 22:38:30,575 DEBG 'uwsgi' stdout output:
+Python main interpreter initialized at 0x2277490
+
+2016-05-23 22:38:30,593 DEBG 'uwsgi' stdout output:
+python threads support enabled
+
+2016-05-23 22:38:30,593 DEBG 'uwsgi' stdout output:
+your server socket listen backlog is limited to 100 connections
+
+2016-05-23 22:38:30,593 DEBG 'uwsgi' stdout output:
+your mercy for graceful operations on workers is 60 seconds
+
+2016-05-23 22:38:30,594 DEBG 'uwsgi' stdout output:
+mapped 800360 bytes (781 KB) for 10 cores
+
+2016-05-23 22:38:30,601 DEBG 'uwsgi' stdout output:
+*** Operational MODE: preforking ***
+
+2016-05-23 22:38:31,602 INFO success: autoreload entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-23 22:38:31,603 INFO success: celery entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-23 22:38:31,604 INFO spawned: 'redis-server' with pid 4618
+2016-05-23 22:38:31,606 INFO success: uwsgi entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-23 22:38:31,663 DEBG 'redis-server' stdout output:
+[4618] 23 May 22:38:31.662 # Warning: no config file specified, using the default config. In order to specify a config file use redis-server /path/to/redis.conf
+
+2016-05-23 22:38:31,668 DEBG 'redis-server' stdout output:
+[4618] 23 May 22:38:31.668 # Creating Server TCP listening socket *:6379: bind: Address already in use
+
+2016-05-23 22:38:31,685 DEBG fd 13 closed, stopped monitoring <POutputDispatcher at 139888093034184 for <Subprocess at 139888093610352 with name redis-server in state STARTING> (stdout)>
+2016-05-23 22:38:31,685 INFO exited: redis-server (exit status 1; not expected)
+2016-05-23 22:38:31,685 DEBG received SIGCLD indicating a child quit
+2016-05-23 22:38:32,030 DEBG 'uwsgi' stdout output:
+/home/shen/Documents/paperproject/mynewspaper
+
+2016-05-23 22:38:32,757 DEBG 'celery' stdout output:
+/usr/local/lib/python2.7/dist-packages/django/core/management/base.py:259: RemovedInDjango19Warning: "requires_model_validation" is deprecated in favor of "requires_system_checks".
+  RemovedInDjango19Warning)
+
+
+2016-05-23 22:38:32,961 DEBG 'celery' stdout output:
+/usr/local/lib/python2.7/dist-packages/celery/platforms.py:812: RuntimeWarning: You are running the worker with superuser privileges, which is
+absolutely not recommended!
+
+Please specify a different user using the -u option.
+
+User information: uid=0 euid=0 gid=0 egid=0
+
+  uid=uid, euid=euid, gid=gid, egid=egid,
+
+
+2016-05-23 22:38:33,078 DEBG 'uwsgi' stdout output:
+WSGI app 0 (mountpoint='') ready in 3 seconds on interpreter 0x2277490 pid: 4607 (default app)
+
+2016-05-23 22:38:33,078 DEBG 'uwsgi' stdout output:
+*** uWSGI is running in multiple interpreter mode ***
+
+2016-05-23 22:38:33,078 DEBG 'uwsgi' stdout output:
+spawned uWSGI master process (pid: 4607)
+
+2016-05-23 22:38:33,080 DEBG 'uwsgi' stdout output:
+spawned uWSGI worker 1 (pid: 4622, cores: 1)
+
+2016-05-23 22:38:33,086 DEBG 'uwsgi' stdout output:
+spawned uWSGI worker 2 (pid: 4623, cores: 1)
+
+2016-05-23 22:38:33,089 DEBG 'uwsgi' stdout output:
+spawned uWSGI worker 3 (pid: 4624, cores: 1)
+
+2016-05-23 22:38:33,094 DEBG 'uwsgi' stdout output:
+spawned uWSGI worker 4 (pid: 4625, cores: 1)
+
+2016-05-23 22:38:33,094 DEBG 'uwsgi' stdout output:
+spawned uWSGI worker 5 (pid: 4626, cores: 1)
+
+2016-05-23 22:38:33,095 DEBG 'uwsgi' stdout output:
+spawned uWSGI worker 6 (pid: 4627, cores: 1)
+
+2016-05-23 22:38:33,096 DEBG 'uwsgi' stdout output:
+spawned uWSGI worker 7 (pid: 4628, cores: 1)
+
+2016-05-23 22:38:33,099 DEBG 'uwsgi' stdout output:
+spawned uWSGI worker 8 (pid: 4629, cores: 1)
+
+2016-05-23 22:38:33,110 DEBG 'uwsgi' stdout output:
+spawned uWSGI worker 9 (pid: 4630, cores: 1)
+
+2016-05-23 22:38:33,114 DEBG 'uwsgi' stdout output:
+spawned uWSGI worker 10 (pid: 4631, cores: 1)
+
+2016-05-23 22:38:33,141 DEBG 'celery' stdout output:
+/usr/local/lib/python2.7/dist-packages/celery/apps/worker.py:161: CDeprecationWarning: 
+Starting from version 3.2 Celery will refuse to accept pickle by default.
+
+The pickle serializer is a security concern as it may give attackers
+the ability to execute any command.  It's important to secure
+your broker from unauthorized access when using pickle, so we think
+that enabling pickle should require a deliberate action and not be
+the default choice.
+
+If you depend on pickle then you should set a setting to disable this
+warning and to be sure that everything will continue working
+when you upgrade to Celery 3.2::
+
+    CELERY_ACCEPT_CONTENT = ['pickle', 'json', 'msgpack', 'yaml']
+
+You must only enable the serializers that you will actually use.
+
+
+  warnings.warn(CDeprecationWarning(W_PICKLE_DEPRECATED))
+
+
+2016-05-23 22:38:33,142 DEBG 'celery' stdout output:
+[2016-05-23 22:38:33,141: WARNING/MainProcess] /usr/local/lib/python2.7/dist-packages/celery/apps/worker.py:161: CDeprecationWarning: 
+Starting from version 3.2 Celery will refuse to accept pickle by default.
+
+The pickle serializer is a security concern as it may give attackers
+the ability to execute any command.  It's important to secure
+your broker from unauthorized access when using pickle, so we think
+that enabling pickle should require a deliberate action and not be
+the default choice.
+
+If you depend on pickle then you should set a setting to disable this
+warning and to be sure that everything will continue working
+when you upgrade to Celery 3.2::
+
+    CELERY_ACCEPT_CONTENT = ['pickle', 'json', 'msgpack', 'yaml']
+
+You must only enable the serializers that you will actually use.
+
+
+  warnings.warn(CDeprecationWarning(W_PICKLE_DEPRECATED))
+
+
+2016-05-23 22:38:33,278 DEBG 'celery' stdout output:
+[2016-05-23 22:38:33,278: INFO/MainProcess] Connected to redis://localhost:6379/0
+
+2016-05-23 22:38:33,306 DEBG 'celery' stdout output:
+[2016-05-23 22:38:33,306: INFO/MainProcess] mingle: searching for neighbors
+
+2016-05-23 22:38:34,309 INFO spawned: 'redis-server' with pid 4642
+2016-05-23 22:38:34,318 DEBG 'celery' stdout output:
+[2016-05-23 22:38:34,317: INFO/MainProcess] mingle: all alone
+
+2016-05-23 22:38:34,335 DEBG 'redis-server' stdout output:
+[4642] 23 May 22:38:34.335 # Warning: no config file specified, using the default config. In order to specify a config file use redis-server /path/to/redis.conf
+
+2016-05-23 22:38:34,342 DEBG 'celery' stdout output:
+/usr/local/lib/python2.7/dist-packages/djcelery/loaders.py:136: UserWarning: Using settings.DEBUG leads to a memory leak, never use this setting in production environments!
+  warn('Using settings.DEBUG leads to a memory leak, never '
+
+
+2016-05-23 22:38:34,342 DEBG 'celery' stdout output:
+[2016-05-23 22:38:34,342: WARNING/MainProcess] /usr/local/lib/python2.7/dist-packages/djcelery/loaders.py:136: UserWarning: Using settings.DEBUG leads to a memory leak, never use this setting in production environments!
+  warn('Using settings.DEBUG leads to a memory leak, never '
+
+
+2016-05-23 22:38:34,343 DEBG 'celery' stdout output:
+[2016-05-23 22:38:34,343: WARNING/MainProcess] celery@iZ25vn4n5xvZ ready.
+
+2016-05-23 22:38:34,349 DEBG 'redis-server' stdout output:
+[4642] 23 May 22:38:34.344 # Creating Server TCP listening socket *:6379: bind: Address already in use
+
+2016-05-23 22:38:34,349 DEBG fd 13 closed, stopped monitoring <POutputDispatcher at 139888093034400 for <Subprocess at 139888093610352 with name redis-server in state STARTING> (stdout)>
+2016-05-23 22:38:34,350 INFO exited: redis-server (exit status 1; not expected)
+2016-05-23 22:38:34,350 DEBG received SIGCLD indicating a child quit
+2016-05-23 22:38:37,354 INFO spawned: 'redis-server' with pid 4643
+2016-05-23 22:38:37,369 DEBG 'redis-server' stdout output:
+[4643] 23 May 22:38:37.366 # Warning: no config file specified, using the default config. In order to specify a config file use redis-server /path/to/redis.conf
+
+2016-05-23 22:38:37,370 DEBG 'redis-server' stdout output:
+[4643] 23 May 22:38:37.370 # Creating Server TCP listening socket *:6379: bind: Address already in use
+
+2016-05-23 22:38:37,373 DEBG fd 13 closed, stopped monitoring <POutputDispatcher at 139888093034400 for <Subprocess at 139888093610352 with name redis-server in state STARTING> (stdout)>
+2016-05-23 22:38:37,373 INFO exited: redis-server (exit status 1; not expected)
+2016-05-23 22:38:37,374 DEBG received SIGCLD indicating a child quit
+2016-05-23 22:38:38,375 INFO gave up: redis-server entered FATAL state, too many start retries too quickly
+2016-05-23 22:38:45,121 WARN received SIGINT indicating exit request
+2016-05-23 22:38:45,121 DEBG killing uwsgi (pid 4607) with signal SIGTERM
+2016-05-23 22:38:45,121 INFO waiting for autoreload, celery, uwsgi to die
+2016-05-23 22:38:45,193 DEBG 'uwsgi' stdout output:
+...brutally killing workers...
+
+2016-05-23 22:38:46,125 DEBG 'uwsgi' stdout output:
+worker 1 buried after 1 seconds
+worker 2 buried after 1 seconds
+worker 3 buried after 1 seconds
+worker 4 buried after 1 seconds
+worker 5 buried after 1 seconds
+worker 6 buried after 1 seconds
+worker 7 buried after 1 seconds
+worker 8 buried after 1 seconds
+worker 9 buried after 1 seconds
+worker 10 buried after 1 seconds
+binary reloading uWSGI...
+chdir() to /home/shen/Documents/paperproject/mynewspaper
+closing all non-uwsgi socket fds > 2 (max_fd = 65535)...
+found fd 3 mapped to socket 0 (/home/shen/Documents/paperproject/mynewspaper/mynewspaper.sock)
+
+2016-05-23 22:38:46,186 DEBG 'uwsgi' stdout output:
+running /usr/local/bin/uwsgi
+
+2016-05-23 22:38:46,198 DEBG 'uwsgi' stdout output:
+[uWSGI] getting INI configuration from mynewspaper.ini
+
+2016-05-23 22:38:46,199 DEBG 'uwsgi' stdout output:
+*** Starting uWSGI 2.0.13.1 (64bit) on [Mon May 23 22:38:46 2016] ***
+
+2016-05-23 22:38:46,199 DEBG 'uwsgi' stdout output:
+compiled with version: 4.8.2 on 18 May 2016 23:08:05
+
+2016-05-23 22:38:46,199 DEBG 'uwsgi' stdout output:
+os: Linux-3.13.0-32-generic #57-Ubuntu SMP Tue Jul 15 03:51:08 UTC 2014
+
+2016-05-23 22:38:46,201 DEBG 'uwsgi' stdout output:
+nodename: iZ25vn4n5xvZ
+
+2016-05-23 22:38:46,201 DEBG 'uwsgi' stdout output:
+machine: x86_64
+
+2016-05-23 22:38:46,202 DEBG 'uwsgi' stdout output:
+clock source: unix
+
+2016-05-23 22:38:46,202 DEBG 'uwsgi' stdout output:
+pcre jit disabled
+
+2016-05-23 22:38:46,205 DEBG 'uwsgi' stdout output:
+detected number of CPU cores: 1
+
+2016-05-23 22:38:46,205 DEBG 'uwsgi' stdout output:
+current working directory: /home/shen/Documents/paperproject/mynewspaper
+
+2016-05-23 22:38:46,206 DEBG 'uwsgi' stdout output:
+detected binary path: /usr/local/bin/uwsgi
+
+2016-05-23 22:38:46,206 DEBG 'uwsgi' stdout output:
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+chdir() to /home/shen/Documents/paperproject/mynewspaper
+your processes number limit is 7770
+your memory page size is 4096 bytes
+detected max file descriptor number: 65535
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+
+2016-05-23 22:38:46,213 DEBG 'uwsgi' stdout output:
+uwsgi socket 0 inherited UNIX address /home/shen/Documents/paperproject/mynewspaper/mynewspaper.sock fd 3
+
+2016-05-23 22:38:46,405 DEBG 'uwsgi' stdout output:
+Python version: 2.7.6 (default, Mar 22 2014, 23:03:41)  [GCC 4.8.2]
+
+2016-05-23 22:38:46,425 DEBG 'uwsgi' stdout output:
+Python main interpreter initialized at 0x18b3320
+
+2016-05-23 22:38:46,425 DEBG 'uwsgi' stdout output:
+python threads support enabled
+
+2016-05-23 22:38:46,426 DEBG 'uwsgi' stdout output:
+your server socket listen backlog is limited to 100 connections
+
+2016-05-23 22:38:46,426 DEBG 'uwsgi' stdout output:
+your mercy for graceful operations on workers is 60 seconds
+
+2016-05-23 22:38:46,427 DEBG 'uwsgi' stdout output:
+mapped 800360 bytes (781 KB) for 10 cores
+
+2016-05-23 22:38:46,428 DEBG 'uwsgi' stdout output:
+*** Operational MODE: preforking ***
+
+2016-05-23 22:38:46,895 DEBG 'uwsgi' stdout output:
+/home/shen/Documents/paperproject/mynewspaper
+
+2016-05-23 22:38:47,225 DEBG 'uwsgi' stdout output:
+WSGI app 0 (mountpoint='') ready in 1 seconds on interpreter 0x18b3320 pid: 4607 (default app)
+
+2016-05-23 22:38:47,226 DEBG 'uwsgi' stdout output:
+*** uWSGI is running in multiple interpreter mode ***
+
+2016-05-23 22:38:47,226 DEBG 'uwsgi' stdout output:
+gracefully (RE)spawned uWSGI master process (pid: 4607)
+
+2016-05-23 22:38:47,230 DEBG 'uwsgi' stdout output:
+spawned uWSGI worker 1 (pid: 4648, cores: 1)
+
+2016-05-23 22:38:47,230 DEBG 'uwsgi' stdout output:
+spawned uWSGI worker 2 (pid: 4649, cores: 1)
+
+2016-05-23 22:38:47,231 DEBG 'uwsgi' stdout output:
+spawned uWSGI worker 3 (pid: 4650, cores: 1)
+
+2016-05-23 22:38:47,232 DEBG 'uwsgi' stdout output:
+spawned uWSGI worker 4 (pid: 4651, cores: 1)
+
+2016-05-23 22:38:47,237 DEBG 'uwsgi' stdout output:
+spawned uWSGI worker 5 (pid: 4652, cores: 1)
+
+2016-05-23 22:38:47,240 DEBG 'uwsgi' stdout output:
+spawned uWSGI worker 6 (pid: 4653, cores: 1)
+
+2016-05-23 22:38:47,244 DEBG 'uwsgi' stdout output:
+spawned uWSGI worker 7 (pid: 4654, cores: 1)
+
+2016-05-23 22:38:47,247 DEBG 'uwsgi' stdout output:
+spawned uWSGI worker 8 (pid: 4655, cores: 1)
+
+2016-05-23 22:38:47,248 DEBG 'uwsgi' stdout output:
+spawned uWSGI worker 9 (pid: 4656, cores: 1)
+
+2016-05-23 22:38:47,249 DEBG 'uwsgi' stdout output:
+spawned uWSGI worker 10 (pid: 4657, cores: 1)
+
+2016-05-23 22:38:48,254 INFO waiting for autoreload, celery, uwsgi to die
+2016-05-23 22:38:51,257 INFO waiting for autoreload, celery, uwsgi to die
+2016-05-23 22:38:54,260 INFO waiting for autoreload, celery, uwsgi to die
+2016-05-23 22:38:55,261 WARN killing 'uwsgi' (4607) with SIGKILL
+2016-05-23 22:38:55,261 DEBG killing uwsgi (pid 4607) with signal SIGKILL
+2016-05-23 22:38:55,269 DEBG 'uwsgi' stdout output:
+Mon May 23 22:38:55 2016 - uWSGI worker 1 screams: UAAAAAAH my master disconnected: i will kill myself !!!
+
+2016-05-23 22:38:55,285 DEBG 'uwsgi' stdout output:
+Mon May 23 22:38:55 2016 - uWSGI worker 3 screams: UAAAAAAH my master disconnected: i will kill myself !!!
+Mon May 23 22:38:55 2016 - uWSGI worker 2 screams: UAAAAAAH my master disconnected: i will kill myself !!!
+
+2016-05-23 22:38:55,289 DEBG 'uwsgi' stdout output:
+Mon May 23 22:38:55 2016 - uWSGI worker 4 screams: UAAAAAAH my master disconnected: i will kill myself !!!
+
+2016-05-23 22:38:55,327 DEBG 'uwsgi' stdout output:
+Mon May 23 22:38:55 2016 - uWSGI worker 5 screams: UAAAAAAH my master disconnected: i will kill myself !!!
+Mon May 23 22:38:55 2016 - uWSGI worker 6 screams: UAAAAAAH my master disconnected: i will kill myself !!!
+Mon May 23 22:38:55 2016 - uWSGI worker 7 screams: UAAAAAAH my master disconnected: i will kill myself !!!
+Mon May 23 22:38:55 2016 - uWSGI worker 8 screams: UAAAAAAH my master disconnected: i will kill myself !!!
+Mon May 23 22:38:55 2016 - uWSGI worker 9 screams: UAAAAAAH my master disconnected: i will kill myself !!!
+Mon May 23 22:38:55 2016 - uWSGI worker 10 screams: UAAAAAAH my master disconnected: i will kill myself !!!
+
+2016-05-23 22:38:55,337 INFO stopped: uwsgi (terminated by SIGKILL)
+2016-05-23 22:38:55,337 DEBG received SIGCLD indicating a child quit
+2016-05-23 22:38:55,338 DEBG killing celery (pid 4605) with signal SIGTERM
+2016-05-23 22:38:55,351 DEBG 'celery' stdout output:
+
+worker: Warm shutdown (MainProcess)
+2016-05-23 22:38:55,353 DEBG 'celery' stdout output:
+
+
+2016-05-23 22:38:56,439 DEBG 'celery' stdout output:
+/home/shen/Documents/paperproject/mynewspaper
+ 
+ -------------- celery@iZ25vn4n5xvZ v3.1.23 (Cipater)
+---- **** ----- 
+--- * ***  * -- Linux-3.13.0-32-generic-x86_64-with-Ubuntu-14.04-trusty
+-- * - **** --- 
+- ** ---------- [config]
+- ** ---------- .> app:         default:0x7f5a003f7d10 (djcelery.loaders.DjangoLoader)
+- ** ---------- .> transport:   redis://localhost:6379/0
+- ** ---------- .> results:     
+- *** --- * --- .> concurrency: 1 (prefork)
+-- ******* ---- 
+--- ***** ----- [queues]
+ -------------- .> celery           exchange=celery(direct) key=celery
+                
+
+[tasks]
+  . article.tasks.add
+  . article.tasks.instancedelete
+  . article.tasks.instancesave
+  . article.tasks.readersin
+  . article.tasks.readersout
+
+
+2016-05-23 22:38:57,002 DEBG fd 10 closed, stopped monitoring <POutputDispatcher at 139888093033680 for <Subprocess at 139888093610208 with name celery in state STOPPING> (stdout)>
+2016-05-23 22:38:57,003 INFO stopped: celery (exit status 0)
+2016-05-23 22:38:57,003 DEBG received SIGCLD indicating a child quit
+2016-05-23 22:38:57,005 DEBG killing autoreload (pid 4604) with signal SIGTERM
+2016-05-23 22:38:57,013 DEBG fd 7 closed, stopped monitoring <POutputDispatcher at 139888093033104 for <Subprocess at 139888093610064 with name autoreload in state STOPPING> (stdout)>
+2016-05-23 22:38:57,021 INFO stopped: autoreload (terminated by SIGTERM)
+2016-05-23 22:38:57,021 DEBG received SIGCLD indicating a child quit

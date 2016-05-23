@@ -84,6 +84,19 @@ $(document).ready(function(){
 /*回复评论按钮*/
 $(function(){
   $("body").on("click", '.btn-dp', function(){
-    $(this).next(".form-comment-reply").fadeToggle();
+    var node = $(this).next(".form-comment-reply")
+    $(this).next(".form-comment-reply").fadeToggle(function(){
+      var display = node.css("display");
+       if (display == 'none'){
+        $(this).parent().children('.btn-dp').html('<i class="icon-dp"></i> 我要点评')
+        }
+      else {
+        $(this).parent().children('.btn-dp').html('<i class="icon-dp"></i> 收起点评')
+      }
+      });
   });
 })
+
+
+
+

@@ -96,10 +96,10 @@ def article_detail(request, article_id):
 	print thisrelationtag[0].category
 	#统一类的按timestamp排序文章
 	thisrelationtagarticle = Relation.objects.filter(category=thisrelationtag[0].category).exclude(article = article).order_by('-timestamp')
-	if thisrelationtagarticle.count()==0:#如果类别中除了自己就没有其他的文章了，就需要从另外的列别中查找文章
-		thisrelationtagarticle = Relation.objects.filter(category=thisrelationtag[1].category).exclude(article = article).order_by('-timestamp')
-	if thisrelationtagarticle.count()==0:
-		thisrelationtagarticle = Relation.objects.filter(category=thisrelationtag[2].category).exclude(article = article).order_by('-timestamp')
+#	if thisrelationtagarticle.count()==0:#如果类别中除了自己就没有其他的文章了，就需要从另外的列别中查找文章
+#		thisrelationtagarticle = Relation.objects.filter(category=thisrelationtag[1].category).exclude(article = article).order_by('-timestamp')
+#	if thisrelationtagarticle.count()==0:
+#		thisrelationtagarticle = Relation.objects.filter(category=thisrelationtag[2].category).exclude(article = article).order_by('-timestamp')
 	#文章被多少人收藏过
 	#usercollectioncount = Collection.objects.filter(article=article).count()
 	context = {
