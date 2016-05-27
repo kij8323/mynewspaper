@@ -18,9 +18,9 @@ class Comment(models.Model):
 	#评论内容
 	text = RichTextField(max_length=5000, null=True, blank=True)
 	#评论发表时间
-	timestamp = models.DateTimeField(auto_now=True, auto_now_add=False, null=True, db_index=True)
+	timestamp = models.DateTimeField(auto_now=False, auto_now_add=True, null=True, db_index=True)
 	#评论修改时间
-	updated = models.DateTimeField(auto_now=False, auto_now_add=True, null=True)
+	updated = models.DateTimeField(auto_now=True, auto_now_add=False, null=True)
 	is_privcycomment = models.BooleanField(default=False)
 	#自定义查询
 	# objects = CommentManager()

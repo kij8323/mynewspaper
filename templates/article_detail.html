@@ -404,6 +404,11 @@ var jiathis_config = {
 
 <div class="article-content-wrap">
      <p>{{article.content|safe}}</p>
+     {% if article.original %}
+     <h5 style='font-weight: 700;'>版权声明: 原创作品, 如需转载, 请与
+     <a href="{% url 'contactus' %}" target="_blank">梧桐观点联系</a>, 违者将承担法律责任！
+   </h5>
+   {% endif %}
 </div>
 
 

@@ -46,6 +46,14 @@ $(function(){
     })
 }); 
 </script>
+
+<script>
+$(function(){ 
+$('.carousel').carousel({
+  interval: 2300
+})
+}); 
+</script>
 {% endblock %}
 
  {% block content %}
@@ -70,36 +78,11 @@ $(function(){
                     <a href="{{item.get_absolute_url}}"><img src="{{item.get_image_url}}">
                       <div class="carousel-caption">
                         <h3>{{item.title}}</h3>
-                        <!-- <p>{{item.associatetitle}}</p> -->
                     </a>
                     </div>
                     </div>
                     {% endfor %}
 
-<!--                   <div class="item active">
-                    <a href="#"><img src="/static/images/IMG_1764.jpg">
-                      <div class="carousel-caption">
-                        <h3>xxx</h3>
-                        <p>xxx</p>
-                    </a>
-                    </div>
-                  </div>
-                    <div class="item">
-                    <a href="#"><img src="/static/images/IMG_1764.jpg">
-                      <div class="carousel-caption">
-                        <h3>xxx</h3>
-                        <p>xxx</p>
-                    </a>
-                    </div>
-                  </div>
-                   <div class="item">
-                    <a href="#"><img src="/static/images/1450158490822251.jpg">
-                      <div class="carousel-caption">
-                        <h3>xxx</h3>
-                        <p>xxx</p>
-                    </a>
-                    </div>
-                  </div> -->
                 </div>
                 <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
                   <span class="glyphicon glyphicon-chevron-left" aria-hidden="true" style="margin-left: 0px;"></span>
@@ -110,22 +93,7 @@ $(function(){
                   <span class="sr-only">Next</span>
                 </a>
               </div><!-- id="carousel-example-generic" class="carousel slide" data-ride="carousel" -->
-             <!--  </div> --><!-- <div class="row"> -->
 
-<!--       <div class="row">   -->  
-<!--           <a href="#">
-          <div class="col-xs-6 leftblock"
-               style='background-image: url(/static/images/IMG_1764.jpg);'>         
-            <h3>当页面缩小,当页面缩小当页面缩小当页面缩小当页面缩小</h3> 
-          </div>      
-          </a>
-          
-          <a href="#">
-          <div class="col-xs-6 leftblock1 pull-right"
-               style='background-image: url(/static/images/IMG_1764.jpg);'>         
-            <h3>当页面缩小,当页面缩小当页面缩小当页面缩小当页面缩小</h3> 
-          </div>      
-          </a> -->
 
 
 
@@ -134,6 +102,9 @@ $(function(){
           <div class="col-xs-12 newsblock" id="{{item.blockid}}">
           <div class="col-xs-4 leftimgblock">
           <a href="{{item.get_absolute_url}}"><img src="{{item.get_image_url}}" style="width: 200px; height:104px;"></a>
+          {% if item.original %}
+          <span class="original-mark"  >原创</span>
+          {% endif %}
           </div> 
           <div class="col-xs-8 rightwordblock">
           <h3><a href="{{item.get_absolute_url}}">{{item.title}}</a></h3>

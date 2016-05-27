@@ -24,7 +24,7 @@ class Article(models.Model):
 	# #文章更新时间
 	updated = models.DateTimeField(auto_now_add=False, auto_now=True, null=True)
 	#文章内容
-	content = RichTextUploadingField(max_length=5000, null=True, blank=True)
+	content = RichTextUploadingField(max_length=20000, null=True, blank=True)
 	#作者
 	writer = models.ForeignKey(MyUser, db_index=True)
 	#转载
@@ -39,7 +39,8 @@ class Article(models.Model):
 	cover = models.BooleanField(default=False, db_index=True)
 	#计算文章热度
 	readers = models.IntegerField(default=0, db_index=True)
-
+	#是否为原创
+	original = models.BooleanField(default=False, db_index=True)
 
 	def __unicode__(self):
 		return self.title
@@ -100,7 +101,7 @@ class Collection(models.Model):
 def categoryofarticle(sender, **kwargs):
     article = kwargs.pop("instance")
     try: 
-    	thisrelationtag = Relation.objects.get(article=article)
+    	thisrelationtag = Relation.objects.filter(article=article)
     except:
     	thisrelationtag = False
     if thisrelationtag: #如果文章已经被分类直接返回

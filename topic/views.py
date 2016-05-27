@@ -215,14 +215,14 @@ def newtopic(request):
 #ajax，发送评论,post
 def topicomment(request):
 	if request.is_ajax() and request.method == 'POST':
-		print request.POST.get('comment')
+#		print request.POST.get('comment')
 		text = request.POST.get('comment')
 		topicid = request.POST.get('topicid')
 		topic = Topic.objects.get(pk=topicid)
-		print request.POST.get('comment')
-		print request.POST.get('topicid')
+#		print request.POST.get('comment')
+#		print request.POST.get('topicid')
 		user = request.user
-		print user
+#		print user
 		try:
 			c = Comment(user=user, topic=topic, text=text)
 			c.save()
@@ -237,8 +237,12 @@ def topicomment(request):
 							, targetarticle = None, targetopic = topic)
 			for item in userlist:
 				atwhouser = MyUser.objects.get(username = item)
+#				test = "@<a href='" +'/user/'+str(atwhouser.id)+'/informations/'+"'>"+atwhouser.username+"</a>"+' '
+#				text = text.replace('@'+item+' ', test);
 				test = "@<a href='" +'/user/'+str(atwhouser.id)+'/informations/'+"'>"+atwhouser.username+"</a>"+' '
+				test1 = "@<a href='" +'/user/'+str(atwhouser.id)+'/informations/'+"'>"+atwhouser.username+"</a>"+'&nbsp;'
 				text = text.replace('@'+item+' ', test);
+				text = text.replace('@'+item+'&nbsp;', test1);
 			# c = Comment(user=user, topic=topic, text=text)
 			# c.save()
 			data = {
@@ -246,7 +250,7 @@ def topicomment(request):
 			"text": text,
 			"commentid": c.id
 			}
-			print data['commentid']
+#			print data['commentid']
 			json_data = json.dumps(data)
 			print 'data'
 			return HttpResponse(json_data, content_type='application/json')
