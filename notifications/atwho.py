@@ -6,6 +6,8 @@ from notifications.signals import notify
 from accounts.models import MyUser
 reload(sys)
 sys.setdefaultencoding( "utf-8" )
+from django.core.cache import cache
+from django.conf import settings
 
 #给评论中每一个被@的用户发送notifications，并返回一个被@用户的列表
 def atwho(text, sender, targetcomment, targetarticle, targetopic):
@@ -24,6 +26,12 @@ def atwho(text, sender, targetcomment, targetarticle, targetopic):
 					, recipient = user, verb="@"
 					, text=text, target_article = targetarticle
 					, target_topic = targetopic)
+			cachekey = "user_unread_count" + str(user.id)
+			if cache.get(cachekey) != None:
+				cache.incr(cachekey)
+			else:
+				unread = Notification.objects.filter(recipient = self.recipient).filter(read = False).count()
+				cache.set(cachekey,  unread, settings.CACHE_EXPIRETIME)
 			userlist.append(item.encode('utf8'))
 	return userlist
 

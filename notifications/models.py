@@ -12,6 +12,10 @@ from accounts.models import MyUser
 from article.models import Article
 from topic.models import Topic
 import traceback 
+from django.core.cache import cache
+from django.conf import settings
+from article.tasks import readersin, add, readersout, instancedelete, instancesave
+
 # Create your models here.
 class Notification(models.Model):
 	id = models.AutoField(primary_key=True, db_index=True)
@@ -28,6 +32,19 @@ class Notification(models.Model):
 	read = models.BooleanField(default=False)
 	#消息发送时间
 	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False, db_index=True)
+
+	def setread(self):
+		self.read = True
+		instancesave.delay(self)
+		cachekey = "user_unread_count" + str(self.recipient.id)
+		if cache.get(cachekey) != None:
+			cache.decr(cachekey)
+			return ''
+		else:
+			unread = Notification.objects.filter(recipient = self.recipient).filter(read = False).count()
+			cache.set(cachekey,  unread, settings.CACHE_EXPIRETIME)
+			return ''
+
 
 	def __unicode__(self):
 		if self.target_object:

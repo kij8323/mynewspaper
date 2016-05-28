@@ -19,6 +19,7 @@
     <script src="/static/bootstrap-3.3.4-dist/js/bootstrap.min.js"></script>
     <script src="/static/js/jquery.bootstrap.min.js"></script>
     <script src="/static/bootstrap-3.3.4-dist/js/ie10-viewport-bug-workaround.js"></script>
+    {% load time_filter %}
   <script src="/static/js/home.js"></script>
 <!-- 显示咨询栏下拉菜单 -->
 <script type="text/javascript">
@@ -48,6 +49,21 @@ $(function() {
 <script type="text/javascript">
 $(document).ready(function(){
   $(".userinfobutton").mouseenter(function(){
+    $.ajaxSetup({
+    data: {csrfmiddlewaretoken: '{{ csrf_token }}', 
+          },
+          });
+    $.ajax({
+        url: "{% url 'inbox' %}",
+        type: "post",
+        success: function(data) {
+          $(".inboxcount").html(data.unread)
+        },
+          error: function(data) { 
+            alert('no')
+        },
+      });
+
       $(".dropdown-toggle").dropdown('toggle');
   });
   $(".userinfobutton").mouseleave(function(){
@@ -128,7 +144,7 @@ $(document).ready(function(){
           <ul class="nav navbar-nav navbar-right">
         {% if user.is_authenticated %}
         <li class='userinfobutton'><a  href="{{user.get_absolute_url}}"><span><img  class="img-circle baseusericon" src='{{user.get_image_url}}'></span>{{user.username}}</a><span class="dropdown-toggle" data-toggle="dropdown"></span>  <ul class="dropdown-menu" aria-labelledby="dLabel">
-                <li><a href="{% url 'user_detailnotifications' user.id %}">我的消息</a></li>
+                <li><a href="{% url 'user_detailnotifications' user.id %}">消息<span class="badge inboxcount">{{ user.id|user_unread_count }}</span></a></li>
                 <li><a href="{% url 'user_detailcollections' user.id %}">我的收藏</a></li>
                 <li><a href="{% url 'user_userdashboardarticletopic' user.id %}">我的话题</a></li>
                 <li><a href="{% url 'user_detailcomments' user.id %}">我的评论</a></li>

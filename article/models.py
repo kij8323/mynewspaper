@@ -112,7 +112,7 @@ def categoryofarticle(sender, **kwargs):
 		relation.save()
 		os.system('echo yes | python /home/shen/Documents/paperproject/mynewspaper/manage.py collectstatic')
 		cachekey = "writer_articlecount_" + str(article.writer.id)
-		if cache.get(cachekey):
+		if cache.get(cachekey) != None:
 			cache.incr(cachekey)
 		else:
 			numwriter = article.writer.article_set.count()

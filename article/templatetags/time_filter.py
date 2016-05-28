@@ -12,6 +12,7 @@ from django.core.cache import cache
 from article.models import Article
 from topic.models import Topic, Group
 from comment.models import Comment, CommentLike, CommentDisLike
+from notifications.models import Notification
 COMMENT_PERPAGE_COUNT = 5 #topic页面每页显示多少个评论
 #楼层计算器,topic评论的楼层计算
 @register.filter
@@ -78,9 +79,8 @@ def AnonymousUser(value):
 @register.filter
 def Article_readers(value): 
     cachekey = "article_readers_" + str(value)
-    article_readers = cache.get(cachekey)
-    if article_readers:
-        return article_readers
+    if cache.get(cachekey) != None:
+        return cache.get(cachekey)
     else:
         article = Article.objects.get(id=value)
         cache.set(cachekey, article.readers, 1209600)
@@ -90,7 +90,7 @@ def Article_readers(value):
 @register.filter
 def Topic_readers(value): 
     cachekey = "topic_readers_" + str(value)
-    if cache.get(cachekey):
+    if cache.get(cachekey) != None:
         return cache.get(cachekey)
     else:
         topic = Topic.objects.get(id=value)
@@ -101,7 +101,7 @@ def Topic_readers(value):
 @register.filter
 def Article_comment(value): 
     cachekey = "article_comment_" + str(value)
-    if cache.get(cachekey):
+    if cache.get(cachekey) != None:
         return cache.get(cachekey)
     else:
         article = Article.objects.get(id=value)
@@ -113,7 +113,7 @@ def Article_comment(value):
 @register.filter
 def Topic_comment(value): 
     cachekey = "topic_comment_" + str(value)
-    if cache.get(cachekey):
+    if cache.get(cachekey) != None:
         return cache.get(cachekey)
     else:
         topic = Topic.objects.get(id=value)
@@ -124,7 +124,7 @@ def Topic_comment(value):
 @register.filter
 def Article_collection(value): 
     cachekey = "article_collection_" + str(value)
-    if cache.get(cachekey):
+    if cache.get(cachekey) != None:
         return cache.get(cachekey)
     else:
         article = Article.objects.get(id=value)
@@ -135,7 +135,7 @@ def Article_collection(value):
 @register.filter
 def group_topic_count(value): 
     cachekey = "group_topic_count_" + str(value)
-    if cache.get(cachekey):
+    if cache.get(cachekey) != None:
         return cache.get(cachekey)
     else:
         group = Group.objects.get(id=value)
@@ -147,7 +147,7 @@ def group_topic_count(value):
 def writer_articlecount(value): 
     article = Article.objects.get(id=value)
     cachekey = "writer_articlecount_" + str(article.writer.id)
-    if cache.get(cachekey):
+    if cache.get(cachekey) != None:
         return cache.get(cachekey)
     else:
         cache.set(cachekey,  article.writer.article_set.count())
@@ -159,7 +159,7 @@ def writer_articlecount(value):
 def comment_like_count(value): 
     comment = Comment.objects.get(id=value)
     cachekey = "comment_like_count_" + str(comment.id)
-    if cache.get(cachekey):
+    if cache.get(cachekey) != None:
         return cache.get(cachekey)
     else:
         cache.set(cachekey,  comment.commentlike_set.count())
@@ -170,10 +170,22 @@ def comment_like_count(value):
 def comment_dislike_count(value): 
     comment = Comment.objects.get(id=value)
     cachekey = "comment_dislike_count_" + str(comment.id)
-    if cache.get(cachekey):
+    if cache.get(cachekey) != None:
         return cache.get(cachekey)
     else:
         cache.set(cachekey,  comment.commentdislike_set.count())
+        return cache.get(cachekey)
+
+#缓存用户未读消息数
+@register.filter
+def user_unread_count(value): 
+    user = MyUser.objects.get(id = value)
+    cachekey = "user_unread_count" + str(user.id)
+    if cache.get(cachekey) != None:
+        return cache.get(cachekey)
+    else:
+        unread = Notification.objects.filter(recipient = user).filter(read = False).count()
+        cache.set(cachekey,  unread)
         return cache.get(cachekey)
 
 #给被@的用户加上链接

@@ -48,7 +48,7 @@ def article_detail(request, article_id):
 	readersin.delay(article)
 	#缓存的readers 增加1
 	cachekey = "article_readers_" + str(article_id)
-	if cache.get(cachekey):
+	if cache.get(cachekey) != None:
 		cache.incr(cachekey)
 	#	print cache.incr(cachekey)
 	else:
@@ -152,7 +152,7 @@ def articlecomment(request):
 			c.save()
 			#文章回复数量redis缓存 增加1
 			cachekey = "article_comment_" + str(articleid)
-			if cache.get(cachekey):
+			if cache.get(cachekey) != None:
 				cache.incr(cachekey)
 			else:
 				cache.set(cachekey, article.comment_set.count(), settings.CACHE_EXPIRETIME)
@@ -201,7 +201,7 @@ def commentcomment(request):
 			c.save()
 			#文章回复数量缓存 增加1
 			cachekey = "article_comment_" + str(articleid)
-			if cache.get(cachekey):
+			if cache.get(cachekey) != None:
 				cache.incr(cachekey)
 			else:
 				cache.set(cachekey, article.comment_set.count(), settings.CACHE_EXPIRETIME)
@@ -269,7 +269,7 @@ def collection(request):
 		collection.delete()
 		collcount = -1
 		cachekey = "article_collection_" + str(articleid)
-		if cache.get(cachekey):
+		if cache.get(cachekey) != None:
 			cache.decr(cachekey)
 		else:
 			cache.set(cachekey, article.collection_set.count(), settings.CACHE_EXPIRETIME)
@@ -279,7 +279,7 @@ def collection(request):
 		c.save()
 		collcount = 1
 		cachekey = "article_collection_" + str(articleid)
-		if cache.get(cachekey):
+		if cache.get(cachekey) != None:
 			cache.incr(cachekey)
 		else:
 			cache.set(cachekey, article.collection_set.count(), settings.CACHE_EXPIRETIME)
@@ -309,7 +309,7 @@ def commentlike(request):
 		instancedelete.delay(commentlike)
 		#减去缓存中评论点赞数
 		cachekey = "comment_like_count_" + str(comment.id)
-		if cache.get(cachekey):
+		if cache.get(cachekey) != None:
 			cache.decr(cachekey)
 		else:
 			cache.set(cachekey,  comment.commentlike_set.count())
@@ -321,7 +321,7 @@ def commentlike(request):
 		commentlikecount = +1
 		#加上缓存中评论点赞数
 		cachekey = "comment_like_count_" + str(comment.id)
-		if cache.get(cachekey):
+		if cache.get(cachekey) != None:
 			cache.incr(cachekey)
 		else:
 			cache.set(cachekey,  comment.commentlike_set.count())
@@ -357,7 +357,7 @@ def commentdislike(request):
 		instancedelete.delay(commentdislike)
 		#减去缓存中评论点赞数
 		cachekey = "comment_dislike_count_" + str(comment.id)
-		if cache.get(cachekey):
+		if cache.get(cachekey) != None:
 			cache.decr(cachekey)
 		else:
 			cache.set(cachekey,  comment.commentdislike_set.count())
@@ -369,7 +369,7 @@ def commentdislike(request):
 		commentdislikecount = +1
 		#加上缓存中评论点赞数
 		cachekey = "comment_dislike_count_" + str(comment.id)
-		if cache.get(cachekey):
+		if cache.get(cachekey) != None:
 			cache.incr(cachekey)
 		else:
 			cache.set(cachekey,  comment.commentdislike_set.count())

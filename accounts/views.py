@@ -24,6 +24,8 @@ from comment.models import Comment
 from notifications.models import Notification
 from article.tasks import readersin, add, readersout, instancedelete, instancesave
 import os
+from django.core.cache import cache
+from django.conf import settings
 #登录页面
 def loggin(request):
 	form = LoginForm(request.GET or None)
@@ -469,6 +471,22 @@ def deleteinfo(request):
 		traceback.print_exc()
 	return HttpResponse(json_data, content_type='application/json')
 
+
+def inbox(request):
+	if request.is_ajax():
+		cachekey = "user_unread_count" + str(request.user.id)
+		if cache.get(cachekey) != None:
+			unread = cache.get(cachekey)
+		else:
+			unread = Notification.objects.filter(recipient = request.user).filter(read = False).count()
+			cache.set(cachekey,  unread, settings.CACHE_EXPIRETIME)
+		data = {
+			"unread": unread,
+		}
+		json_data = json.dumps(data)
+		return HttpResponse(json_data, content_type='application/json')
+	else:
+		raise Http404
 
 
 #测试用函数

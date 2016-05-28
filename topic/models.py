@@ -123,7 +123,7 @@ def subtopicount(sender, **kwargs):
 	group.topicount -= 1
 	group.save()
 	cachekey = "group_topic_count_" + str(group.id)
-	if cache.get(cachekey):
+	if cache.get(cachekey) != None:
 		cache.decr(cachekey)
 	else:
 		group = Group.objects.get(id=value)

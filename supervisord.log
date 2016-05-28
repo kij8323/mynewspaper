@@ -3741,3 +3741,2241 @@ You must only enable the serializers that you will actually use.
 2016-05-28 00:58:57,701 DEBG 'celery' stdout output:
 [2016-05-28 00:58:57,701: INFO/MainProcess] Task article.tasks.readersin[b67a8ddf-8052-4833-af6f-f4656847bb53] succeeded in 0.0187058069996s: 'readers +1 success!'
 
+2016-05-28 02:02:09,053 WARN received SIGTERM indicating exit request
+2016-05-28 02:02:09,148 DEBG killing redis-server (pid 1871) with signal SIGTERM
+2016-05-28 02:02:09,174 INFO waiting for autoreload, celery, redis-server to die
+2016-05-28 02:02:09,195 DEBG 'redis-server' stdout output:
+[1871 | signal handler] (1464372129) Received SIGTERM, scheduling shutdown...
+
+2016-05-28 02:02:09,237 DEBG 'redis-server' stdout output:
+[1871] 28 May 02:02:09.236 # User requested shutdown...
+[1871] 28 May 02:02:09.237 * Saving the final RDB snapshot before exiting.
+
+2016-05-28 02:02:09,244 DEBG 'redis-server' stdout output:
+[1871] 28 May 02:02:09.244 * DB saved on disk
+[1871] 28 May 02:02:09.244 # Redis is now ready to exit, bye bye...
+
+2016-05-28 02:02:09,248 DEBG fd 10 closed, stopped monitoring <POutputDispatcher at 140641746013504 for <Subprocess at 140641746492808 with name redis-server in state STOPPING> (stdout)>
+2016-05-28 02:02:09,249 INFO stopped: redis-server (exit status 0)
+2016-05-28 02:02:09,249 DEBG received SIGCLD indicating a child quit
+2016-05-28 02:02:09,249 DEBG killing celery (pid 1874) with signal SIGTERM
+2016-05-28 02:02:09,262 DEBG 'celery' stdout output:
+
+worker: Warm shutdown (MainProcess)
+
+2016-05-28 02:02:10,306 DEBG 'celery' stdout output:
+/home/shen/Documents/paperproject/mynewspaper
+ 
+ -------------- celery@iZ25vn4n5xvZ v3.1.23 (Cipater)
+---- **** ----- 
+--- * ***  * -- Linux-3.13.0-32-generic-x86_64-with-Ubuntu-14.04-trusty
+-- * - **** --- 
+- ** ---------- [config]
+- ** ---------- .> app:         default:0x7fa9b73eac90 (djcelery.loaders.DjangoLoader)
+- ** ---------- .> transport:   redis://localhost:6379/0
+- ** ---------- .> results:     
+- *** --- * --- .> concurrency: 1 (prefork)
+-- ******* ---- 
+--- ***** ----- [queues]
+ -------------- .> celery           exchange=celery(direct) key=celery
+                
+
+[tasks]
+  . article.tasks.add
+  . article.tasks.instancedelete
+  . article.tasks.instancesave
+  . article.tasks.readersin
+  . article.tasks.readersout
+
+
+2016-05-28 02:02:10,844 DEBG fd 14 closed, stopped monitoring <POutputDispatcher at 140641746013288 for <Subprocess at 140641746492664 with name celery in state STOPPING> (stdout)>
+2016-05-28 02:02:10,845 INFO stopped: celery (exit status 0)
+2016-05-28 02:02:10,845 DEBG received SIGCLD indicating a child quit
+2016-05-28 02:02:10,845 DEBG killing autoreload (pid 1856) with signal SIGTERM
+2016-05-28 02:02:10,848 DEBG fd 9 closed, stopped monitoring <POutputDispatcher at 140641746048064 for <Subprocess at 140641746491440 with name autoreload in state STOPPING> (stdout)>
+2016-05-28 02:02:10,856 INFO stopped: autoreload (terminated by SIGTERM)
+2016-05-28 02:02:10,856 DEBG received SIGCLD indicating a child quit
+2016-05-28 02:11:12,477 CRIT Supervisor running as root (no user in config file)
+2016-05-28 02:11:12,498 INFO RPC interface 'supervisor' initialized
+2016-05-28 02:11:12,498 INFO supervisord started with pid 1117
+2016-05-28 02:11:13,501 INFO spawned: 'autoreload' with pid 1130
+2016-05-28 02:11:13,504 INFO spawned: 'celery' with pid 1131
+2016-05-28 02:11:13,505 INFO spawned: 'redis-server' with pid 1132
+2016-05-28 02:11:13,528 DEBG 'redis-server' stdout output:
+[1132] 28 May 02:11:13.528 # Warning: no config file specified, using the default config. In order to specify a config file use redis-server /path/to/redis.conf
+
+2016-05-28 02:11:13,529 DEBG 'redis-server' stdout output:
+[1132] 28 May 02:11:13.529 * Max number of open files set to 10032
+
+2016-05-28 02:11:13,531 DEBG 'redis-server' stdout output:
+                _._                                                  
+           _.-``__ ''-._                                             
+      _.-``    `.  `_.  ''-._           Redis 2.8.4 (00000000/0) 64 bit
+  .-`` .-```.  ```\/    _.,_ ''-._                                   
+ (    '      ,       .-`  | `,    )     Running in stand alone mode
+ |`-._`-...-` __...-.``-._|'` _.-'|     Port: 6379
+ |    `-._   `._    /     _.-'    |     PID: 1132
+  `-._    `-._  `-./  _.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |           http://redis.io        
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |                                  
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+      `-._    `-.__.-'    _.-'                                       
+          `-._        _.-'                                           
+              `-.__.-'                                               
+
+
+2016-05-28 02:11:13,534 DEBG 'redis-server' stdout output:
+[1132] 28 May 02:11:13.534 # Server started, Redis version 2.8.4
+
+2016-05-28 02:11:13,534 DEBG 'redis-server' stdout output:
+[1132] 28 May 02:11:13.534 # WARNING overcommit_memory is set to 0! Background save may fail under low memory condition. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
+
+2016-05-28 02:11:13,537 DEBG 'redis-server' stdout output:
+[1132] 28 May 02:11:13.537 * DB loaded from disk: 0.001 seconds
+
+2016-05-28 02:11:13,537 DEBG 'redis-server' stdout output:
+[1132] 28 May 02:11:13.537 * The server is now ready to accept connections on port 6379
+
+2016-05-28 02:11:14,246 DEBG 'celery' stdout output:
+/usr/local/lib/python2.7/dist-packages/django/core/management/base.py:259: RemovedInDjango19Warning: "requires_model_validation" is deprecated in favor of "requires_system_checks".
+  RemovedInDjango19Warning)
+
+
+2016-05-28 02:11:14,339 DEBG 'celery' stdout output:
+/usr/local/lib/python2.7/dist-packages/celery/platforms.py:812: RuntimeWarning: You are running the worker with superuser privileges, which is
+absolutely not recommended!
+
+Please specify a different user using the -u option.
+
+User information: uid=0 euid=0 gid=0 egid=0
+
+  uid=uid, euid=euid, gid=gid, egid=egid,
+
+
+2016-05-28 02:11:14,407 DEBG 'celery' stdout output:
+/usr/local/lib/python2.7/dist-packages/celery/apps/worker.py:161: CDeprecationWarning: 
+Starting from version 3.2 Celery will refuse to accept pickle by default.
+
+The pickle serializer is a security concern as it may give attackers
+the ability to execute any command.  It's important to secure
+your broker from unauthorized access when using pickle, so we think
+that enabling pickle should require a deliberate action and not be
+the default choice.
+
+If you depend on pickle then you should set a setting to disable this
+warning and to be sure that everything will continue working
+when you upgrade to Celery 3.2::
+
+    CELERY_ACCEPT_CONTENT = ['pickle', 'json', 'msgpack', 'yaml']
+
+You must only enable the serializers that you will actually use.
+
+
+  warnings.warn(CDeprecationWarning(W_PICKLE_DEPRECATED))
+
+
+2016-05-28 02:11:14,410 DEBG 'celery' stdout output:
+[2016-05-28 02:11:14,407: WARNING/MainProcess] /usr/local/lib/python2.7/dist-packages/celery/apps/worker.py:161: CDeprecationWarning: 
+Starting from version 3.2 Celery will refuse to accept pickle by default.
+
+The pickle serializer is a security concern as it may give attackers
+the ability to execute any command.  It's important to secure
+your broker from unauthorized access when using pickle, so we think
+that enabling pickle should require a deliberate action and not be
+the default choice.
+
+If you depend on pickle then you should set a setting to disable this
+warning and to be sure that everything will continue working
+when you upgrade to Celery 3.2::
+
+    CELERY_ACCEPT_CONTENT = ['pickle', 'json', 'msgpack', 'yaml']
+
+You must only enable the serializers that you will actually use.
+
+
+  warnings.warn(CDeprecationWarning(W_PICKLE_DEPRECATED))
+
+
+2016-05-28 02:11:14,446 DEBG 'celery' stdout output:
+[2016-05-28 02:11:14,446: INFO/MainProcess] Connected to redis://localhost:6379/0
+
+2016-05-28 02:11:14,455 DEBG 'celery' stdout output:
+[2016-05-28 02:11:14,455: INFO/MainProcess] mingle: searching for neighbors
+
+2016-05-28 02:11:15,456 INFO success: autoreload entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-28 02:11:15,457 INFO success: celery entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-28 02:11:15,457 INFO success: redis-server entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-28 02:11:15,463 DEBG 'celery' stdout output:
+[2016-05-28 02:11:15,463: INFO/MainProcess] mingle: all alone
+
+2016-05-28 02:11:15,478 DEBG 'celery' stdout output:
+/usr/local/lib/python2.7/dist-packages/djcelery/loaders.py:136: UserWarning: Using settings.DEBUG leads to a memory leak, never use this setting in production environments!
+  warn('Using settings.DEBUG leads to a memory leak, never '
+
+
+2016-05-28 02:11:15,478 DEBG 'celery' stdout output:
+[2016-05-28 02:11:15,478: WARNING/MainProcess] /usr/local/lib/python2.7/dist-packages/djcelery/loaders.py:136: UserWarning: Using settings.DEBUG leads to a memory leak, never use this setting in production environments!
+  warn('Using settings.DEBUG leads to a memory leak, never '
+
+
+2016-05-28 02:11:15,479 DEBG 'celery' stdout output:
+[2016-05-28 02:11:15,479: WARNING/MainProcess] celery@iZ25vn4n5xvZ ready.
+
+2016-05-28 02:11:16,009 DEBG 'celery' stdout output:
+[2016-05-28 02:11:16,009: INFO/MainProcess] Received task: article.tasks.readersin[f20813b0-723a-4a9f-8eea-80ccdc12afae]
+
+2016-05-28 02:11:16,052 DEBG 'celery' stdout output:
+[2016-05-28 02:11:16,052: INFO/MainProcess] Task article.tasks.readersin[f20813b0-723a-4a9f-8eea-80ccdc12afae] succeeded in 0.040439508s: 'readers +1 success!'
+
+2016-05-28 02:12:58,005 DEBG 'celery' stdout output:
+[2016-05-28 02:12:58,005: INFO/MainProcess] Received task: article.tasks.readersin[1342d3b1-2b93-45d1-835a-a437b4ae252c]
+
+2016-05-28 02:12:58,025 DEBG 'celery' stdout output:
+[2016-05-28 02:12:58,025: INFO/MainProcess] Task article.tasks.readersin[1342d3b1-2b93-45d1-835a-a437b4ae252c] succeeded in 0.018203341s: 'readers +1 success!'
+
+2016-05-28 02:13:43,395 DEBG 'celery' stdout output:
+[2016-05-28 02:13:43,394: INFO/MainProcess] Received task: article.tasks.readersin[ffb577a3-bd34-47fe-bf04-883989bf5a82]
+
+2016-05-28 02:13:43,421 DEBG 'celery' stdout output:
+[2016-05-28 02:13:43,421: INFO/MainProcess] Task article.tasks.readersin[ffb577a3-bd34-47fe-bf04-883989bf5a82] succeeded in 0.024705663s: 'readers +1 success!'
+
+2016-05-28 02:14:02,381 DEBG 'celery' stdout output:
+[2016-05-28 02:14:02,381: INFO/MainProcess] Received task: article.tasks.readersin[1ef43892-ba5b-4125-945d-83071204521d]
+
+2016-05-28 02:14:02,396 DEBG 'celery' stdout output:
+[2016-05-28 02:14:02,396: INFO/MainProcess] Task article.tasks.readersin[1ef43892-ba5b-4125-945d-83071204521d] succeeded in 0.013612213s: 'readers +1 success!'
+
+2016-05-28 02:15:14,590 DEBG 'celery' stdout output:
+[2016-05-28 02:15:14,590: INFO/MainProcess] Received task: article.tasks.readersin[1a7cb10e-bd78-410a-9149-23fed1b2d660]
+
+2016-05-28 02:15:14,610 DEBG 'celery' stdout output:
+[2016-05-28 02:15:14,609: INFO/MainProcess] Task article.tasks.readersin[1a7cb10e-bd78-410a-9149-23fed1b2d660] succeeded in 0.01511935s: 'readers +1 success!'
+
+2016-05-28 02:25:46,441 DEBG 'celery' stdout output:
+[2016-05-28 02:25:46,440: INFO/MainProcess] Received task: article.tasks.readersin[1b46f2d4-ce2e-4c09-aee5-ae0f7d3ad720]
+
+2016-05-28 02:25:46,463 DEBG 'celery' stdout output:
+[2016-05-28 02:25:46,463: INFO/MainProcess] Task article.tasks.readersin[1b46f2d4-ce2e-4c09-aee5-ae0f7d3ad720] succeeded in 0.0194093580001s: 'readers +1 success!'
+
+2016-05-28 07:41:02,693 DEBG 'celery' stdout output:
+[2016-05-28 07:41:02,693: INFO/MainProcess] Received task: article.tasks.readersin[683a105b-a8c4-4f9c-92d3-dadc3bb252dc]
+
+2016-05-28 07:41:02,726 DEBG 'celery' stdout output:
+[2016-05-28 07:41:02,725: INFO/MainProcess] Task article.tasks.readersin[683a105b-a8c4-4f9c-92d3-dadc3bb252dc] succeeded in 0.0295671690001s: 'readers +1 success!'
+
+2016-05-28 09:41:39,843 DEBG 'celery' stdout output:
+[2016-05-28 09:41:39,843: INFO/MainProcess] Received task: article.tasks.readersin[ce6f840b-3ee6-4cfe-b8b0-a785a3145395]
+
+2016-05-28 09:41:39,876 DEBG 'celery' stdout output:
+[2016-05-28 09:41:39,876: INFO/MainProcess] Task article.tasks.readersin[ce6f840b-3ee6-4cfe-b8b0-a785a3145395] succeeded in 0.0305206720004s: 'readers +1 success!'
+
+2016-05-28 11:15:41,363 DEBG 'celery' stdout output:
+[2016-05-28 11:15:41,360: INFO/MainProcess] Received task: article.tasks.readersin[60b4ae53-c95c-406d-bb1a-15852c8c031a]
+
+2016-05-28 11:15:41,380 DEBG 'celery' stdout output:
+[2016-05-28 11:15:41,380: INFO/MainProcess] Task article.tasks.readersin[60b4ae53-c95c-406d-bb1a-15852c8c031a] succeeded in 0.0177835780014s: 'readers +1 success!'
+
+2016-05-28 11:15:57,773 DEBG 'celery' stdout output:
+[2016-05-28 11:15:57,772: INFO/MainProcess] Received task: article.tasks.readersin[6685fca5-8e52-4fae-94d4-8397789c5705]
+
+2016-05-28 11:15:57,791 DEBG 'celery' stdout output:
+[2016-05-28 11:15:57,791: INFO/MainProcess] Task article.tasks.readersin[6685fca5-8e52-4fae-94d4-8397789c5705] succeeded in 0.0159012939985s: 'readers +1 success!'
+
+2016-05-28 11:16:12,230 DEBG 'celery' stdout output:
+[2016-05-28 11:16:12,229: INFO/MainProcess] Received task: article.tasks.readersin[ec73bbcf-bdec-4ac1-94fc-441d4e1d193f]
+
+2016-05-28 11:16:12,251 DEBG 'celery' stdout output:
+[2016-05-28 11:16:12,251: INFO/MainProcess] Task article.tasks.readersin[ec73bbcf-bdec-4ac1-94fc-441d4e1d193f] succeeded in 0.0179929299993s: 'readers +1 success!'
+
+2016-05-28 11:16:23,468 DEBG 'celery' stdout output:
+[2016-05-28 11:16:23,468: INFO/MainProcess] Received task: article.tasks.readersin[045fc6d9-74d7-4d8d-9178-b587d49b2f73]
+
+2016-05-28 11:16:23,488 DEBG 'celery' stdout output:
+[2016-05-28 11:16:23,488: INFO/MainProcess] Task article.tasks.readersin[045fc6d9-74d7-4d8d-9178-b587d49b2f73] succeeded in 0.0171358890002s: 'readers +1 success!'
+
+2016-05-28 11:16:55,433 DEBG 'celery' stdout output:
+[2016-05-28 11:16:55,433: INFO/MainProcess] Received task: article.tasks.readersin[08a3f949-819f-41e9-a7bc-8f7f3ccc5392]
+
+2016-05-28 11:16:55,454 DEBG 'celery' stdout output:
+[2016-05-28 11:16:55,453: INFO/MainProcess] Task article.tasks.readersin[08a3f949-819f-41e9-a7bc-8f7f3ccc5392] succeeded in 0.0163089939997s: 'readers +1 success!'
+
+2016-05-28 11:16:55,553 DEBG 'celery' stdout output:
+[2016-05-28 11:16:55,553: INFO/MainProcess] Received task: article.tasks.readersin[4af77e75-f5ee-42a3-8b20-803ec711d528]
+
+2016-05-28 11:16:55,569 DEBG 'celery' stdout output:
+[2016-05-28 11:16:55,569: INFO/MainProcess] Task article.tasks.readersin[4af77e75-f5ee-42a3-8b20-803ec711d528] succeeded in 0.0144745879988s: 'readers +1 success!'
+
+2016-05-28 11:17:35,859 DEBG 'celery' stdout output:
+[2016-05-28 11:17:35,859: INFO/MainProcess] Received task: article.tasks.readersin[31ef7950-fd85-4664-9efd-ef8857fbdbec]
+
+2016-05-28 11:17:35,881 DEBG 'celery' stdout output:
+[2016-05-28 11:17:35,881: INFO/MainProcess] Task article.tasks.readersin[31ef7950-fd85-4664-9efd-ef8857fbdbec] succeeded in 0.0182953910044s: 'readers +1 success!'
+
+2016-05-28 11:17:43,483 DEBG 'celery' stdout output:
+[2016-05-28 11:17:43,483: INFO/MainProcess] Received task: article.tasks.readersin[29b4f5e1-7406-4e2d-878d-b2896c81ef4b]
+
+2016-05-28 11:17:43,502 DEBG 'celery' stdout output:
+[2016-05-28 11:17:43,501: INFO/MainProcess] Task article.tasks.readersin[29b4f5e1-7406-4e2d-878d-b2896c81ef4b] succeeded in 0.0153981850017s: 'readers +1 success!'
+
+2016-05-28 11:18:11,127 DEBG 'celery' stdout output:
+[2016-05-28 11:18:11,126: INFO/MainProcess] Received task: article.tasks.readersin[a34c2c21-be81-497b-bc5e-2177e85fca27]
+
+2016-05-28 11:18:11,148 DEBG 'celery' stdout output:
+[2016-05-28 11:18:11,148: INFO/MainProcess] Task article.tasks.readersin[a34c2c21-be81-497b-bc5e-2177e85fca27] succeeded in 0.0181035080022s: 'readers +1 success!'
+
+2016-05-28 11:18:44,162 DEBG 'celery' stdout output:
+[2016-05-28 11:18:44,162: INFO/MainProcess] Received task: article.tasks.readersin[1a394005-ea24-412f-abb8-7814fce0e12a]
+
+2016-05-28 11:18:44,184 DEBG 'celery' stdout output:
+[2016-05-28 11:18:44,184: INFO/MainProcess] Task article.tasks.readersin[1a394005-ea24-412f-abb8-7814fce0e12a] succeeded in 0.0189125090037s: 'readers +1 success!'
+
+2016-05-28 11:19:23,521 DEBG 'celery' stdout output:
+[2016-05-28 11:19:23,521: INFO/MainProcess] Received task: article.tasks.readersin[12029169-f084-40ce-b346-173011d309c0]
+
+2016-05-28 11:19:23,544 DEBG 'celery' stdout output:
+[2016-05-28 11:19:23,544: INFO/MainProcess] Task article.tasks.readersin[12029169-f084-40ce-b346-173011d309c0] succeeded in 0.018295640999s: 'readers +1 success!'
+
+2016-05-28 11:19:37,115 DEBG 'celery' stdout output:
+[2016-05-28 11:19:37,115: INFO/MainProcess] Received task: article.tasks.readersin[17bd6db4-e011-4ea1-9b0f-7c4bf1f94053]
+
+2016-05-28 11:19:37,133 DEBG 'celery' stdout output:
+[2016-05-28 11:19:37,133: INFO/MainProcess] Task article.tasks.readersin[17bd6db4-e011-4ea1-9b0f-7c4bf1f94053] succeeded in 0.0153377240058s: 'readers +1 success!'
+
+2016-05-28 11:19:51,764 DEBG 'celery' stdout output:
+[2016-05-28 11:19:51,763: INFO/MainProcess] Received task: article.tasks.readersin[0bcefb80-78cc-45ca-92a8-feea7ec46f59]
+
+2016-05-28 11:19:51,785 DEBG 'celery' stdout output:
+[2016-05-28 11:19:51,785: INFO/MainProcess] Task article.tasks.readersin[0bcefb80-78cc-45ca-92a8-feea7ec46f59] succeeded in 0.0196356310043s: 'readers +1 success!'
+
+2016-05-28 11:19:53,963 DEBG 'celery' stdout output:
+[2016-05-28 11:19:53,963: INFO/MainProcess] Received task: article.tasks.readersin[4d6f9ff2-a619-4f5b-bf91-a282b27c90c1]
+
+2016-05-28 11:19:53,980 DEBG 'celery' stdout output:
+[2016-05-28 11:19:53,979: INFO/MainProcess] Task article.tasks.readersin[4d6f9ff2-a619-4f5b-bf91-a282b27c90c1] succeeded in 0.0149203590045s: 'readers +1 success!'
+
+2016-05-28 11:20:10,184 DEBG 'celery' stdout output:
+[2016-05-28 11:20:10,184: INFO/MainProcess] Received task: article.tasks.readersin[4ac25c5f-0d41-44a9-8a3a-42339a225ac5]
+
+2016-05-28 11:20:10,203 DEBG 'celery' stdout output:
+[2016-05-28 11:20:10,202: INFO/MainProcess] Task article.tasks.readersin[4ac25c5f-0d41-44a9-8a3a-42339a225ac5] succeeded in 0.0165977629949s: 'readers +1 success!'
+
+2016-05-28 11:20:28,611 DEBG 'celery' stdout output:
+[2016-05-28 11:20:28,611: INFO/MainProcess] Received task: article.tasks.readersin[287a7ebc-2455-4480-a21f-890040ee0167]
+
+2016-05-28 11:20:28,630 DEBG 'celery' stdout output:
+[2016-05-28 11:20:28,630: INFO/MainProcess] Task article.tasks.readersin[287a7ebc-2455-4480-a21f-890040ee0167] succeeded in 0.0177036009991s: 'readers +1 success!'
+
+2016-05-28 11:20:30,476 DEBG 'celery' stdout output:
+[2016-05-28 11:20:30,475: INFO/MainProcess] Received task: article.tasks.readersin[c7aaf79e-23e1-45eb-85e0-8e58c127938d]
+
+2016-05-28 11:20:30,492 DEBG 'celery' stdout output:
+[2016-05-28 11:20:30,491: INFO/MainProcess] Task article.tasks.readersin[c7aaf79e-23e1-45eb-85e0-8e58c127938d] succeeded in 0.0143783519961s: 'readers +1 success!'
+
+2016-05-28 11:20:41,596 DEBG 'celery' stdout output:
+[2016-05-28 11:20:41,596: INFO/MainProcess] Received task: article.tasks.readersin[d83405c1-040d-4134-b261-089ca26c9a5c]
+
+2016-05-28 11:20:41,617 DEBG 'celery' stdout output:
+[2016-05-28 11:20:41,617: INFO/MainProcess] Task article.tasks.readersin[d83405c1-040d-4134-b261-089ca26c9a5c] succeeded in 0.019712260997s: 'readers +1 success!'
+
+2016-05-28 11:20:44,301 DEBG 'celery' stdout output:
+[2016-05-28 11:20:44,301: INFO/MainProcess] Received task: article.tasks.readersin[992d8b95-3504-49f3-b39d-c15d7bef465a]
+
+2016-05-28 11:20:44,322 DEBG 'celery' stdout output:
+[2016-05-28 11:20:44,322: INFO/MainProcess] Task article.tasks.readersin[992d8b95-3504-49f3-b39d-c15d7bef465a] succeeded in 0.019072492003s: 'readers +1 success!'
+
+2016-05-28 13:25:19,956 DEBG 'celery' stdout output:
+[2016-05-28 13:25:19,956: INFO/MainProcess] Received task: article.tasks.readersin[2eceacc5-2e89-4187-b394-4b15efe35149]
+
+2016-05-28 13:25:19,988 DEBG 'celery' stdout output:
+[2016-05-28 13:25:19,988: INFO/MainProcess] Task article.tasks.readersin[2eceacc5-2e89-4187-b394-4b15efe35149] succeeded in 0.0282427560014s: 'readers +1 success!'
+
+2016-05-28 13:25:35,240 DEBG 'celery' stdout output:
+[2016-05-28 13:25:35,240: INFO/MainProcess] Received task: article.tasks.readersin[073fc818-e673-45e6-81b3-bd353c63e69a]
+
+2016-05-28 13:25:35,260 DEBG 'celery' stdout output:
+[2016-05-28 13:25:35,260: INFO/MainProcess] Task article.tasks.readersin[073fc818-e673-45e6-81b3-bd353c63e69a] succeeded in 0.0168346830033s: 'readers +1 success!'
+
+2016-05-28 14:21:02,027 DEBG killing autoreload (pid 1130) with signal SIGTERM
+2016-05-28 14:21:02,029 DEBG fd 7 closed, stopped monitoring <POutputDispatcher at 140160231387080 for <Subprocess at 140160231614512 with name autoreload in state STOPPING> (stdout)>
+2016-05-28 14:21:02,029 INFO stopped: autoreload (terminated by SIGTERM)
+2016-05-28 14:21:02,029 DEBG received SIGCLD indicating a child quit
+2016-05-28 14:21:02,031 DEBG killing redis-server (pid 1132) with signal SIGTERM
+2016-05-28 14:21:02,031 INFO waiting for redis-server to stop
+2016-05-28 14:21:02,031 DEBG 'redis-server' stdout output:
+[1132 | signal handler] (1464416462) Received SIGTERM, scheduling shutdown...
+
+2016-05-28 14:21:02,123 DEBG 'redis-server' stdout output:
+[1132] 28 May 14:21:02.123 # User requested shutdown...
+[1132] 28 May 14:21:02.123 * Saving the final RDB snapshot before exiting.
+
+2016-05-28 14:21:02,130 DEBG 'redis-server' stdout output:
+[1132] 28 May 14:21:02.130 * DB saved on disk
+[1132] 28 May 14:21:02.130 # Redis is now ready to exit, bye bye...
+
+2016-05-28 14:21:02,130 DEBG fd 13 closed, stopped monitoring <POutputDispatcher at 140160231420848 for <Subprocess at 140160231615880 with name redis-server in state STOPPING> (stdout)>
+2016-05-28 14:21:02,130 INFO stopped: redis-server (exit status 0)
+2016-05-28 14:21:02,130 DEBG received SIGCLD indicating a child quit
+2016-05-28 14:21:02,132 DEBG killing celery (pid 1131) with signal SIGTERM
+2016-05-28 14:21:02,136 INFO waiting for celery to stop
+2016-05-28 14:21:02,137 DEBG 'celery' stdout output:
+
+worker: Warm shutdown (MainProcess)
+
+2016-05-28 14:21:03,141 DEBG 'celery' stdout output:
+/home/shen/Documents/paperproject/mynewspaper
+ 
+ -------------- celery@iZ25vn4n5xvZ v3.1.23 (Cipater)
+---- **** ----- 
+--- * ***  * -- Linux-3.13.0-32-generic-x86_64-with-Ubuntu-14.04-trusty
+-- * - **** --- 
+- ** ---------- [config]
+- ** ---------- .> app:         default:0x7f9aea186c90 (djcelery.loaders.DjangoLoader)
+- ** ---------- .> transport:   redis://localhost:6379/0
+- ** ---------- .> results:     
+- *** --- * --- .> concurrency: 1 (prefork)
+-- ******* ---- 
+--- ***** ----- [queues]
+ -------------- .> celery           exchange=celery(direct) key=celery
+                
+
+[tasks]
+  . article.tasks.add
+  . article.tasks.instancedelete
+  . article.tasks.instancesave
+  . article.tasks.readersin
+  . article.tasks.readersout
+
+
+2016-05-28 14:21:03,709 DEBG fd 10 closed, stopped monitoring <POutputDispatcher at 140160231420488 for <Subprocess at 140160231615736 with name celery in state STOPPING> (stdout)>
+2016-05-28 14:21:03,709 INFO stopped: celery (exit status 0)
+2016-05-28 14:21:03,709 DEBG received SIGCLD indicating a child quit
+2016-05-28 14:21:03,713 INFO spawned: 'autoreload' with pid 1992
+2016-05-28 14:21:04,715 INFO success: autoreload entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-28 14:21:04,719 INFO spawned: 'redis-server' with pid 2007
+2016-05-28 14:21:04,726 DEBG 'redis-server' stdout output:
+[2007] 28 May 14:21:04.726 # Warning: no config file specified, using the default config. In order to specify a config file use redis-server /path/to/redis.conf
+
+2016-05-28 14:21:04,727 DEBG 'redis-server' stdout output:
+[2007] 28 May 14:21:04.727 * Max number of open files set to 10032
+
+2016-05-28 14:21:04,728 DEBG 'redis-server' stdout output:
+                _._                                                  
+           _.-``__ ''-._                                             
+      _.-``    `.  `_.  ''-._           Redis 2.8.4 (00000000/0) 64 bit
+  .-`` .-```.  ```\/    _.,_ ''-._                                   
+ (    '      ,       .-`  | `,    )     Running in stand alone mode
+ |`-._`-...-` __...-.``-._|'` _.-'|     Port: 6379
+ |    `-._   `._    /     _.-'    |     PID: 2007
+  `-._    `-._  `-./  _.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |           http://redis.io        
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |                                  
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+      `-._    `-.__.-'    _.-'                                       
+          `-._        _.-'                                           
+              `-.__.-'                                               
+
+
+2016-05-28 14:21:04,729 DEBG 'redis-server' stdout output:
+[2007] 28 May 14:21:04.729 # Server started, Redis version 2.8.4
+
+2016-05-28 14:21:04,730 DEBG 'redis-server' stdout output:
+[2007] 28 May 14:21:04.730 # WARNING overcommit_memory is set to 0! Background save may fail under low memory condition. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
+
+2016-05-28 14:21:04,730 DEBG 'redis-server' stdout output:
+[2007] 28 May 14:21:04.730 * DB loaded from disk: 0.000 seconds
+
+2016-05-28 14:21:04,730 DEBG 'redis-server' stdout output:
+[2007] 28 May 14:21:04.730 * The server is now ready to accept connections on port 6379
+
+2016-05-28 14:21:05,732 INFO success: redis-server entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-28 14:21:05,735 INFO spawned: 'celery' with pid 2010
+2016-05-28 14:21:06,107 DEBG 'celery' stdout output:
+/usr/local/lib/python2.7/dist-packages/django/core/management/base.py:259: RemovedInDjango19Warning: "requires_model_validation" is deprecated in favor of "requires_system_checks".
+  RemovedInDjango19Warning)
+
+
+2016-05-28 14:21:06,137 DEBG 'celery' stdout output:
+/usr/local/lib/python2.7/dist-packages/celery/platforms.py:812: RuntimeWarning: You are running the worker with superuser privileges, which is
+absolutely not recommended!
+
+Please specify a different user using the -u option.
+
+User information: uid=0 euid=0 gid=0 egid=0
+
+  uid=uid, euid=euid, gid=gid, egid=egid,
+
+
+2016-05-28 14:21:06,166 DEBG 'celery' stdout output:
+/usr/local/lib/python2.7/dist-packages/celery/apps/worker.py:161: CDeprecationWarning: 
+Starting from version 3.2 Celery will refuse to accept pickle by default.
+
+The pickle serializer is a security concern as it may give attackers
+the ability to execute any command.  It's important to secure
+your broker from unauthorized access when using pickle, so we think
+that enabling pickle should require a deliberate action and not be
+the default choice.
+
+If you depend on pickle then you should set a setting to disable this
+warning and to be sure that everything will continue working
+when you upgrade to Celery 3.2::
+
+    CELERY_ACCEPT_CONTENT = ['pickle', 'json', 'msgpack', 'yaml']
+
+You must only enable the serializers that you will actually use.
+
+
+  warnings.warn(CDeprecationWarning(W_PICKLE_DEPRECATED))
+
+
+2016-05-28 14:21:06,167 DEBG 'celery' stdout output:
+[2016-05-28 14:21:06,165: WARNING/MainProcess] /usr/local/lib/python2.7/dist-packages/celery/apps/worker.py:161: CDeprecationWarning: 
+Starting from version 3.2 Celery will refuse to accept pickle by default.
+
+The pickle serializer is a security concern as it may give attackers
+the ability to execute any command.  It's important to secure
+your broker from unauthorized access when using pickle, so we think
+that enabling pickle should require a deliberate action and not be
+the default choice.
+
+If you depend on pickle then you should set a setting to disable this
+warning and to be sure that everything will continue working
+when you upgrade to Celery 3.2::
+
+    CELERY_ACCEPT_CONTENT = ['pickle', 'json', 'msgpack', 'yaml']
+
+You must only enable the serializers that you will actually use.
+
+
+  warnings.warn(CDeprecationWarning(W_PICKLE_DEPRECATED))
+
+
+2016-05-28 14:21:06,206 DEBG 'celery' stdout output:
+[2016-05-28 14:21:06,206: INFO/MainProcess] Connected to redis://localhost:6379/0
+
+2016-05-28 14:21:06,213 DEBG 'celery' stdout output:
+[2016-05-28 14:21:06,213: INFO/MainProcess] mingle: searching for neighbors
+
+2016-05-28 14:21:07,215 INFO success: celery entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-28 14:21:07,221 DEBG 'celery' stdout output:
+[2016-05-28 14:21:07,218: INFO/MainProcess] mingle: all alone
+
+2016-05-28 14:21:07,243 DEBG 'celery' stdout output:
+/usr/local/lib/python2.7/dist-packages/djcelery/loaders.py:136: UserWarning: Using settings.DEBUG leads to a memory leak, never use this setting in production environments!
+  warn('Using settings.DEBUG leads to a memory leak, never '
+
+
+2016-05-28 14:21:07,244 DEBG 'celery' stdout output:
+[2016-05-28 14:21:07,243: WARNING/MainProcess] /usr/local/lib/python2.7/dist-packages/djcelery/loaders.py:136: UserWarning: Using settings.DEBUG leads to a memory leak, never use this setting in production environments!
+  warn('Using settings.DEBUG leads to a memory leak, never '
+
+
+2016-05-28 14:21:07,244 DEBG 'celery' stdout output:
+[2016-05-28 14:21:07,244: WARNING/MainProcess] celery@iZ25vn4n5xvZ ready.
+
+2016-05-28 14:22:34,271 DEBG killing autoreload (pid 1992) with signal SIGTERM
+2016-05-28 14:22:34,271 INFO waiting for autoreload to stop
+2016-05-28 14:22:34,273 DEBG fd 8 closed, stopped monitoring <POutputDispatcher at 140160231530008 for <Subprocess at 140160231614512 with name autoreload in state STOPPING> (stdout)>
+2016-05-28 14:22:34,273 INFO stopped: autoreload (terminated by SIGTERM)
+2016-05-28 14:22:34,273 DEBG received SIGCLD indicating a child quit
+2016-05-28 14:22:34,274 DEBG killing redis-server (pid 2007) with signal SIGTERM
+2016-05-28 14:22:34,275 INFO waiting for redis-server to stop
+2016-05-28 14:22:34,275 DEBG 'redis-server' stdout output:
+[2007 | signal handler] (1464416554) Received SIGTERM, scheduling shutdown...
+
+2016-05-28 14:22:34,346 DEBG 'redis-server' stdout output:
+[2007] 28 May 14:22:34.346 # User requested shutdown...
+[2007] 28 May 14:22:34.346 * Saving the final RDB snapshot before exiting.
+
+2016-05-28 14:22:34,353 DEBG 'redis-server' stdout output:
+[2007] 28 May 14:22:34.353 * DB saved on disk
+[2007] 28 May 14:22:34.353 # Redis is now ready to exit, bye bye...
+
+2016-05-28 14:22:34,353 INFO stopped: redis-server (exit status 0)
+2016-05-28 14:22:34,354 DEBG received SIGCLD indicating a child quit
+2016-05-28 14:22:34,355 DEBG killing celery (pid 2010) with signal SIGTERM
+2016-05-28 14:22:34,359 INFO waiting for celery to stop
+2016-05-28 14:22:34,360 DEBG 'celery' stdout output:
+
+worker: Warm shutdown (MainProcess)
+
+2016-05-28 14:22:35,364 DEBG 'celery' stdout output:
+/home/shen/Documents/paperproject/mynewspaper
+ 
+ -------------- celery@iZ25vn4n5xvZ v3.1.23 (Cipater)
+---- **** ----- 
+--- * ***  * -- Linux-3.13.0-32-generic-x86_64-with-Ubuntu-14.04-trusty
+-- * - **** --- 
+- ** ---------- [config]
+- ** ---------- .> app:         default:0x7f34ae1d4c90 (djcelery.loaders.DjangoLoader)
+- ** ---------- .> transport:   redis://localhost:6379/0
+- ** ---------- .> results:     
+- *** --- * --- .> concurrency: 1 (prefork)
+-- ******* ---- 
+--- ***** ----- [queues]
+ -------------- .> celery           exchange=celery(direct) key=celery
+                
+
+[tasks]
+  . article.tasks.add
+  . article.tasks.instancedelete
+  . article.tasks.instancesave
+  . article.tasks.readersin
+  . article.tasks.readersout
+
+
+2016-05-28 14:22:35,930 DEBG fd 14 closed, stopped monitoring <POutputDispatcher at 140160231569960 for <Subprocess at 140160231615736 with name celery in state STOPPING> (stdout)>
+2016-05-28 14:22:35,930 INFO stopped: celery (exit status 0)
+2016-05-28 14:22:35,930 DEBG received SIGCLD indicating a child quit
+2016-05-28 14:22:35,935 INFO spawned: 'autoreload' with pid 2036
+2016-05-28 14:22:36,937 INFO success: autoreload entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-28 14:22:36,941 INFO spawned: 'redis-server' with pid 2051
+2016-05-28 14:22:36,948 DEBG 'redis-server' stdout output:
+[2051] 28 May 14:22:36.948 # Warning: no config file specified, using the default config. In order to specify a config file use redis-server /path/to/redis.conf
+
+2016-05-28 14:22:36,949 DEBG 'redis-server' stdout output:
+[2051] 28 May 14:22:36.949 * Max number of open files set to 10032
+
+2016-05-28 14:22:36,950 DEBG 'redis-server' stdout output:
+                _._                                                  
+           _.-``__ ''-._                                             
+      _.-``    `.  `_.  ''-._           Redis 2.8.4 (00000000/0) 64 bit
+  .-`` .-```.  ```\/    _.,_ ''-._                                   
+ (    '      ,       .-`  | `,    )     Running in stand alone mode
+ |`-._`-...-` __...-.``-._|'` _.-'|     Port: 6379
+ |    `-._   `._    /     _.-'    |     PID: 2051
+  `-._    `-._  `-./  _.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |           http://redis.io        
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |                                  
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+      `-._    `-.__.-'    _.-'                                       
+          `-._        _.-'                                           
+              `-.__.-'                                               
+
+
+2016-05-28 14:22:36,951 DEBG 'redis-server' stdout output:
+[2051] 28 May 14:22:36.951 # Server started, Redis version 2.8.4
+
+2016-05-28 14:22:36,952 DEBG 'redis-server' stdout output:
+[2051] 28 May 14:22:36.952 # WARNING overcommit_memory is set to 0! Background save may fail under low memory condition. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
+
+2016-05-28 14:22:36,952 DEBG 'redis-server' stdout output:
+[2051] 28 May 14:22:36.952 * DB loaded from disk: 0.000 seconds
+
+2016-05-28 14:22:36,952 DEBG 'redis-server' stdout output:
+[2051] 28 May 14:22:36.952 * The server is now ready to accept connections on port 6379
+
+2016-05-28 14:22:37,954 INFO success: redis-server entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-28 14:22:37,957 INFO spawned: 'celery' with pid 2054
+2016-05-28 14:22:38,348 DEBG 'celery' stdout output:
+/usr/local/lib/python2.7/dist-packages/django/core/management/base.py:259: RemovedInDjango19Warning: "requires_model_validation" is deprecated in favor of "requires_system_checks".
+  RemovedInDjango19Warning)
+
+
+2016-05-28 14:22:38,375 DEBG 'celery' stdout output:
+/usr/local/lib/python2.7/dist-packages/celery/platforms.py:812: RuntimeWarning: You are running the worker with superuser privileges, which is
+absolutely not recommended!
+
+Please specify a different user using the -u option.
+
+User information: uid=0 euid=0 gid=0 egid=0
+
+  uid=uid, euid=euid, gid=gid, egid=egid,
+
+
+2016-05-28 14:22:38,404 DEBG 'celery' stdout output:
+/usr/local/lib/python2.7/dist-packages/celery/apps/worker.py:161: CDeprecationWarning: 
+Starting from version 3.2 Celery will refuse to accept pickle by default.
+
+The pickle serializer is a security concern as it may give attackers
+the ability to execute any command.  It's important to secure
+your broker from unauthorized access when using pickle, so we think
+that enabling pickle should require a deliberate action and not be
+the default choice.
+
+If you depend on pickle then you should set a setting to disable this
+warning and to be sure that everything will continue working
+when you upgrade to Celery 3.2::
+
+    CELERY_ACCEPT_CONTENT = ['pickle', 'json', 'msgpack', 'yaml']
+
+You must only enable the serializers that you will actually use.
+
+
+  warnings.warn(CDeprecationWarning(W_PICKLE_DEPRECATED))
+
+
+2016-05-28 14:22:38,405 DEBG 'celery' stdout output:
+[2016-05-28 14:22:38,404: WARNING/MainProcess] /usr/local/lib/python2.7/dist-packages/celery/apps/worker.py:161: CDeprecationWarning: 
+Starting from version 3.2 Celery will refuse to accept pickle by default.
+
+The pickle serializer is a security concern as it may give attackers
+the ability to execute any command.  It's important to secure
+your broker from unauthorized access when using pickle, so we think
+that enabling pickle should require a deliberate action and not be
+the default choice.
+
+If you depend on pickle then you should set a setting to disable this
+warning and to be sure that everything will continue working
+when you upgrade to Celery 3.2::
+
+    CELERY_ACCEPT_CONTENT = ['pickle', 'json', 'msgpack', 'yaml']
+
+You must only enable the serializers that you will actually use.
+
+
+  warnings.warn(CDeprecationWarning(W_PICKLE_DEPRECATED))
+
+
+2016-05-28 14:22:38,441 DEBG 'celery' stdout output:
+[2016-05-28 14:22:38,441: INFO/MainProcess] Connected to redis://localhost:6379/0
+
+2016-05-28 14:22:38,450 DEBG 'celery' stdout output:
+[2016-05-28 14:22:38,450: INFO/MainProcess] mingle: searching for neighbors
+
+2016-05-28 14:22:39,452 INFO success: celery entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-28 14:22:39,458 DEBG 'celery' stdout output:
+[2016-05-28 14:22:39,458: INFO/MainProcess] mingle: all alone
+
+2016-05-28 14:22:39,473 DEBG 'celery' stdout output:
+/usr/local/lib/python2.7/dist-packages/djcelery/loaders.py:136: UserWarning: Using settings.DEBUG leads to a memory leak, never use this setting in production environments!
+  warn('Using settings.DEBUG leads to a memory leak, never '
+
+
+2016-05-28 14:22:39,473 DEBG 'celery' stdout output:
+[2016-05-28 14:22:39,473: WARNING/MainProcess] /usr/local/lib/python2.7/dist-packages/djcelery/loaders.py:136: UserWarning: Using settings.DEBUG leads to a memory leak, never use this setting in production environments!
+  warn('Using settings.DEBUG leads to a memory leak, never '
+
+
+2016-05-28 14:22:39,474 DEBG 'celery' stdout output:
+[2016-05-28 14:22:39,474: WARNING/MainProcess] celery@iZ25vn4n5xvZ ready.
+
+2016-05-28 14:24:32,609 DEBG killing autoreload (pid 2036) with signal SIGTERM
+2016-05-28 14:24:32,610 INFO waiting for autoreload to stop
+2016-05-28 14:24:32,611 DEBG fd 9 closed, stopped monitoring <POutputDispatcher at 140160247659192 for <Subprocess at 140160231614512 with name autoreload in state STOPPING> (stdout)>
+2016-05-28 14:24:32,611 INFO stopped: autoreload (terminated by SIGTERM)
+2016-05-28 14:24:32,612 DEBG received SIGCLD indicating a child quit
+2016-05-28 14:24:32,613 DEBG killing redis-server (pid 2051) with signal SIGTERM
+2016-05-28 14:24:32,613 INFO waiting for redis-server to stop
+2016-05-28 14:24:32,613 DEBG 'redis-server' stdout output:
+[2051 | signal handler] (1464416672) Received SIGTERM, scheduling shutdown...
+
+2016-05-28 14:24:32,710 DEBG 'redis-server' stdout output:
+[2051] 28 May 14:24:32.710 # User requested shutdown...
+[2051] 28 May 14:24:32.710 * Saving the final RDB snapshot before exiting.
+
+2016-05-28 14:24:32,718 DEBG 'redis-server' stdout output:
+[2051] 28 May 14:24:32.718 * DB saved on disk
+[2051] 28 May 14:24:32.718 # Redis is now ready to exit, bye bye...
+
+2016-05-28 14:24:32,718 INFO stopped: redis-server (exit status 0)
+2016-05-28 14:24:32,719 DEBG received SIGCLD indicating a child quit
+2016-05-28 14:24:32,720 DEBG killing celery (pid 2054) with signal SIGTERM
+2016-05-28 14:24:32,725 INFO waiting for celery to stop
+2016-05-28 14:24:32,725 DEBG 'celery' stdout output:
+
+worker: Warm shutdown (MainProcess)
+
+2016-05-28 14:24:33,728 DEBG 'celery' stdout output:
+/home/shen/Documents/paperproject/mynewspaper
+ 
+ -------------- celery@iZ25vn4n5xvZ v3.1.23 (Cipater)
+---- **** ----- 
+--- * ***  * -- Linux-3.13.0-32-generic-x86_64-with-Ubuntu-14.04-trusty
+-- * - **** --- 
+- ** ---------- [config]
+- ** ---------- .> app:         default:0x7f7841ae8e90 (djcelery.loaders.DjangoLoader)
+- ** ---------- .> transport:   redis://localhost:6379/0
+- ** ---------- .> results:     
+- *** --- * --- .> concurrency: 1 (prefork)
+-- ******* ---- 
+--- ***** ----- [queues]
+ -------------- .> celery           exchange=celery(direct) key=celery
+                
+
+[tasks]
+  . article.tasks.add
+  . article.tasks.instancedelete
+  . article.tasks.instancesave
+  . article.tasks.readersin
+  . article.tasks.readersout
+
+
+2016-05-28 14:24:34,308 DEBG received SIGCLD indicating a child quit
+2016-05-28 14:24:34,309 DEBG fd 14 closed, stopped monitoring <POutputDispatcher at 140160231079232 for <Subprocess at 140160231615736 with name celery in state STOPPING> (stdout)>
+2016-05-28 14:24:34,309 INFO stopped: celery (exit status 0)
+2016-05-28 14:24:34,313 INFO spawned: 'autoreload' with pid 2076
+2016-05-28 14:24:35,315 INFO success: autoreload entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-28 14:24:35,319 INFO spawned: 'redis-server' with pid 2091
+2016-05-28 14:24:35,326 DEBG 'redis-server' stdout output:
+[2091] 28 May 14:24:35.326 # Warning: no config file specified, using the default config. In order to specify a config file use redis-server /path/to/redis.conf
+
+2016-05-28 14:24:35,327 DEBG 'redis-server' stdout output:
+[2091] 28 May 14:24:35.327 * Max number of open files set to 10032
+
+2016-05-28 14:24:35,328 DEBG 'redis-server' stdout output:
+                _._                                                  
+           _.-``__ ''-._                                             
+      _.-``    `.  `_.  ''-._           Redis 2.8.4 (00000000/0) 64 bit
+  .-`` .-```.  ```\/    _.,_ ''-._                                   
+ (    '      ,       .-`  | `,    )     Running in stand alone mode
+ |`-._`-...-` __...-.``-._|'` _.-'|     Port: 6379
+ |    `-._   `._    /     _.-'    |     PID: 2091
+  `-._    `-._  `-./  _.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |           http://redis.io        
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |                                  
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+      `-._    `-.__.-'    _.-'                                       
+          `-._        _.-'                                           
+              `-.__.-'                                               
+
+
+2016-05-28 14:24:35,329 DEBG 'redis-server' stdout output:
+[2091] 28 May 14:24:35.329 # Server started, Redis version 2.8.4
+
+2016-05-28 14:24:35,329 DEBG 'redis-server' stdout output:
+[2091] 28 May 14:24:35.329 # WARNING overcommit_memory is set to 0! Background save may fail under low memory condition. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
+
+2016-05-28 14:24:35,330 DEBG 'redis-server' stdout output:
+[2091] 28 May 14:24:35.330 * DB loaded from disk: 0.000 seconds
+
+2016-05-28 14:24:35,330 DEBG 'redis-server' stdout output:
+[2091] 28 May 14:24:35.330 * The server is now ready to accept connections on port 6379
+
+2016-05-28 14:24:36,332 INFO success: redis-server entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-28 14:24:36,335 INFO spawned: 'celery' with pid 2094
+2016-05-28 14:24:36,707 DEBG 'celery' stdout output:
+/usr/local/lib/python2.7/dist-packages/django/core/management/base.py:259: RemovedInDjango19Warning: "requires_model_validation" is deprecated in favor of "requires_system_checks".
+  RemovedInDjango19Warning)
+
+
+2016-05-28 14:24:36,731 DEBG 'celery' stdout output:
+/usr/local/lib/python2.7/dist-packages/celery/platforms.py:812: RuntimeWarning: You are running the worker with superuser privileges, which is
+absolutely not recommended!
+
+Please specify a different user using the -u option.
+
+User information: uid=0 euid=0 gid=0 egid=0
+
+  uid=uid, euid=euid, gid=gid, egid=egid,
+
+
+2016-05-28 14:24:36,758 DEBG 'celery' stdout output:
+/usr/local/lib/python2.7/dist-packages/celery/apps/worker.py:161: CDeprecationWarning: 
+Starting from version 3.2 Celery will refuse to accept pickle by default.
+
+The pickle serializer is a security concern as it may give attackers
+the ability to execute any command.  It's important to secure
+your broker from unauthorized access when using pickle, so we think
+that enabling pickle should require a deliberate action and not be
+the default choice.
+
+If you depend on pickle then you should set a setting to disable this
+warning and to be sure that everything will continue working
+when you upgrade to Celery 3.2::
+
+    CELERY_ACCEPT_CONTENT = ['pickle', 'json', 'msgpack', 'yaml']
+
+You must only enable the serializers that you will actually use.
+
+
+  warnings.warn(CDeprecationWarning(W_PICKLE_DEPRECATED))
+
+
+2016-05-28 14:24:36,759 DEBG 'celery' stdout output:
+[2016-05-28 14:24:36,757: WARNING/MainProcess] /usr/local/lib/python2.7/dist-packages/celery/apps/worker.py:161: CDeprecationWarning: 
+Starting from version 3.2 Celery will refuse to accept pickle by default.
+
+The pickle serializer is a security concern as it may give attackers
+the ability to execute any command.  It's important to secure
+your broker from unauthorized access when using pickle, so we think
+that enabling pickle should require a deliberate action and not be
+the default choice.
+
+If you depend on pickle then you should set a setting to disable this
+warning and to be sure that everything will continue working
+when you upgrade to Celery 3.2::
+
+    CELERY_ACCEPT_CONTENT = ['pickle', 'json', 'msgpack', 'yaml']
+
+You must only enable the serializers that you will actually use.
+
+
+  warnings.warn(CDeprecationWarning(W_PICKLE_DEPRECATED))
+
+
+2016-05-28 14:24:36,795 DEBG 'celery' stdout output:
+[2016-05-28 14:24:36,795: INFO/MainProcess] Connected to redis://localhost:6379/0
+
+2016-05-28 14:24:36,802 DEBG 'celery' stdout output:
+[2016-05-28 14:24:36,802: INFO/MainProcess] mingle: searching for neighbors
+
+2016-05-28 14:24:37,804 INFO success: celery entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-28 14:24:37,812 DEBG 'celery' stdout output:
+[2016-05-28 14:24:37,812: INFO/MainProcess] mingle: all alone
+
+2016-05-28 14:24:37,828 DEBG 'celery' stdout output:
+/usr/local/lib/python2.7/dist-packages/djcelery/loaders.py:136: UserWarning: Using settings.DEBUG leads to a memory leak, never use this setting in production environments!
+  warn('Using settings.DEBUG leads to a memory leak, never '
+
+
+2016-05-28 14:24:37,828 DEBG 'celery' stdout output:
+[2016-05-28 14:24:37,828: WARNING/MainProcess] /usr/local/lib/python2.7/dist-packages/djcelery/loaders.py:136: UserWarning: Using settings.DEBUG leads to a memory leak, never use this setting in production environments!
+  warn('Using settings.DEBUG leads to a memory leak, never '
+
+
+2016-05-28 14:24:37,829 DEBG 'celery' stdout output:
+[2016-05-28 14:24:37,829: WARNING/MainProcess] celery@iZ25vn4n5xvZ ready.
+
+2016-05-28 14:25:45,355 DEBG killing autoreload (pid 2076) with signal SIGTERM
+2016-05-28 14:25:45,356 INFO waiting for autoreload to stop
+2016-05-28 14:25:45,357 DEBG fd 9 closed, stopped monitoring <POutputDispatcher at 140160231569816 for <Subprocess at 140160231614512 with name autoreload in state STOPPING> (stdout)>
+2016-05-28 14:25:45,357 INFO stopped: autoreload (terminated by SIGTERM)
+2016-05-28 14:25:45,357 DEBG received SIGCLD indicating a child quit
+2016-05-28 14:25:45,358 DEBG killing redis-server (pid 2091) with signal SIGTERM
+2016-05-28 14:25:45,359 INFO waiting for redis-server to stop
+2016-05-28 14:25:45,359 DEBG 'redis-server' stdout output:
+[2091 | signal handler] (1464416745) Received SIGTERM, scheduling shutdown...
+
+2016-05-28 14:25:45,420 DEBG 'redis-server' stdout output:
+[2091] 28 May 14:25:45.420 # User requested shutdown...
+[2091] 28 May 14:25:45.420 * Saving the final RDB snapshot before exiting.
+
+2016-05-28 14:25:45,427 DEBG 'redis-server' stdout output:
+[2091] 28 May 14:25:45.426 * DB saved on disk
+[2091] 28 May 14:25:45.426 # Redis is now ready to exit, bye bye...
+
+2016-05-28 14:25:45,427 DEBG fd 10 closed, stopped monitoring <POutputDispatcher at 140160231568088 for <Subprocess at 140160231615880 with name redis-server in state STOPPING> (stdout)>
+2016-05-28 14:25:45,427 INFO stopped: redis-server (exit status 0)
+2016-05-28 14:25:45,427 DEBG received SIGCLD indicating a child quit
+2016-05-28 14:25:45,429 DEBG killing celery (pid 2094) with signal SIGTERM
+2016-05-28 14:25:45,433 INFO waiting for celery to stop
+2016-05-28 14:25:45,433 DEBG 'celery' stdout output:
+
+worker: Warm shutdown (MainProcess)
+
+2016-05-28 14:25:46,438 DEBG 'celery' stdout output:
+/home/shen/Documents/paperproject/mynewspaper
+ 
+ -------------- celery@iZ25vn4n5xvZ v3.1.23 (Cipater)
+---- **** ----- 
+--- * ***  * -- Linux-3.13.0-32-generic-x86_64-with-Ubuntu-14.04-trusty
+-- * - **** --- 
+- ** ---------- [config]
+- ** ---------- .> app:         default:0x7fb69ca79e90 (djcelery.loaders.DjangoLoader)
+- ** ---------- .> transport:   redis://localhost:6379/0
+- ** ---------- .> results:     
+- *** --- * --- .> concurrency: 1 (prefork)
+-- ******* ---- 
+--- ***** ----- [queues]
+ -------------- .> celery           exchange=celery(direct) key=celery
+                
+
+[tasks]
+  . article.tasks.add
+  . article.tasks.instancedelete
+  . article.tasks.instancesave
+  . article.tasks.readersin
+  . article.tasks.readersout
+
+
+2016-05-28 14:25:47,002 DEBG fd 14 closed, stopped monitoring <POutputDispatcher at 140160231420992 for <Subprocess at 140160231615736 with name celery in state STOPPING> (stdout)>
+2016-05-28 14:25:47,002 INFO stopped: celery (exit status 0)
+2016-05-28 14:25:47,002 DEBG received SIGCLD indicating a child quit
+2016-05-28 14:25:47,007 INFO spawned: 'autoreload' with pid 2104
+2016-05-28 14:25:48,009 INFO success: autoreload entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-28 14:25:48,013 INFO spawned: 'redis-server' with pid 2119
+2016-05-28 14:25:48,021 DEBG 'redis-server' stdout output:
+[2119] 28 May 14:25:48.021 # Warning: no config file specified, using the default config. In order to specify a config file use redis-server /path/to/redis.conf
+
+2016-05-28 14:25:48,022 DEBG 'redis-server' stdout output:
+[2119] 28 May 14:25:48.022 * Max number of open files set to 10032
+
+2016-05-28 14:25:48,023 DEBG 'redis-server' stdout output:
+                _._                                                  
+           _.-``__ ''-._                                             
+      _.-``    `.  `_.  ''-._           Redis 2.8.4 (00000000/0) 64 bit
+  .-`` .-```.  ```\/    _.,_ ''-._                                   
+ (    '      ,       .-`  | `,    )     Running in stand alone mode
+ |`-._`-...-` __...-.``-._|'` _.-'|     Port: 6379
+ |    `-._   `._    /     _.-'    |     PID: 2119
+  `-._    `-._  `-./  _.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |           http://redis.io        
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |                                  
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+      `-._    `-.__.-'    _.-'                                       
+          `-._        _.-'                                           
+              `-.__.-'                                               
+
+
+2016-05-28 14:25:48,024 DEBG 'redis-server' stdout output:
+[2119] 28 May 14:25:48.024 # Server started, Redis version 2.8.4
+
+2016-05-28 14:25:48,025 DEBG 'redis-server' stdout output:
+[2119] 28 May 14:25:48.025 # WARNING overcommit_memory is set to 0! Background save may fail under low memory condition. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
+
+2016-05-28 14:25:48,025 DEBG 'redis-server' stdout output:
+[2119] 28 May 14:25:48.025 * DB loaded from disk: 0.000 seconds
+
+2016-05-28 14:25:48,025 DEBG 'redis-server' stdout output:
+[2119] 28 May 14:25:48.025 * The server is now ready to accept connections on port 6379
+
+2016-05-28 14:25:49,027 INFO success: redis-server entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-28 14:25:49,030 INFO spawned: 'celery' with pid 2122
+2016-05-28 14:25:49,420 DEBG 'celery' stdout output:
+/usr/local/lib/python2.7/dist-packages/django/core/management/base.py:259: RemovedInDjango19Warning: "requires_model_validation" is deprecated in favor of "requires_system_checks".
+  RemovedInDjango19Warning)
+
+
+2016-05-28 14:25:49,446 DEBG 'celery' stdout output:
+/usr/local/lib/python2.7/dist-packages/celery/platforms.py:812: RuntimeWarning: You are running the worker with superuser privileges, which is
+absolutely not recommended!
+
+Please specify a different user using the -u option.
+
+User information: uid=0 euid=0 gid=0 egid=0
+
+  uid=uid, euid=euid, gid=gid, egid=egid,
+
+
+2016-05-28 14:25:49,475 DEBG 'celery' stdout output:
+/usr/local/lib/python2.7/dist-packages/celery/apps/worker.py:161: CDeprecationWarning: 
+Starting from version 3.2 Celery will refuse to accept pickle by default.
+
+The pickle serializer is a security concern as it may give attackers
+the ability to execute any command.  It's important to secure
+your broker from unauthorized access when using pickle, so we think
+that enabling pickle should require a deliberate action and not be
+the default choice.
+
+If you depend on pickle then you should set a setting to disable this
+warning and to be sure that everything will continue working
+when you upgrade to Celery 3.2::
+
+    CELERY_ACCEPT_CONTENT = ['pickle', 'json', 'msgpack', 'yaml']
+
+You must only enable the serializers that you will actually use.
+
+
+  warnings.warn(CDeprecationWarning(W_PICKLE_DEPRECATED))
+
+
+2016-05-28 14:25:49,476 DEBG 'celery' stdout output:
+[2016-05-28 14:25:49,475: WARNING/MainProcess] /usr/local/lib/python2.7/dist-packages/celery/apps/worker.py:161: CDeprecationWarning: 
+Starting from version 3.2 Celery will refuse to accept pickle by default.
+
+The pickle serializer is a security concern as it may give attackers
+the ability to execute any command.  It's important to secure
+your broker from unauthorized access when using pickle, so we think
+that enabling pickle should require a deliberate action and not be
+the default choice.
+
+If you depend on pickle then you should set a setting to disable this
+warning and to be sure that everything will continue working
+when you upgrade to Celery 3.2::
+
+    CELERY_ACCEPT_CONTENT = ['pickle', 'json', 'msgpack', 'yaml']
+
+You must only enable the serializers that you will actually use.
+
+
+  warnings.warn(CDeprecationWarning(W_PICKLE_DEPRECATED))
+
+
+2016-05-28 14:25:49,524 DEBG 'celery' stdout output:
+[2016-05-28 14:25:49,523: INFO/MainProcess] Connected to redis://localhost:6379/0
+
+2016-05-28 14:25:49,531 DEBG 'celery' stdout output:
+[2016-05-28 14:25:49,531: INFO/MainProcess] mingle: searching for neighbors
+
+2016-05-28 14:25:50,533 INFO success: celery entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-28 14:25:50,541 DEBG 'celery' stdout output:
+[2016-05-28 14:25:50,541: INFO/MainProcess] mingle: all alone
+
+2016-05-28 14:25:50,557 DEBG 'celery' stdout output:
+/usr/local/lib/python2.7/dist-packages/djcelery/loaders.py:136: UserWarning: Using settings.DEBUG leads to a memory leak, never use this setting in production environments!
+  warn('Using settings.DEBUG leads to a memory leak, never '
+
+
+2016-05-28 14:25:50,557 DEBG 'celery' stdout output:
+[2016-05-28 14:25:50,557: WARNING/MainProcess] /usr/local/lib/python2.7/dist-packages/djcelery/loaders.py:136: UserWarning: Using settings.DEBUG leads to a memory leak, never use this setting in production environments!
+  warn('Using settings.DEBUG leads to a memory leak, never '
+
+
+2016-05-28 14:25:50,558 DEBG 'celery' stdout output:
+[2016-05-28 14:25:50,558: WARNING/MainProcess] celery@iZ25vn4n5xvZ ready.
+
+2016-05-28 14:29:03,073 DEBG killing autoreload (pid 2104) with signal SIGTERM
+2016-05-28 14:29:03,074 INFO waiting for autoreload to stop
+2016-05-28 14:29:03,075 DEBG fd 9 closed, stopped monitoring <POutputDispatcher at 140160231171136 for <Subprocess at 140160231614512 with name autoreload in state STOPPING> (stdout)>
+2016-05-28 14:29:03,075 INFO stopped: autoreload (terminated by SIGTERM)
+2016-05-28 14:29:03,075 DEBG received SIGCLD indicating a child quit
+2016-05-28 14:29:03,076 DEBG killing redis-server (pid 2119) with signal SIGTERM
+2016-05-28 14:29:03,077 INFO waiting for redis-server to stop
+2016-05-28 14:29:03,077 DEBG 'redis-server' stdout output:
+[2119 | signal handler] (1464416943) Received SIGTERM, scheduling shutdown...
+
+2016-05-28 14:29:03,084 DEBG 'redis-server' stdout output:
+[2119] 28 May 14:29:03.084 # User requested shutdown...
+[2119] 28 May 14:29:03.084 * Saving the final RDB snapshot before exiting.
+
+2016-05-28 14:29:03,090 DEBG 'redis-server' stdout output:
+[2119] 28 May 14:29:03.090 * DB saved on disk
+[2119] 28 May 14:29:03.090 # Redis is now ready to exit, bye bye...
+
+2016-05-28 14:29:03,091 INFO stopped: redis-server (exit status 0)
+2016-05-28 14:29:03,091 DEBG received SIGCLD indicating a child quit
+2016-05-28 14:29:03,092 DEBG killing celery (pid 2122) with signal SIGTERM
+2016-05-28 14:29:03,096 INFO waiting for celery to stop
+2016-05-28 14:29:03,096 DEBG 'celery' stdout output:
+
+worker: Warm shutdown (MainProcess)
+
+2016-05-28 14:29:04,101 DEBG 'celery' stdout output:
+/home/shen/Documents/paperproject/mynewspaper
+ 
+ -------------- celery@iZ25vn4n5xvZ v3.1.23 (Cipater)
+---- **** ----- 
+--- * ***  * -- Linux-3.13.0-32-generic-x86_64-with-Ubuntu-14.04-trusty
+-- * - **** --- 
+- ** ---------- [config]
+- ** ---------- .> app:         default:0x7fd2de95de90 (djcelery.loaders.DjangoLoader)
+- ** ---------- .> transport:   redis://localhost:6379/0
+- ** ---------- .> results:     
+- *** --- * --- .> concurrency: 1 (prefork)
+-- ******* ---- 
+--- ***** ----- [queues]
+ -------------- .> celery           exchange=celery(direct) key=celery
+                
+
+[tasks]
+  . article.tasks.add
+  . article.tasks.instancedelete
+  . article.tasks.instancesave
+  . article.tasks.readersin
+  . article.tasks.readersout
+
+
+2016-05-28 14:29:04,670 DEBG fd 14 closed, stopped monitoring <POutputDispatcher at 140160231136360 for <Subprocess at 140160231615736 with name celery in state STOPPING> (stdout)>
+2016-05-28 14:29:04,671 INFO stopped: celery (exit status 0)
+2016-05-28 14:29:04,671 DEBG received SIGCLD indicating a child quit
+2016-05-28 14:29:04,675 INFO spawned: 'autoreload' with pid 2143
+2016-05-28 14:29:05,678 INFO success: autoreload entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-28 14:29:05,681 INFO spawned: 'redis-server' with pid 2158
+2016-05-28 14:29:05,688 DEBG 'redis-server' stdout output:
+[2158] 28 May 14:29:05.688 # Warning: no config file specified, using the default config. In order to specify a config file use redis-server /path/to/redis.conf
+
+2016-05-28 14:29:05,689 DEBG 'redis-server' stdout output:
+[2158] 28 May 14:29:05.689 * Max number of open files set to 10032
+
+2016-05-28 14:29:05,691 DEBG 'redis-server' stdout output:
+                _._                                                  
+           _.-``__ ''-._                                             
+      _.-``    `.  `_.  ''-._           Redis 2.8.4 (00000000/0) 64 bit
+  .-`` .-```.  ```\/    _.,_ ''-._                                   
+ (    '      ,       .-`  | `,    )     Running in stand alone mode
+ |`-._`-...-` __...-.``-._|'` _.-'|     Port: 6379
+ |    `-._   `._    /     _.-'    |     PID: 2158
+  `-._    `-._  `-./  _.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |           http://redis.io        
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |                                  
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+      `-._    `-.__.-'    _.-'                                       
+          `-._        _.-'                                           
+              `-.__.-'                                               
+
+
+2016-05-28 14:29:05,692 DEBG 'redis-server' stdout output:
+[2158] 28 May 14:29:05.691 # Server started, Redis version 2.8.4
+
+2016-05-28 14:29:05,692 DEBG 'redis-server' stdout output:
+[2158] 28 May 14:29:05.692 # WARNING overcommit_memory is set to 0! Background save may fail under low memory condition. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
+
+2016-05-28 14:29:05,692 DEBG 'redis-server' stdout output:
+[2158] 28 May 14:29:05.692 * DB loaded from disk: 0.000 seconds
+
+2016-05-28 14:29:05,693 DEBG 'redis-server' stdout output:
+[2158] 28 May 14:29:05.692 * The server is now ready to accept connections on port 6379
+
+2016-05-28 14:29:06,694 INFO success: redis-server entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-28 14:29:06,697 INFO spawned: 'celery' with pid 2161
+2016-05-28 14:29:07,064 DEBG 'celery' stdout output:
+/usr/local/lib/python2.7/dist-packages/django/core/management/base.py:259: RemovedInDjango19Warning: "requires_model_validation" is deprecated in favor of "requires_system_checks".
+  RemovedInDjango19Warning)
+
+
+2016-05-28 14:29:07,087 DEBG 'celery' stdout output:
+/usr/local/lib/python2.7/dist-packages/celery/platforms.py:812: RuntimeWarning: You are running the worker with superuser privileges, which is
+absolutely not recommended!
+
+Please specify a different user using the -u option.
+
+User information: uid=0 euid=0 gid=0 egid=0
+
+  uid=uid, euid=euid, gid=gid, egid=egid,
+
+
+2016-05-28 14:29:07,114 DEBG 'celery' stdout output:
+/usr/local/lib/python2.7/dist-packages/celery/apps/worker.py:161: CDeprecationWarning: 
+Starting from version 3.2 Celery will refuse to accept pickle by default.
+
+The pickle serializer is a security concern as it may give attackers
+the ability to execute any command.  It's important to secure
+your broker from unauthorized access when using pickle, so we think
+that enabling pickle should require a deliberate action and not be
+the default choice.
+
+If you depend on pickle then you should set a setting to disable this
+warning and to be sure that everything will continue working
+when you upgrade to Celery 3.2::
+
+    CELERY_ACCEPT_CONTENT = ['pickle', 'json', 'msgpack', 'yaml']
+
+You must only enable the serializers that you will actually use.
+
+
+  warnings.warn(CDeprecationWarning(W_PICKLE_DEPRECATED))
+
+
+2016-05-28 14:29:07,115 DEBG 'celery' stdout output:
+[2016-05-28 14:29:07,114: WARNING/MainProcess] /usr/local/lib/python2.7/dist-packages/celery/apps/worker.py:161: CDeprecationWarning: 
+Starting from version 3.2 Celery will refuse to accept pickle by default.
+
+The pickle serializer is a security concern as it may give attackers
+the ability to execute any command.  It's important to secure
+your broker from unauthorized access when using pickle, so we think
+that enabling pickle should require a deliberate action and not be
+the default choice.
+
+If you depend on pickle then you should set a setting to disable this
+warning and to be sure that everything will continue working
+when you upgrade to Celery 3.2::
+
+    CELERY_ACCEPT_CONTENT = ['pickle', 'json', 'msgpack', 'yaml']
+
+You must only enable the serializers that you will actually use.
+
+
+  warnings.warn(CDeprecationWarning(W_PICKLE_DEPRECATED))
+
+
+2016-05-28 14:29:07,152 DEBG 'celery' stdout output:
+[2016-05-28 14:29:07,151: INFO/MainProcess] Connected to redis://localhost:6379/0
+
+2016-05-28 14:29:07,159 DEBG 'celery' stdout output:
+[2016-05-28 14:29:07,158: INFO/MainProcess] mingle: searching for neighbors
+
+2016-05-28 14:29:08,160 INFO success: celery entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-28 14:29:08,163 DEBG 'celery' stdout output:
+[2016-05-28 14:29:08,162: INFO/MainProcess] mingle: all alone
+
+2016-05-28 14:29:08,183 DEBG 'celery' stdout output:
+/usr/local/lib/python2.7/dist-packages/djcelery/loaders.py:136: UserWarning: Using settings.DEBUG leads to a memory leak, never use this setting in production environments!
+  warn('Using settings.DEBUG leads to a memory leak, never '
+
+
+2016-05-28 14:29:08,183 DEBG 'celery' stdout output:
+[2016-05-28 14:29:08,183: WARNING/MainProcess] /usr/local/lib/python2.7/dist-packages/djcelery/loaders.py:136: UserWarning: Using settings.DEBUG leads to a memory leak, never use this setting in production environments!
+  warn('Using settings.DEBUG leads to a memory leak, never '
+
+
+2016-05-28 14:29:08,184 DEBG 'celery' stdout output:
+[2016-05-28 14:29:08,184: WARNING/MainProcess] celery@iZ25vn4n5xvZ ready.
+
+2016-05-28 14:31:43,950 DEBG killing autoreload (pid 2143) with signal SIGTERM
+2016-05-28 14:31:43,951 INFO waiting for autoreload to stop
+2016-05-28 14:31:43,952 DEBG fd 9 closed, stopped monitoring <POutputDispatcher at 140160231105528 for <Subprocess at 140160231614512 with name autoreload in state STOPPING> (stdout)>
+2016-05-28 14:31:43,952 INFO stopped: autoreload (terminated by SIGTERM)
+2016-05-28 14:31:43,952 DEBG received SIGCLD indicating a child quit
+2016-05-28 14:31:43,954 DEBG killing redis-server (pid 2158) with signal SIGTERM
+2016-05-28 14:31:43,954 INFO waiting for redis-server to stop
+2016-05-28 14:31:43,954 DEBG 'redis-server' stdout output:
+[2158 | signal handler] (1464417103) Received SIGTERM, scheduling shutdown...
+
+2016-05-28 14:31:43,994 DEBG 'redis-server' stdout output:
+[2158] 28 May 14:31:43.994 # User requested shutdown...
+[2158] 28 May 14:31:43.994 * Saving the final RDB snapshot before exiting.
+
+2016-05-28 14:31:44,000 DEBG 'redis-server' stdout output:
+[2158] 28 May 14:31:44.000 * DB saved on disk
+[2158] 28 May 14:31:44.000 # Redis is now ready to exit, bye bye...
+
+2016-05-28 14:31:44,000 DEBG fd 10 closed, stopped monitoring <POutputDispatcher at 140160231529144 for <Subprocess at 140160231615880 with name redis-server in state STOPPING> (stdout)>
+2016-05-28 14:31:44,001 INFO stopped: redis-server (exit status 0)
+2016-05-28 14:31:44,001 DEBG received SIGCLD indicating a child quit
+2016-05-28 14:31:44,002 DEBG killing celery (pid 2161) with signal SIGTERM
+2016-05-28 14:31:44,006 INFO waiting for celery to stop
+2016-05-28 14:31:44,006 DEBG 'celery' stdout output:
+
+worker: Warm shutdown (MainProcess)
+
+2016-05-28 14:31:45,011 DEBG 'celery' stdout output:
+/home/shen/Documents/paperproject/mynewspaper
+ 
+ -------------- celery@iZ25vn4n5xvZ v3.1.23 (Cipater)
+---- **** ----- 
+--- * ***  * -- Linux-3.13.0-32-generic-x86_64-with-Ubuntu-14.04-trusty
+-- * - **** --- 
+- ** ---------- [config]
+- ** ---------- .> app:         default:0x7fdaf8802e90 (djcelery.loaders.DjangoLoader)
+- ** ---------- .> transport:   redis://localhost:6379/0
+- ** ---------- .> results:     
+- *** --- * --- .> concurrency: 1 (prefork)
+-- ******* ---- 
+--- ***** ----- [queues]
+ -------------- .> celery           exchange=celery(direct) key=celery
+                
+
+[tasks]
+  . article.tasks.add
+  . article.tasks.instancedelete
+  . article.tasks.instancesave
+  . article.tasks.readersin
+  . article.tasks.readersout
+
+
+2016-05-28 14:31:45,594 DEBG fd 14 closed, stopped monitoring <POutputDispatcher at 140160231569816 for <Subprocess at 140160231615736 with name celery in state STOPPING> (stdout)>
+2016-05-28 14:31:45,594 INFO stopped: celery (exit status 0)
+2016-05-28 14:31:45,595 DEBG received SIGCLD indicating a child quit
+2016-05-28 14:31:45,599 INFO spawned: 'autoreload' with pid 2179
+2016-05-28 14:31:46,601 INFO success: autoreload entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-28 14:31:46,605 INFO spawned: 'redis-server' with pid 2194
+2016-05-28 14:31:46,612 DEBG 'redis-server' stdout output:
+[2194] 28 May 14:31:46.612 # Warning: no config file specified, using the default config. In order to specify a config file use redis-server /path/to/redis.conf
+
+2016-05-28 14:31:46,613 DEBG 'redis-server' stdout output:
+[2194] 28 May 14:31:46.613 * Max number of open files set to 10032
+
+2016-05-28 14:31:46,615 DEBG 'redis-server' stdout output:
+                _._                                                  
+           _.-``__ ''-._                                             
+      _.-``    `.  `_.  ''-._           Redis 2.8.4 (00000000/0) 64 bit
+  .-`` .-```.  ```\/    _.,_ ''-._                                   
+ (    '      ,       .-`  | `,    )     Running in stand alone mode
+ |`-._`-...-` __...-.``-._|'` _.-'|     Port: 6379
+ |    `-._   `._    /     _.-'    |     PID: 2194
+  `-._    `-._  `-./  _.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |           http://redis.io        
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |                                  
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+      `-._    `-.__.-'    _.-'                                       
+          `-._        _.-'                                           
+              `-.__.-'                                               
+
+
+2016-05-28 14:31:46,616 DEBG 'redis-server' stdout output:
+[2194] 28 May 14:31:46.615 # Server started, Redis version 2.8.4
+
+2016-05-28 14:31:46,616 DEBG 'redis-server' stdout output:
+[2194] 28 May 14:31:46.616 # WARNING overcommit_memory is set to 0! Background save may fail under low memory condition. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
+
+2016-05-28 14:31:46,616 DEBG 'redis-server' stdout output:
+[2194] 28 May 14:31:46.616 * DB loaded from disk: 0.000 seconds
+
+2016-05-28 14:31:46,617 DEBG 'redis-server' stdout output:
+[2194] 28 May 14:31:46.617 * The server is now ready to accept connections on port 6379
+
+2016-05-28 14:31:47,618 INFO success: redis-server entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-28 14:31:47,622 INFO spawned: 'celery' with pid 2197
+2016-05-28 14:31:47,987 DEBG 'celery' stdout output:
+/usr/local/lib/python2.7/dist-packages/django/core/management/base.py:259: RemovedInDjango19Warning: "requires_model_validation" is deprecated in favor of "requires_system_checks".
+  RemovedInDjango19Warning)
+
+
+2016-05-28 14:31:48,012 DEBG 'celery' stdout output:
+/usr/local/lib/python2.7/dist-packages/celery/platforms.py:812: RuntimeWarning: You are running the worker with superuser privileges, which is
+absolutely not recommended!
+
+Please specify a different user using the -u option.
+
+User information: uid=0 euid=0 gid=0 egid=0
+
+  uid=uid, euid=euid, gid=gid, egid=egid,
+
+
+2016-05-28 14:31:48,039 DEBG 'celery' stdout output:
+/usr/local/lib/python2.7/dist-packages/celery/apps/worker.py:161: CDeprecationWarning: 
+Starting from version 3.2 Celery will refuse to accept pickle by default.
+
+The pickle serializer is a security concern as it may give attackers
+the ability to execute any command.  It's important to secure
+your broker from unauthorized access when using pickle, so we think
+that enabling pickle should require a deliberate action and not be
+the default choice.
+
+If you depend on pickle then you should set a setting to disable this
+warning and to be sure that everything will continue working
+when you upgrade to Celery 3.2::
+
+    CELERY_ACCEPT_CONTENT = ['pickle', 'json', 'msgpack', 'yaml']
+
+You must only enable the serializers that you will actually use.
+
+
+  warnings.warn(CDeprecationWarning(W_PICKLE_DEPRECATED))
+
+
+2016-05-28 14:31:48,040 DEBG 'celery' stdout output:
+[2016-05-28 14:31:48,039: WARNING/MainProcess] /usr/local/lib/python2.7/dist-packages/celery/apps/worker.py:161: CDeprecationWarning: 
+Starting from version 3.2 Celery will refuse to accept pickle by default.
+
+The pickle serializer is a security concern as it may give attackers
+the ability to execute any command.  It's important to secure
+your broker from unauthorized access when using pickle, so we think
+that enabling pickle should require a deliberate action and not be
+the default choice.
+
+If you depend on pickle then you should set a setting to disable this
+warning and to be sure that everything will continue working
+when you upgrade to Celery 3.2::
+
+    CELERY_ACCEPT_CONTENT = ['pickle', 'json', 'msgpack', 'yaml']
+
+You must only enable the serializers that you will actually use.
+
+
+  warnings.warn(CDeprecationWarning(W_PICKLE_DEPRECATED))
+
+
+2016-05-28 14:31:48,076 DEBG 'celery' stdout output:
+[2016-05-28 14:31:48,075: INFO/MainProcess] Connected to redis://localhost:6379/0
+
+2016-05-28 14:31:48,083 DEBG 'celery' stdout output:
+[2016-05-28 14:31:48,083: INFO/MainProcess] mingle: searching for neighbors
+
+2016-05-28 14:31:49,085 INFO success: celery entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-28 14:31:49,093 DEBG 'celery' stdout output:
+[2016-05-28 14:31:49,093: INFO/MainProcess] mingle: all alone
+
+2016-05-28 14:31:49,108 DEBG 'celery' stdout output:
+/usr/local/lib/python2.7/dist-packages/djcelery/loaders.py:136: UserWarning: Using settings.DEBUG leads to a memory leak, never use this setting in production environments!
+  warn('Using settings.DEBUG leads to a memory leak, never '
+
+
+2016-05-28 14:31:49,109 DEBG 'celery' stdout output:
+[2016-05-28 14:31:49,108: WARNING/MainProcess] /usr/local/lib/python2.7/dist-packages/djcelery/loaders.py:136: UserWarning: Using settings.DEBUG leads to a memory leak, never use this setting in production environments!
+  warn('Using settings.DEBUG leads to a memory leak, never '
+
+
+2016-05-28 14:31:49,109 DEBG 'celery' stdout output:
+[2016-05-28 14:31:49,109: WARNING/MainProcess] celery@iZ25vn4n5xvZ ready.
+
+2016-05-28 14:45:54,478 DEBG 'celery' stdout output:
+[2016-05-28 14:45:54,478: INFO/MainProcess] Received task: article.tasks.instancesave[9020d817-047e-4606-a554-885868c0708a]
+
+2016-05-28 14:45:54,522 DEBG 'celery' stdout output:
+[2016-05-28 14:45:54,521: INFO/MainProcess] Received task: article.tasks.instancesave[070e9295-d686-4355-96dc-98d69d453886]
+
+2016-05-28 14:45:54,536 DEBG 'celery' stdout output:
+[2016-05-28 14:45:54,535: INFO/MainProcess] Received task: article.tasks.instancesave[6fb3866c-677b-4bbe-8797-2b00dd062dde]
+
+2016-05-28 14:45:54,548 DEBG 'celery' stdout output:
+[2016-05-28 14:45:54,548: INFO/MainProcess] Received task: article.tasks.instancesave[a5d9a65e-703b-4ef2-aad7-41d88888e7d4]
+
+2016-05-28 14:45:54,562 DEBG 'celery' stdout output:
+[2016-05-28 14:45:54,562: INFO/MainProcess] Task article.tasks.instancesave[9020d817-047e-4606-a554-885868c0708a] succeeded in 0.0513689899963s: 'save success!'
+
+2016-05-28 14:45:54,569 DEBG 'celery' stdout output:
+[2016-05-28 14:45:54,569: INFO/MainProcess] Received task: article.tasks.instancesave[a4473a33-935d-4d9e-96bd-68362ada8ca0]
+
+2016-05-28 14:45:54,580 DEBG 'celery' stdout output:
+[2016-05-28 14:45:54,580: INFO/MainProcess] Received task: article.tasks.instancesave[3a9bfae9-0e29-44b3-beb6-581e31109b2d]
+
+2016-05-28 14:45:54,582 DEBG 'celery' stdout output:
+[2016-05-28 14:45:54,582: INFO/MainProcess] Task article.tasks.instancesave[070e9295-d686-4355-96dc-98d69d453886] succeeded in 0.0188531179956s: 'save success!'
+
+2016-05-28 14:45:54,595 DEBG 'celery' stdout output:
+[2016-05-28 14:45:54,595: INFO/MainProcess] Received task: article.tasks.instancesave[4fbbf889-95bb-4b2f-bc75-9b44deb8012e]
+
+2016-05-28 14:45:54,597 DEBG 'celery' stdout output:
+[2016-05-28 14:45:54,597: INFO/MainProcess] Task article.tasks.instancesave[6fb3866c-677b-4bbe-8797-2b00dd062dde] succeeded in 0.0143028570019s: 'save success!'
+
+2016-05-28 14:45:54,610 DEBG 'celery' stdout output:
+[2016-05-28 14:45:54,610: INFO/MainProcess] Received task: article.tasks.instancesave[070629e1-ece8-44a1-8d92-06275ba711f9]
+
+2016-05-28 14:45:54,613 DEBG 'celery' stdout output:
+[2016-05-28 14:45:54,613: INFO/MainProcess] Task article.tasks.instancesave[a5d9a65e-703b-4ef2-aad7-41d88888e7d4] succeeded in 0.014285944002s: 'save success!'
+
+2016-05-28 14:45:54,625 DEBG 'celery' stdout output:
+[2016-05-28 14:45:54,624: INFO/MainProcess] Received task: article.tasks.instancesave[2e054e6a-d002-4f4d-981d-4d1c1c5b4750]
+
+2016-05-28 14:45:54,628 DEBG 'celery' stdout output:
+[2016-05-28 14:45:54,628: INFO/MainProcess] Task article.tasks.instancesave[a4473a33-935d-4d9e-96bd-68362ada8ca0] succeeded in 0.0143150500007s: 'save success!'
+
+2016-05-28 14:45:54,641 DEBG 'celery' stdout output:
+[2016-05-28 14:45:54,640: INFO/MainProcess] Received task: article.tasks.instancesave[10be9a9a-4aa3-4d85-bfd6-fd6056d2e000]
+
+2016-05-28 14:45:54,644 DEBG 'celery' stdout output:
+[2016-05-28 14:45:54,644: INFO/MainProcess] Task article.tasks.instancesave[3a9bfae9-0e29-44b3-beb6-581e31109b2d] succeeded in 0.0144890509982s: 'save success!'
+
+2016-05-28 14:45:54,662 DEBG 'celery' stdout output:
+[2016-05-28 14:45:54,662: INFO/MainProcess] Task article.tasks.instancesave[4fbbf889-95bb-4b2f-bc75-9b44deb8012e] succeeded in 0.016543275s: 'save success!'
+
+2016-05-28 14:45:54,678 DEBG 'celery' stdout output:
+[2016-05-28 14:45:54,678: INFO/MainProcess] Task article.tasks.instancesave[070629e1-ece8-44a1-8d92-06275ba711f9] succeeded in 0.0158100059998s: 'save success!'
+
+2016-05-28 14:45:54,698 DEBG 'celery' stdout output:
+[2016-05-28 14:45:54,698: INFO/MainProcess] Task article.tasks.instancesave[2e054e6a-d002-4f4d-981d-4d1c1c5b4750] succeeded in 0.0184007249991s: 'save success!'
+
+2016-05-28 14:45:54,712 DEBG 'celery' stdout output:
+[2016-05-28 14:45:54,712: INFO/MainProcess] Task article.tasks.instancesave[10be9a9a-4aa3-4d85-bfd6-fd6056d2e000] succeeded in 0.013181125003s: 'save success!'
+
+2016-05-28 14:46:04,693 DEBG 'celery' stdout output:
+[2016-05-28 14:46:04,693: INFO/MainProcess] Received task: article.tasks.instancesave[7c4a7945-4908-48ca-a4d8-e6c3fba5789f]
+
+2016-05-28 14:46:04,707 DEBG 'celery' stdout output:
+[2016-05-28 14:46:04,707: INFO/MainProcess] Received task: article.tasks.instancesave[3c2d4d39-69cc-4868-93fb-dbf30c019ed8]
+
+2016-05-28 14:46:04,714 DEBG 'celery' stdout output:
+[2016-05-28 14:46:04,714: INFO/MainProcess] Task article.tasks.instancesave[7c4a7945-4908-48ca-a4d8-e6c3fba5789f] succeeded in 0.0173085450006s: 'save success!'
+
+2016-05-28 14:46:04,724 DEBG 'celery' stdout output:
+[2016-05-28 14:46:04,723: INFO/MainProcess] Received task: article.tasks.instancesave[8a7056ec-b7bc-4922-a1a5-c89d1c918275]
+
+2016-05-28 14:46:04,726 DEBG 'celery' stdout output:
+[2016-05-28 14:46:04,726: INFO/MainProcess] Task article.tasks.instancesave[3c2d4d39-69cc-4868-93fb-dbf30c019ed8] succeeded in 0.0114156049967s: 'save success!'
+
+2016-05-28 14:46:04,740 DEBG 'celery' stdout output:
+[2016-05-28 14:46:04,740: INFO/MainProcess] Task article.tasks.instancesave[8a7056ec-b7bc-4922-a1a5-c89d1c918275] succeeded in 0.0125100470032s: 'save success!'
+
+2016-05-28 15:08:45,119 DEBG killing autoreload (pid 2179) with signal SIGTERM
+2016-05-28 15:08:45,119 INFO waiting for autoreload to stop
+2016-05-28 15:08:45,121 DEBG fd 9 closed, stopped monitoring <POutputDispatcher at 140160231078872 for <Subprocess at 140160231614512 with name autoreload in state STOPPING> (stdout)>
+2016-05-28 15:08:45,121 INFO stopped: autoreload (terminated by SIGTERM)
+2016-05-28 15:08:45,121 DEBG received SIGCLD indicating a child quit
+2016-05-28 15:08:45,122 DEBG killing redis-server (pid 2194) with signal SIGTERM
+2016-05-28 15:08:45,122 INFO waiting for redis-server to stop
+2016-05-28 15:08:45,123 DEBG 'redis-server' stdout output:
+[2194 | signal handler] (1464419325) Received SIGTERM, scheduling shutdown...
+
+2016-05-28 15:08:45,194 DEBG 'redis-server' stdout output:
+[2194] 28 May 15:08:45.193 # User requested shutdown...
+[2194] 28 May 15:08:45.193 * Saving the final RDB snapshot before exiting.
+
+2016-05-28 15:08:45,200 DEBG 'redis-server' stdout output:
+[2194] 28 May 15:08:45.199 * DB saved on disk
+[2194] 28 May 15:08:45.199 # Redis is now ready to exit, bye bye...
+
+2016-05-28 15:08:45,200 DEBG fd 10 closed, stopped monitoring <POutputDispatcher at 140160231172936 for <Subprocess at 140160231615880 with name redis-server in state STOPPING> (stdout)>
+2016-05-28 15:08:45,200 INFO stopped: redis-server (exit status 0)
+2016-05-28 15:08:45,200 DEBG received SIGCLD indicating a child quit
+2016-05-28 15:08:45,202 DEBG killing celery (pid 2197) with signal SIGTERM
+2016-05-28 15:08:45,206 INFO waiting for celery to stop
+2016-05-28 15:08:45,207 DEBG 'celery' stdout output:
+
+worker: Warm shutdown (MainProcess)
+
+2016-05-28 15:08:46,211 DEBG 'celery' stdout output:
+/home/shen/Documents/paperproject/mynewspaper
+ 
+ -------------- celery@iZ25vn4n5xvZ v3.1.23 (Cipater)
+---- **** ----- 
+--- * ***  * -- Linux-3.13.0-32-generic-x86_64-with-Ubuntu-14.04-trusty
+-- * - **** --- 
+- ** ---------- [config]
+- ** ---------- .> app:         default:0x7f32d8118e90 (djcelery.loaders.DjangoLoader)
+- ** ---------- .> transport:   redis://localhost:6379/0
+- ** ---------- .> results:     
+- *** --- * --- .> concurrency: 1 (prefork)
+-- ******* ---- 
+--- ***** ----- [queues]
+ -------------- .> celery           exchange=celery(direct) key=celery
+                
+
+[tasks]
+  . article.tasks.add
+  . article.tasks.instancedelete
+  . article.tasks.instancesave
+  . article.tasks.readersin
+  . article.tasks.readersout
+
+
+2016-05-28 15:08:46,780 DEBG fd 14 closed, stopped monitoring <POutputDispatcher at 140160231199088 for <Subprocess at 140160231615736 with name celery in state STOPPING> (stdout)>
+2016-05-28 15:08:46,780 INFO stopped: celery (exit status 0)
+2016-05-28 15:08:46,780 DEBG received SIGCLD indicating a child quit
+2016-05-28 15:08:46,785 INFO spawned: 'autoreload' with pid 2900
+2016-05-28 15:08:47,787 INFO success: autoreload entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-28 15:08:47,791 INFO spawned: 'redis-server' with pid 2915
+2016-05-28 15:08:47,814 DEBG 'redis-server' stdout output:
+[2915] 28 May 15:08:47.814 # Warning: no config file specified, using the default config. In order to specify a config file use redis-server /path/to/redis.conf
+
+2016-05-28 15:08:47,815 DEBG 'redis-server' stdout output:
+[2915] 28 May 15:08:47.815 * Max number of open files set to 10032
+
+2016-05-28 15:08:47,817 DEBG 'redis-server' stdout output:
+                _._                                                  
+           _.-``__ ''-._                                             
+      _.-``    `.  `_.  ''-._           Redis 2.8.4 (00000000/0) 64 bit
+  .-`` .-```.  ```\/    _.,_ ''-._                                   
+ (    '      ,       .-`  | `,    )     Running in stand alone mode
+ |`-._`-...-` __...-.``-._|'` _.-'|     Port: 6379
+ |    `-._   `._    /     _.-'    |     PID: 2915
+  `-._    `-._  `-./  _.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |           http://redis.io        
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |                                  
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+      `-._    `-.__.-'    _.-'                                       
+          `-._        _.-'                                           
+              `-.__.-'                                               
+
+
+2016-05-28 15:08:47,817 DEBG 'redis-server' stdout output:
+[2915] 28 May 15:08:47.817 # Server started, Redis version 2.8.4
+
+2016-05-28 15:08:47,818 DEBG 'redis-server' stdout output:
+[2915] 28 May 15:08:47.818 # WARNING overcommit_memory is set to 0! Background save may fail under low memory condition. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
+
+2016-05-28 15:08:47,818 DEBG 'redis-server' stdout output:
+[2915] 28 May 15:08:47.818 * DB loaded from disk: 0.000 seconds
+
+2016-05-28 15:08:47,818 DEBG 'redis-server' stdout output:
+[2915] 28 May 15:08:47.818 * The server is now ready to accept connections on port 6379
+
+2016-05-28 15:08:48,820 INFO success: redis-server entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-28 15:08:48,823 INFO spawned: 'celery' with pid 2918
+2016-05-28 15:08:49,199 DEBG 'celery' stdout output:
+/usr/local/lib/python2.7/dist-packages/django/core/management/base.py:259: RemovedInDjango19Warning: "requires_model_validation" is deprecated in favor of "requires_system_checks".
+  RemovedInDjango19Warning)
+
+
+2016-05-28 15:08:49,246 DEBG 'celery' stdout output:
+/usr/local/lib/python2.7/dist-packages/celery/platforms.py:812: RuntimeWarning: You are running the worker with superuser privileges, which is
+absolutely not recommended!
+
+Please specify a different user using the -u option.
+
+User information: uid=0 euid=0 gid=0 egid=0
+
+  uid=uid, euid=euid, gid=gid, egid=egid,
+
+
+2016-05-28 15:08:49,307 DEBG 'celery' stdout output:
+/usr/local/lib/python2.7/dist-packages/celery/apps/worker.py:161: CDeprecationWarning: 
+Starting from version 3.2 Celery will refuse to accept pickle by default.
+
+The pickle serializer is a security concern as it may give attackers
+the ability to execute any command.  It's important to secure
+your broker from unauthorized access when using pickle, so we think
+that enabling pickle should require a deliberate action and not be
+the default choice.
+
+If you depend on pickle then you should set a setting to disable this
+warning and to be sure that everything will continue working
+when you upgrade to Celery 3.2::
+
+    CELERY_ACCEPT_CONTENT = ['pickle', 'json', 'msgpack', 'yaml']
+
+You must only enable the serializers that you will actually use.
+
+
+  warnings.warn(CDeprecationWarning(W_PICKLE_DEPRECATED))
+
+
+2016-05-28 15:08:49,308 DEBG 'celery' stdout output:
+[2016-05-28 15:08:49,307: WARNING/MainProcess] /usr/local/lib/python2.7/dist-packages/celery/apps/worker.py:161: CDeprecationWarning: 
+Starting from version 3.2 Celery will refuse to accept pickle by default.
+
+The pickle serializer is a security concern as it may give attackers
+the ability to execute any command.  It's important to secure
+your broker from unauthorized access when using pickle, so we think
+that enabling pickle should require a deliberate action and not be
+the default choice.
+
+If you depend on pickle then you should set a setting to disable this
+warning and to be sure that everything will continue working
+when you upgrade to Celery 3.2::
+
+    CELERY_ACCEPT_CONTENT = ['pickle', 'json', 'msgpack', 'yaml']
+
+You must only enable the serializers that you will actually use.
+
+
+  warnings.warn(CDeprecationWarning(W_PICKLE_DEPRECATED))
+
+
+2016-05-28 15:08:49,377 DEBG 'celery' stdout output:
+[2016-05-28 15:08:49,377: INFO/MainProcess] Connected to redis://localhost:6379/0
+
+2016-05-28 15:08:49,384 DEBG 'celery' stdout output:
+[2016-05-28 15:08:49,384: INFO/MainProcess] mingle: searching for neighbors
+
+2016-05-28 15:08:50,386 INFO success: celery entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-28 15:08:50,390 DEBG 'celery' stdout output:
+[2016-05-28 15:08:50,389: INFO/MainProcess] mingle: all alone
+
+2016-05-28 15:08:50,412 DEBG 'celery' stdout output:
+/usr/local/lib/python2.7/dist-packages/djcelery/loaders.py:136: UserWarning: Using settings.DEBUG leads to a memory leak, never use this setting in production environments!
+  warn('Using settings.DEBUG leads to a memory leak, never '
+
+
+2016-05-28 15:08:50,413 DEBG 'celery' stdout output:
+[2016-05-28 15:08:50,411: WARNING/MainProcess] /usr/local/lib/python2.7/dist-packages/djcelery/loaders.py:136: UserWarning: Using settings.DEBUG leads to a memory leak, never use this setting in production environments!
+  warn('Using settings.DEBUG leads to a memory leak, never '
+
+[2016-05-28 15:08:50,411: WARNING/MainProcess] celery@iZ25vn4n5xvZ ready.
+
+2016-05-28 15:10:33,840 DEBG killing autoreload (pid 2900) with signal SIGTERM
+2016-05-28 15:10:33,841 INFO waiting for autoreload to stop
+2016-05-28 15:10:33,846 DEBG fd 9 closed, stopped monitoring <POutputDispatcher at 140160231570968 for <Subprocess at 140160231614512 with name autoreload in state STOPPING> (stdout)>
+2016-05-28 15:10:33,846 INFO stopped: autoreload (terminated by SIGTERM)
+2016-05-28 15:10:33,847 DEBG received SIGCLD indicating a child quit
+2016-05-28 15:10:33,848 DEBG killing redis-server (pid 2915) with signal SIGTERM
+2016-05-28 15:10:33,848 INFO waiting for redis-server to stop
+2016-05-28 15:10:33,848 DEBG 'redis-server' stdout output:
+[2915 | signal handler] (1464419433) Received SIGTERM, scheduling shutdown...
+
+2016-05-28 15:10:33,861 DEBG 'redis-server' stdout output:
+[2915] 28 May 15:10:33.861 # User requested shutdown...
+[2915] 28 May 15:10:33.861 * Saving the final RDB snapshot before exiting.
+
+2016-05-28 15:10:33,869 DEBG 'redis-server' stdout output:
+[2915] 28 May 15:10:33.869 * DB saved on disk
+[2915] 28 May 15:10:33.869 # Redis is now ready to exit, bye bye...
+
+2016-05-28 15:10:33,870 DEBG fd 10 closed, stopped monitoring <POutputDispatcher at 140160231567512 for <Subprocess at 140160231615880 with name redis-server in state STOPPING> (stdout)>
+2016-05-28 15:10:33,870 INFO stopped: redis-server (exit status 0)
+2016-05-28 15:10:33,870 DEBG received SIGCLD indicating a child quit
+2016-05-28 15:10:33,871 DEBG killing celery (pid 2918) with signal SIGTERM
+2016-05-28 15:10:33,875 INFO waiting for celery to stop
+2016-05-28 15:10:33,876 DEBG 'celery' stdout output:
+
+worker: Warm shutdown (MainProcess)
+
+2016-05-28 15:10:34,882 DEBG 'celery' stdout output:
+/home/shen/Documents/paperproject/mynewspaper
+ 
+ -------------- celery@iZ25vn4n5xvZ v3.1.23 (Cipater)
+---- **** ----- 
+--- * ***  * -- Linux-3.13.0-32-generic-x86_64-with-Ubuntu-14.04-trusty
+-- * - **** --- 
+- ** ---------- [config]
+- ** ---------- .> app:         default:0x7f92cd5fee90 (djcelery.loaders.DjangoLoader)
+- ** ---------- .> transport:   redis://localhost:6379/0
+- ** ---------- .> results:     
+- *** --- * --- .> concurrency: 1 (prefork)
+-- ******* ---- 
+--- ***** ----- [queues]
+ -------------- .> celery           exchange=celery(direct) key=celery
+                
+
+[tasks]
+  . article.tasks.add
+  . article.tasks.instancedelete
+  . article.tasks.instancesave
+  . article.tasks.readersin
+  . article.tasks.readersout
+
+
+2016-05-28 15:10:35,450 DEBG received SIGCLD indicating a child quit
+2016-05-28 15:10:35,450 DEBG fd 14 closed, stopped monitoring <POutputDispatcher at 140160248060384 for <Subprocess at 140160231615736 with name celery in state STOPPING> (stdout)>
+2016-05-28 15:10:35,450 INFO stopped: celery (exit status 0)
+2016-05-28 15:10:35,455 INFO spawned: 'autoreload' with pid 2976
+2016-05-28 15:10:36,457 INFO success: autoreload entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-28 15:10:36,460 INFO spawned: 'redis-server' with pid 2991
+2016-05-28 15:10:36,468 DEBG 'redis-server' stdout output:
+[2991] 28 May 15:10:36.468 # Warning: no config file specified, using the default config. In order to specify a config file use redis-server /path/to/redis.conf
+
+2016-05-28 15:10:36,469 DEBG 'redis-server' stdout output:
+[2991] 28 May 15:10:36.469 * Max number of open files set to 10032
+
+2016-05-28 15:10:36,471 DEBG 'redis-server' stdout output:
+                _._                                                  
+           _.-``__ ''-._                                             
+      _.-``    `.  `_.  ''-._           Redis 2.8.4 (00000000/0) 64 bit
+  .-`` .-```.  ```\/    _.,_ ''-._                                   
+ (    '      ,       .-`  | `,    )     Running in stand alone mode
+ |`-._`-...-` __...-.``-._|'` _.-'|     Port: 6379
+ |    `-._   `._    /     _.-'    |     PID: 2991
+  `-._    `-._  `-./  _.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |           http://redis.io        
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |                                  
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+      `-._    `-.__.-'    _.-'                                       
+          `-._        _.-'                                           
+              `-.__.-'                                               
+
+
+2016-05-28 15:10:36,471 DEBG 'redis-server' stdout output:
+[2991] 28 May 15:10:36.471 # Server started, Redis version 2.8.4
+
+2016-05-28 15:10:36,472 DEBG 'redis-server' stdout output:
+[2991] 28 May 15:10:36.472 # WARNING overcommit_memory is set to 0! Background save may fail under low memory condition. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
+
+2016-05-28 15:10:36,472 DEBG 'redis-server' stdout output:
+[2991] 28 May 15:10:36.472 * DB loaded from disk: 0.000 seconds
+
+2016-05-28 15:10:36,472 DEBG 'redis-server' stdout output:
+[2991] 28 May 15:10:36.472 * The server is now ready to accept connections on port 6379
+
+2016-05-28 15:10:37,474 INFO success: redis-server entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-28 15:10:37,477 INFO spawned: 'celery' with pid 2994
+2016-05-28 15:10:37,856 DEBG 'celery' stdout output:
+/usr/local/lib/python2.7/dist-packages/django/core/management/base.py:259: RemovedInDjango19Warning: "requires_model_validation" is deprecated in favor of "requires_system_checks".
+  RemovedInDjango19Warning)
+
+
+2016-05-28 15:10:37,880 DEBG 'celery' stdout output:
+/usr/local/lib/python2.7/dist-packages/celery/platforms.py:812: RuntimeWarning: You are running the worker with superuser privileges, which is
+absolutely not recommended!
+
+Please specify a different user using the -u option.
+
+User information: uid=0 euid=0 gid=0 egid=0
+
+  uid=uid, euid=euid, gid=gid, egid=egid,
+
+
+2016-05-28 15:10:37,908 DEBG 'celery' stdout output:
+/usr/local/lib/python2.7/dist-packages/celery/apps/worker.py:161: CDeprecationWarning: 
+Starting from version 3.2 Celery will refuse to accept pickle by default.
+
+The pickle serializer is a security concern as it may give attackers
+the ability to execute any command.  It's important to secure
+your broker from unauthorized access when using pickle, so we think
+that enabling pickle should require a deliberate action and not be
+the default choice.
+
+If you depend on pickle then you should set a setting to disable this
+warning and to be sure that everything will continue working
+when you upgrade to Celery 3.2::
+
+    CELERY_ACCEPT_CONTENT = ['pickle', 'json', 'msgpack', 'yaml']
+
+You must only enable the serializers that you will actually use.
+
+
+  warnings.warn(CDeprecationWarning(W_PICKLE_DEPRECATED))
+
+
+2016-05-28 15:10:37,909 DEBG 'celery' stdout output:
+[2016-05-28 15:10:37,908: WARNING/MainProcess] /usr/local/lib/python2.7/dist-packages/celery/apps/worker.py:161: CDeprecationWarning: 
+Starting from version 3.2 Celery will refuse to accept pickle by default.
+
+The pickle serializer is a security concern as it may give attackers
+the ability to execute any command.  It's important to secure
+your broker from unauthorized access when using pickle, so we think
+that enabling pickle should require a deliberate action and not be
+the default choice.
+
+If you depend on pickle then you should set a setting to disable this
+warning and to be sure that everything will continue working
+when you upgrade to Celery 3.2::
+
+    CELERY_ACCEPT_CONTENT = ['pickle', 'json', 'msgpack', 'yaml']
+
+You must only enable the serializers that you will actually use.
+
+
+  warnings.warn(CDeprecationWarning(W_PICKLE_DEPRECATED))
+
+
+2016-05-28 15:10:37,947 DEBG 'celery' stdout output:
+[2016-05-28 15:10:37,947: INFO/MainProcess] Connected to redis://localhost:6379/0
+
+2016-05-28 15:10:37,954 DEBG 'celery' stdout output:
+[2016-05-28 15:10:37,954: INFO/MainProcess] mingle: searching for neighbors
+
+2016-05-28 15:10:38,955 INFO success: celery entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-28 15:10:38,966 DEBG 'celery' stdout output:
+[2016-05-28 15:10:38,966: INFO/MainProcess] mingle: all alone
+
+2016-05-28 15:10:38,980 DEBG 'celery' stdout output:
+/usr/local/lib/python2.7/dist-packages/djcelery/loaders.py:136: UserWarning: Using settings.DEBUG leads to a memory leak, never use this setting in production environments!
+  warn('Using settings.DEBUG leads to a memory leak, never '
+
+
+2016-05-28 15:10:38,981 DEBG 'celery' stdout output:
+[2016-05-28 15:10:38,980: WARNING/MainProcess] /usr/local/lib/python2.7/dist-packages/djcelery/loaders.py:136: UserWarning: Using settings.DEBUG leads to a memory leak, never use this setting in production environments!
+  warn('Using settings.DEBUG leads to a memory leak, never '
+
+
+2016-05-28 15:10:38,981 DEBG 'celery' stdout output:
+[2016-05-28 15:10:38,981: WARNING/MainProcess] celery@iZ25vn4n5xvZ ready.
+
+2016-05-28 15:12:21,966 DEBG killing autoreload (pid 2976) with signal SIGTERM
+2016-05-28 15:12:21,968 INFO waiting for autoreload to stop
+2016-05-28 15:12:21,968 DEBG fd 9 closed, stopped monitoring <POutputDispatcher at 140160231170416 for <Subprocess at 140160231614512 with name autoreload in state STOPPING> (stdout)>
+2016-05-28 15:12:21,968 INFO stopped: autoreload (terminated by SIGTERM)
+2016-05-28 15:12:21,968 DEBG received SIGCLD indicating a child quit
+2016-05-28 15:12:21,970 DEBG killing redis-server (pid 2991) with signal SIGTERM
+2016-05-28 15:12:21,970 INFO waiting for redis-server to stop
+2016-05-28 15:12:21,970 DEBG 'redis-server' stdout output:
+[2991 | signal handler] (1464419541) Received SIGTERM, scheduling shutdown...
+
+2016-05-28 15:12:22,005 DEBG 'redis-server' stdout output:
+[2991] 28 May 15:12:22.005 # User requested shutdown...
+[2991] 28 May 15:12:22.005 * Saving the final RDB snapshot before exiting.
+
+2016-05-28 15:12:22,011 DEBG 'redis-server' stdout output:
+[2991] 28 May 15:12:22.011 * DB saved on disk
+[2991] 28 May 15:12:22.011 # Redis is now ready to exit, bye bye...
+
+2016-05-28 15:12:22,012 INFO stopped: redis-server (exit status 0)
+2016-05-28 15:12:22,012 DEBG received SIGCLD indicating a child quit
+2016-05-28 15:12:22,013 DEBG killing celery (pid 2994) with signal SIGTERM
+2016-05-28 15:12:22,017 INFO waiting for celery to stop
+2016-05-28 15:12:22,018 DEBG 'celery' stdout output:
+
+worker: Warm shutdown (MainProcess)
+
+2016-05-28 15:12:23,022 DEBG 'celery' stdout output:
+/home/shen/Documents/paperproject/mynewspaper
+ 
+ -------------- celery@iZ25vn4n5xvZ v3.1.23 (Cipater)
+---- **** ----- 
+--- * ***  * -- Linux-3.13.0-32-generic-x86_64-with-Ubuntu-14.04-trusty
+-- * - **** --- 
+- ** ---------- [config]
+- ** ---------- .> app:         default:0x7f49d2e9be90 (djcelery.loaders.DjangoLoader)
+- ** ---------- .> transport:   redis://localhost:6379/0
+- ** ---------- .> results:     
+- *** --- * --- .> concurrency: 1 (prefork)
+-- ******* ---- 
+--- ***** ----- [queues]
+ -------------- .> celery           exchange=celery(direct) key=celery
+                
+
+[tasks]
+  . article.tasks.add
+  . article.tasks.instancedelete
+  . article.tasks.instancesave
+  . article.tasks.readersin
+  . article.tasks.readersout
+
+
+2016-05-28 15:12:23,586 DEBG fd 14 closed, stopped monitoring <POutputDispatcher at 140160231134272 for <Subprocess at 140160231615736 with name celery in state STOPPING> (stdout)>
+2016-05-28 15:12:23,586 INFO stopped: celery (exit status 0)
+2016-05-28 15:12:23,587 DEBG received SIGCLD indicating a child quit
+2016-05-28 15:12:23,591 INFO spawned: 'autoreload' with pid 3065
+2016-05-28 15:12:24,593 INFO success: autoreload entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-28 15:12:24,597 INFO spawned: 'redis-server' with pid 3088
+2016-05-28 15:12:24,607 DEBG 'redis-server' stdout output:
+[3088] 28 May 15:12:24.607 # Warning: no config file specified, using the default config. In order to specify a config file use redis-server /path/to/redis.conf
+
+2016-05-28 15:12:24,608 DEBG 'redis-server' stdout output:
+[3088] 28 May 15:12:24.608 * Max number of open files set to 10032
+
+2016-05-28 15:12:24,609 DEBG 'redis-server' stdout output:
+                _._                                                  
+           _.-``__ ''-._                                             
+      _.-``    `.  `_.  ''-._           Redis 2.8.4 (00000000/0) 64 bit
+  .-`` .-```.  ```\/    _.,_ ''-._                                   
+ (    '      ,       .-`  | `,    )     Running in stand alone mode
+ |`-._`-...-` __...-.``-._|'` _.-'|     Port: 6379
+ |    `-._   `._    /     _.-'    |     PID: 3088
+  `-._    `-._  `-./  _.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |           http://redis.io        
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |                                  
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+      `-._    `-.__.-'    _.-'                                       
+          `-._        _.-'                                           
+              `-.__.-'                                               
+
+
+2016-05-28 15:12:24,610 DEBG 'redis-server' stdout output:
+[3088] 28 May 15:12:24.610 # Server started, Redis version 2.8.4
+
+2016-05-28 15:12:24,611 DEBG 'redis-server' stdout output:
+[3088] 28 May 15:12:24.610 # WARNING overcommit_memory is set to 0! Background save may fail under low memory condition. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
+
+2016-05-28 15:12:24,611 DEBG 'redis-server' stdout output:
+[3088] 28 May 15:12:24.611 * DB loaded from disk: 0.000 seconds
+
+2016-05-28 15:12:24,611 DEBG 'redis-server' stdout output:
+[3088] 28 May 15:12:24.611 * The server is now ready to accept connections on port 6379
+
+2016-05-28 15:12:25,613 INFO success: redis-server entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-28 15:12:25,616 INFO spawned: 'celery' with pid 3092
+2016-05-28 15:12:25,999 DEBG 'celery' stdout output:
+/usr/local/lib/python2.7/dist-packages/django/core/management/base.py:259: RemovedInDjango19Warning: "requires_model_validation" is deprecated in favor of "requires_system_checks".
+  RemovedInDjango19Warning)
+
+
+2016-05-28 15:12:26,023 DEBG 'celery' stdout output:
+/usr/local/lib/python2.7/dist-packages/celery/platforms.py:812: RuntimeWarning: You are running the worker with superuser privileges, which is
+absolutely not recommended!
+
+Please specify a different user using the -u option.
+
+User information: uid=0 euid=0 gid=0 egid=0
+
+  uid=uid, euid=euid, gid=gid, egid=egid,
+
+
+2016-05-28 15:12:26,050 DEBG 'celery' stdout output:
+/usr/local/lib/python2.7/dist-packages/celery/apps/worker.py:161: CDeprecationWarning: 
+Starting from version 3.2 Celery will refuse to accept pickle by default.
+
+The pickle serializer is a security concern as it may give attackers
+the ability to execute any command.  It's important to secure
+your broker from unauthorized access when using pickle, so we think
+that enabling pickle should require a deliberate action and not be
+the default choice.
+
+If you depend on pickle then you should set a setting to disable this
+warning and to be sure that everything will continue working
+when you upgrade to Celery 3.2::
+
+    CELERY_ACCEPT_CONTENT = ['pickle', 'json', 'msgpack', 'yaml']
+
+You must only enable the serializers that you will actually use.
+
+
+  warnings.warn(CDeprecationWarning(W_PICKLE_DEPRECATED))
+
+
+2016-05-28 15:12:26,051 DEBG 'celery' stdout output:
+[2016-05-28 15:12:26,050: WARNING/MainProcess] /usr/local/lib/python2.7/dist-packages/celery/apps/worker.py:161: CDeprecationWarning: 
+Starting from version 3.2 Celery will refuse to accept pickle by default.
+
+The pickle serializer is a security concern as it may give attackers
+the ability to execute any command.  It's important to secure
+your broker from unauthorized access when using pickle, so we think
+that enabling pickle should require a deliberate action and not be
+the default choice.
+
+If you depend on pickle then you should set a setting to disable this
+warning and to be sure that everything will continue working
+when you upgrade to Celery 3.2::
+
+    CELERY_ACCEPT_CONTENT = ['pickle', 'json', 'msgpack', 'yaml']
+
+You must only enable the serializers that you will actually use.
+
+
+  warnings.warn(CDeprecationWarning(W_PICKLE_DEPRECATED))
+
+
+2016-05-28 15:12:26,094 DEBG 'celery' stdout output:
+[2016-05-28 15:12:26,093: INFO/MainProcess] Connected to redis://localhost:6379/0
+
+2016-05-28 15:12:26,102 DEBG 'celery' stdout output:
+[2016-05-28 15:12:26,101: INFO/MainProcess] mingle: searching for neighbors
+
+2016-05-28 15:12:27,104 INFO success: celery entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-28 15:12:27,108 DEBG 'celery' stdout output:
+[2016-05-28 15:12:27,107: INFO/MainProcess] mingle: all alone
+
+2016-05-28 15:12:27,128 DEBG 'celery' stdout output:
+/usr/local/lib/python2.7/dist-packages/djcelery/loaders.py:136: UserWarning: Using settings.DEBUG leads to a memory leak, never use this setting in production environments!
+  warn('Using settings.DEBUG leads to a memory leak, never '
+
+
+2016-05-28 15:12:27,129 DEBG 'celery' stdout output:
+[2016-05-28 15:12:27,128: WARNING/MainProcess] /usr/local/lib/python2.7/dist-packages/djcelery/loaders.py:136: UserWarning: Using settings.DEBUG leads to a memory leak, never use this setting in production environments!
+  warn('Using settings.DEBUG leads to a memory leak, never '
+
+
+2016-05-28 15:12:27,129 DEBG 'celery' stdout output:
+[2016-05-28 15:12:27,129: WARNING/MainProcess] celery@iZ25vn4n5xvZ ready.
+
+2016-05-28 15:12:35,826 DEBG killing autoreload (pid 3065) with signal SIGTERM
+2016-05-28 15:12:35,826 INFO waiting for autoreload to stop
+2016-05-28 15:12:35,828 DEBG fd 9 closed, stopped monitoring <POutputDispatcher at 140160231135280 for <Subprocess at 140160231614512 with name autoreload in state STOPPING> (stdout)>
+2016-05-28 15:12:35,828 INFO stopped: autoreload (terminated by SIGTERM)
+2016-05-28 15:12:35,828 DEBG received SIGCLD indicating a child quit
+2016-05-28 15:12:35,830 DEBG killing redis-server (pid 3088) with signal SIGTERM
+2016-05-28 15:12:35,830 INFO waiting for redis-server to stop
+2016-05-28 15:12:35,831 DEBG 'redis-server' stdout output:
+[3088 | signal handler] (1464419555) Received SIGTERM, scheduling shutdown...
+
+2016-05-28 15:12:35,926 DEBG 'redis-server' stdout output:
+[3088] 28 May 15:12:35.925 # User requested shutdown...
+[3088] 28 May 15:12:35.925 * Saving the final RDB snapshot before exiting.
+
+2016-05-28 15:12:35,932 DEBG 'redis-server' stdout output:
+[3088] 28 May 15:12:35.931 * DB saved on disk
+[3088] 28 May 15:12:35.931 # Redis is now ready to exit, bye bye...
+
+2016-05-28 15:12:35,932 DEBG fd 10 closed, stopped monitoring <POutputDispatcher at 140160231133336 for <Subprocess at 140160231615880 with name redis-server in state STOPPING> (stdout)>
+2016-05-28 15:12:35,932 INFO stopped: redis-server (exit status 0)
+2016-05-28 15:12:35,932 DEBG received SIGCLD indicating a child quit
+2016-05-28 15:12:35,934 DEBG killing celery (pid 3092) with signal SIGTERM
+2016-05-28 15:12:35,938 INFO waiting for celery to stop
+2016-05-28 15:12:35,938 DEBG 'celery' stdout output:
+
+worker: Warm shutdown (MainProcess)
+
+2016-05-28 15:12:36,942 DEBG 'celery' stdout output:
+/home/shen/Documents/paperproject/mynewspaper
+ 
+ -------------- celery@iZ25vn4n5xvZ v3.1.23 (Cipater)
+---- **** ----- 
+--- * ***  * -- Linux-3.13.0-32-generic-x86_64-with-Ubuntu-14.04-trusty
+-- * - **** --- 
+- ** ---------- [config]
+- ** ---------- .> app:         default:0x7f8ec9c34e90 (djcelery.loaders.DjangoLoader)
+- ** ---------- .> transport:   redis://localhost:6379/0
+- ** ---------- .> results:     
+- *** --- * --- .> concurrency: 1 (prefork)
+-- ******* ---- 
+--- ***** ----- [queues]
+ -------------- .> celery           exchange=celery(direct) key=celery
+                
+
+[tasks]
+  . article.tasks.add
+  . article.tasks.instancedelete
+  . article.tasks.instancesave
+  . article.tasks.readersin
+  . article.tasks.readersout
+
+
+2016-05-28 15:12:37,515 DEBG fd 14 closed, stopped monitoring <POutputDispatcher at 140160231529216 for <Subprocess at 140160231615736 with name celery in state STOPPING> (stdout)>
+2016-05-28 15:12:37,516 INFO stopped: celery (exit status 0)
+2016-05-28 15:12:37,516 DEBG received SIGCLD indicating a child quit
+2016-05-28 15:12:37,520 INFO spawned: 'autoreload' with pid 3099
+2016-05-28 15:12:38,522 INFO success: autoreload entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-28 15:12:38,526 INFO spawned: 'redis-server' with pid 3114
+2016-05-28 15:12:38,533 DEBG 'redis-server' stdout output:
+[3114] 28 May 15:12:38.533 # Warning: no config file specified, using the default config. In order to specify a config file use redis-server /path/to/redis.conf
+
+2016-05-28 15:12:38,535 DEBG 'redis-server' stdout output:
+[3114] 28 May 15:12:38.535 * Max number of open files set to 10032
+
+2016-05-28 15:12:38,536 DEBG 'redis-server' stdout output:
+                _._                                                  
+           _.-``__ ''-._                                             
+      _.-``    `.  `_.  ''-._           Redis 2.8.4 (00000000/0) 64 bit
+  .-`` .-```.  ```\/    _.,_ ''-._                                   
+ (    '      ,       .-`  | `,    )     Running in stand alone mode
+ |`-._`-...-` __...-.``-._|'` _.-'|     Port: 6379
+ |    `-._   `._    /     _.-'    |     PID: 3114
+  `-._    `-._  `-./  _.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |           http://redis.io        
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |                                  
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+      `-._    `-.__.-'    _.-'                                       
+          `-._        _.-'                                           
+              `-.__.-'                                               
+
+
+2016-05-28 15:12:38,537 DEBG 'redis-server' stdout output:
+[3114] 28 May 15:12:38.537 # Server started, Redis version 2.8.4
+
+2016-05-28 15:12:38,537 DEBG 'redis-server' stdout output:
+[3114] 28 May 15:12:38.537 # WARNING overcommit_memory is set to 0! Background save may fail under low memory condition. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
+
+2016-05-28 15:12:38,538 DEBG 'redis-server' stdout output:
+[3114] 28 May 15:12:38.538 * DB loaded from disk: 0.000 seconds
+
+2016-05-28 15:12:38,538 DEBG 'redis-server' stdout output:
+[3114] 28 May 15:12:38.538 * The server is now ready to accept connections on port 6379
+
+2016-05-28 15:12:39,539 INFO success: redis-server entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-28 15:12:39,543 INFO spawned: 'celery' with pid 3117
+2016-05-28 15:12:39,920 DEBG 'celery' stdout output:
+/usr/local/lib/python2.7/dist-packages/django/core/management/base.py:259: RemovedInDjango19Warning: "requires_model_validation" is deprecated in favor of "requires_system_checks".
+  RemovedInDjango19Warning)
+
+
+2016-05-28 15:12:39,943 DEBG 'celery' stdout output:
+/usr/local/lib/python2.7/dist-packages/celery/platforms.py:812: RuntimeWarning: You are running the worker with superuser privileges, which is
+absolutely not recommended!
+
+Please specify a different user using the -u option.
+
+User information: uid=0 euid=0 gid=0 egid=0
+
+  uid=uid, euid=euid, gid=gid, egid=egid,
+
+
+2016-05-28 15:12:39,970 DEBG 'celery' stdout output:
+/usr/local/lib/python2.7/dist-packages/celery/apps/worker.py:161: CDeprecationWarning: 
+Starting from version 3.2 Celery will refuse to accept pickle by default.
+
+The pickle serializer is a security concern as it may give attackers
+the ability to execute any command.  It's important to secure
+your broker from unauthorized access when using pickle, so we think
+that enabling pickle should require a deliberate action and not be
+the default choice.
+
+If you depend on pickle then you should set a setting to disable this
+warning and to be sure that everything will continue working
+when you upgrade to Celery 3.2::
+
+    CELERY_ACCEPT_CONTENT = ['pickle', 'json', 'msgpack', 'yaml']
+
+You must only enable the serializers that you will actually use.
+
+
+  warnings.warn(CDeprecationWarning(W_PICKLE_DEPRECATED))
+
+
+2016-05-28 15:12:39,972 DEBG 'celery' stdout output:
+[2016-05-28 15:12:39,970: WARNING/MainProcess] /usr/local/lib/python2.7/dist-packages/celery/apps/worker.py:161: CDeprecationWarning: 
+Starting from version 3.2 Celery will refuse to accept pickle by default.
+
+The pickle serializer is a security concern as it may give attackers
+the ability to execute any command.  It's important to secure
+your broker from unauthorized access when using pickle, so we think
+that enabling pickle should require a deliberate action and not be
+the default choice.
+
+If you depend on pickle then you should set a setting to disable this
+warning and to be sure that everything will continue working
+when you upgrade to Celery 3.2::
+
+    CELERY_ACCEPT_CONTENT = ['pickle', 'json', 'msgpack', 'yaml']
+
+You must only enable the serializers that you will actually use.
+
+
+  warnings.warn(CDeprecationWarning(W_PICKLE_DEPRECATED))
+
+
+2016-05-28 15:12:40,015 DEBG 'celery' stdout output:
+[2016-05-28 15:12:40,015: INFO/MainProcess] Connected to redis://localhost:6379/0
+
+2016-05-28 15:12:40,022 DEBG 'celery' stdout output:
+[2016-05-28 15:12:40,022: INFO/MainProcess] mingle: searching for neighbors
+
+2016-05-28 15:12:41,024 INFO success: celery entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-28 15:12:41,034 DEBG 'celery' stdout output:
+[2016-05-28 15:12:41,033: INFO/MainProcess] mingle: all alone
+
+2016-05-28 15:12:41,048 DEBG 'celery' stdout output:
+/usr/local/lib/python2.7/dist-packages/djcelery/loaders.py:136: UserWarning: Using settings.DEBUG leads to a memory leak, never use this setting in production environments!
+  warn('Using settings.DEBUG leads to a memory leak, never '
+
+
+2016-05-28 15:12:41,048 DEBG 'celery' stdout output:
+[2016-05-28 15:12:41,048: WARNING/MainProcess] /usr/local/lib/python2.7/dist-packages/djcelery/loaders.py:136: UserWarning: Using settings.DEBUG leads to a memory leak, never use this setting in production environments!
+  warn('Using settings.DEBUG leads to a memory leak, never '
+
+
+2016-05-28 15:12:41,049 DEBG 'celery' stdout output:
+[2016-05-28 15:12:41,049: WARNING/MainProcess] celery@iZ25vn4n5xvZ ready.
+
