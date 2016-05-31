@@ -8,14 +8,37 @@ $(function(){
     })
 }); 
 </script>
+
+<script>
+$.fn.imgsizeFunction = function() { 
+  width = $(this).css('width');
+  x = (parseFloat(width)*0.56)
+  return  $(this).css('height',x+'px');
+}
+</script>
+
+<script>
+$(function(){ 
+  $('.item, .item  a img').imgsizeFunction();
+  $('.leftimgblock a img').imgsizeFunction();
+}); 
+</script>
+
+<script>
+$(window).resize(function(){
+  $('.item, .item  a img').imgsizeFunction();
+  $('.leftimgblock a img').imgsizeFunction();
+});
+</script>
+
 {% endblock %}
 {% for item in articlequery %}
 
-          <div class="col-xs-12 newsblock" id="{{item.blockid}}">
-          <div class="col-xs-4 leftimgblock">
-          <a href="{{item.get_absolute_url}}"><img src="{{item.get_image_url}}" style="width: 200px; height:104px;"></a>
+          <div class="col-sm-12 newsblock" id="{{item.blockid}}">
+          <div class="col-sm-4 leftimgblock">
+          <a href="{{item.get_absolute_url}}"><img src="{{item.get_image_url}}" ></a>
           </div> 
-          <div class="col-xs-8 rightwordblock">
+          <div class="col-sm-8 rightwordblock">
           <h3><a href="{{item.get_absolute_url}}">{{item.title}}</a></h3>
           <span><img  class="img-circle usericon" src='{{item.writer.get_image_url}}'></span>
           <span class="writer"><a href="{{item.writer.get_absolute_url}}">{{item.user}}{{item.writer}}</a></span> 

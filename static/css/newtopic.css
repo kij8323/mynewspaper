@@ -153,3 +153,8 @@ a:link{
 a:hover{
 	color: #337ab7;
 }
+
+
+#cke_71_uiElement, #cke_75_uiElement, #cke_Link_113, #cke_207_uiElement{
+	display: none;
+}

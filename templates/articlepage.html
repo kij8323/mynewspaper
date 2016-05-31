@@ -3,11 +3,11 @@
 {% endblock %}
 {% for item in articlequery %}
 
-          <div class="col-xs-12 newsblock" id="{{item.article.blockid}}">
-          <div class="col-xs-4 leftimgblock">
+          <div class="col-sm-12 newsblock" id="{{item.article.blockid}}">
+          <div class="col-sm-4 leftimgblock">
           <a href="{{item.article.get_absolute_url}}"><img src="{{item.article.get_image_url}}" style="width: 220px; height:124px;"></a>
           </div> 
-          <div class="col-xs-8 rightwordblock">
+          <div class="col-sm-8 rightwordblock">
           <h3><a href="{{item.article.get_absolute_url}}">{{item.article.title}}</a></h3>
           <span><img  class="img-circle usericon" src='{{item.article.writer.get_image_url}}'></span>
           <span class="writer"><a href="{{item.article.writer.get_absolute_url}}">{{item.article.user}}{{item.article.writer}}</a></span> 

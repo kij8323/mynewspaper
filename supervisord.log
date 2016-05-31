@@ -5979,3 +5979,1027 @@ You must only enable the serializers that you will actually use.
 2016-05-28 15:12:41,049 DEBG 'celery' stdout output:
 [2016-05-28 15:12:41,049: WARNING/MainProcess] celery@iZ25vn4n5xvZ ready.
 
+2016-05-28 15:18:56,338 WARN received SIGTERM indicating exit request
+2016-05-28 15:18:56,340 DEBG killing redis-server (pid 3114) with signal SIGTERM
+2016-05-28 15:18:56,341 INFO waiting for autoreload, celery, redis-server to die
+2016-05-28 15:18:56,343 DEBG 'redis-server' stdout output:
+[3114 | signal handler] (1464419936) Received SIGTERM, scheduling shutdown...
+
+2016-05-28 15:18:56,417 DEBG 'redis-server' stdout output:
+[3114] 28 May 15:18:56.417 # User requested shutdown...
+[3114] 28 May 15:18:56.417 * Saving the final RDB snapshot before exiting.
+
+2016-05-28 15:18:56,435 DEBG 'redis-server' stdout output:
+[3114] 28 May 15:18:56.435 * DB saved on disk
+[3114] 28 May 15:18:56.435 # Redis is now ready to exit, bye bye...
+
+2016-05-28 15:18:56,435 DEBG fd 10 closed, stopped monitoring <POutputDispatcher at 140160231105024 for <Subprocess at 140160231615880 with name redis-server in state STOPPING> (stdout)>
+2016-05-28 15:18:56,435 INFO stopped: redis-server (exit status 0)
+2016-05-28 15:18:56,435 DEBG received SIGCLD indicating a child quit
+2016-05-28 15:18:56,435 DEBG killing celery (pid 3117) with signal SIGTERM
+2016-05-28 15:18:56,436 DEBG 'celery' stdout output:
+
+worker: Warm shutdown (MainProcess)
+2016-05-28 15:18:56,436 DEBG 'celery' stdout output:
+
+
+2016-05-28 15:18:57,450 DEBG 'celery' stdout output:
+/home/shen/Documents/paperproject/mynewspaper
+ 
+ -------------- celery@iZ25vn4n5xvZ v3.1.23 (Cipater)
+---- **** ----- 
+--- * ***  * -- Linux-3.13.0-32-generic-x86_64-with-Ubuntu-14.04-trusty
+-- * - **** --- 
+- ** ---------- [config]
+- ** ---------- .> app:         default:0x7f3de93e3e90 (djcelery.loaders.DjangoLoader)
+- ** ---------- .> transport:   redis://localhost:6379/0
+- ** ---------- .> results:     
+- *** --- * --- .> concurrency: 1 (prefork)
+-- ******* ---- 
+--- ***** ----- [queues]
+ -------------- .> celery           exchange=celery(direct) key=celery
+                
+
+[tasks]
+  . article.tasks.add
+  . article.tasks.instancedelete
+  . article.tasks.instancesave
+  . article.tasks.readersin
+  . article.tasks.readersout
+
+
+2016-05-28 15:18:57,985 DEBG fd 14 closed, stopped monitoring <POutputDispatcher at 140160231570320 for <Subprocess at 140160231615736 with name celery in state STOPPING> (stdout)>
+2016-05-28 15:18:57,986 INFO stopped: celery (exit status 0)
+2016-05-28 15:18:57,986 DEBG received SIGCLD indicating a child quit
+2016-05-28 15:18:57,986 DEBG killing autoreload (pid 3099) with signal SIGTERM
+2016-05-28 15:18:57,989 DEBG fd 9 closed, stopped monitoring <POutputDispatcher at 140160231105096 for <Subprocess at 140160231614512 with name autoreload in state STOPPING> (stdout)>
+2016-05-28 15:18:57,998 INFO stopped: autoreload (terminated by SIGTERM)
+2016-05-28 15:18:57,999 DEBG received SIGCLD indicating a child quit
+2016-05-28 15:19:55,002 CRIT Supervisor running as root (no user in config file)
+2016-05-28 15:19:55,038 INFO RPC interface 'supervisor' initialized
+2016-05-28 15:19:55,038 INFO supervisord started with pid 1130
+2016-05-28 15:19:56,041 INFO spawned: 'autoreload' with pid 1136
+2016-05-28 15:19:56,042 INFO spawned: 'celery' with pid 1137
+2016-05-28 15:19:56,047 INFO spawned: 'redis-server' with pid 1138
+2016-05-28 15:19:56,059 DEBG 'redis-server' stdout output:
+[1138] 28 May 15:19:56.059 # Warning: no config file specified, using the default config. In order to specify a config file use redis-server /path/to/redis.conf
+
+2016-05-28 15:19:56,068 DEBG 'redis-server' stdout output:
+[1138] 28 May 15:19:56.068 * Max number of open files set to 10032
+
+2016-05-28 15:19:56,072 DEBG 'redis-server' stdout output:
+                _._                                                  
+           _.-``__ ''-._                                             
+      _.-``    `.  `_.  ''-._           Redis 2.8.4 (00000000/0) 64 bit
+  .-`` .-```.  ```\/    _.,_ ''-._                                   
+ (    '      ,       .-`  | `,    )     Running in stand alone mode
+ |`-._`-...-` __...-.``-._|'` _.-'|     Port: 6379
+ |    `-._   `._    /     _.-'    |     PID: 1138
+  `-._    `-._  `-./  _.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |           http://redis.io        
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |                                  
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+      `-._    `-.__.-'    _.-'                                       
+          `-._        _.-'                                           
+              `-.__.-'                                               
+
+
+2016-05-28 15:19:56,075 DEBG 'redis-server' stdout output:
+[1138] 28 May 15:19:56.075 # Server started, Redis version 2.8.4
+
+2016-05-28 15:19:56,076 DEBG 'redis-server' stdout output:
+[1138] 28 May 15:19:56.075 # WARNING overcommit_memory is set to 0! Background save may fail under low memory condition. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
+
+2016-05-28 15:19:56,077 DEBG 'redis-server' stdout output:
+[1138] 28 May 15:19:56.077 * DB loaded from disk: 0.001 seconds
+
+2016-05-28 15:19:56,077 DEBG 'redis-server' stdout output:
+[1138] 28 May 15:19:56.077 * The server is now ready to accept connections on port 6379
+
+2016-05-28 15:19:56,827 DEBG 'celery' stdout output:
+/usr/local/lib/python2.7/dist-packages/django/core/management/base.py:259: RemovedInDjango19Warning: "requires_model_validation" is deprecated in favor of "requires_system_checks".
+  RemovedInDjango19Warning)
+
+
+2016-05-28 15:19:56,963 DEBG 'celery' stdout output:
+/usr/local/lib/python2.7/dist-packages/celery/platforms.py:812: RuntimeWarning: You are running the worker with superuser privileges, which is
+absolutely not recommended!
+
+Please specify a different user using the -u option.
+
+User information: uid=0 euid=0 gid=0 egid=0
+
+  uid=uid, euid=euid, gid=gid, egid=egid,
+
+
+2016-05-28 15:19:57,033 DEBG 'celery' stdout output:
+/usr/local/lib/python2.7/dist-packages/celery/apps/worker.py:161: CDeprecationWarning: 
+Starting from version 3.2 Celery will refuse to accept pickle by default.
+
+The pickle serializer is a security concern as it may give attackers
+the ability to execute any command.  It's important to secure
+your broker from unauthorized access when using pickle, so we think
+that enabling pickle should require a deliberate action and not be
+the default choice.
+
+If you depend on pickle then you should set a setting to disable this
+warning and to be sure that everything will continue working
+when you upgrade to Celery 3.2::
+
+    CELERY_ACCEPT_CONTENT = ['pickle', 'json', 'msgpack', 'yaml']
+
+You must only enable the serializers that you will actually use.
+
+
+  warnings.warn(CDeprecationWarning(W_PICKLE_DEPRECATED))
+
+
+2016-05-28 15:19:57,034 DEBG 'celery' stdout output:
+[2016-05-28 15:19:57,033: WARNING/MainProcess] /usr/local/lib/python2.7/dist-packages/celery/apps/worker.py:161: CDeprecationWarning: 
+Starting from version 3.2 Celery will refuse to accept pickle by default.
+
+The pickle serializer is a security concern as it may give attackers
+the ability to execute any command.  It's important to secure
+your broker from unauthorized access when using pickle, so we think
+that enabling pickle should require a deliberate action and not be
+the default choice.
+
+If you depend on pickle then you should set a setting to disable this
+warning and to be sure that everything will continue working
+when you upgrade to Celery 3.2::
+
+    CELERY_ACCEPT_CONTENT = ['pickle', 'json', 'msgpack', 'yaml']
+
+You must only enable the serializers that you will actually use.
+
+
+  warnings.warn(CDeprecationWarning(W_PICKLE_DEPRECATED))
+
+
+2016-05-28 15:19:57,096 DEBG 'celery' stdout output:
+[2016-05-28 15:19:57,095: INFO/MainProcess] Connected to redis://localhost:6379/0
+
+2016-05-28 15:19:57,096 INFO success: autoreload entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-28 15:19:57,096 INFO success: celery entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-28 15:19:57,096 INFO success: redis-server entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-28 15:19:57,104 DEBG 'celery' stdout output:
+[2016-05-28 15:19:57,103: INFO/MainProcess] mingle: searching for neighbors
+
+2016-05-28 15:19:58,108 DEBG 'celery' stdout output:
+[2016-05-28 15:19:58,108: INFO/MainProcess] mingle: all alone
+
+2016-05-28 15:19:58,118 DEBG 'celery' stdout output:
+/usr/local/lib/python2.7/dist-packages/djcelery/loaders.py:136: UserWarning: Using settings.DEBUG leads to a memory leak, never use this setting in production environments!
+  warn('Using settings.DEBUG leads to a memory leak, never '
+
+
+2016-05-28 15:19:58,119 DEBG 'celery' stdout output:
+[2016-05-28 15:19:58,118: WARNING/MainProcess] /usr/local/lib/python2.7/dist-packages/djcelery/loaders.py:136: UserWarning: Using settings.DEBUG leads to a memory leak, never use this setting in production environments!
+  warn('Using settings.DEBUG leads to a memory leak, never '
+
+
+2016-05-28 15:19:58,119 DEBG 'celery' stdout output:
+[2016-05-28 15:19:58,119: WARNING/MainProcess] celery@iZ25vn4n5xvZ ready.
+
+2016-05-28 15:29:57,296 DEBG 'celery' stdout output:
+[2016-05-28 15:29:57,296: INFO/MainProcess] Received task: article.tasks.instancesave[c7025d4b-a86b-4449-b107-b358da55a14a]
+
+2016-05-28 15:29:57,360 DEBG 'celery' stdout output:
+[2016-05-28 15:29:57,360: INFO/MainProcess] Task article.tasks.instancesave[c7025d4b-a86b-4449-b107-b358da55a14a] succeeded in 0.0414935990001s: 'save success!'
+
+2016-05-28 15:30:07,763 DEBG 'celery' stdout output:
+[2016-05-28 15:30:07,763: INFO/MainProcess] Received task: article.tasks.instancesave[6d65efd1-1651-4abe-b9a7-6ddd07af6cb7]
+
+2016-05-28 15:30:07,775 DEBG 'celery' stdout output:
+[2016-05-28 15:30:07,774: INFO/MainProcess] Received task: article.tasks.instancesave[9972dd79-bdce-431e-9dc1-be6198248207]
+
+2016-05-28 15:30:07,787 DEBG 'celery' stdout output:
+[2016-05-28 15:30:07,787: INFO/MainProcess] Task article.tasks.instancesave[6d65efd1-1651-4abe-b9a7-6ddd07af6cb7] succeeded in 0.019147212s: 'save success!'
+
+2016-05-28 15:30:07,799 DEBG 'celery' stdout output:
+[2016-05-28 15:30:07,799: INFO/MainProcess] Task article.tasks.instancesave[9972dd79-bdce-431e-9dc1-be6198248207] succeeded in 0.0113792420001s: 'save success!'
+
+2016-05-28 15:37:22,739 DEBG 'celery' stdout output:
+[2016-05-28 15:37:22,738: INFO/MainProcess] Received task: article.tasks.readersin[a4f3e75b-2b44-4a84-b441-1bc86e70a379]
+
+2016-05-28 15:37:22,772 DEBG 'celery' stdout output:
+[2016-05-28 15:37:22,771: INFO/MainProcess] Task article.tasks.readersin[a4f3e75b-2b44-4a84-b441-1bc86e70a379] succeeded in 0.0311972520001s: 'readers +1 success!'
+
+2016-05-28 15:38:00,043 DEBG 'celery' stdout output:
+[2016-05-28 15:38:00,042: INFO/MainProcess] Received task: article.tasks.readersin[2c4d00e6-58c6-40fa-b72a-95d118fbb206]
+
+2016-05-28 15:38:00,062 DEBG 'celery' stdout output:
+[2016-05-28 15:38:00,062: INFO/MainProcess] Task article.tasks.readersin[2c4d00e6-58c6-40fa-b72a-95d118fbb206] succeeded in 0.017996109s: 'readers +1 success!'
+
+2016-05-28 15:40:38,482 DEBG 'celery' stdout output:
+[2016-05-28 15:40:38,479: INFO/MainProcess] Received task: article.tasks.readersin[e44f014f-2de4-4275-85e8-ecf3aecb03b1]
+
+2016-05-28 15:40:38,498 DEBG 'celery' stdout output:
+[2016-05-28 15:40:38,497: INFO/MainProcess] Task article.tasks.readersin[e44f014f-2de4-4275-85e8-ecf3aecb03b1] succeeded in 0.0166862230001s: 'readers +1 success!'
+
+2016-05-28 15:40:42,419 DEBG 'celery' stdout output:
+[2016-05-28 15:40:42,419: INFO/MainProcess] Received task: article.tasks.readersin[fd710bc0-453d-4f1c-bb42-af037157d2af]
+
+2016-05-28 15:40:42,439 DEBG 'celery' stdout output:
+[2016-05-28 15:40:42,439: INFO/MainProcess] Task article.tasks.readersin[fd710bc0-453d-4f1c-bb42-af037157d2af] succeeded in 0.0178323740001s: 'readers +1 success!'
+
+2016-05-28 15:40:59,941 DEBG 'celery' stdout output:
+[2016-05-28 15:40:59,941: INFO/MainProcess] Received task: article.tasks.readersin[e47fa140-cde7-4566-b210-de142ec60f96]
+
+2016-05-28 15:40:59,958 DEBG 'celery' stdout output:
+[2016-05-28 15:40:59,958: INFO/MainProcess] Task article.tasks.readersin[e47fa140-cde7-4566-b210-de142ec60f96] succeeded in 0.0151621750001s: 'readers +1 success!'
+
+2016-05-28 15:41:20,133 DEBG 'celery' stdout output:
+[2016-05-28 15:41:20,133: INFO/MainProcess] Received task: article.tasks.readersin[38f43f90-de19-45f7-9989-42f2c335573e]
+
+2016-05-28 15:41:20,151 DEBG 'celery' stdout output:
+[2016-05-28 15:41:20,150: INFO/MainProcess] Task article.tasks.readersin[38f43f90-de19-45f7-9989-42f2c335573e] succeeded in 0.0158751639999s: 'readers +1 success!'
+
+2016-05-28 15:41:30,490 DEBG 'celery' stdout output:
+[2016-05-28 15:41:30,489: INFO/MainProcess] Received task: article.tasks.readersin[dc34eb78-837b-49b6-8e92-ebeeabb27163]
+
+2016-05-28 15:41:30,507 DEBG 'celery' stdout output:
+[2016-05-28 15:41:30,506: INFO/MainProcess] Task article.tasks.readersin[dc34eb78-837b-49b6-8e92-ebeeabb27163] succeeded in 0.014936995s: 'readers +1 success!'
+
+2016-05-28 15:42:07,827 DEBG 'celery' stdout output:
+[2016-05-28 15:42:07,825: INFO/MainProcess] Received task: article.tasks.instancesave[c81f261a-3c19-4130-ae2d-53c0a5e9cb9c]
+
+2016-05-28 15:42:07,843 DEBG 'celery' stdout output:
+[2016-05-28 15:42:07,843: INFO/MainProcess] Task article.tasks.instancesave[c81f261a-3c19-4130-ae2d-53c0a5e9cb9c] succeeded in 0.0143884680001s: 'save success!'
+
+2016-05-28 15:42:07,845 DEBG 'celery' stdout output:
+[2016-05-28 15:42:07,845: INFO/MainProcess] Received task: article.tasks.instancesave[9a0e4af6-9eb8-46a3-b838-bde5caae66c9]
+
+2016-05-28 15:42:07,859 DEBG 'celery' stdout output:
+[2016-05-28 15:42:07,859: INFO/MainProcess] Task article.tasks.instancesave[9a0e4af6-9eb8-46a3-b838-bde5caae66c9] succeeded in 0.011736532s: 'save success!'
+
+2016-05-28 15:42:07,864 DEBG 'celery' stdout output:
+[2016-05-28 15:42:07,864: INFO/MainProcess] Received task: article.tasks.instancesave[a9029b8b-4e2f-4c83-8492-38985a4ae09b]
+
+2016-05-28 15:42:07,879 DEBG 'celery' stdout output:
+[2016-05-28 15:42:07,878: INFO/MainProcess] Task article.tasks.instancesave[a9029b8b-4e2f-4c83-8492-38985a4ae09b] succeeded in 0.0123205089999s: 'save success!'
+
+2016-05-28 15:42:07,881 DEBG 'celery' stdout output:
+[2016-05-28 15:42:07,881: INFO/MainProcess] Received task: article.tasks.instancesave[6dccf58b-2137-4308-8bf8-cafc39af8bde]
+
+2016-05-28 15:42:07,895 DEBG 'celery' stdout output:
+[2016-05-28 15:42:07,894: INFO/MainProcess] Task article.tasks.instancesave[6dccf58b-2137-4308-8bf8-cafc39af8bde] succeeded in 0.0116796709999s: 'save success!'
+
+2016-05-28 15:42:07,898 DEBG 'celery' stdout output:
+[2016-05-28 15:42:07,898: INFO/MainProcess] Received task: article.tasks.instancesave[61627db2-a7de-400b-9e27-eafcc4840f00]
+
+2016-05-28 15:42:07,913 DEBG 'celery' stdout output:
+[2016-05-28 15:42:07,913: INFO/MainProcess] Task article.tasks.instancesave[61627db2-a7de-400b-9e27-eafcc4840f00] succeeded in 0.012845236s: 'save success!'
+
+2016-05-28 15:42:07,917 DEBG 'celery' stdout output:
+[2016-05-28 15:42:07,917: INFO/MainProcess] Received task: article.tasks.instancesave[0a96af94-4897-4ace-99e9-2de5bb950248]
+
+2016-05-28 15:42:07,931 DEBG 'celery' stdout output:
+[2016-05-28 15:42:07,931: INFO/MainProcess] Task article.tasks.instancesave[0a96af94-4897-4ace-99e9-2de5bb950248] succeeded in 0.0120603090002s: 'save success!'
+
+2016-05-28 15:42:07,935 DEBG 'celery' stdout output:
+[2016-05-28 15:42:07,935: INFO/MainProcess] Received task: article.tasks.instancesave[58d1be0c-93fe-41a3-a041-c81bdb27be2d]
+
+2016-05-28 15:42:07,949 DEBG 'celery' stdout output:
+[2016-05-28 15:42:07,948: INFO/MainProcess] Task article.tasks.instancesave[58d1be0c-93fe-41a3-a041-c81bdb27be2d] succeeded in 0.0115304189999s: 'save success!'
+
+2016-05-28 15:42:07,953 DEBG 'celery' stdout output:
+[2016-05-28 15:42:07,953: INFO/MainProcess] Received task: article.tasks.instancesave[6ca75991-b6f6-4c54-ab46-7a3c5b8e61bf]
+
+2016-05-28 15:42:07,969 DEBG 'celery' stdout output:
+[2016-05-28 15:42:07,968: INFO/MainProcess] Task article.tasks.instancesave[6ca75991-b6f6-4c54-ab46-7a3c5b8e61bf] succeeded in 0.01318105s: 'save success!'
+
+2016-05-28 15:42:07,972 DEBG 'celery' stdout output:
+[2016-05-28 15:42:07,971: INFO/MainProcess] Received task: article.tasks.instancesave[44f74c82-a050-49a1-a87e-03ef5de4d1fc]
+
+2016-05-28 15:42:07,985 DEBG 'celery' stdout output:
+[2016-05-28 15:42:07,985: INFO/MainProcess] Task article.tasks.instancesave[44f74c82-a050-49a1-a87e-03ef5de4d1fc] succeeded in 0.011239471s: 'save success!'
+
+2016-05-28 15:42:07,990 DEBG 'celery' stdout output:
+[2016-05-28 15:42:07,990: INFO/MainProcess] Received task: article.tasks.instancesave[4a2b8a6c-29cb-4cf6-a422-d8eb007b63cd]
+
+2016-05-28 15:42:08,004 DEBG 'celery' stdout output:
+[2016-05-28 15:42:08,004: INFO/MainProcess] Task article.tasks.instancesave[4a2b8a6c-29cb-4cf6-a422-d8eb007b63cd] succeeded in 0.0121337130001s: 'save success!'
+
+2016-05-28 15:42:14,062 DEBG 'celery' stdout output:
+[2016-05-28 15:42:14,062: INFO/MainProcess] Received task: article.tasks.readersin[12c9fcb1-34bf-4850-9075-5475fe78b2f1]
+
+2016-05-28 15:42:14,079 DEBG 'celery' stdout output:
+[2016-05-28 15:42:14,079: INFO/MainProcess] Task article.tasks.readersin[12c9fcb1-34bf-4850-9075-5475fe78b2f1] succeeded in 0.0154679300001s: 'readers +1 success!'
+
+2016-05-28 15:42:28,819 DEBG 'celery' stdout output:
+[2016-05-28 15:42:28,819: INFO/MainProcess] Received task: article.tasks.readersin[075a6dc9-6717-40c6-b4eb-9f0ff28956d5]
+
+2016-05-28 15:42:28,838 DEBG 'celery' stdout output:
+[2016-05-28 15:42:28,838: INFO/MainProcess] Task article.tasks.readersin[075a6dc9-6717-40c6-b4eb-9f0ff28956d5] succeeded in 0.0167660550001s: 'readers +1 success!'
+
+2016-05-28 15:42:31,379 DEBG 'celery' stdout output:
+[2016-05-28 15:42:31,378: INFO/MainProcess] Received task: article.tasks.readersin[2aa93902-e3e1-426a-864f-2292be3e1d8c]
+
+2016-05-28 15:42:31,401 DEBG 'celery' stdout output:
+[2016-05-28 15:42:31,401: INFO/MainProcess] Task article.tasks.readersin[2aa93902-e3e1-426a-864f-2292be3e1d8c] succeeded in 0.0208668969999s: 'readers +1 success!'
+
+2016-05-28 15:42:55,820 DEBG 'celery' stdout output:
+[2016-05-28 15:42:55,819: INFO/MainProcess] Received task: article.tasks.readersin[3300253c-d0d9-4704-96db-29a3b9d4203a]
+
+2016-05-28 15:42:55,838 DEBG 'celery' stdout output:
+[2016-05-28 15:42:55,838: INFO/MainProcess] Task article.tasks.readersin[3300253c-d0d9-4704-96db-29a3b9d4203a] succeeded in 0.016635637s: 'readers +1 success!'
+
+2016-05-28 15:43:01,087 DEBG 'celery' stdout output:
+[2016-05-28 15:43:01,085: INFO/MainProcess] Received task: article.tasks.instancesave[a571ac2c-bbbc-44b6-a8a8-0f7c4902dbf3]
+
+2016-05-28 15:43:01,104 DEBG 'celery' stdout output:
+[2016-05-28 15:43:01,104: INFO/MainProcess] Task article.tasks.instancesave[a571ac2c-bbbc-44b6-a8a8-0f7c4902dbf3] succeeded in 0.0149308599998s: 'save success!'
+
+2016-05-28 15:43:01,105 DEBG 'celery' stdout output:
+[2016-05-28 15:43:01,105: INFO/MainProcess] Received task: article.tasks.instancesave[abe0318d-7794-4c46-ae2c-91a6dd64a89c]
+
+2016-05-28 15:43:01,121 DEBG 'celery' stdout output:
+[2016-05-28 15:43:01,120: INFO/MainProcess] Task article.tasks.instancesave[abe0318d-7794-4c46-ae2c-91a6dd64a89c] succeeded in 0.0128452360002s: 'save success!'
+
+2016-05-28 15:43:01,124 DEBG 'celery' stdout output:
+[2016-05-28 15:43:01,124: INFO/MainProcess] Received task: article.tasks.instancesave[1ee545a2-c987-4f4b-adf7-d491823c208c]
+
+2016-05-28 15:43:01,138 DEBG 'celery' stdout output:
+[2016-05-28 15:43:01,138: INFO/MainProcess] Task article.tasks.instancesave[1ee545a2-c987-4f4b-adf7-d491823c208c] succeeded in 0.0125186160001s: 'save success!'
+
+2016-05-28 15:43:01,142 DEBG 'celery' stdout output:
+[2016-05-28 15:43:01,142: INFO/MainProcess] Received task: article.tasks.instancesave[0c85a83e-a0fb-4660-a71c-63a22881e6a4]
+
+2016-05-28 15:43:01,157 DEBG 'celery' stdout output:
+[2016-05-28 15:43:01,157: INFO/MainProcess] Task article.tasks.instancesave[0c85a83e-a0fb-4660-a71c-63a22881e6a4] succeeded in 0.012443136s: 'save success!'
+
+2016-05-28 15:43:01,161 DEBG 'celery' stdout output:
+[2016-05-28 15:43:01,160: INFO/MainProcess] Received task: article.tasks.instancesave[7823285d-e618-4568-bc22-946f5162ba75]
+
+2016-05-28 15:43:01,176 DEBG 'celery' stdout output:
+[2016-05-28 15:43:01,176: INFO/MainProcess] Task article.tasks.instancesave[7823285d-e618-4568-bc22-946f5162ba75] succeeded in 0.0132666509999s: 'save success!'
+
+2016-05-28 15:43:01,179 DEBG 'celery' stdout output:
+[2016-05-28 15:43:01,179: INFO/MainProcess] Received task: article.tasks.instancesave[563fa8a3-2567-48fe-9408-8af17f084ca4]
+
+2016-05-28 15:43:01,192 DEBG 'celery' stdout output:
+[2016-05-28 15:43:01,192: INFO/MainProcess] Task article.tasks.instancesave[563fa8a3-2567-48fe-9408-8af17f084ca4] succeeded in 0.011277197s: 'save success!'
+
+2016-05-28 15:43:05,337 DEBG 'celery' stdout output:
+[2016-05-28 15:43:05,336: INFO/MainProcess] Received task: article.tasks.instancesave[fde0686c-80da-4525-baba-7b1e43e17ecf]
+
+2016-05-28 15:43:05,353 DEBG 'celery' stdout output:
+[2016-05-28 15:43:05,352: INFO/MainProcess] Task article.tasks.instancesave[fde0686c-80da-4525-baba-7b1e43e17ecf] succeeded in 0.012133532s: 'save success!'
+
+2016-05-28 15:43:05,357 DEBG 'celery' stdout output:
+[2016-05-28 15:43:05,356: INFO/MainProcess] Received task: article.tasks.instancesave[76ce226f-b254-435d-9108-34283c652fcb]
+
+2016-05-28 15:43:05,370 DEBG 'celery' stdout output:
+[2016-05-28 15:43:05,370: INFO/MainProcess] Task article.tasks.instancesave[76ce226f-b254-435d-9108-34283c652fcb] succeeded in 0.011394332s: 'save success!'
+
+2016-05-28 15:43:05,375 DEBG 'celery' stdout output:
+[2016-05-28 15:43:05,375: INFO/MainProcess] Received task: article.tasks.instancesave[b1078994-95d6-4947-a986-7ee6ac66e5e5]
+
+2016-05-28 15:43:05,388 DEBG 'celery' stdout output:
+[2016-05-28 15:43:05,388: INFO/MainProcess] Task article.tasks.instancesave[b1078994-95d6-4947-a986-7ee6ac66e5e5] succeeded in 0.0110531539999s: 'save success!'
+
+2016-05-28 15:43:35,513 DEBG 'celery' stdout output:
+[2016-05-28 15:43:35,512: INFO/MainProcess] Received task: article.tasks.readersin[9db1d5c3-29ec-496c-92ad-c00525c4def0]
+
+2016-05-28 15:43:35,530 DEBG 'celery' stdout output:
+[2016-05-28 15:43:35,530: INFO/MainProcess] Task article.tasks.readersin[9db1d5c3-29ec-496c-92ad-c00525c4def0] succeeded in 0.0156871299998s: 'readers +1 success!'
+
+2016-05-28 15:44:01,116 DEBG 'celery' stdout output:
+[2016-05-28 15:44:01,115: INFO/MainProcess] Received task: article.tasks.readersin[b5c6c83e-834f-4508-a1fa-34eef15c4f10]
+
+2016-05-28 15:44:01,134 DEBG 'celery' stdout output:
+[2016-05-28 15:44:01,133: INFO/MainProcess] Task article.tasks.readersin[b5c6c83e-834f-4508-a1fa-34eef15c4f10] succeeded in 0.0163720599999s: 'readers +1 success!'
+
+2016-05-28 15:44:03,588 DEBG 'celery' stdout output:
+[2016-05-28 15:44:03,587: INFO/MainProcess] Received task: article.tasks.readersin[505e14b2-ce24-47de-9b1f-3c39bb1baf34]
+
+2016-05-28 15:44:03,608 DEBG 'celery' stdout output:
+[2016-05-28 15:44:03,608: INFO/MainProcess] Task article.tasks.readersin[505e14b2-ce24-47de-9b1f-3c39bb1baf34] succeeded in 0.018828299s: 'readers +1 success!'
+
+2016-05-28 15:44:27,191 DEBG 'celery' stdout output:
+[2016-05-28 15:44:27,191: INFO/MainProcess] Received task: article.tasks.readersin[5199ba1b-fd81-419b-bb7d-09b167011c08]
+
+2016-05-28 15:44:27,207 DEBG 'celery' stdout output:
+[2016-05-28 15:44:27,207: INFO/MainProcess] Task article.tasks.readersin[5199ba1b-fd81-419b-bb7d-09b167011c08] succeeded in 0.014574696s: 'readers +1 success!'
+
+2016-05-28 15:44:29,290 DEBG 'celery' stdout output:
+[2016-05-28 15:44:29,289: INFO/MainProcess] Received task: article.tasks.readersin[12043aed-2f98-4b97-adac-e6fcd8212184]
+
+2016-05-28 15:44:29,306 DEBG 'celery' stdout output:
+[2016-05-28 15:44:29,305: INFO/MainProcess] Task article.tasks.readersin[12043aed-2f98-4b97-adac-e6fcd8212184] succeeded in 0.0144396579999s: 'readers +1 success!'
+
+2016-05-28 15:44:37,412 DEBG 'celery' stdout output:
+[2016-05-28 15:44:37,412: INFO/MainProcess] Received task: article.tasks.readersin[b58dcdcd-e63c-4ee8-b29e-1c142e56b0b3]
+
+2016-05-28 15:44:37,430 DEBG 'celery' stdout output:
+[2016-05-28 15:44:37,430: INFO/MainProcess] Task article.tasks.readersin[b58dcdcd-e63c-4ee8-b29e-1c142e56b0b3] succeeded in 0.015785052s: 'readers +1 success!'
+
+2016-05-28 15:45:00,388 DEBG 'celery' stdout output:
+[2016-05-28 15:45:00,387: INFO/MainProcess] Received task: article.tasks.readersin[66a1d855-f16d-49cb-a3f3-1b8b5e8c08e3]
+
+2016-05-28 15:45:00,407 DEBG 'celery' stdout output:
+[2016-05-28 15:45:00,407: INFO/MainProcess] Task article.tasks.readersin[66a1d855-f16d-49cb-a3f3-1b8b5e8c08e3] succeeded in 0.0177948139999s: 'readers +1 success!'
+
+2016-05-28 15:45:09,891 DEBG 'celery' stdout output:
+[2016-05-28 15:45:09,891: INFO/MainProcess] Received task: article.tasks.instancesave[5bcc37eb-fe6a-43bf-b44f-3d20cedd3fcd]
+
+2016-05-28 15:45:09,913 DEBG 'celery' stdout output:
+[2016-05-28 15:45:09,913: INFO/MainProcess] Received task: article.tasks.instancesave[5acf1b3d-a101-4de6-880a-e59cb0ced609]
+
+2016-05-28 15:45:09,917 DEBG 'celery' stdout output:
+[2016-05-28 15:45:09,916: INFO/MainProcess] Task article.tasks.instancesave[5bcc37eb-fe6a-43bf-b44f-3d20cedd3fcd] succeeded in 0.0215340940001s: 'save success!'
+
+2016-05-28 15:45:09,932 DEBG 'celery' stdout output:
+[2016-05-28 15:45:09,932: INFO/MainProcess] Received task: article.tasks.instancesave[f1c8fd99-868e-4782-992f-3d25a5a35c3a]
+
+2016-05-28 15:45:09,935 DEBG 'celery' stdout output:
+[2016-05-28 15:45:09,934: INFO/MainProcess] Task article.tasks.instancesave[5acf1b3d-a101-4de6-880a-e59cb0ced609] succeeded in 0.016770357s: 'save success!'
+
+2016-05-28 15:45:09,949 DEBG 'celery' stdout output:
+[2016-05-28 15:45:09,949: INFO/MainProcess] Task article.tasks.instancesave[f1c8fd99-868e-4782-992f-3d25a5a35c3a] succeeded in 0.0125000570001s: 'save success!'
+
+2016-05-28 15:45:09,952 DEBG 'celery' stdout output:
+[2016-05-28 15:45:09,951: INFO/MainProcess] Received task: article.tasks.instancesave[4de848df-815a-4826-a833-21df46d6be7d]
+
+2016-05-28 15:45:09,967 DEBG 'celery' stdout output:
+[2016-05-28 15:45:09,967: INFO/MainProcess] Received task: article.tasks.instancesave[951dd8a5-3e68-42a1-8473-1409e01ca34f]
+
+2016-05-28 15:45:09,976 DEBG 'celery' stdout output:
+[2016-05-28 15:45:09,976: INFO/MainProcess] Task article.tasks.instancesave[4de848df-815a-4826-a833-21df46d6be7d] succeeded in 0.0222791650001s: 'save success!'
+
+2016-05-28 15:45:09,988 DEBG 'celery' stdout output:
+[2016-05-28 15:45:09,988: INFO/MainProcess] Received task: article.tasks.instancesave[fbc19e40-fcf7-47a4-b8fa-2d5e158d1a2c]
+
+2016-05-28 15:45:09,990 DEBG 'celery' stdout output:
+[2016-05-28 15:45:09,990: INFO/MainProcess] Task article.tasks.instancesave[951dd8a5-3e68-42a1-8473-1409e01ca34f] succeeded in 0.0138013609999s: 'save success!'
+
+2016-05-28 15:45:10,005 DEBG 'celery' stdout output:
+[2016-05-28 15:45:10,005: INFO/MainProcess] Task article.tasks.instancesave[fbc19e40-fcf7-47a4-b8fa-2d5e158d1a2c] succeeded in 0.0134894719999s: 'save success!'
+
+2016-05-28 15:45:10,007 DEBG 'celery' stdout output:
+[2016-05-28 15:45:10,007: INFO/MainProcess] Received task: article.tasks.instancesave[98ef89c0-4555-4e0d-bc94-7526ea6ff668]
+
+2016-05-28 15:45:10,021 DEBG 'celery' stdout output:
+[2016-05-28 15:45:10,021: INFO/MainProcess] Task article.tasks.instancesave[98ef89c0-4555-4e0d-bc94-7526ea6ff668] succeeded in 0.011953383s: 'save success!'
+
+2016-05-28 15:45:10,026 DEBG 'celery' stdout output:
+[2016-05-28 15:45:10,026: INFO/MainProcess] Received task: article.tasks.instancesave[3c24065a-7ca3-40d4-b293-9e0cd6d9f11d]
+
+2016-05-28 15:45:10,040 DEBG 'celery' stdout output:
+[2016-05-28 15:45:10,040: INFO/MainProcess] Task article.tasks.instancesave[3c24065a-7ca3-40d4-b293-9e0cd6d9f11d] succeeded in 0.012123105s: 'save success!'
+
+2016-05-28 15:45:10,044 DEBG 'celery' stdout output:
+[2016-05-28 15:45:10,044: INFO/MainProcess] Received task: article.tasks.instancesave[b32e0c25-3a64-4d20-909f-e0008dbd5237]
+
+2016-05-28 15:45:10,059 DEBG 'celery' stdout output:
+[2016-05-28 15:45:10,059: INFO/MainProcess] Task article.tasks.instancesave[b32e0c25-3a64-4d20-909f-e0008dbd5237] succeeded in 0.0128596469999s: 'save success!'
+
+2016-05-28 15:45:10,065 DEBG 'celery' stdout output:
+[2016-05-28 15:45:10,065: INFO/MainProcess] Received task: article.tasks.instancesave[ba2b57dd-c296-4fd9-a5f2-7da066ab660c]
+
+2016-05-28 15:45:10,083 DEBG 'celery' stdout output:
+[2016-05-28 15:45:10,083: INFO/MainProcess] Task article.tasks.instancesave[ba2b57dd-c296-4fd9-a5f2-7da066ab660c] succeeded in 0.015697926s: 'save success!'
+
+2016-05-28 15:45:22,833 DEBG 'celery' stdout output:
+[2016-05-28 15:45:22,832: INFO/MainProcess] Received task: article.tasks.instancesave[e4449979-6592-4ba5-9fad-9eb70ee688df]
+
+2016-05-28 15:45:22,852 DEBG 'celery' stdout output:
+[2016-05-28 15:45:22,852: INFO/MainProcess] Received task: article.tasks.instancesave[65b1596d-d164-4350-95d4-7ac662f15fe1]
+
+2016-05-28 15:45:22,854 DEBG 'celery' stdout output:
+[2016-05-28 15:45:22,854: INFO/MainProcess] Task article.tasks.instancesave[e4449979-6592-4ba5-9fad-9eb70ee688df] succeeded in 0.017964593s: 'save success!'
+
+2016-05-28 15:45:22,869 DEBG 'celery' stdout output:
+[2016-05-28 15:45:22,868: INFO/MainProcess] Task article.tasks.instancesave[65b1596d-d164-4350-95d4-7ac662f15fe1] succeeded in 0.0126819509999s: 'save success!'
+
+2016-05-28 15:45:22,873 DEBG 'celery' stdout output:
+[2016-05-28 15:45:22,873: INFO/MainProcess] Received task: article.tasks.instancesave[79ede925-3e71-4118-bd1e-8bf297a3b05b]
+
+2016-05-28 15:45:22,888 DEBG 'celery' stdout output:
+[2016-05-28 15:45:22,887: INFO/MainProcess] Task article.tasks.instancesave[79ede925-3e71-4118-bd1e-8bf297a3b05b] succeeded in 0.012307386s: 'save success!'
+
+2016-05-28 15:45:22,892 DEBG 'celery' stdout output:
+[2016-05-28 15:45:22,891: INFO/MainProcess] Received task: article.tasks.instancesave[a41c4d9a-5e26-4157-a6d7-8d936fa0cc4d]
+
+2016-05-28 15:45:22,905 DEBG 'celery' stdout output:
+[2016-05-28 15:45:22,905: INFO/MainProcess] Task article.tasks.instancesave[a41c4d9a-5e26-4157-a6d7-8d936fa0cc4d] succeeded in 0.0116722810001s: 'save success!'
+
+2016-05-28 15:45:22,910 DEBG 'celery' stdout output:
+[2016-05-28 15:45:22,910: INFO/MainProcess] Received task: article.tasks.instancesave[46d5bdb9-0e5b-44d3-8efe-4be8caf849bc]
+
+2016-05-28 15:45:22,923 DEBG 'celery' stdout output:
+[2016-05-28 15:45:22,923: INFO/MainProcess] Task article.tasks.instancesave[46d5bdb9-0e5b-44d3-8efe-4be8caf849bc] succeeded in 0.010693059s: 'save success!'
+
+2016-05-28 15:46:47,008 DEBG 'celery' stdout output:
+[2016-05-28 15:46:47,008: INFO/MainProcess] Received task: article.tasks.instancesave[ba40355e-c490-48b1-9b5d-b3dc12e51d6c]
+
+2016-05-28 15:46:47,028 DEBG 'celery' stdout output:
+[2016-05-28 15:46:47,028: INFO/MainProcess] Task article.tasks.instancesave[ba40355e-c490-48b1-9b5d-b3dc12e51d6c] succeeded in 0.016287593s: 'save success!'
+
+2016-05-28 15:50:33,669 DEBG 'celery' stdout output:
+[2016-05-28 15:50:33,669: INFO/MainProcess] Received task: article.tasks.readersin[aee37206-86bf-4841-b98f-ef97dd139d3d]
+
+2016-05-28 15:50:33,685 DEBG 'celery' stdout output:
+[2016-05-28 15:50:33,685: INFO/MainProcess] Task article.tasks.readersin[aee37206-86bf-4841-b98f-ef97dd139d3d] succeeded in 0.0140208970001s: 'readers +1 success!'
+
+2016-05-28 15:51:35,988 DEBG 'celery' stdout output:
+[2016-05-28 15:51:35,988: INFO/MainProcess] Received task: article.tasks.readersin[4bfe6c8b-2eab-46f3-8bde-d82b74ca2a85]
+
+2016-05-28 15:51:36,007 DEBG 'celery' stdout output:
+[2016-05-28 15:51:36,007: INFO/MainProcess] Task article.tasks.readersin[4bfe6c8b-2eab-46f3-8bde-d82b74ca2a85] succeeded in 0.017111034s: 'readers +1 success!'
+
+2016-05-28 15:52:08,450 DEBG 'celery' stdout output:
+[2016-05-28 15:52:08,450: INFO/MainProcess] Received task: article.tasks.readersin[d50be5c2-119e-4953-9faf-7a7929e83743]
+
+2016-05-28 15:52:08,471 DEBG 'celery' stdout output:
+[2016-05-28 15:52:08,471: INFO/MainProcess] Task article.tasks.readersin[d50be5c2-119e-4953-9faf-7a7929e83743] succeeded in 0.018800627s: 'readers +1 success!'
+
+2016-05-28 15:52:12,236 DEBG 'celery' stdout output:
+[2016-05-28 15:52:12,236: INFO/MainProcess] Received task: article.tasks.instancesave[e661c4b1-7450-4400-a007-5453ef9da641]
+
+2016-05-28 15:52:12,256 DEBG 'celery' stdout output:
+[2016-05-28 15:52:12,255: INFO/MainProcess] Task article.tasks.instancesave[e661c4b1-7450-4400-a007-5453ef9da641] succeeded in 0.015512987s: 'save success!'
+
+2016-05-28 16:01:17,224 DEBG 'celery' stdout output:
+[2016-05-28 16:01:17,224: INFO/MainProcess] Received task: article.tasks.readersin[2b19e626-f2d0-4155-b0b0-173d27d5c22c]
+
+2016-05-28 16:01:17,244 DEBG 'celery' stdout output:
+[2016-05-28 16:01:17,243: INFO/MainProcess] Task article.tasks.readersin[2b19e626-f2d0-4155-b0b0-173d27d5c22c] succeeded in 0.0182436330001s: 'readers +1 success!'
+
+2016-05-28 16:01:28,956 DEBG 'celery' stdout output:
+[2016-05-28 16:01:28,956: INFO/MainProcess] Received task: article.tasks.readersin[335ed21d-9857-4954-a24b-35b70ced9147]
+
+2016-05-28 16:01:28,973 DEBG 'celery' stdout output:
+[2016-05-28 16:01:28,973: INFO/MainProcess] Task article.tasks.readersin[335ed21d-9857-4954-a24b-35b70ced9147] succeeded in 0.015091753s: 'readers +1 success!'
+
+2016-05-28 16:01:37,237 DEBG 'celery' stdout output:
+[2016-05-28 16:01:37,236: INFO/MainProcess] Received task: article.tasks.readersin[372ee4be-42f0-49ff-a8d4-a4da202cd90c]
+
+2016-05-28 16:01:37,254 DEBG 'celery' stdout output:
+[2016-05-28 16:01:37,254: INFO/MainProcess] Task article.tasks.readersin[372ee4be-42f0-49ff-a8d4-a4da202cd90c] succeeded in 0.0159087290003s: 'readers +1 success!'
+
+2016-05-28 16:02:06,357 DEBG 'celery' stdout output:
+[2016-05-28 16:02:06,356: INFO/MainProcess] Received task: article.tasks.instancesave[2e794b25-a811-42e3-8081-8e8742069000]
+
+2016-05-28 16:02:06,376 DEBG 'celery' stdout output:
+[2016-05-28 16:02:06,376: INFO/MainProcess] Task article.tasks.instancesave[2e794b25-a811-42e3-8081-8e8742069000] succeeded in 0.0157877490001s: 'save success!'
+
+2016-05-28 16:05:18,127 DEBG 'celery' stdout output:
+[2016-05-28 16:05:18,126: INFO/MainProcess] Received task: article.tasks.instancesave[1b1b98d9-8cea-4407-bbe3-cbadf0334a59]
+
+2016-05-28 16:05:18,146 DEBG 'celery' stdout output:
+[2016-05-28 16:05:18,146: INFO/MainProcess] Task article.tasks.instancesave[1b1b98d9-8cea-4407-bbe3-cbadf0334a59] succeeded in 0.0153222870003s: 'save success!'
+
+2016-05-28 16:11:07,549 DEBG 'celery' stdout output:
+[2016-05-28 16:11:07,549: INFO/MainProcess] Received task: article.tasks.readersin[be8a3e15-612f-41d8-a293-92428e2154a0]
+
+2016-05-28 16:11:07,567 DEBG 'celery' stdout output:
+[2016-05-28 16:11:07,566: INFO/MainProcess] Task article.tasks.readersin[be8a3e15-612f-41d8-a293-92428e2154a0] succeeded in 0.0159954549999s: 'readers +1 success!'
+
+2016-05-28 16:12:39,778 DEBG 'celery' stdout output:
+[2016-05-28 16:12:39,778: INFO/MainProcess] Received task: article.tasks.readersin[05024b3a-a4da-40a9-a18e-2aef58247c1a]
+
+2016-05-28 16:12:39,795 DEBG 'celery' stdout output:
+[2016-05-28 16:12:39,795: INFO/MainProcess] Task article.tasks.readersin[05024b3a-a4da-40a9-a18e-2aef58247c1a] succeeded in 0.0155571549999s: 'readers +1 success!'
+
+2016-05-28 16:15:19,388 DEBG killing autoreload (pid 1136) with signal SIGTERM
+2016-05-28 16:15:19,390 DEBG fd 7 closed, stopped monitoring <POutputDispatcher at 139827715200856 for <Subprocess at 139827715544560 with name autoreload in state STOPPING> (stdout)>
+2016-05-28 16:15:19,390 INFO stopped: autoreload (terminated by SIGTERM)
+2016-05-28 16:15:19,390 DEBG received SIGCLD indicating a child quit
+2016-05-28 16:15:19,391 DEBG killing redis-server (pid 1138) with signal SIGTERM
+2016-05-28 16:15:19,391 INFO waiting for redis-server to stop
+2016-05-28 16:15:19,392 DEBG 'redis-server' stdout output:
+[1138 | signal handler] (1464423319) Received SIGTERM, scheduling shutdown...
+
+2016-05-28 16:15:19,393 DEBG 'redis-server' stdout output:
+[1138] 28 May 16:15:19.392 # User requested shutdown...
+[1138] 28 May 16:15:19.392 * Saving the final RDB snapshot before exiting.
+
+2016-05-28 16:15:19,400 DEBG 'redis-server' stdout output:
+[1138] 28 May 16:15:19.399 * DB saved on disk
+[1138] 28 May 16:15:19.399 # Redis is now ready to exit, bye bye...
+
+2016-05-28 16:15:19,402 DEBG fd 13 closed, stopped monitoring <POutputDispatcher at 139827715201792 for <Subprocess at 139827715544920 with name redis-server in state STOPPING> (stdout)>
+2016-05-28 16:15:19,402 INFO stopped: redis-server (exit status 0)
+2016-05-28 16:15:19,402 DEBG received SIGCLD indicating a child quit
+2016-05-28 16:15:19,403 DEBG killing celery (pid 1137) with signal SIGTERM
+2016-05-28 16:15:19,407 INFO waiting for celery to stop
+2016-05-28 16:15:19,408 DEBG 'celery' stdout output:
+
+worker: Warm shutdown (MainProcess)
+
+2016-05-28 16:15:20,412 DEBG 'celery' stdout output:
+/home/shen/Documents/paperproject/mynewspaper
+ 
+ -------------- celery@iZ25vn4n5xvZ v3.1.23 (Cipater)
+---- **** ----- 
+--- * ***  * -- Linux-3.13.0-32-generic-x86_64-with-Ubuntu-14.04-trusty
+-- * - **** --- 
+- ** ---------- [config]
+- ** ---------- .> app:         default:0x7f5585514e90 (djcelery.loaders.DjangoLoader)
+- ** ---------- .> transport:   redis://localhost:6379/0
+- ** ---------- .> results:     
+- *** --- * --- .> concurrency: 1 (prefork)
+-- ******* ---- 
+--- ***** ----- [queues]
+ -------------- .> celery           exchange=celery(direct) key=celery
+                
+
+[tasks]
+  . article.tasks.add
+  . article.tasks.instancedelete
+  . article.tasks.instancesave
+  . article.tasks.readersin
+  . article.tasks.readersout
+
+
+2016-05-28 16:15:20,975 DEBG fd 10 closed, stopped monitoring <POutputDispatcher at 139827715201432 for <Subprocess at 139827715544776 with name celery in state STOPPING> (stdout)>
+2016-05-28 16:15:20,976 INFO stopped: celery (exit status 0)
+2016-05-28 16:15:20,976 DEBG received SIGCLD indicating a child quit
+2016-05-28 16:15:20,980 INFO spawned: 'autoreload' with pid 1846
+2016-05-28 16:15:21,982 INFO success: autoreload entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-28 16:15:21,986 INFO spawned: 'redis-server' with pid 1861
+2016-05-28 16:15:21,994 DEBG 'redis-server' stdout output:
+[1861] 28 May 16:15:21.993 # Warning: no config file specified, using the default config. In order to specify a config file use redis-server /path/to/redis.conf
+
+2016-05-28 16:15:21,995 DEBG 'redis-server' stdout output:
+[1861] 28 May 16:15:21.994 * Max number of open files set to 10032
+
+2016-05-28 16:15:21,996 DEBG 'redis-server' stdout output:
+                _._                                                  
+           _.-``__ ''-._                                             
+      _.-``    `.  `_.  ''-._           Redis 2.8.4 (00000000/0) 64 bit
+  .-`` .-```.  ```\/    _.,_ ''-._                                   
+ (    '      ,       .-`  | `,    )     Running in stand alone mode
+ |`-._`-...-` __...-.``-._|'` _.-'|     Port: 6379
+ |    `-._   `._    /     _.-'    |     PID: 1861
+  `-._    `-._  `-./  _.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |           http://redis.io        
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |                                  
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+      `-._    `-.__.-'    _.-'                                       
+          `-._        _.-'                                           
+              `-.__.-'                                               
+
+
+2016-05-28 16:15:21,997 DEBG 'redis-server' stdout output:
+[1861] 28 May 16:15:21.997 # Server started, Redis version 2.8.4
+
+2016-05-28 16:15:21,997 DEBG 'redis-server' stdout output:
+[1861] 28 May 16:15:21.997 # WARNING overcommit_memory is set to 0! Background save may fail under low memory condition. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
+
+2016-05-28 16:15:21,997 DEBG 'redis-server' stdout output:
+[1861] 28 May 16:15:21.997 * DB loaded from disk: 0.000 seconds
+
+2016-05-28 16:15:21,998 DEBG 'redis-server' stdout output:
+[1861] 28 May 16:15:21.998 * The server is now ready to accept connections on port 6379
+
+2016-05-28 16:15:22,999 INFO success: redis-server entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-28 16:15:23,003 INFO spawned: 'celery' with pid 1864
+2016-05-28 16:15:23,420 DEBG 'celery' stdout output:
+[2016-05-28 16:15:23,419: WARNING/MainProcess] /usr/local/lib/python2.7/dist-packages/celery/apps/worker.py:161: CDeprecationWarning: 
+Starting from version 3.2 Celery will refuse to accept pickle by default.
+
+The pickle serializer is a security concern as it may give attackers
+the ability to execute any command.  It's important to secure
+your broker from unauthorized access when using pickle, so we think
+that enabling pickle should require a deliberate action and not be
+the default choice.
+
+If you depend on pickle then you should set a setting to disable this
+warning and to be sure that everything will continue working
+when you upgrade to Celery 3.2::
+
+    CELERY_ACCEPT_CONTENT = ['pickle', 'json', 'msgpack', 'yaml']
+
+You must only enable the serializers that you will actually use.
+
+
+  warnings.warn(CDeprecationWarning(W_PICKLE_DEPRECATED))
+
+
+2016-05-28 16:15:23,455 DEBG 'celery' stdout output:
+[2016-05-28 16:15:23,455: INFO/MainProcess] Connected to redis://localhost:6379/0
+
+2016-05-28 16:15:23,462 DEBG 'celery' stdout output:
+[2016-05-28 16:15:23,462: INFO/MainProcess] mingle: searching for neighbors
+
+2016-05-28 16:15:24,463 INFO success: celery entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-28 16:15:24,472 DEBG 'celery' stdout output:
+[2016-05-28 16:15:24,472: INFO/MainProcess] mingle: all alone
+
+2016-05-28 16:15:24,487 DEBG 'celery' stdout output:
+[2016-05-28 16:15:24,486: WARNING/MainProcess] celery@iZ25vn4n5xvZ ready.
+
+2016-05-28 16:27:07,048 DEBG 'celery' stdout output:
+[2016-05-28 16:27:07,048: INFO/MainProcess] Received task: article.tasks.readersin[64920451-d351-452b-a210-83fa8e52184d]
+
+2016-05-28 16:27:07,090 DEBG 'celery' stdout output:
+[2016-05-28 16:27:07,090: INFO/MainProcess] Task article.tasks.readersin[64920451-d351-452b-a210-83fa8e52184d] succeeded in 0.039813635s: 'readers +1 success!'
+
+2016-05-28 21:13:17,637 DEBG 'celery' stdout output:
+[2016-05-28 21:13:17,636: INFO/MainProcess] Received task: article.tasks.readersin[b9985bcb-a845-435f-a8ad-9b22aaafe246]
+
+2016-05-28 21:13:17,682 DEBG 'celery' stdout output:
+[2016-05-28 21:13:17,682: INFO/MainProcess] Task article.tasks.readersin[b9985bcb-a845-435f-a8ad-9b22aaafe246] succeeded in 0.0422901299971s: 'readers +1 success!'
+
+2016-05-28 21:14:16,960 DEBG 'celery' stdout output:
+[2016-05-28 21:14:16,960: INFO/MainProcess] Received task: article.tasks.readersin[b9692257-1822-46c8-9e04-73a649e98451]
+
+2016-05-28 21:14:16,980 DEBG 'celery' stdout output:
+[2016-05-28 21:14:16,980: INFO/MainProcess] Task article.tasks.readersin[b9692257-1822-46c8-9e04-73a649e98451] succeeded in 0.0185536810022s: 'readers +1 success!'
+
+2016-05-28 21:14:52,234 DEBG 'celery' stdout output:
+[2016-05-28 21:14:52,234: INFO/MainProcess] Received task: article.tasks.instancedelete[f2ededc6-c593-4cf5-9e24-7cf2f1188033]
+
+2016-05-28 21:14:52,267 DEBG 'celery' stdout output:
+[2016-05-28 21:14:52,266: INFO/MainProcess] Task article.tasks.instancedelete[f2ededc6-c593-4cf5-9e24-7cf2f1188033] succeeded in 0.0197797129986s: 'delete success!'
+
+2016-05-29 09:55:42,820 DEBG 'celery' stdout output:
+[2016-05-29 09:55:42,804: INFO/MainProcess] Received task: article.tasks.readersin[a74b243e-d60c-40fe-9355-df772fe9c60f]
+
+2016-05-29 09:55:42,887 DEBG 'celery' stdout output:
+[2016-05-29 09:55:42,887: INFO/MainProcess] Task article.tasks.readersin[a74b243e-d60c-40fe-9355-df772fe9c60f] succeeded in 0.0809520729963s: 'readers +1 success!'
+
+2016-05-29 23:12:21,716 DEBG killing redis-server (pid 1861) with signal SIGTERM
+2016-05-29 23:12:21,716 INFO waiting for redis-server to stop
+2016-05-29 23:12:21,725 DEBG 'redis-server' stdout output:
+[1861 | signal handler] (1464534741) Received SIGTERM, scheduling shutdown...
+
+2016-05-29 23:12:21,772 DEBG 'redis-server' stdout output:
+[1861] 29 May 23:12:21.772 # User requested shutdown...
+[1861] 29 May 23:12:21.772 * Saving the final RDB snapshot before exiting.
+
+2016-05-29 23:12:21,778 DEBG received SIGCLD indicating a child quit
+2016-05-29 23:12:21,779 DEBG 'redis-server' stdout output:
+[1861] 29 May 23:12:21.778 * DB saved on disk
+[1861] 29 May 23:12:21.778 # Redis is now ready to exit, bye bye...
+
+2016-05-29 23:12:21,779 DEBG fd 11 closed, stopped monitoring <POutputDispatcher at 139827715321440 for <Subprocess at 139827715544920 with name redis-server in state STOPPING> (stdout)>
+2016-05-29 23:12:21,779 INFO stopped: redis-server (exit status 0)
+2016-05-29 23:12:21,781 DEBG killing celery (pid 1864) with signal SIGTERM
+2016-05-29 23:12:21,785 INFO waiting for celery to stop
+2016-05-29 23:12:21,785 DEBG 'celery' stdout output:
+
+worker: Warm shutdown (MainProcess)
+
+2016-05-29 23:12:22,790 DEBG 'celery' stdout output:
+/home/shen/Documents/paperproject/mynewspaper
+ 
+ -------------- celery@iZ25vn4n5xvZ v3.1.23 (Cipater)
+---- **** ----- 
+--- * ***  * -- Linux-3.13.0-32-generic-x86_64-with-Ubuntu-14.04-trusty
+-- * - **** --- 
+- ** ---------- [config]
+- ** ---------- .> app:         default:0x7fec7bb8de50 (djcelery.loaders.DjangoLoader)
+- ** ---------- .> transport:   redis://localhost:6379/0
+- ** ---------- .> results:     
+- *** --- * --- .> concurrency: 1 (prefork)
+-- ******* ---- 
+--- ***** ----- [queues]
+ -------------- .> celery           exchange=celery(direct) key=celery
+                
+
+[tasks]
+  . article.tasks.add
+  . article.tasks.instancedelete
+  . article.tasks.instancesave
+  . article.tasks.readersin
+  . article.tasks.readersout
+
+
+2016-05-29 23:12:23,377 DEBG fd 14 closed, stopped monitoring <POutputDispatcher at 139827714856072 for <Subprocess at 139827715544776 with name celery in state STOPPING> (stdout)>
+2016-05-29 23:12:23,377 INFO stopped: celery (exit status 0)
+2016-05-29 23:12:23,378 DEBG received SIGCLD indicating a child quit
+2016-05-29 23:12:23,382 INFO spawned: 'redis-server' with pid 3519
+2016-05-29 23:12:23,444 DEBG 'redis-server' stdout output:
+[3519] 29 May 23:12:23.414 # Warning: no config file specified, using the default config. In order to specify a config file use redis-server /path/to/redis.conf
+
+2016-05-29 23:12:23,445 DEBG 'redis-server' stdout output:
+[3519] 29 May 23:12:23.445 * Max number of open files set to 10032
+
+2016-05-29 23:12:23,446 DEBG 'redis-server' stdout output:
+                _._                                                  
+           _.-``__ ''-._                                             
+      _.-``    `.  `_.  ''-._           Redis 2.8.4 (00000000/0) 64 bit
+  .-`` .-```.  ```\/    _.,_ ''-._                                   
+ (    '      ,       .-`  | `,    )     Running in stand alone mode
+ |`-._`-...-` __...-.``-._|'` _.-'|     Port: 6379
+ |    `-._   `._    /     _.-'    |     PID: 3519
+  `-._    `-._  `-./  _.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |           http://redis.io        
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |                                  
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+      `-._    `-.__.-'    _.-'                                       
+          `-._        _.-'                                           
+              `-.__.-'                                               
+
+
+2016-05-29 23:12:23,447 DEBG 'redis-server' stdout output:
+[3519] 29 May 23:12:23.447 # Server started, Redis version 2.8.4
+
+2016-05-29 23:12:23,448 DEBG 'redis-server' stdout output:
+[3519] 29 May 23:12:23.447 # WARNING overcommit_memory is set to 0! Background save may fail under low memory condition. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
+
+2016-05-29 23:12:23,448 DEBG 'redis-server' stdout output:
+[3519] 29 May 23:12:23.448 * DB loaded from disk: 0.000 seconds
+
+2016-05-29 23:12:23,448 DEBG 'redis-server' stdout output:
+[3519] 29 May 23:12:23.448 * The server is now ready to accept connections on port 6379
+
+2016-05-29 23:12:24,450 INFO success: redis-server entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-29 23:12:24,453 INFO spawned: 'celery' with pid 3522
+2016-05-29 23:12:25,455 INFO success: celery entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-29 23:12:25,458 DEBG 'autoreload' stdout output:
+/home/shen/Documents/paperproject/mynewspaper
+redis-server: stopped
+celery: stopped
+redis-server: started
+celery: started
+
+2016-05-29 23:12:26,432 DEBG 'celery' stdout output:
+[2016-05-29 23:12:26,432: WARNING/MainProcess] /usr/local/lib/python2.7/dist-packages/celery/apps/worker.py:161: CDeprecationWarning: 
+Starting from version 3.2 Celery will refuse to accept pickle by default.
+
+The pickle serializer is a security concern as it may give attackers
+the ability to execute any command.  It's important to secure
+your broker from unauthorized access when using pickle, so we think
+that enabling pickle should require a deliberate action and not be
+the default choice.
+
+If you depend on pickle then you should set a setting to disable this
+warning and to be sure that everything will continue working
+when you upgrade to Celery 3.2::
+
+    CELERY_ACCEPT_CONTENT = ['pickle', 'json', 'msgpack', 'yaml']
+
+You must only enable the serializers that you will actually use.
+
+
+  warnings.warn(CDeprecationWarning(W_PICKLE_DEPRECATED))
+
+
+2016-05-29 23:12:26,469 DEBG 'celery' stdout output:
+[2016-05-29 23:12:26,468: INFO/MainProcess] Connected to redis://localhost:6379/0
+
+2016-05-29 23:12:26,477 DEBG 'celery' stdout output:
+[2016-05-29 23:12:26,477: INFO/MainProcess] mingle: searching for neighbors
+
+2016-05-29 23:12:27,482 DEBG 'celery' stdout output:
+[2016-05-29 23:12:27,481: INFO/MainProcess] mingle: all alone
+
+2016-05-29 23:12:27,490 DEBG 'celery' stdout output:
+[2016-05-29 23:12:27,489: WARNING/MainProcess] celery@iZ25vn4n5xvZ ready.
+
+2016-05-29 23:16:46,675 DEBG 'celery' stdout output:
+[2016-05-29 23:16:46,674: INFO/MainProcess] Received task: article.tasks.readersin[160ddd11-4763-4564-9077-e4bbb2c79e30]
+
+2016-05-29 23:16:46,717 DEBG 'celery' stdout output:
+[2016-05-29 23:16:46,717: INFO/MainProcess] Task article.tasks.readersin[160ddd11-4763-4564-9077-e4bbb2c79e30] succeeded in 0.0404298779904s: 'readers +1 success!'
+
+2016-05-30 08:22:15,304 DEBG 'celery' stdout output:
+[2016-05-30 08:22:15,278: INFO/MainProcess] Received task: article.tasks.readersin[3ac1a702-68e9-4fc4-8ba5-fb0a96e3855c]
+
+2016-05-30 08:22:15,351 DEBG 'celery' stdout output:
+[2016-05-30 08:22:15,350: INFO/MainProcess] Task article.tasks.readersin[3ac1a702-68e9-4fc4-8ba5-fb0a96e3855c] succeeded in 0.0706911300076s: 'readers +1 success!'
+
+2016-05-30 09:44:27,325 DEBG 'celery' stdout output:
+[2016-05-30 09:44:27,324: INFO/MainProcess] Received task: article.tasks.instancesave[918f742d-7062-4f6c-a3b4-3b834aed7192]
+
+2016-05-30 09:44:27,377 DEBG 'celery' stdout output:
+[2016-05-30 09:44:27,377: INFO/MainProcess] Task article.tasks.instancesave[918f742d-7062-4f6c-a3b4-3b834aed7192] succeeded in 0.0371312579955s: 'save success!'
+
+2016-05-30 13:46:39,122 DEBG 'celery' stdout output:
+[2016-05-30 13:46:39,121: INFO/MainProcess] Received task: article.tasks.readersin[dbd3ee94-1c42-4be1-b4fe-bd1237766bf5]
+
+2016-05-30 13:46:39,145 DEBG 'celery' stdout output:
+[2016-05-30 13:46:39,144: INFO/MainProcess] Task article.tasks.readersin[dbd3ee94-1c42-4be1-b4fe-bd1237766bf5] succeeded in 0.0190130769915s: 'readers +1 success!'
+
+2016-05-30 14:02:52,072 DEBG 'celery' stdout output:
+[2016-05-30 14:02:52,072: INFO/MainProcess] Received task: article.tasks.readersin[cb92ca52-1325-4eb8-ab4a-bebaa1746683]
+
+2016-05-30 14:02:52,097 DEBG 'celery' stdout output:
+[2016-05-30 14:02:52,097: INFO/MainProcess] Task article.tasks.readersin[cb92ca52-1325-4eb8-ab4a-bebaa1746683] succeeded in 0.0208138589805s: 'readers +1 success!'
+
+2016-05-30 14:22:50,424 DEBG 'celery' stdout output:
+[2016-05-30 14:22:50,421: INFO/MainProcess] Received task: article.tasks.readersin[c69ceea8-00be-4886-b2f9-583aded54952]
+
+2016-05-30 14:22:50,444 DEBG 'celery' stdout output:
+[2016-05-30 14:22:50,443: INFO/MainProcess] Task article.tasks.readersin[c69ceea8-00be-4886-b2f9-583aded54952] succeeded in 0.0177593929984s: 'readers +1 success!'
+
+2016-05-30 14:30:51,848 DEBG 'celery' stdout output:
+[2016-05-30 14:30:51,848: INFO/MainProcess] Received task: article.tasks.readersin[65246be3-1728-4835-a954-8e1a45d3800e]
+
+2016-05-30 14:30:51,868 DEBG 'celery' stdout output:
+[2016-05-30 14:30:51,868: INFO/MainProcess] Task article.tasks.readersin[65246be3-1728-4835-a954-8e1a45d3800e] succeeded in 0.0182126269792s: 'readers +1 success!'
+
+2016-05-30 19:03:56,638 DEBG 'celery' stdout output:
+[2016-05-30 19:03:56,638: INFO/MainProcess] Received task: article.tasks.readersin[000986d8-51c6-493d-bf21-ed88a23e8e28]
+
+2016-05-30 19:03:56,673 DEBG 'celery' stdout output:
+[2016-05-30 19:03:56,673: INFO/MainProcess] Task article.tasks.readersin[000986d8-51c6-493d-bf21-ed88a23e8e28] succeeded in 0.0316270629992s: 'readers +1 success!'
+
+2016-05-30 20:26:14,239 DEBG 'celery' stdout output:
+[2016-05-30 20:26:14,238: INFO/MainProcess] Received task: article.tasks.readersin[17f329e9-e4be-4bd2-821c-ba34d80557c0]
+
+2016-05-30 20:26:14,295 DEBG 'celery' stdout output:
+[2016-05-30 20:26:14,294: INFO/MainProcess] Task article.tasks.readersin[17f329e9-e4be-4bd2-821c-ba34d80557c0] succeeded in 0.0511901589925s: 'readers +1 success!'
+
+2016-05-30 20:26:26,100 DEBG 'celery' stdout output:
+[2016-05-30 20:26:26,100: INFO/MainProcess] Received task: article.tasks.readersin[45bc612f-8d5c-46aa-8f7b-b67e8efe0a0f]
+
+2016-05-30 20:26:26,119 DEBG 'celery' stdout output:
+[2016-05-30 20:26:26,119: INFO/MainProcess] Task article.tasks.readersin[45bc612f-8d5c-46aa-8f7b-b67e8efe0a0f] succeeded in 0.0162462879962s: 'readers +1 success!'
+
+2016-05-30 22:11:21,859 WARN received SIGTERM indicating exit request
+2016-05-30 22:11:44,928 DEBG killing redis-server (pid 3519) with signal SIGTERM
+2016-05-30 22:11:57,860 INFO waiting for autoreload, celery, redis-server to die
+2016-05-30 22:12:19,760 DEBG 'redis-server' stdout output:
+[3519 | signal handler] (1464617515) Received SIGTERM, scheduling shutdown...
+[3519] 30 May 22:11:55.923 # User requested shutdown...
+[3519] 30 May 22:11:56.121 * Saving the final RDB snapshot before exiting.
+[3519] 30 May 22:11:59.928 * DB saved on disk
+[3519] 30 May 22:12:00.856 # Redis is now ready to exit, bye bye...
+
+2016-05-30 22:12:31,210 WARN killing 'redis-server' (3519) with SIGKILL
+2016-05-30 22:12:41,218 DEBG killing redis-server (pid 3519) with signal SIGKILL
+2016-05-30 22:12:54,935 DEBG fd 12 closed, stopped monitoring <POutputDispatcher at 139827714856144 for <Subprocess at 139827715544920 with name redis-server in state STOPPING> (stdout)>
+2016-05-30 22:13:07,173 INFO stopped: redis-server (exit status 0)
+2016-05-30 22:13:22,558 DEBG received SIGCLD indicating a child quit
+2016-05-30 22:13:43,222 DEBG killing celery (pid 3522) with signal SIGTERM
+2016-05-30 22:13:54,433 INFO waiting for autoreload, celery to die
+2016-05-30 22:14:13,918 DEBG 'celery' stdout output:
+
+worker: Warm shutdown (MainProcess)
+
+2016-05-30 22:14:23,401 WARN killing 'celery' (3522) with SIGKILL
+2016-05-30 22:14:30,454 DEBG killing celery (pid 3522) with signal SIGKILL
+2016-05-30 22:14:37,842 DEBG fd 13 closed, stopped monitoring <POutputDispatcher at 139827714855640 for <Subprocess at 139827715544776 with name celery in state STOPPING> (stdout)>
+2016-05-30 22:14:37,879 INFO stopped: celery (terminated by SIGKILL)
+2016-05-30 22:14:37,879 DEBG received SIGCLD indicating a child quit
+2016-05-30 22:14:37,942 DEBG killing autoreload (pid 1846) with signal SIGTERM
+2016-05-30 22:14:37,946 INFO waiting for autoreload to die
+2016-05-30 22:14:37,947 DEBG fd 8 closed, stopped monitoring <POutputDispatcher at 139827715319928 for <Subprocess at 139827715544560 with name autoreload in state STOPPING> (stdout)>
+2016-05-30 22:14:37,953 INFO stopped: autoreload (terminated by SIGTERM)
+2016-05-30 22:14:37,955 DEBG received SIGCLD indicating a child quit
+2016-05-30 22:15:46,769 CRIT Supervisor running as root (no user in config file)
+2016-05-30 22:15:46,824 INFO RPC interface 'supervisor' initialized
+2016-05-30 22:15:46,825 INFO supervisord started with pid 1120
+2016-05-30 22:15:47,827 INFO spawned: 'celery' with pid 1126
+2016-05-30 22:15:47,829 INFO spawned: 'redis-server' with pid 1127
+2016-05-30 22:15:49,454 INFO success: celery entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-30 22:15:49,454 INFO success: redis-server entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-30 23:34:25,303 WARN received SIGTERM indicating exit request
+2016-05-30 23:34:25,381 INFO waiting for celery, redis-server to die
+2016-05-30 23:34:25,513 INFO stopped: redis-server (exit status 0)
+2016-05-30 23:34:27,212 INFO stopped: celery (exit status 0)
+2016-05-30 23:43:27,385 CRIT Supervisor running as root (no user in config file)
+2016-05-30 23:43:27,398 INFO RPC interface 'supervisor' initialized
+2016-05-30 23:43:27,398 INFO supervisord started with pid 1117
+2016-05-30 23:43:28,401 INFO spawned: 'celery' with pid 1129
+2016-05-30 23:43:28,402 INFO spawned: 'redis-server' with pid 1130
+2016-05-30 23:43:29,961 INFO success: celery entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-30 23:43:29,967 INFO success: redis-server entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-31 15:08:49,475 WARN received SIGTERM indicating exit request
+2016-05-31 15:08:49,640 INFO waiting for celery, redis-server to die
+2016-05-31 15:08:49,675 INFO stopped: redis-server (exit status 0)
+2016-05-31 15:08:51,340 INFO stopped: celery (exit status 0)
+2016-05-31 15:09:44,250 CRIT Supervisor running as root (no user in config file)
+2016-05-31 15:09:44,302 INFO RPC interface 'supervisor' initialized
+2016-05-31 15:09:44,302 INFO supervisord started with pid 1116
+2016-05-31 15:09:45,305 INFO spawned: 'celery' with pid 1128
+2016-05-31 15:09:45,306 INFO spawned: 'redis-server' with pid 1129
+2016-05-31 15:09:46,908 INFO success: celery entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-31 15:09:46,908 INFO success: redis-server entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-31 15:57:04,911 WARN received SIGTERM indicating exit request
+2016-05-31 15:57:04,926 INFO waiting for celery, redis-server to die
+2016-05-31 15:57:05,037 INFO stopped: redis-server (exit status 0)
+2016-05-31 15:57:06,813 INFO stopped: celery (exit status 0)
+2016-05-31 15:58:03,165 CRIT Supervisor running as root (no user in config file)
+2016-05-31 15:58:03,209 INFO RPC interface 'supervisor' initialized
+2016-05-31 15:58:03,210 INFO supervisord started with pid 1106
+2016-05-31 15:58:04,212 INFO spawned: 'celery' with pid 1118
+2016-05-31 15:58:04,214 INFO spawned: 'redis-server' with pid 1119
+2016-05-31 15:58:05,819 INFO success: celery entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-31 15:58:05,819 INFO success: redis-server entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-31 23:03:21,460 WARN received SIGTERM indicating exit request
+2016-05-31 23:03:22,853 INFO waiting for celery, redis-server to die
+2016-05-31 23:03:23,519 INFO stopped: redis-server (exit status 0)
+2016-05-31 23:03:25,160 INFO stopped: celery (exit status 0)
+2016-05-31 23:04:24,637 CRIT Supervisor running as root (no user in config file)
+2016-05-31 23:04:24,659 INFO RPC interface 'supervisor' initialized
+2016-05-31 23:04:24,659 INFO supervisord started with pid 1123
+2016-05-31 23:04:25,661 INFO spawned: 'celery' with pid 1129
+2016-05-31 23:04:25,663 INFO spawned: 'redis-server' with pid 1130
+2016-05-31 23:04:27,207 INFO success: celery entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-05-31 23:04:27,207 INFO success: redis-server entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)

@@ -291,7 +291,7 @@ def userdashboardcollections(request, user_id):
 		else:
 			host = False
 			hostname = '他的'
-		collection = Collection.objects.filter(user = user)
+		collection = Collection.objects.filter(user = user).order_by('-id')
 		# 分页
 		paginator = Paginator(collection, 10)
 		page = request.GET.get('page')
@@ -324,7 +324,7 @@ def userdashboardcollectionstopic(request, user_id):
 		else:
 			host = False
 			hostname = '他的'
-		collection = CollectionTopic.objects.filter(user = user)
+		collection = CollectionTopic.objects.filter(user = user).order_by('-id')
 		# 分页
 		paginator = Paginator(collection, 10)
 		page = request.GET.get('page')

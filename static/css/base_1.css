@@ -8,8 +8,8 @@
 	/* width: 1200px !important;*/
 
 	/*min-width: 1226px!important;*/
-	position: relative;
-	min-width: 1000px!important;
+/*	position: relative;
+	min-width: 1000px!important;*/
 }
 
 
@@ -266,5 +266,5 @@ vertical-align:middle
 .badge{
 	margin-left: 7px;
 	background-color: #F13F47;
-	vertical-align: middle;
+	vertical-align: text-top;
 }

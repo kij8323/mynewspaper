@@ -250,12 +250,35 @@ var jiathis_config = {
     summary:"{{article.title}}",
 }
 </script>
+
+<script>
+$.fn.imgsizeFunction = function() { 
+  width = $(this).css('width');
+  x = (parseFloat(width)*0.56)
+  return  $(this).css('height',x+'px');
+}
+</script>
+
+
+<script>
+$(function(){ 
+  $('.article-content-wrap img').imgsizeFunction();
+}); 
+</script>
+
+<script>
+$(window).resize(function(){
+  $('.article-content-wrap img').imgsizeFunction();
+});
+</script>
+
+
 {% endblock %}
 
 
  {% block content %}
 <div class="container">
-<div class="col-xs-1">
+<div class="col-sm-1 hidden-xs">
 <ul id="sidebar">
   <li>
 	<a href="http://www.jiathis.com/send/?webid=tsina&url=http://{{sharelink}}&title={{topic.title}}">
@@ -302,7 +325,7 @@ var jiathis_config = {
 </ul>
 </div>
 
-<div class="col-xs-8">
+<div class="col-sm-8">
 
   <ul class="breadcrumbs">
             <li><a href="{% url 'group_all' %}">话题组</a><span> &gt; </span></li>
@@ -542,7 +565,7 @@ var jiathis_config = {
        editor = CKEDITOR.replace( 'editor1' , {
         language: 'zh-cn',
         toolbar: [[ '-', 'Bold', 'Italic', 'Format', 'Smiley','paragraph', ]],
-        width: '700',
+        width: '100%',
     });
     </script>
 {% else %}
@@ -559,7 +582,7 @@ var jiathis_config = {
      </div><!-- <div id="topic"> -->
      </div>
 
-<div class="col-xs-3">
+<div class="col-sm-3 hidden-xs">
 
 <div id='rightstableblock'>
 <!-- <div id='hotarticle'>
@@ -606,7 +629,7 @@ var jiathis_config = {
 </div>
 
 </div><!-- <div id='rightstableblock'> -->
-</div><!-- <div class="col-xs-3"> -->
+</div><!-- <div class="col-sm-3"> -->
 </div><!-- <div class="container"> -->
   <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
  {% endblock %}

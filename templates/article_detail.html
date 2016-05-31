@@ -278,12 +278,37 @@ var jiathis_config = {
     summary:"{{article.title}}",
 }
 </script>
+
+<script>
+$.fn.imgsizeFunction = function() { 
+  width = $(this).css('width');
+  x = (parseFloat(width)*0.56)
+  return  $(this).css('height',x+'px');
+}
+</script>
+
+<script>
+$(function(){ 
+  $('.rightimg a img').imgsizeFunction();
+  $('#relationartical img').imgsizeFunction();
+  $('.article-content-wrap img').imgsizeFunction();
+}); 
+</script>
+
+<script>
+$(window).resize(function(){
+  $('.rightimg a img').imgsizeFunction();
+  $('#relationartical img').imgsizeFunction();
+  $('.article-content-wrap img').imgsizeFunction();
+});
+</script>
+
 {% endblock %}
 
 
  {% block content %}
 <div class="container">
-<div class="col-xs-1">
+<div class="col-sm-1 hidden-xs">
 <ul id="sidebar">
   <li>
 	<a href="http://www.jiathis.com/send/?webid=tsina&url=http://{{sharelink}}&title={{article.title}}">
@@ -329,57 +354,15 @@ var jiathis_config = {
 
 </ul>
 
-<!-- <ul id="sidebar">
-  <li>
-  <a href="http://www.jiathis.com/send/?webid=tsina&url={{sharelink}}&title={{article.title}}">
-  <i class="weiboshare">
-  </i>
-  </a>
-  </li>
 
 
-
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
-<script "text/javascript"> 
-var jiathis_config = { 
-  title: "{{article.title}}",  
-} 
-</script> 
-  <li>
-  <a class="jiathis_button_weixin" href='javascript:void(0);'>
-  <i class="weichatshare">
-  </i>
-  </a>
-  </li>
-
-
-  <li> 
-  <a href="http://www.jiathis.com/send/?webid=qzone&url={{sharelink}}&title={{article.title}}">
-  <i class="qqzoneshare">
-  </i>
-  </a> 
-  </li>
-
-
-  <li> 
-  <i class="articlecollection">
-    <h5 style='margin-top: 20px;'>{{collection}}</h5>
-  </i>
-  </li>
-
-  <li> 
-  <i class="totopsctoll">
-  </i>
-  </li>
-
-</ul> -->
 
 </div>
 
 
 
 
-<div class="col-xs-8">
+<div class="col-sm-8">
 
 
 
@@ -449,7 +432,7 @@ var jiathis_config = {
        editor = CKEDITOR.replace( 'editor1' , {
         language: 'zh-cn',
         toolbar: [[ '-', 'Bold', 'Italic', 'Format', 'Smiley','paragraph', ]],
-        width: '700',
+        width: '100%',
     });
     </script>
 {% else %}
@@ -603,7 +586,7 @@ var jiathis_config = {
   <span class="span-mark-author pull-left">相关文章</span>
   <div class="relationblock">
   {% for item in thisrelationtagarticle %}
-  <div class="col-xs-4">
+  <div class="col-sm-4">
   <a href="{{item.article.get_absolute_url}}">
   <img class='center-block' src="{{item.article.get_image_url}}" >
   </a>
@@ -623,7 +606,7 @@ var jiathis_config = {
      </div>
 
 
-<div class="col-xs-3">
+<div class="col-sm-3">
 
 
 <div id='userpro'>
@@ -683,9 +666,9 @@ var jiathis_config = {
 
 
 
-</div><!-- <div class="col-xs-3"> -->
+</div><!-- <div class="col-sm-3"> -->
 
 </div><!-- <div class="container"> -->
   <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
- {% endblock %}
+{% endblock %}
  
