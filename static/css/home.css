@@ -1,3 +1,8 @@
+
+
+
+
+
 .original-mark {
 position: absolute;
 top: 0.5rem;
@@ -36,6 +41,7 @@ left: 5%;
 padding-bottom: 30px;
 }
 
+
 .glyphicon-chevron-right{
 	margin-right: 0px;
 }
@@ -50,6 +56,7 @@ padding-bottom: 30px;
 	margin-bottom: 30px;
 	padding-left: 0px;
 	padding-right: 0px;
+	z-index: 1001;
 }
 
 .item, .item a img{

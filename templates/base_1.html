@@ -31,6 +31,8 @@ $(function() {
     if ($('.categorybutton').css('border-bottom-width') == '0px'){
         $('.categorybutton').css("border-bottom","2px solid #67CA87");
         $('.categorybutton').css("height","50px");
+        $('.carousel').carousel('pause');
+        $('.carousel').css("z-index","0");
      }
     else {
          $('.categorybutton').css("border-bottom","0px");
@@ -38,12 +40,17 @@ $(function() {
   })
   $(document).click(function (event) { $('.category').fadeOut() 
     $('.categorybutton').css("border-bottom","0px");
+    $('.carousel').css("z-index","1001");
+    $('.carousel').carousel({interval: 2300});
   });   
   $(".userinfobutton").mouseenter(function (event) { $('.category').fadeOut() 
     $('.categorybutton').css("border-bottom","0px");
+    $('.carousel').css("z-index","1001");
+    $('.carousel').carousel({interval: 2300});
   }); 
 })
 </script>
+
 
 <!-- 个人消息下拉菜单 -->
 <script type="text/javascript">
