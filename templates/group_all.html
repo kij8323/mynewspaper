@@ -28,6 +28,7 @@ $(function() {
         newnode.setAttribute("id","new"+String(cur_page_num));           
         document.getElementById("morecomment").appendChild(newnode); 
         $('#new'+String(cur_page_num)).load('{% url 'groupage' %}');
+	$('#morecomment-btn-block').html(data.loadcompleted) 
           },
           error: function(data) { 
               alert("Got an error dude");

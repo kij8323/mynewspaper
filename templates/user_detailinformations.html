@@ -3,6 +3,7 @@
 {% block HeadDoc %}
 <link href="/static/css/user_detailinformations.css" rel="stylesheet">
 <link href="/static/css/userinfopub.css" rel="stylesheet">
+<script src="/static/js/userinfopub.js"></script>
 <script>/*验证输入图片*/
 $(document).ready(function(){
   $("div#iconform form").submit(function(e){
@@ -228,7 +229,7 @@ $(document).ready(function(){
 <div class="container-user">
 
 
-	<div class="col-xs-2">
+	<div class="col-xs-2 hidden-xs">
 	<ul class="nav nav-pills nav-stacked leftblock">
      <li class="presentation1" role="presentation"><a href="{% url 'user_detailinformations' userofinfor.id%}"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>{{hostname}}主页</a></li>
       <li class="presentation5" role="presentation"><a href="{% url 'user_userdashboardarticle' userofinfor.id%}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>{{hostname}}文章</a></li>
@@ -241,7 +242,7 @@ $(document).ready(function(){
     </ul>
 </div><!-- class="col-md-2" -->
 	<div class="col-xs-10">
-	<ul class="nav nav-pills rightblock">
+	<ul class="nav nav-pills rightblock hidden-xs">
       <li class="presentationw1" role="presentation"><a href="#">帐号信息</a></li>
       <li class="presentationw2" role="presentation"><a href="#"></a></li>
       <li class="presentationw3" role="presentation"><a href="#"></a></li>
@@ -258,7 +259,7 @@ $(document).ready(function(){
 {% endif %}
 </div>
 
-<div class="col-xs-12 iconline">
+<div class="col-xs-12 iconline hidden-xs">
 <div class="col-xs-6 emailline">
   <h4>邮箱: <span class="ng-binding">{{userofinfor.email}}</span></h4>
 </div>
@@ -270,7 +271,7 @@ $(document).ready(function(){
 </div>
 
 
-<div class="col-xs-12 lastline">
+<div class="col-xs-12 lastline hidden-xs">
   {% if host %}
   <div class="col-xs-6 emailline">
   <h4>账号密码</h4>

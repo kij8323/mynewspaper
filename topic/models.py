@@ -56,7 +56,7 @@ class Topic(models.Model):
 	#作者
 	writer = models.ForeignKey(MyUser, db_index=True)
 	#文章内容
-	content = RichTextUploadingField(max_length=5000)
+	content = RichTextUploadingField(max_length=20000)
 	#文章地址
 	url_address = models.CharField(max_length=500, null=True, blank=True)
 	#文章图标

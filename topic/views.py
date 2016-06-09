@@ -43,9 +43,15 @@ def group_all(request):
 def moretopic(request):
 	if request.is_ajax():
 		request.session['grouplen'] = request.POST.get('grouplen')
-		print request.session['grouplen']
+		grouplen = int(request.session['grouplen'])
+		topic = Topic.objects.all()
+	if topic.count() == grouplen:
+		loadcompleted = '已全部加载完成'
+	else:
+		loadcompleted = '点击加载更多'
 	data = {
-	}
+		"loadcompleted": loadcompleted,
+	}	
 	json_data = json.dumps(data)
 	return HttpResponse(json_data, content_type='application/json')
 

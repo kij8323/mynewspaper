@@ -1,0 +1,79 @@
+h3{
+	font-size: 14px !important;
+	margin-bottom: 0px;
+	text-overflow: -o-ellipsis-lastline;overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;
+}
+
+span {
+font-size: 12px !important;
+}
+
+.rightwordblock, .newsblock{
+	padding-right: 0px;
+}
+
+.leftimgblock a img{
+	width: 138% !important;
+}
+
+.rightwordblock{
+	padding-left: 12% !important;
+}
+
+
+.basewebicon{
+	margin-left: 15px;
+}
+
+.basewebicon{
+	margin-left: 15px;
+}
+
+h1{
+	font-size: 17px;
+}
+
+
+#article{
+	padding-left: 0px !important;
+}
+
+.col-sm-8{
+	padding: 0px !important;
+}
+
+.comment-form{
+	border-top: 0px !important;
+	margin-top: 0px !important;
+	margin-bottom: 0px !important;
+}
+
+.comment{
+	padding-bottom: 30px !important;
+}
+
+.associatetitle{
+	margin-top: 0px !important;
+}
+
+.paginator, .paginator_current{
+	margin-top: 9px !important;
+}
+
+.newsblock{
+	padding-left: 15px !important;
+	padding-right: 15px !important;
+}
+
+.content-1{
+	width: 100% !important;
+}
+
+.col-xs-10 {
+	width: 100% !important;
+	padding-left: 0px !important;
+	padding-right: 0px !important;
+}
+
+
+

@@ -4,6 +4,7 @@
 <link href="/static/css/user_detailcomments.css" rel="stylesheet">
 <link href="/static/css/userinfopub.css" rel="stylesheet">
 <script src="/static/js/topic_detail.js"></script>
+<script src="/static/js/userinfopub.js"></script>
 
 <script>/*删除信息*/
 $(function() {
@@ -92,7 +93,7 @@ $(function() {
     <div class="dashboard">
       {% for item in comment %}
       <div class = 'commentlist' id='{{item.id}}'>
-      {{item.text|safe}}
+      {{item.text|AtWhoUser|safe}}
        <div class = 'commentinfo'>
       {{item.timestamp}}
       <span class="comment-article">

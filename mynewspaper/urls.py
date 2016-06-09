@@ -8,7 +8,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-
+    url(r'^weixinyanzheng/', 'mainpage.views.weixinyanzheng', name='weixinyanzheng'),#微信验证
     url(r'^$', 'mainpage.views.home', name='home'),#主页
     url(r'^aboutus/', 'mainpage.views.aboutus', name='aboutus'),#关于我们
     url(r'^contactus/', 'mainpage.views.contactus', name='contactus'),#联系我们

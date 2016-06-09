@@ -72,7 +72,7 @@ $(function() {
         dataType: 'json',
           success: function(data) {
             $('.freshchildcomment'+preentid).append(
-              ' <div class="childcomment"><img class="commentusericon" src={{user.get_image_url}}><div class="rightchildcomment" id="'+data.user+'"><span class="author-name"><a href={{user.get_absolute_url}}>shen</a></span><span class="author-time"> 0&nbsp;分钟前 :</span><div class="pl-content">'+data.text+'</div><div class="btn-dp-child"><i class="icon-childcomment"></i>回复</div><span class="btn-dp-right pull-right" id="'+data.commentid+'"><i class="icon-dp-positive" style="background-position: -220px -173px;"></i><span class="commentuserlike'+data.commentid+'">0</span><i class="icon-dp-negtive" style="background-position: -270px -171px;"></i><span class="commentuserdislike'+data.commentid+'">0</span></span></div></div>'
+              ' <div class="childcomment"><img class="commentusericon" src={{user.get_image_url}}><div class="rightchildcomment" id="'+data.user+'"><span class="author-name"><a href={{user.get_absolute_url}}>'+data.user+'</a></span><span class="author-time"> 0&nbsp;分钟前 :</span><div class="pl-content">'+data.text+'</div><div class="btn-dp-child"><i class="icon-childcomment"></i>回复</div><span class="btn-dp-right pull-right" id="'+data.commentid+'"><i class="icon-dp-positive" style="background-position: -220px -173px;"></i><span class="commentuserlike'+data.commentid+'">0</span><i class="icon-dp-negtive" style="background-position: -270px -171px;"></i><span class="commentuserdislike'+data.commentid+'">0</span></span></div></div>'
               )
               commnetcount = $('.article-pl-count').text()
               $('.article-pl-count').text(parseInt(commnetcount)+1)
@@ -251,27 +251,38 @@ var jiathis_config = {
 }
 </script>
 
+
 <script>
-$.fn.imgsizeFunction = function() { 
-  width = $(this).css('width');
-  x = (parseFloat(width)*0.56)
-  return  $(this).css('height',x+'px');
+$.fn.contentimgsizeFunction = function() { 
+  return  $(this).css('height','100%');
+}
+</script>
+
+<script>
+$(function(){ 
+  $('.article-content-wrap img').contentimgsizeFunction();
+}); 
+</script>
+
+<script>
+$(window).resize(function(){
+  $('.article-content-wrap img').contentimgsizeFunction();
+});
+</script>
+
+<script type="text/javascript">
+var jiathis_config = {
+    title:"{{article.title}}",
+    summary:"{{article.title}}",
 }
 </script>
 
 
 <script>
 $(function(){ 
-  $('.article-content-wrap img').imgsizeFunction();
+  $(".form-control").addClass("hidden-xs");
 }); 
 </script>
-
-<script>
-$(window).resize(function(){
-  $('.article-content-wrap img').imgsizeFunction();
-});
-</script>
-
 
 {% endblock %}
 
@@ -327,7 +338,7 @@ $(window).resize(function(){
 
 <div class="col-sm-8">
 
-  <ul class="breadcrumbs">
+  <ul class="breadcrumbs hidden-xs">
             <li><a href="{% url 'group_all' %}">话题组</a><span> &gt; </span></li>
             <li><a href="{{ group.get_absolute_url }}">{{ group.title }}</a></li>
         </ul>
@@ -337,7 +348,7 @@ $(window).resize(function(){
 
 <div class="article-author">
                 <a href="{{topic.writer.get_absolute_url}}">
-               <img  class="commentusericon1" src='{{topic.writer.get_image_url}}'>
+               <img  class="commentusericon1 hidden-xs" src='{{topic.writer.get_image_url}}'>
                 </a>
                 <span class="author-name"><a href = "{{topic.writer.get_absolute_url}}">{{topic.writer}}</a></span>
                 <i class="icon icon-line"></i>
@@ -361,7 +372,7 @@ $(window).resize(function(){
     <div id='hotboadertitle'>热门回复</div>
 {% for item in commentorderbyreaders %}
     <div class="comment">
-      <img  class="commentusericon" src='{{item.user.get_image_url}}'>
+      <img  class="commentusericon hidden-xs" src='{{item.user.get_image_url}}'>
       <div class='rightcomment'>
       <span class="author-name"><a href="{{item.user.get_absolute_url}}">{{item.user}}</a></span>
 
@@ -399,14 +410,14 @@ $(window).resize(function(){
 
                   {% for childitem in item.child_comment %}
                   <div class = 'childcomment'>
-                    <img  class="commentusericon" src='{{childitem.user.get_image_url}}'>
+                    <img  class="commentusericon hidden-xs" src='{{childitem.user.get_image_url}}'>
                   <div class = 'rightchildcomment' id = '{{childitem.user}}'>
                   <span class="author-name"><a href="{{childitems.user.get_absolute_url}}">{{childitem.user}}</a></span>
                   <span class="author-time">
                   {{childitem.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前 :
                    </span>
                   <div class="pl-content">{{childitem.text|AtWhoUser|safe}}</div>
-                  <div class="btn-dp-child">
+                  <div class="btn-dp-child hidden-xs">
                     <i class="icon-childcomment"></i>回复
                     </div>
 
@@ -427,7 +438,7 @@ $(window).resize(function(){
                   <div class="freshchildcomment{{item.id}}" style='margin-top : 1em;'>
                   </div>
                     {{form}}
-                <button  id="btn-block" type="button" class='btn btn-lg btn-success btn-block btn-reply' >发表</button>
+                <button  id="btn-block" type="button" class='btn btn-lg btn-success btn-block btn-reply hidden-xs'>发表</button>
               </div>
       </div>
       </div>
@@ -441,7 +452,7 @@ $(window).resize(function(){
 <!--                            最新回复                         -->
 {% for item in contacts %}
     <div class="comment">
-      <img  class="commentusericon" src='{{item.user.get_image_url}}'>
+      <img  class="commentusericon hidden-xs" src='{{item.user.get_image_url}}'>
       <div class='rightcomment'>
       <span class="author-name"><a href="{{item.user.get_absolute_url}}">{{item.user}}</a></span>
 
@@ -482,14 +493,14 @@ $(window).resize(function(){
 
                   {% for childitem in item.child_comment %}
                   <div class = 'childcomment'>
-                    <img  class="commentusericon" src='{{childitem.user.get_image_url}}'>
+                    <img  class="commentusericon hidden-xs" src='{{childitem.user.get_image_url}}'>
                   <div class = 'rightchildcomment' id = '{{childitem.user}}'>
                   <span class="author-name"><a href="{{childitems.user.get_absolute_url}}">{{childitem.user}}</a></span>
                   <span class="author-time">
                   {{childitem.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前 :
                    </span>
                   <div class="pl-content">{{childitem.text|AtWhoUser|safe}}</div>
-                  <div class="btn-dp-child">
+                  <div class="btn-dp-child hidden-xs">
                     <i class="icon-childcomment"></i>回复
                     </div>
 
@@ -510,7 +521,7 @@ $(window).resize(function(){
                   <div class="freshchildcomment{{item.id}}" style='margin-top : 1em;'>
                   </div>
                     {{form}}
-                <button  id="btn-block" type="button" class='btn btn-lg btn-success btn-block btn-reply' >发表</button>
+                <button  id="btn-block" type="button" class='btn btn-lg btn-success btn-block btn-reply hidden-xs' >发表</button>
               </div>
       </div>
       </div>
@@ -544,7 +555,7 @@ $(window).resize(function(){
 
 
 
-<div class="comment-form">
+<div class="comment-form hidden-xs">
      <span class="span-mark-author">发表评论</span>
       <div class="author-info">
       {% if user.is_authenticated %}

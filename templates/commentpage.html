@@ -4,7 +4,7 @@
 {% endblock %}
 {% for item in comment %}
     <div class="comment">
-      <span><img  class="img-circle commentusericon" src='{{item.user.get_image_url}}'></span>
+      <span><img  class="img-circle commentusericon hidden-xs" src='{{item.user.get_image_url}}'></span>
       <span class="author-name"><a href="{{item.user.get_absolute_url}}">
       {{item.user}}
       </a></span>
@@ -29,7 +29,7 @@
                       </div>
 
 
-              <div class="btn-dp">
+              <div class="btn-dp hidden-xs">
                 <i class="icon-dp"></i>
                 我要点评
                 </div>

@@ -4,6 +4,22 @@
 <link href="/static/css/home.css" rel="stylesheet">
 <!-- <script src="/static/js/home.js"></script> -->
 <script src="/static/js/topic_detail.js"></script>
+<script src="/static/js/hammer.js/hammer.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/css/smallscreenhome.css"  media="screen and (max-width: 768px)">
+
+
+<script type="text/javascript">
+$(function() {
+var hammertime = new Hammer(document.getElementById("carousel-example-generic"));
+ hammertime.on("swipeleft", function (e){
+$('#carousel-example-generic').carousel('prev');
+ });
+  hammertime.on("swiperight", function (e){
+$('#carousel-example-generic').carousel('next');
+ });
+ });
+</script>
+
 
 
 <script>
@@ -82,13 +98,13 @@ $('.carousel').carousel({
 {% endblock %}
 
  {% block content %}
-    <div class="container container-home">
+    <div class="container">
 
       <div class="row">
         <div class="col-sm-8  leftcontainer">
 <!--         <div class="row"> -->
 
-          <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+          <div id="carousel-example-generic" class="carousel slide carousel-fade" data-ride="carousel">
                 <ol class="carousel-indicators">
                   <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
                   <li data-target="#carousel-example-generic" data-slide-to="1" class=""></li>
@@ -102,6 +118,9 @@ $('.carousel').carousel({
                     <div class="item">
                     {% endif %}
                     <a href="{{item.get_absolute_url}}"><img src="{{item.get_image_url}}">
+                     {% if item.original %}
+                      <span class="original-mark"  >原创</span>
+                      {% endif %}
                       <div class="carousel-caption">
                         <h3>{{item.title}}</h3>
                     </a>
@@ -126,23 +145,23 @@ $('.carousel').carousel({
 
 {% for item in queryset %}
 
-          <div class="col-sm-12 newsblock" id="{{item.blockid}}">
-          <div class="col-sm-4 leftimgblock">
+          <div class="col-xs-12 newsblock" id="{{item.blockid}}">
+          <div class="col-xs-4 leftimgblock">
           <a href="{{item.get_absolute_url}}"><img src="{{item.get_image_url}}" ></a>
           {% if item.original %}
           <span class="original-mark"  >原创</span>
           {% endif %}
           </div> 
-          <div class="col-sm-8 rightwordblock">
+          <div class="col-xs-8 rightwordblock">
           <h3><a href="{{item.get_absolute_url}}">{{item.title}}</a></h3>
-          <span><img  class="img-circle usericon" src='{{item.writer.get_image_url}}'></span>
+          <span><img  class="img-circle usericon hidden-xs" src='{{item.writer.get_image_url}}'></span>
           <span class="writer"><a href="{{item.writer.get_absolute_url}}">{{item.user}}{{item.writer}}</a></span> 
           <span class="posttime">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</span> 
 
-<i class="icon-reply"></i><span>{{item.id|Article_comment}}  </span>   
-<i class="icon-collection"></i><span>{{item.id|Article_collection}} </span> 
+<i class="icon-reply hidden-xs"></i><span class="hidden-xs">{{item.id|Article_comment}}  </span>   
+<i class="icon-collection hidden-xs"></i><span class="hidden-xs">{{item.id|Article_collection}} </span> 
 
-          <p class="associatetitle" style='padding-left: 0px;'>{{item.associatetitle}}</p>
+          <p class="associatetitle hidden-xs" style='padding-left: 0px;'>{{item.associatetitle}}</p>
           </div> 
           </div> <!-- newsblock -->
 {% endfor %}
@@ -158,7 +177,7 @@ $('.carousel').carousel({
       <!-- </div> --><!-- <div class="row">  -->  
 
 
-        <div class="col-sm-4 rightcontainer">
+        <div class="col-sm-4 rightcontainer hidden-xs">
           <div  style="margin-left: 15px;">
           <h3 class="bg-primary">争议话题</h3>
           <div style="position:relative; margin-bottom:30px;">
