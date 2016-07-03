@@ -57,6 +57,11 @@ ul{
 	border-bottom: 1px solid #f0f0f0;
 }
 
+.group-list a{
+	color: #444;
+	font-size: 14px;
+}
+
 .group-list-block{
 	border-top: 1px solid #f0f0f0;
 	border-bottom: 1px solid #f0f0f0;
@@ -79,6 +84,7 @@ ul{
 	font-size: 14px;
 	color: #999;
 	line-height: 24px;
+	margin-top: 6px;
 }
 
 .group-information a, .group-founder a{

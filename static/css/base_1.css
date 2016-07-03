@@ -39,7 +39,7 @@ div{
 
 
 .navbar-brand{
-	padding: 0px;
+	padding-top: 0px;
 }
 
 .input-group .form-control{
@@ -56,8 +56,13 @@ div{
 .basewebicon{
 	width: 51px;
 	height: 51px;
-	margin-right: 18px;
+
 }
+
+.navbar-right{
+	margin-right: 0px;
+}
+
 .category{
 	height: 70px;
 	width: 100%;

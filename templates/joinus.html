@@ -1,0 +1,196 @@
+{% extends "base_1.html" %}
+{% block HeadDoc %}
+<style type="text/css">
+.content-2{
+/*	color: #449d44;
+	background-color: #CCF4D9;*/
+	border-color: #CCF4D9;
+	padding: 10px;
+	/*text-align: center;*/
+}
+
+.jobline{
+		color: #449d44;
+	background-color: #CCF4D9;
+	cursor:pointer;
+}
+body {
+background-color: #f0f4fb;
+}
+
+.content-1{
+	background-color: white;
+	padding: 10px;
+	width: 70%;
+	/*height: 370px;*/
+	border: 1px solid #cacaca;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 20px;
+}
+.content-2 ul li{
+	margin-top: 10px;
+	clear:both;
+}
+
+.jobshow ul{
+	list-style-type: decimal;
+}
+
+.jobshow {
+	margin: 15px;
+	display: none;
+}
+</style>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $(".jobline").click(function(){
+    $(this).next(".jobshow").fadeToggle();
+  });
+});
+</script>
+
+
+
+{% endblock %}
+
+{% block content %}
+<div class='container'>
+	<div class='content-1 '>
+		<div class='content-2 '>
+  <ul>
+    <li class='jobline'>
+    产品经理
+    </li>
+
+   <div class='jobshow'>
+   	<p>职位描述：</p>
+	   <ul>
+		<li><p>负责梧桐产品的规划、设计，以及优化</p></li>
+		<li><p>分析产品运营数据,不断完善和优化产品,提升产品的用户体验</p></li>
+		<li><p>与团队密切配合,协调项目资源,跟踪项目进度,以顺利完成项目</p></li>
+		</ul>
+	   	<p>职位要求:</p>
+	   <ul>
+		<li><p>三年以上相关工作经验</p></li>
+		<li><p>两年以上带领团队经验。具有优秀的计划能力、组织能力和执行能力。</p></li>
+		<li><p>有较强的学习创新能力,逻辑思维能力,责任心强,具有良好的沟通能力和团队合作意识</p></li>
+		</ul>
+	</div>
+
+
+  	 <li class='jobline'>
+  	编辑
+  	</li>
+   <div class='jobshow'>
+   	<p>职位描述：</p>
+	   <ul>
+		<li><p>发现梧桐关心的行业新闻</p></li>
+		<li><p>外出采访</p></li>
+		<li><p>撰写产品行业的观察与思考</p></li>
+		</ul>
+	   	<p>职位要求:</p>
+	   <ul>
+		<li><p>对新科技产品有强烈的好奇心和探索欲</p></li>
+		<li><p>文字表达能力好，有逻辑性</p></li>
+		<li><p>有研发经验或者理工科背景优先</p></li>
+		</ul>
+	</div>
+
+
+    <li class='jobline'>
+    研发工程师（后端）
+    </li>
+   <div class='jobshow'>
+   	<p>职位描述：</p>
+	   <ul>
+		<li><p>梧桐产品后端系统的设计开发</p></li>
+		</ul>
+	   	<p>职位要求:</p>
+	   <ul>
+		<li><p>扎实的计算机专业技术，如操作系统、网络、数据库等；优秀的工程开发能力</p></li>
+		<li><p>２年以上完整的后端项目工程经验，熟练掌握LAMP/LNMP开发,，熟悉redis，mysql, memcache等相关技术</p></li>
+		<li><p>了解前端开发相关技术，能实现简单的页面呈现和交互</p></li>
+		<li><p>踏实、勤恳、好学，有较强的沟通能力和良好的团队协作精神</p></li>
+		<li><p>pythoner优先</p></li>
+		</ul>
+	</div>
+
+
+     <li class='jobline'>
+    研发工程师（前端）
+    </li>
+       <div class='jobshow'>
+   	<p>职位描述：</p>
+	   <ul>
+		<li><p>负责梧桐前端页面的开发与实现</p></li>
+		</ul>
+	   	<p>职位要求:</p>
+	   <ul>
+		<li><p>熟练使用JavaScript、Ajax、DOM等前端技术</p></li>
+		<li><p>熟悉HTML5/CSS3等相关技术</p></li>
+		<li><p>对用户体验、交互操作流程、及用户需求有追求</p></li>
+		<li><p>有成熟作品优先</p></li>
+		</ul>
+	</div>
+
+
+  	 <li class='jobline'>
+  	美术工程师（美工）
+  	</li>
+       <div class='jobshow'>
+   	<p>职位描述：</p>
+	   <ul>
+		<li><p>根据产品需求，对梧桐进行整体的美术设计、创意设计</p></li>
+		<li><p>对页面进行优化，使用户操作更趋于人性化</p></li>
+		<li><p>参与制定网站产品的栏目结构、设计风格定位，设计并负责其实施</p></li>
+		</ul>
+	   	<p>职位要求:</p>
+	   <ul>
+		<li><p>熟练使用精通FIREWORKS、PHOTOSHOP、DREAMWEAVER 、FLASH等设计软件</p></li>
+		<li><p>有较强的美术功底，对网站色彩、构图等有见解</p></li>
+		</ul>
+	</div>
+
+
+  	 <li class='jobline'>
+  	运营
+  	</li>
+  	       <div class='jobshow'>
+   	<p>职位描述：</p>
+	   <ul>
+		<li><p>负责梧桐微信公众号、微博以及其它第三方平台帐号运作</p></li>
+		</ul>
+	   	<p>职位要求:</p>
+	   <ul>
+		<li><p>本科以上学历，有相关工作经验</p></li>
+		<li><p>经常浏览相关行业网站、论坛以及第三方平台</p></li>
+		</ul>
+	</div>
+
+	 <li class='jobline'>
+  	客户经理
+  	</li>
+  	  <div class='jobshow'>
+   	<p>职位描述：</p>
+	   <ul>
+		<li><p>开拓客户，沟通并满足客户需求，完成提案及客户报告等服务工作</p></li>
+		</ul>
+	   	<p>职位要求:</p>
+	   <ul>
+		<li><p>时刻响应客户的吐槽和提问</p></li>
+		<li><p>良好的人际沟通经验</p></li>
+		</ul>
+	</div>
+
+
+  </ul>
+  </div>
+  		<p style = 'text-align: center;'>
+			对以上职位有意向者,请发送简历至shenanping2008@Hotmail.com
+		</p>
+</div>
+</div>
+{% endblock %}
+

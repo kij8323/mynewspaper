@@ -11,6 +11,7 @@ urlpatterns = [
     url(r'^weixinyanzheng/', 'mainpage.views.weixinyanzheng', name='weixinyanzheng'),#微信验证
     url(r'^$', 'mainpage.views.home', name='home'),#主页
     url(r'^aboutus/', 'mainpage.views.aboutus', name='aboutus'),#关于我们
+    url(r'^joinus/', 'mainpage.views.joinus', name='joinus'),#加入我们
     url(r'^contactus/', 'mainpage.views.contactus', name='contactus'),#联系我们
     url(r'^home/morearticlehome/$', 'mainpage.views.morearticlehome', name='morearticlehome'),#首页更多文章按钮ajax
     url(r'^home/articlepagehome/$', 'mainpage.views.articlepagehome', name='articlepagehome'),#首页更多文章加载页面

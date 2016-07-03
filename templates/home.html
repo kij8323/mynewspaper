@@ -195,7 +195,7 @@ $('.carousel').carousel({
 
 
 <div class='hotnewsblock'>
-         <div class='head'>一周新闻排行</div>
+         <div class='head'>一周资讯排行</div>
 
     <table class="table table-hover hotnews">
       <tbody>
@@ -248,9 +248,9 @@ $('.carousel').carousel({
 {% for item in nicecomment %}
         <tr>
           {% if item.article %}
-          <td><a href="{{item.article.get_absolute_url}}"><span>{{item.user}} 评 {{item.article.title}}</span><br>{{item.text|safe}}</a></td>
+          <td><a href="{{item.article.get_absolute_url}}">{{item.user}} 评 {{item.article.title}}<br></a>{{item.text|safe}}</td>
           {% else %}
-          <td> <a href="{{item.topic.get_absolute_url}}"><span>{{item.user}} 评 {{item.topic.title}}</span><br>{{item.text|safe}}</a></td>
+          <td> <a href="{{item.topic.get_absolute_url}}">{{item.user}} 评 {{item.topic.title}}<br></a>{{item.text|safe}}</td>
           {% endif %}
         </tr>
 {% endfor %}
@@ -260,7 +260,7 @@ $('.carousel').carousel({
 
 <div class='weixingongzhong'>
 <img src="static/media/images/qrcode_for_gh_2b7424ebf230_258.jpg" >
-<h5 style='font-weight: 700;'>微信公众号梧桐观点（wutongtechnews）
+<h5 style='font-weight: 650;'>扫描上方二维码关注微信公众号（wutongtechnews）
 </h5>
 </div>
 
