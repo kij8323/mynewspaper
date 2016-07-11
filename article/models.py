@@ -11,6 +11,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 import os
 from django.core.cache import cache
+from company.models import Company
 
 # 文章
 class Article(models.Model):
@@ -41,6 +42,8 @@ class Article(models.Model):
 	readers = models.IntegerField(default=0, db_index=True)
 	#是否为原创
 	original = models.BooleanField(default=False, db_index=True)
+	#公司
+	company = models.ForeignKey(Company, null=True, blank=True)
 
 	def __unicode__(self):
 		return self.title

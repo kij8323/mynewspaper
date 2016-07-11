@@ -43,9 +43,9 @@ h1{
 }
 
 .comment-form{
-	border-top: 0px !important;
-	margin-top: 0px !important;
-	margin-bottom: 0px !important;
+
+	margin-top: 50px !important;
+	margin-bottom: 50px !important;
 }
 
 .comment{

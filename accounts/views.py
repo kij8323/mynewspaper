@@ -20,6 +20,7 @@ from django.http import Http404
 from notifications.signals import notify
 from topic.models import CollectionTopic, Topic
 from article.models import Collection, Article
+from company.models import Company
 from comment.models import Comment
 from notifications.models import Notification
 from article.tasks import readersin, add, readersout, instancedelete, instancesave
@@ -413,6 +414,39 @@ def userdashboardarticle(request, user_id):
 	except MyUser.DoesNotExist:
 		raise Http404("MyUser does not exist")
 	return render(request, 'user_userdashboardarticle.html',  context)
+
+#我的公司
+def userdashboardcompany(request, user_id):
+	try:
+		user = MyUser.objects.get(pk=user_id)
+		sender = request.user
+		if user == sender:
+			host = True
+			hostname = '我的'
+		else:
+			host = False
+			hostname = '他的'
+		company = Company.objects.filter(uper = user).filter(verify = True).order_by("-id")
+		# 分页
+		paginator = Paginator(company, 10)
+		page = request.GET.get('page')
+		try:
+			contacts = paginator.page(page)
+		except PageNotAnInteger:
+		# If page is not an integer, deliver first page.
+			contacts = paginator.page(1)
+		except EmptyPage:
+		# If page is out of range (e.g. 9999), deliver last page of results.
+			contacts = paginator.page(paginator.num_pages)
+		context = {
+			'company' : contacts,
+			'host': host,
+			'userofinfor': user,
+			'hostname': hostname,
+			}
+	except MyUser.DoesNotExist:
+		raise Http404("MyUser does not exist")
+	return render(request, 'user_userdashboardcompany.html',  context)
 
 #我的话题
 def userdashboardarticletopic(request, user_id):

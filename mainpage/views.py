@@ -89,6 +89,9 @@ def home(request):
 	'hotnews': hotnews,
 	'nicecomment': nicecomment,
 	'coverarticle': coverarticle,
+	'coverarticle0': coverarticle[0],
+	'coverarticle1': coverarticle[1],
+	'coverarticle2': coverarticle[2],
 	'covertopic': covertopic[0],
 	}
 	return render(request, 'home.html', context)

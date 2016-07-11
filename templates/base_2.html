@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head>
+<meta name="baidu-site-verification" content="OPA8XW0AfZ" />
+<meta property="wb:webmaster" content="313c0d3cedd51dcf" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/static/images/Abstract Tree.jpg">
+
+    <title>梧桐观点-专注于智能硬件的发展</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/static/bootstrap-3.3.4-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/base_1.css" rel="stylesheet">
+    <script src="/static/bootstrap-3.3.4-dist/js/ie-emulation-modes-warning.js"></script>
+    <script src="/static/js/jquery-1.11.3.min.js"></script>
+    <script src="/static/js/jquery.cookie.js"></script>
+    <script src="/static/bootstrap-3.3.4-dist/js/bootstrap.min.js"></script>
+    <script src="/static/js/jquery.bootstrap.min.js"></script>
+    <script src="/static/bootstrap-3.3.4-dist/js/ie10-viewport-bug-workaround.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/smallscreen.css"  media="screen and (max-width: 768px)">
+    {% load time_filter %}
+  <script src="/static/js/home.js"></script>
+
+<script>/*百度推送*/
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+<!-- 显示咨询栏下拉菜单 -->
+<script type="text/javascript">
+$(function() {
+  $("body").on("click", '.categorybutton', function (event){
+    event.stopPropagation();  
+    $('.category').css("margin-bottom","-70px");
+    $('.category').fadeToggle();
+    if ($('.categorybutton').css('border-bottom-width') == '0px'){
+        $('.categorybutton').css("border-bottom","2px solid #67CA87");
+        $('.categorybutton').css("height","50px");
+     }
+    else {
+         $('.categorybutton').css("border-bottom","0px");
+    }
+  })
+  $(document).click(function (event) { $('.category').fadeOut() 
+    $('.categorybutton').css("border-bottom","0px");
+  });   
+  $(".userinfobutton").mouseenter(function (event) { $('.category').fadeOut() 
+    $('.categorybutton').css("border-bottom","0px");
+  }); 
+})
+</script>
+
+
+<!-- 个人消息下拉菜单 -->
+<script type="text/javascript">
+$(document).ready(function(){
+  $(".userinfobutton").mouseenter(function(){
+    $.ajaxSetup({
+    data: {csrfmiddlewaretoken: '{{ csrf_token }}', 
+          },
+          });
+    $.ajax({
+        url: "{% url 'inbox' %}",
+        type: "post",
+        success: function(data) {
+          if (data.unread == 0){
+            $(".badge").css('background-color','#449d44')
+          }
+          else
+          {
+            $(".badge").css('background-color','#F13F47')
+          }
+	$(".inboxcount").html(data.unread)
+        },
+          error: function(data) { 
+        },
+      });
+      $(".dropdown-toggle").dropdown('toggle');
+  });
+  $(".userinfobutton").mouseleave(function(){
+      $(".dropdown-toggle").dropdown('toggle');
+  });  
+    });
+</script>
+
+<!-- 个人消息下拉菜单宽度与按钮保持一致 -->
+<script type="text/javascript">
+$(document).ready(function(){
+  width = $(".userinfobutton").css('width')
+  $(".dropdown-menu").css('min-width',width)
+  });
+</script>
+
+<!-- 搜索栏 -->
+<script>
+$(document).ready(function(){
+  $("#index_search form").submit(function(e){
+    var input = $("#search_word").val()
+    if (input == "")
+    {
+/*      alert('no')*/
+    return false;
+    }
+/*    if (input.length >= 20)
+    {
+      alert('no')
+      return false;
+    }*/
+    else
+    {
+    return true;
+    }
+  });
+});
+</script>
+
+
+
+  {% block HeadDoc %}
+  {% endblock %}
+
+
+  </head>
+
+  <body>
+
+    <!-- Static navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="{% url 'home' %}"><img  class="basewebicon" src='/static/images/Abstract Tree.jpg'></a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="categorybutton subcate hidden-xs"><a href="#">资讯<span class="caret"></span></a></li>
+            <li class="subcate hidden-xs"><a href="{% url 'company_list' %}">项目板</a></li>
+            <li class="subcate hidden-xs"><a href="{% url 'group_all' %}">话题</a></li>
+          </ul>
+<div id='index_search'>
+<form class="navbar-form navbar-left" role="search" action="{% url 'index_search' %}" method="get">
+<!--   {% csrf_token %} -->
+    <div class="input-group">
+      <input id = 'search_word' type="text" class="form-control" name="search_word"  placeholder="资讯搜索...">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+      </span>
+    </div>
+      </form>
+</div>
+          <ul class="nav navbar-nav navbar-right">
+        {% if user.is_authenticated %}
+	<li class="subcate visible-xs-block"><a href="{% url 'userlogout' %}">退出</a></li>	
+        <li class='userinfobutton hidden-xs'><a  href="{{user.get_absolute_url}}"><span><img  class="img-circle baseusericon" src='{{user.get_image_url}}'></span>{{user.username}}</a><span class="dropdown-toggle" data-toggle="dropdown"></span>  <ul class="dropdown-menu hidden-xs" aria-labelledby="dLabel">
+                <li><a href="{% url 'user_detailnotifications' user.id %}">消息<span class="badge inboxcount">{{ user.id|user_unread_count }}</span></a></li>
+                <li><a href="{% url 'user_detailcollections' user.id %}">我的收藏</a></li>
+                <li><a href="{% url 'user_userdashboardarticletopic' user.id %}">我的话题</a></li>
+                <li><a href="{% url 'user_detailcomments' user.id %}">我的评论</a></li>
+                <li><a href="{% url 'user_userdashboardcompany' user.id %}">我的公司</a></li>
+                <li><a href="{% url 'company_built1'  %}">创建公司</a></li>
+                <li><a href="{% url 'userlogout' %}">退出</a></li>
+  </ul></li>
+
+
+
+        {% else %}
+            <li class="subcate"><a href="{% url 'loggin' %}">登录</a></li>
+            <li class="subcate"><a href="{% url 'register' %}">注册 <span class="sr-only">(current)</span></a></li>
+        {% endif %} 
+            <li class="active hidden-xs"><a href="{% url 'article_post' %}">投稿</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+
+    <div class='category'>
+      <div class="categoryline ">
+      <span class="categoryblock">
+      <!-- <a href="{% url 'category_detail' 7 %}">热点</a> -->
+      <a href="{% url 'category_detail' 7 %}"><!-- 虚拟现实 -->VR</a>
+      <a href="{% url 'category_detail' 8 %}">智能家居</a>
+      <a href="{% url 'category_detail' 9 %}">智能可穿戴</a>
+      <a href="{% url 'category_detail' 12 %}">智能交通</a>
+      <a href="{% url 'category_detail' 10 %}">机器人</a>
+      <a href="{% url 'category_detail' 11 %}">市场新闻</a>
+      </span>
+      </div>
+    </div>
+
+
+    </nav>
+
+
+  {% block content %}
+  {% endblock %}
+
+  {% block footer %}
+
+  <div class="footer" id="information">
+<!--   <div class="col-xs-6"> -->
+          <p>
+
+
+
+            <a href="{% url 'aboutus' %}" target="_blank">关于我们</a>
+            <a href="{% url 'contactus' %}" target="_blank">联系我们</a>
+    	<a href="{% url 'joinus' %}" target="_blank">加入我们</a>
+<!--            <a href="http://www.jiathis.com/send/?webid=tsina&url=http://www.urlurl.com&title=梧桐观点">
+          <i class="foot-weiboshare">
+          </i>
+           </a>
+          <a href="http://www.jiathis.com/send/?webid=tsina&url=http://www.urlurl.com&title=梧桐观点">
+          <i class="foot-weichatshare">
+          </i>
+           </a>
+          <a href="http://www.jiathis.com/send/?webid=tsina&url=http://www.urlurl.com&title=梧桐观点">
+          <i class="foot-qqzoneshare">
+          </i>
+           </a> -->
+
+          </p>
+
+
+        <p>
+            <span>Copyright © 2015-2016 梧桐树新闻 - 梧桐树投资</span>
+
+            <a href="http://www.miibeian.gov.cn/" target="_blank">京ICP备16001752-2号</a>
+          </p>
+
+
+    </div>
+  {% endblock %}
+
+</body></html>

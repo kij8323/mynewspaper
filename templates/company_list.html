@@ -1,0 +1,293 @@
+{% extends "base_1.html" %}
+{% block HeadDoc %}
+<link href="/static/css/company_list.css" rel="stylesheet">
+<script src="/static/js/topic_detail.js"></script>
+<script type="text/javascript">
+$(function() {
+  $("body").on("click", '.content-search  a', function(){
+	class_search = $(this).parent().parent().attr ('class') 
+	if (class_search == 'industry-active')
+	{
+		$('.industry-active').children().children('.active').removeClass("active");
+		$(this).addClass("active");
+
+	}
+	else if (class_search == 'financing-active')
+	{
+		$('.financing-active').children().children('.active').removeClass("active");
+		$(this).addClass("active");
+	}
+	else if (class_search == 'location-active')
+	{
+		$('.location-active').children().children('.active').removeClass("active");
+		$(this).addClass("active");
+	}
+	industry = $('.industry-search .active').text() ;
+	financing = $('.financing-search .active').text() ;
+	locationx = $('.location-search .active').text() ;
+    $.ajaxSetup({
+    data: {
+          industry: industry, 
+          financing: financing, 
+          locationx: locationx, 
+          },
+          });
+    $.ajax({
+        url: "{% url 'company_list_fresh' %}",
+        type: "get",
+        dataType: 'json',
+        success: function(data) {
+        	/*alert('ok')*/
+        	/*$("#content-ajax").html("")*/
+        	$("#content-ajax").load('{% url 'company_content_fresh' %}');
+        },
+        error: function(data) { 
+             /* alert("Got an error dude");*/
+        } 
+	    });
+    })
+})
+</script>
+
+
+{% endblock %}
+
+{% block content %}
+<div class='container'>
+	<div class='content-search '>
+
+		<div class="ff-form-title">
+		    <span class='span-mark-author'>
+		    项目信息
+		    </span>
+		</div>
+
+
+		<dl class='industry-search comp-filter'>
+			<div class = 'industry-active'>
+				<dt>
+					行业：
+					<a href="javascript:void(0);"  class="active">全部</a>
+				</dt>
+			</div>
+			<dd>
+				<ul class="list-inline">
+					<div class = 'industry-active'>
+					<li>
+						<a href="javascript:void(0);" >智能家居</a>
+					</li>
+					<li>
+						<a href="javascript:void(0);">可穿戴设备</a>
+					</li>
+					<li>
+						<a href="javascript:void(0);">智能健康</a>
+					</li>
+					<li>
+						<a href="javascript:void(0);">智能配件</a>
+					</li>
+					<li>
+						<a href="javascript:void(0);">智能母婴设备</a>
+					</li>
+					<li>
+						<a href="javascript:void(0);">机器人</a>
+					</li>
+					<li>
+						<a href="javascript:void(0);">无人机</a>
+					</li>
+					<li>
+						<a href="javascript:void(0);">手机平板</a>
+					</li>
+					<li>
+						<a href="javascript:void(0);">VR/AR</a>
+					</li>
+					<li>
+						<a href="javascript:void(0);">智能交通</a>
+					</li>
+					<li>
+						<a href="javascript:void(0);">其它</a>
+					</li>
+					</div>
+				</ul>
+			</dd>
+		</dl>
+
+
+
+		<dl class='location-search comp-filter'>
+			<div class = 'location-active'>
+			<dt>
+				所在地：
+				<a href="javascript:void(0);"  class="active">全部</a>
+			</dt>
+			</div>
+			<dd>
+				<ul class="list-inline">
+					<div class = 'location-active'>
+					<li>
+						<a href="javascript:void(0);">北京市</a>
+					</li>
+					<li>
+						<a href="javascript:void(0);">上海市</a>
+					</li>
+					<li>
+						<a href="javascript:void(0);">天津市</a>
+					</li>
+					<li>
+						<a href="javascript:void(0);">重庆市</a>
+					</li>
+					<li>
+						<a href="javascript:void(0);">深圳市</a>
+					</li>
+					<li>
+						<a href="javascript:void(0);">四川省</a>
+					</li>
+					<li>
+						<a href="javascript:void(0);">广东省</a>
+					</li>
+					<li>
+						<a href="javascript:void(0);">其它</a>
+					</li>
+					</div>
+				</ul>
+			</dd>
+		</dl>
+
+		<dl class='financing-search comp-filter'>
+			<div class = 'financing-active'>
+			<dt>
+				融资阶段：
+				<a href="javascript:void(0);"  class="active">全部</a>
+			</dt>
+			</div>
+			<dd>
+				<ul class="list-inline">
+					<div class = 'financing-active'>
+					<li>
+						<a href="javascript:void(0);">未融资</a>
+					</li>
+					<li>
+						<a href="javascript:void(0);">种子轮</a>
+					</li>
+					<li>
+						<a href="javascript:void(0);">天使轮</a>
+					</li>
+					<li>
+						<a href="javascript:void(0);">Pre-A</a>
+					</li>
+					<li>
+						<a href="javascript:void(0);">A轮</a>
+					</li>
+					<li>
+						<a href="javascript:void(0);">B轮</a>
+					</li>
+					<li>
+						<a href="javascript:void(0);">C轮</a>
+					</li>
+					<li>
+						<a href="javascript:void(0);">D轮及以上</a>
+					</li>
+					<li>
+						<a href="javascript:void(0);">其它</a>
+					</li>
+					</div>
+				</ul>
+			</dd>
+		</dl>
+
+</div>	<!-- <div class='content-search '> -->
+
+<div class='content-list'>
+
+	<div class='row'> 
+		<div class="ff-form-title">
+		    <span class='span-mark-author'>
+		    项目列表
+		    </span>
+		</div>
+
+ 	<a  href="{% url 'company_built1' %}" class='btn btn-lg btn-success btn-block pull-right' >创建公司</button>
+ 	</a>
+
+
+		<div class="table-head hidden-xs  col-xs-12">
+			<div class="table-head-ad col-xs-4">
+				公司
+			</div>
+			<div class="table-head-ad col-xs-2">
+				创始人
+			</div>
+			<div class="table-head-ad col-xs-2">
+				行业
+			</div>
+			<div class="table-head-ad col-xs-2">
+				所在地
+			</div>
+			<div class="table-head-ad col-xs-2">
+				融资阶段
+			</div>
+		</div>
+
+
+
+
+		<div id='content-ajax'>
+		{% for item in company %}
+		{% if forloop.last %}
+		<style type="text/css">
+/*		.table-content{
+			border-bottom: 1px solid #ddd;
+		}*/
+		</style>
+		{% endif %}
+		<div class="table-content col-xs-12">
+			<div class="table-col table-content-ad col-xs-4">
+				<div class="firm-img">
+					<a href="{{item.get_absolute_url}}">
+					<img src="{{item.get_image_url}}">
+					</a>
+				</div>
+				<div class="info">
+					<div class="name">
+						<a href="{{item.get_absolute_url}}">
+						{{item.title}}
+						</a>
+					</div>
+					<div class="des">{{item.associatetitle}}</div>
+				</div>
+			</div>
+			<div class="table-col-ad col-xs-2">
+				<a href="{{item.uper.get_absolute_url}}">{{item.uper}}</a>
+			</div>
+			<div class="table-col-ad col-xs-2">{{item.industry}}</div>
+			<div class="table-col-ad col-xs-2">{{item.location}}</div>
+			<div class="table-col-ad col-xs-2">{{item.financing}}</div>
+		</div>
+		{% endfor %}
+<!--  </div>  --><!-- <div class="group-list-block"> -->
+
+<div class='paginationcontain'>
+<div class="pagination">
+    <span class="step-links">
+{% if company.has_previous %}
+        <a class='paginator' title='上一页' href='?page={{ company.previous_page_number }}'><span>&lt;</span></a>
+ {% endif %}
+ {% for page in company.paginator.page_range %}
+     {% if page = company.number %}
+         <a class='paginator_current' title='当前页:{{ page }}'><span>{{ page }}</span></a>
+     {% else %}
+         <a class='paginator' href='?page={{ page }}' title='{{ page }}'><span>{{ page }}</span></a>
+     {% endif %}
+ {% endfor %}
+ {% if company.has_next %}
+     <a class='paginator' title='下一页' href='?page={{ company.next_page_number }}'><span>&gt;</span></a>
+ {% endif %}
+    </span>
+</div><!-- <div class="pagination"> -->
+</div><!-- <div id='content-ajax'> -->
+
+
+	</div><!-- <div class="table-head hidden-xs"> -->
+ </div><!-- <div class='content-list'> -->
+</div>
+{% endblock %}
+

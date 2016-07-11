@@ -38,7 +38,7 @@ urlpatterns = [
     url(r'^user/(?P<user_id>[0-9]+)/articletopic/$', 'accounts.views.userdashboardarticletopic', name='user_userdashboardarticletopic'),#个人话题
     url(r'^user/(?P<user_id>[0-9]+)/userdashboard_commentocomment/$', 'accounts.views.userdashboard_commentocomment', name='userdashboard_commentocomment'),#个人点评
     url(r'^user/deleteinfo/$', 'accounts.views.deleteinfo', name='deleteinfo'),#删除个人收藏、评论。。。。。
-
+    url(r'^user/(?P<user_id>[0-9]+)/company/$', 'accounts.views.userdashboardcompany', name='user_userdashboardcompany'),#个人公司
 
     url(r'^group/index/$', 'topic.views.group_index', name='group_index'),#不用
     url(r'^group/all/$', 'topic.views.group_all', name='group_all'),#话题组首页
@@ -67,6 +67,16 @@ urlpatterns = [
     url(r'^article/commentlike/$', 'article.views.commentlike', name='commentlike'),#文章页评论点赞
     url(r'^article/commentdislike/$', 'article.views.commentdislike', name='commentdislike'),#文章页评论点衰
     url(r'^article/article_post/$', 'article.views.article_post', name='article_post'),#首页投稿
+
+    url(r'^company/(?P<company_id>[0-9]+)/$', 'company.views.company_detail', name='company_detail'),#公司页
+    url(r'^company/list/$', 'company.views.company_list', name='company_list'),#公司页
+    url(r'^company/list-fresh/$', 'company.views.company_list_fresh', name='company_list_fresh'),#公司页
+    url(r'^company/content-fresh/$', 'company.views.company_content_fresh', name='company_content_fresh'),#公司页
+    url(r'^company/built1/$', 'company.views.company_built1', name='company_built1'),#公司页
+    url(r'^company/built2/$', 'company.views.company_built2', name='company_built2'),#公司页
+    url(r'^company/(?P<company_id>[0-9]+)/built3/$', 'company.views.company_built3', name='company_built3'),#公司页
+    url(r'^company/builtsucss/$', 'company.views.builtsucss', name='builtsucss'),#公司success页
+
 
 
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

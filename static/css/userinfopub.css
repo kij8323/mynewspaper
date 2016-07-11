@@ -27,8 +27,11 @@ li a:hover{
 	color: #67CA87;
 }
 
-.glyphicon-home, .glyphicon-pencil, .glyphicon-comment, .glyphicon-inbox, .glyphicon-paperclip{
+ .presentation6 a,.presentation1 a, .presentationw1 a, .presentation5 a,.presentation2 a, .presentation3 a, .presentation4 a,.presentationw2 a, .presentationw3 a{
+
+	color: #555;
+}
+.glyphicon{
  	margin-right: 10px;
  }
-
  

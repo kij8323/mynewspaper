@@ -7256,3 +7256,14 @@ worker: Warm shutdown (MainProcess)
 2016-06-21 21:41:36,578 INFO spawned: 'redis-server' with pid 1183
 2016-06-21 21:41:38,238 INFO success: celery entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
 2016-06-21 21:41:38,238 INFO success: redis-server entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-07-10 21:58:02,046 WARN received SIGTERM indicating exit request
+2016-07-10 21:58:02,047 INFO waiting for celery, redis-server to die
+2016-07-10 21:58:02,104 INFO stopped: redis-server (exit status 0)
+2016-07-10 21:58:03,650 INFO stopped: celery (exit status 0)
+2016-07-10 21:59:01,497 CRIT Supervisor running as root (no user in config file)
+2016-07-10 21:59:01,543 INFO RPC interface 'supervisor' initialized
+2016-07-10 21:59:01,544 INFO supervisord started with pid 1166
+2016-07-10 21:59:02,546 INFO spawned: 'celery' with pid 1172
+2016-07-10 21:59:02,548 INFO spawned: 'redis-server' with pid 1173
+2016-07-10 21:59:04,212 INFO success: celery entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-07-10 21:59:04,212 INFO success: redis-server entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)

@@ -1,0 +1,79 @@
+{% extends "base_1.html" %}
+{% load time_filter %}
+{% block HeadDoc %}
+<link href="/static/css/company_built1.css" rel="stylesheet">
+
+
+
+<script>/*当所有cuserrorlist的css的display为none时，才可以提交表单*/
+$(document).ready(function(){
+  $(".form-content form").submit(function(e){
+  	var company_title = $("#company_title").val()
+  	var company_weburl = $("#company_weburl").val()
+  	if (company_title == "" || company_title.length >= 50 )
+    {
+      $("#company_weburlilleg").css("display", "none");
+      $("#company_titleilleg").fadeIn("slow");
+    return false;
+    }
+  	else if (company_weburl == "" || company_weburl.length >= 200 )
+    {
+      $("#company_titleilleg").css("display", "none");
+      $("#company_weburlilleg").fadeIn("slow");
+    return false;
+    }
+    else
+    {
+    return true;
+    }
+  	  });
+});
+ </script>
+
+
+
+{% endblock %}
+ {% block content %}
+ <div class="container">
+ 	<div class='head'>
+ 		<h2>
+ 			创建公司
+ 		</h2>
+ 		<p>
+ 			我们会以最快的速度审核,并采访您的公司。
+ 		</p>
+ 	</div>
+
+ 	<div class='form-content'>
+<form class="creat-form"  action="{% url 'company_built1' %}" method="post">
+	{% csrf_token %}
+	<div class='input-row'>
+		<div id="company_titleilleg" class="cuserrorlist">请输入公司名称</div>
+	<div class="sidebar">
+	<label>公司名称</label>
+	</div>
+	<div class='content'>
+		<input class="form-control" id='company_title' name="company_title" placeholder="请填写公司核心产品名称或项目名称" type="text">
+	</div>
+	</div>
+
+
+	<div class='input-row'>
+		<div id="company_weburlilleg" class="cuserrorlist">请输入公司网址</div>
+	<div class="sidebar">
+	<label>公司网址</label>
+	</div>
+	<div class='content'>
+		<input class="form-control" id='company_weburl' name="company_weburl" placeholder="如：http://www.wutongnews.com"  type="text">
+	</div>
+	</div>	
+
+
+  <input class='center-block btn  btn-success ' type='submit' value='下一步'/>
+
+</form>
+ 	</div>
+
+</div>
+
+ {% endblock %}

@@ -416,12 +416,14 @@ $(window).resize(function(){
   </div>
   {%endfor%}
 </div>
-
+{% if article.company %}
+<div class='firm-page'><a href="{{article.company.get_absolute_url}}">浏览项目</a></div>
+{% endif %}
 
 
 <div class="comment-form">
-     <span class="span-mark-author hidden-xs">发表评论</span>
-      <div class="author-info hidden-xs">
+     <span class="span-mark-author">发表评论</span>
+      <div class="author-info">
       {% if user.is_authenticated %}
         {{user}}:
       {% else %}
@@ -429,7 +431,7 @@ $(window).resize(function(){
       {% endif %} 
       </div>
 <!--         <form class="form-comment" role="form" method='POST' autocomplete="off" action='{{ action_url }}'> -->
-    <div class="form-comment hidden-xs">
+    <div class="form-comment ">
 
 {% if user.is_authenticated %}
     <textarea name="editor1" id="editor1" rows="10" cols="80">

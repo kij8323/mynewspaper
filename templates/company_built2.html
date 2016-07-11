@@ -1,0 +1,216 @@
+{% extends "base_1.html" %}
+{% load time_filter %}
+{% block HeadDoc %}
+<link href="/static/css/company_built2.css" rel="stylesheet">
+
+
+
+<script>/*当所有cuserrorlist的css的display为none时，才可以提交表单*/
+$(document).ready(function(){
+  $(".form-content form").submit(function(e){
+  	var company_location = $("#company_location").val()
+  	var company_industry = $("#company_industry").val()
+    var company_associatetitle = $("#company_associatetitle").val()
+    var company_product = $("#company_product").val()
+    var company_client = $("#company_client").val()
+  	if (company_location == ""  || company_location.length >= 100 )
+    {
+      $("#company_industryilleg").css("display", "none");
+      $("#company_associatetitleilleg").css("display", "none");
+      $("#company_productilleg").css("display", "none");
+      $("#company_clientilleg").css("display", "none");
+      $("#company_locationilleg").fadeIn("slow");
+      /*$("#company_location").css("border-color","red") ;*/
+    return false;
+    }
+  	else if (company_industry == "" || company_industry.length >= 100 )
+    {
+      $("#company_locationilleg").css("display", "none");
+      $("#company_associatetitleilleg").css("display", "none");
+      $("#company_productilleg").css("display", "none");
+      $("#company_clientilleg").css("display", "none");
+      $("#company_industryilleg").fadeIn("slow");
+    return false;
+    }
+    else if (company_associatetitle == ""  || company_associatetitle.length >= 120 )
+    {
+      $("#company_locationilleg").css("display", "none");
+      $("#company_industryilleg").css("display", "none");
+      $("#company_productilleg").css("display", "none");
+      $("#company_clientilleg").css("display", "none");
+      $("#company_associatetitleilleg").fadeIn("slow");
+    return false;
+    }
+    else if (company_product == ""  || company_product.length >= 1990  )
+    {
+      $("#company_locationilleg").css("display", "none");
+      $("#company_industryilleg").css("display", "none");
+      $("#company_clientilleg").css("display", "none");
+      $("#company_associatetitleilleg").css("display", "none");
+      $("#company_productilleg").fadeIn("slow");
+    return false;
+    }
+    else if (company_client == ""  || company_client.length >= 1990  )
+    {
+      $("#company_locationilleg").css("display", "none");
+      $("#company_industryilleg").css("display", "none");
+      $("#company_associatetitleilleg").css("display", "none");
+      $("#company_productilleg").css("display", "none");
+      $("#company_clientilleg").fadeIn("slow");
+    return false;
+    }
+    else
+    {
+    return true;
+    }
+  	  });
+});
+ </script>
+
+<script>/*验证输入图片*/
+$(document).ready(function(){
+  $("div#iconform form").submit(function(e){
+    var input = $("#iconinput").val()
+    if (input == "")
+    {
+      $('#erroricon').css("margin-bottom","-34.718px");
+    $('#erroricon').fadeIn("slow").fadeOut(3000);
+    return false;
+    }
+    else
+    {
+    /*alert("ok");*/
+    return true;
+    }
+  });
+});
+</script>
+
+{% endblock %}
+ {% block content %}
+
+<!-- Modal1 -->
+<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <div id="erroricon" style="text-align: center;">请选择图片</div>
+        <h4 class="modal-title" id="myModalLabel">公司Logo</h4>
+      </div>
+      <div class="modal-body">
+<div id='iconform'>
+<form   enctype="multipart/form-data" action="" method="post">
+  {% csrf_token %}
+<a id='iconinputcover' href="#" onclick="document.getElementById('iconinput').click(); return false;" /><h5>浏览本地图片...</h5></a>
+<input id='iconinput' type="file" name="img"  accept="image/*" style="visibility: hidden;"/>
+<button type="submit" class="btn btn-default btn-success">上传</button>
+<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+</form>
+</div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+ <div class="container">
+ 	<div class='head'>
+ 		<h2>
+ 			创建"{{company_title}}"
+ 		</h2>
+ 		<p>
+ 			请认真填写公司信息，尽可能填写得完善。
+ 		</p>
+ 	</div>
+
+ 	<div class='form-content'>
+<form class="creat-form"  action="{% url 'company_built2' %}" method="post">
+    {% csrf_token %}
+  <div class="ff-form-title">
+    <span class='span-mark-author'>
+    基本信息
+    </span>
+  </div>
+	<div class='input-row'>
+	<div class="sidebar">
+	<label class='firm_logo'>公司Logo</label>
+	</div>
+	<div class='content'>
+	<button  type="button" class="btn  btn_logo" data-toggle="modal" data-target="#myModal1">
+<img class="firm_logo_icon" src="{{company.get_image_url}}"  data-target="#myModal1">
+</button>
+  </div>  
+	</div>
+
+
+	<div class='input-row'>
+		<div id="company_locationilleg" class="cuserrorlist">请选择所在地</div>
+	<div class="sidebar">
+	<label>所在地</label>
+	</div>
+	<div class='content'>
+	<select name="company_location"  id="company_location" input-focus=""   ><option value="" class="">请选择</option><option value="0" label="北京市">北京市</option><option value="1" label="上海市">上海市</option><option value="2" label="天津市">天津市</option><option value="3" label="重庆市">重庆市</option><option value="4" label="深圳市">深圳市</option><option value="5" label="四川省">四川省</option><option value="6" label="广东省">广东省</option><option value="7" label="其它">其它</option></select>
+	</div>
+	</div>	
+
+  <div class='input-row'>
+    <div id="company_industryilleg" class="cuserrorlist">请选择所属行业</div>
+  <div class="sidebar">
+  <label>所属行业</label>
+  </div>
+  <div class='content'>
+  <select name="company_industry" id="company_industry" input-focus="" ><option value="" class="">请选择</option><option value="0" label="智能家居">智能家居</option><option value="1" label="可穿戴设备">可穿戴设备</option><option value="2" label="智能健康">智能健康</option><option value="3" label="智能配件">智能配件</option><option value="4" label="智能母婴设备">智能母婴设备</option><option value="5" label="机器人">机器人</option><option value="6" label="无人机">无人机</option><option value="7" label="手机平板">手机平板</option><option value="8" label="VR/AR">VR/AR</option><option value="9" label="智能交通">智能交通</option><option value="10" label="其它">其它</option></select>
+  </div>
+  </div>  
+
+  <div class="ff-form-title">
+    <span class='span-mark-author'>
+    公司介绍
+    </span>
+  </div>
+
+  <div class='input-row'>
+    <div id="company_associatetitleilleg" class="cuserrorlist">一句话简介不能为空</div>
+  <div class="sidebar">
+  <label>一句话简介</label>
+  </div>
+  <div class='content'>
+    <div class="text-input">
+    <textarea   rows="2" cols="40" maxlength="30" minlength="5" id='company_associatetitle' name="company_associatetitle" placeholder="如：梧桐观点,做有深度的科技新闻"  type="text"></textarea>
+       </div>
+  </div>
+  </div>  
+
+    <div class='input-row'>
+    <div id="company_productilleg" class="cuserrorlist">产品介绍</div>
+  <div class="sidebar">
+  <label>产品介绍</label>
+  </div>
+  <div class='content'>
+    <div class="text-input">
+    <textarea   rows="8" cols="40" maxlength="200" minlength="5" id='company_product' name="company_product" placeholder="介绍一下公司的主营业务和产品模式，写明产品优势，突显亮点"  type="text"></textarea>
+       </div>
+  </div>
+  </div>  
+
+    <div class='input-row'>
+    <div id="company_clientilleg" class="cuserrorlist">目标用户不能为空</div>
+  <div class="sidebar">
+  <label>目标用户</label>
+  </div>
+  <div class='content'>
+    <div class="text-input">
+    <textarea   rows="8" cols="40" maxlength="200" minlength="5" id='company_client' name="company_client" placeholder="说说市场规模及目标用户，服务的人群，典型的用户是什么样的"  type="text"></textarea>
+       </div>
+  </div>
+  </div>  
+
+  <input class='center-block btn  btn-success ' type='submit' value='完成'/>
+
+</form>
+ 	</div>
+
+</div>
+
+ {% endblock %}

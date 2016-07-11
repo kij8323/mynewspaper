@@ -1,0 +1,420 @@
+{% extends "base_1.html" %}
+{% load time_filter %}
+{% block HeadDoc %}
+{% load staticfiles %}
+<link href="/static/css/company_built3.css" rel="stylesheet">
+<script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+<script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+
+
+<script>/*验证输入图片*/
+$(document).ready(function(){
+  $("div#iconform form").submit(function(e){
+    var input = $("#iconinput").val()
+    if (input == "")
+    {
+      $('#erroricon').css("margin-bottom","-34.718px");
+    $('#erroricon').fadeIn("slow").fadeOut(3000);
+    return false;
+    }
+    else
+    {
+    /*alert("ok");*/
+    return true;
+    }
+  });
+});
+</script>
+
+<script>/*验证输入图片*/
+$(document).ready(function(){
+  $("div#iconform1 form").submit(function(e){
+    var input = $("#iconinput1").val()
+    if (input == "")
+    {
+      $('#erroricon').css("margin-bottom","-34.718px");
+    $('#erroricon').fadeIn("slow").fadeOut(3000);
+    return false;
+    }
+    else
+    {
+    /*alert("ok");*/
+    return true;
+    }
+  });
+});
+</script>
+
+<script>/*验证输入图片*/
+$(document).ready(function(){
+  $("div#iconform2 form").submit(function(e){
+    var input = $("#iconinput2").val()
+    if (input == "")
+    {
+      $('#erroricon').css("margin-bottom","-34.718px");
+    $('#erroricon').fadeIn("slow").fadeOut(3000);
+    return false;
+    }
+    else
+    {
+    /*alert("ok");*/
+    return true;
+    }
+  });
+});
+</script>
+
+<script>/*验证输入图片*/
+$(document).ready(function(){
+  $("div#iconform3 form").submit(function(e){
+    var input = $("#iconinput3").val()
+    if (input == "")
+    {
+      $('#erroricon').css("margin-bottom","-34.718px");
+    $('#erroricon').fadeIn("slow").fadeOut(3000);
+    return false;
+    }
+    else
+    {
+    /*alert("ok");*/
+    return true;
+    }
+  });
+});
+</script>
+
+
+
+
+{% endblock %}
+ {% block content %}
+
+<!-- Modal1 -->
+<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <div id="erroricon" style="text-align: center;">请选择图片</div>
+        <h4 class="modal-title" id="myModalLabel">公司Logo</h4>
+      </div>
+      <div class="modal-body">
+<div id='iconform'>
+<form   enctype="multipart/form-data" action="" method="post">
+  {% csrf_token %}
+<a id='iconinputcover' href="#" onclick="document.getElementById('iconinput').click(); return false;" /><h5>浏览本地图片...</h5></a>
+<input id='iconinput' type="file" name="img"  accept="image/*" style="visibility: hidden;"/>
+<button type="submit" class="btn btn-default btn-success">上传</button>
+<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+</form>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal2 -->
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <div id="erroricon" style="text-align: center;">请选择图片</div>
+        <h4 class="modal-title" id="myModalLabel">上传产品介绍图1</h4>
+      </div>
+      <div class="modal-body">
+<div id='iconform1'>
+<form   enctype="multipart/form-data" action="" method="post">
+  {% csrf_token %}
+<a id='iconinputcover' href="#" onclick="document.getElementById('iconinput1').click(); return false;" /><h5>浏览本地图片...</h5></a>
+<input id='iconinput1' type="file" name="img1"  accept="image/*" style="visibility: hidden;"/>
+<button type="submit" class="btn btn-default btn-success">上传</button>
+<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+</form>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal2 -->
+<div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <div id="erroricon" style="text-align: center;">请选择图片</div>
+        <h4 class="modal-title" id="myModalLabel">上传产品介绍图2</h4>
+      </div>
+      <div class="modal-body">
+<div id='iconform2'>
+<form   enctype="multipart/form-data" action="" method="post">
+  {% csrf_token %}
+<a id='iconinputcover' href="#" onclick="document.getElementById('iconinput2').click(); return false;" /><h5>浏览本地图片...</h5></a>
+<input id='iconinput2' type="file" name="img2"  accept="image/*" style="visibility: hidden;"/>
+<button type="submit" class="btn btn-default btn-success">上传</button>
+<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+</form>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal2 -->
+<div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <div id="erroricon" style="text-align: center;">请选择图片</div>
+        <h4 class="modal-title" id="myModalLabel">上传产品介绍图3</h4>
+      </div>
+      <div class="modal-body">
+<div id='iconform3'>
+<form   enctype="multipart/form-data" action="" method="post">
+  {% csrf_token %}
+<a id='iconinputcover' href="#" onclick="document.getElementById('iconinput3').click(); return false;" /><h5>浏览本地图片...</h5></a>
+<input id='iconinput3' type="file" name="img3"  accept="image/*" style="visibility: hidden;"/>
+<button type="submit" class="btn btn-default btn-success">上传</button>
+<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+</form>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+ <div class="container">
+ 	<div class='head'>
+ 		<h2>
+ 			编辑 / 完善"{{company.title}}"信息
+ 		</h2>
+ 		<p>
+ 			完整详尽的公司信息，有助于读者快速清晰地了解公司
+ 		</p>
+ 	</div>
+
+ 	<div class='form-content'>
+<form class="creat-form"  action="#" method="post">
+    {% csrf_token %}
+  <div class="ff-form-title">
+    <span class='span-mark-author'>
+    公司信息
+    </span>
+  </div>
+	<div class='input-row'>
+	<div class="sidebar">
+	<label class='firm_logo'>公司Logo</label>
+	</div>
+	<div class='content'>
+	<button  type="button" class="btn  btn_logo" data-toggle="modal" data-target="#myModal1">
+<img class="firm_logo_icon" src="{{company.get_image_url}}"  data-target="#myModal1">
+</button>
+  </div>  
+	</div>
+
+
+
+	<div class='input-row'>
+	<div class="sidebar">
+	<label class='firm_logo'>上传产品介绍图1</label>
+	</div>
+	<div class='content'>
+	<button  type="button" class="btn  btn_logo" data-toggle="modal" data-target="#myModal2">
+<img class="firm_logo_icon" src="{{company.get_image1_url}}"  data-target="#myModal1">
+</button>
+  </div>  
+	</div>
+
+	<div class='input-row'>
+	<div class="sidebar">
+	<label class='firm_logo'>上传产品介绍图2</label>
+	</div>
+	<div class='content'>
+	<button  type="button" class="btn  btn_logo" data-toggle="modal" data-target="#myModal3">
+<img class="firm_logo_icon" src="{{company.get_image2_url}}"  data-target="#myModal1">
+</button>
+  </div>  
+	</div>
+
+	<div class='input-row'>
+	<div class="sidebar">
+	<label class='firm_logo'>上传产品介绍图3</label>
+	</div>
+	<div class='content'>
+	<button  type="button" class="btn  btn_logo" data-toggle="modal" data-target="#myModal4">
+<img class="firm_logo_icon" src="{{company.get_image3_url}}"  data-target="#myModal1">
+</button>
+  </div>  
+	</div>
+
+
+<div class='input-row'>
+  <div class="sidebar">
+  <label>融资阶段</label>
+  </div>
+  <div class='content'>
+  <select name="select_pastfinancing"  id="select_pastfinancing" input-focus=""   ><option value="" class="">请选择</option><option value="0" label="未融资">未融资</option><option value="1" label="种子轮">种子轮</option><option value="2" label="天使轮">天使轮</option><option value="3" label="Pre-A">Pre-A</option><option value="4" label="A轮">A轮</option><option value="5" label="B轮">B轮</option><option value="6" label="C轮">C轮</option><option value="7" label="D轮及以上">D轮及以上</option><option value="8" label="其它">其它</option></select>
+  </div>
+  </div>
+
+  <div class="ff-form-title">
+    <span class='span-mark-author'>
+    公司介绍
+    </span>
+  </div>
+
+
+  <div class='input-row'>
+    <div id="company_associatetitleilleg" class="cuserrorlist">一句话简介不能为空</div>
+  <div class="sidebar">
+  <label>一句话简介</label>
+  </div>
+  <div class='content'>
+    <div class="text-input">
+    <textarea   rows="2" cols="40" maxlength="30" minlength="5" id='company_associatetitle' name="company_associatetitle"  type="text" >{{company.associatetitle}}</textarea>
+       </div>
+  </div>
+  </div>  
+
+
+
+ 
+
+
+    <div class='input-row'>
+  <div class="sidebar">
+  <label>产品介绍</label>
+  </div>
+  <div class='content'>
+    <div class="text-input">
+    <textarea   rows="8" cols="40" maxlength="200" minlength="5" id='company_product' name="company_product" placeholder="介绍一下公司的主营业务和产品模式，写明产品优势，突显亮点"  type="text">{{company.product|safe}}</textarea>
+    <script>
+        // Replace the <textarea id="editor1"> with a CKEditor
+        // instance, using default configuration.
+       company_product = CKEDITOR.replace( 'company_product' , {
+        language: 'zh-cn',
+        toolbar: [[ ]],
+        width: '457px',
+    });
+    </script>
+       </div>
+  </div>
+  </div>  
+
+    <div class='input-row'>
+  <div class="sidebar">
+  <label>目标用户</label>
+  </div>
+  <div class='content'>
+    <div class="text-input">
+    <textarea   rows="8" cols="40" maxlength="200" minlength="5" id='company_client' name="company_client" placeholder="说说市场规模及目标用户，服务的人群，典型的用户是什么样的"  type="text">{{company.client|safe}}</textarea>
+    <script>
+        // Replace the <textarea id="editor1"> with a CKEditor
+        // instance, using default configuration.
+       company_client = CKEDITOR.replace( 'company_client' , {
+        language: 'zh-cn',
+        toolbar: [[ ]],
+        width: '457px',
+    });
+    </script>
+       </div>
+  </div>
+  </div>  
+
+
+
+
+   <div class='input-row'>
+  <div class="sidebar">
+  <label>竞争对手</label>
+  </div>
+  <div class='content'>
+    <div class="text-input">
+    <textarea   rows="8" cols="40" maxlength="200" minlength="5" id='company_sameproduct' name="company_sameproduct" placeholder="描述竞争对手与相似产品"  type="text">{{company.sameproduct|safe}}</textarea>
+    <script>
+        // Replace the <textarea id="editor1"> with a CKEditor
+        // instance, using default configuration.
+       company_sameproduct = CKEDITOR.replace( 'company_sameproduct' , {
+        language: 'zh-cn',
+        toolbar: [[ ]],
+        width: '457px',
+    });
+    </script>
+       </div>
+  </div>
+  </div> 
+
+
+   <div class='input-row'>
+  <div class="sidebar">
+  <label>过往融资</label>
+  </div>
+  <div class='content'>
+    <div class="text-input">
+    <textarea   rows="8" cols="40" maxlength="200" minlength="5" id='company_pastfinancing' name="company_pastfinancing" placeholder="过往融资"  type="text">{{company.pastfinancing|safe}}</textarea>
+    <script>
+        // Replace the <textarea id="editor1"> with a CKEditor
+        // instance, using default configuration.
+       company_pastfinancing = CKEDITOR.replace( 'company_pastfinancing' , {
+        language: 'zh-cn',
+        toolbar: [[ ]],
+        width: '457px',
+    });
+    </script>
+       </div>
+  </div>
+  </div> 
+
+   <div class='input-row'>
+  <div class="sidebar">
+  <label>其它</label>
+  </div>
+  <div class='content'>
+    <div class="text-input">
+    <textarea   rows="8" cols="40" maxlength="200" minlength="5" id='company_qita' name="company_qita" placeholder="描述竞争对手与相似产品"  type="text">{{company.qita|safe}}</textarea>
+    <script>
+        // Replace the <textarea id="editor1"> with a CKEditor
+        // instance, using default configuration.
+       company_qita = CKEDITOR.replace( 'company_qita' , {
+        language: 'zh-cn',
+        toolbar: [[ ]],
+        width: '457px',
+    });
+    </script>
+       </div>
+  </div>
+  </div> 
+
+  <div class='input-row'>
+  <div class="sidebar">
+  <label>团队介绍</label>
+  </div>
+  <div class='content'>
+    <div class="text-input">
+    <textarea   rows="8" cols="40" maxlength="200" minlength="5" id='company_team' name="company_team" placeholder="描述竞争对手与相似产品"  type="text">{{company.team}}</textarea>
+    <script>
+        // Replace the <textarea id="editor1"> with a CKEditor
+        // instance, using default configuration.
+       company_team = CKEDITOR.replace( 'company_team' , {
+        language: 'zh-cn',
+        toolbar: [[ ]],
+        width: '457px',
+    });
+    </script>
+       </div>
+  </div>
+  </div> 
+
+
+
+
+  <input class='center-block btn  btn-success ' type='submit' value='完成'/>
+
+</form>
+ 	</div>
+
+</div>
+
+ {% endblock %}

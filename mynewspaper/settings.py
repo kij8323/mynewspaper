@@ -17,7 +17,7 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-print BASE_DIR
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
@@ -26,8 +26,8 @@ print BASE_DIR
 SECRET_KEY = '!#r2*ilc^es(zl5d0bkvsy5!br-w*7w$-sm*57*8q5^m(ko$+*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-#DEBUG = True
+#DEBUG = False
+DEBUG = True
 ALLOWED_HOSTS = ['*']
 AUTH_USER_MODEL = 'accounts.MyUser'
 
@@ -54,6 +54,7 @@ INSTALLED_APPS = (
     'ckeditor_uploader',
     'djcelery',
     'djsupervisor',
+    'company',
 )
 
 
@@ -160,3 +161,5 @@ BROKER_URL = 'redis://localhost:6379/0'
 CACHE_EXPIRETIME = 1209600 #redis缓存过期时间
 
 CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.math_challenge' #验证码样式，数学
+
+LOGIN_URL = '/user/loggin/'

@@ -496,3 +496,22 @@ color: #fff;
 a:hover{
 	color: #337ab7;
 }
+
+
+.firm-page{
+	margin-top: 135px;
+}
+
+.firm-page a{
+	color: #999;
+	border: solid 1px #f4f4f4;
+	padding: 8px;
+	border-radius: 3px;
+	font-size: 14px;
+}
+
+.firm-page a:hover{
+	color: #449d44;
+	border-color:#449d44;
+}
+

@@ -1,0 +1,172 @@
+body{
+	background-color: #f0f4fb;
+}
+
+.head{
+	background-color: #5cb85c;
+	text-align: center;
+	padding: 30px;
+	min-width: 600px;
+}
+.head h2, .head p{
+	color: white;
+}
+
+.creat-form{
+	width: 600px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.btn{
+	margin-left: auto;
+	margin-right: auto;
+}
+
+
+label{
+	display: block;
+	height: 35px;
+	line-height: 35px;
+	font-size: 13px;
+	color: #666;
+	font-weight: 100;
+	margin-bottom: 0;
+}
+.sidebar {
+	width: 103px;
+	text-align: right;
+	display: table-cell;
+	vertical-align: top;
+}
+
+.content {
+	position: relative;
+	padding-left: 20px;
+	display: table-cell;
+	vertical-align: top;
+}
+
+.content input{
+	width: 407px;
+}
+
+.form-content{
+	background-color: white;
+	margin-top: 15px;
+	padding: 30px;
+	min-width: 650px;
+}
+
+.input-row {
+	margin-bottom: 14px;
+}
+
+
+.cuserrorlist {
+	text-align: center;
+	padding-left: 0px;
+	color: #a94442;
+	background-color: #f2dede;
+	border-color: #ebccd1;
+	border-radius: 4px;
+	margin-bottom: -35px;
+	padding-top: 8px;
+	padding-bottom: 8px;
+	display: none;
+	margin-left: 330px;
+	width: 235px;
+	clear: both;
+
+}
+
+.ff-form-title {
+height: 30px;
+line-height: 30px;
+text-align: left;
+border-bottom: 1px solid #ddd;
+margin-bottom: 20px;
+font-size: 16px;
+color: #333;
+font-weight: 600;
+margin-bottom: 23px;
+}
+
+.span-mark-author{
+	text-align: center;
+	padding: 0px 0px 4px 0px;
+	border-bottom: 3px solid #5cb85c;
+}
+
+.firm_logo{
+	margin-top: 15px;
+}
+
+.btn_logo{
+	padding: 0px;
+	border-color:  #ccc;
+}
+
+.modal-content, .modal-dialog{
+	width: 400px;
+}
+
+#erroricon{
+	padding-left: 0px;
+	color: #a94442;
+	background-color: #f2dede;
+	border-color: #ebccd1;
+	border-radius: 4px;
+	margin-bottom: 15px;
+	padding-top: 2%;
+	padding-bottom: 2%;
+	width: 40%;
+	display:none;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.modal-body {
+text-align: center;
+}
+
+.firm_logo_icon{
+	width: 70px;
+	height: 70px;
+}
+
+
+
+select {
+width: 140px;
+background-color: #fff;
+background-image: none;
+border: 1px solid #ccc;
+border-radius: 2px;
+box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+-webkit-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+height: 32px;
+}
+
+.text-input {
+max-width: 457px;
+position: relative;
+float: left;
+vertical-align: middle;
+}
+
+textarea {
+line-height: 20px;
+resize: none;
+outline: none;
+border: 1px solid #ddd;
+border-radius: 2px;
+padding: 10px;
+width: 457px;
+color: #666;
+}
+
+#company_productilleg, #company_associatetitleilleg, #company_clientilleg{
+	margin-left: 600px;
+}

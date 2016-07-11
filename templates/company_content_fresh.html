@@ -1,0 +1,45 @@
+{% for item in company %}
+		<div class="table-content col-xs-12">
+			<div class="table-col table-content-ad col-xs-4">
+				<div class="firm-img">
+					<a href="{{item.get_absolute_url}}">
+					<img src="{{item.get_image_url}}">
+					</a>
+				</div>
+				<div class="info">
+					<div class="name">
+						<a href="{{item.get_absolute_url}}">
+						{{item.title}}
+						</a>
+					</div>
+					<div class="des">{{item.associatetitle|safe}}</div>
+				</div>
+			</div>
+			<div class="table-col-ad col-xs-2">
+				<a href="{{item.uper.get_absolute_url}}">{{item.uper}}</a>
+			</div>
+			<div class="table-col-ad col-xs-2">{{item.industry}}</div>
+			<div class="table-col-ad col-xs-2">{{item.location}}</div>
+			<div class="table-col-ad col-xs-2">{{item.financing}}</div>
+		</div>
+		{% endfor %}
+<!--  </div>  --><!-- <div class="group-list-block"> -->
+
+<div class='paginationcontain'>
+<div class="pagination">
+    <span class="step-links">
+{% if company.has_previous %}
+        <a class='paginator' title='上一页' href='?page={{ company.previous_page_number }}'><span>&lt;</span></a>
+ {% endif %}
+ {% for page in company.paginator.page_range %}
+     {% if page = company.number %}
+         <a class='paginator_current' title='当前页:{{ page }}'><span>{{ page }}</span></a>
+     {% else %}
+         <a class='paginator' href='?page={{ page }}' title='{{ page }}'><span>{{ page }}</span></a>
+     {% endif %}
+ {% endfor %}
+ {% if company.has_next %}
+     <a class='paginator' title='下一页' href='?page={{ company.next_page_number }}'><span>&gt;</span></a>
+ {% endif %}
+    </span>
+</div><!-- <div class="pagination"> -->

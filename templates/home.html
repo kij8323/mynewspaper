@@ -1,4 +1,4 @@
-{% extends "base_1.html" %}
+{% extends "base_2.html" %}
 {% load time_filter %}
 {% block HeadDoc %}
 <link href="/static/css/home.css" rel="stylesheet">
@@ -104,7 +104,7 @@ $('.carousel').carousel({
         <div class="col-sm-8  leftcontainer">
 <!--         <div class="row"> -->
 
-          <div id="carousel-example-generic" class="carousel slide carousel-fade" data-ride="carousel">
+          <div id="carousel-example-generic" class="carousel slide carousel-fade visible-xs-block" data-ride="carousel">
                 <ol class="carousel-indicators">
                   <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
                   <li data-target="#carousel-example-generic" data-slide-to="1" class=""></li>
@@ -140,6 +140,41 @@ $('.carousel').carousel({
               </div><!-- id="carousel-example-generic" class="carousel slide" data-ride="carousel" -->
 
 
+    <div class="col-xs-12 newsblock hidden-xs">
+      <div class="col-xs-8 left-cover-img">
+        <a href="{{coverarticle0.get_absolute_url}}"> 
+          <img src="{{coverarticle0.get_image_url}}">
+          <span class="original-mark"  >原创</span>
+          <div class="rightblock"> 
+            <div class="t-h1">{{coverarticle0.title}}</div>
+          </div>
+        </a>
+      </div>
+
+      <div class="col-xs-4 right-cover-img">
+
+        <div class="col-xs-12 right-cover-img1">
+        <a href="{{coverarticle1.get_absolute_url}}"> 
+          <img src="{{coverarticle1.get_image_url}}">
+          <span class="original-mark"  >原创</span>
+          <div class="rightblock1"> 
+            <div class="t-h2">{{coverarticle1.title}}</div>
+          </div>
+        </a>
+        </div>
+
+        <div class="col-xs-12 right-cover-img2">
+        <a href="{{coverarticle2.get_absolute_url}}"> 
+          <img src="{{coverarticle2.get_image_url}}">
+          <span class="original-mark"  >原创</span>
+          <div class="rightblock1"> 
+            <div class="t-h2">{{coverarticle2.title}}</div>
+          </div>
+        </a>
+        </div>
+
+      </div>
+    </div><!-- <div class="col-xs-12 newsblock"> -->
 
 
 
@@ -177,21 +212,21 @@ $('.carousel').carousel({
       <!-- </div> --><!-- <div class="row">  -->  
 
 
-        <div class="col-sm-4 rightcontainer hidden-xs">
+       <div class="col-sm-4 rightcontainer hidden-xs">
           <div  style="margin-left: 15px;">
-          <h3 class="bg-primary">争议话题</h3>
+<!--          <h3 class="bg-primary">争议话题</h3>
           <div style="position:relative; margin-bottom:30px;">
 
           <a class = 'disputetopic' href="{{covertopic.get_absolute_url}}">
             <img src="{{covertopic.get_image_url}}">
           <div class="rightblock"> 
-            {{covertopic.title}}
-       
+           <div class="t-h1">{{covertopic.title}}</div>
+          
           </div>
           </a>
 
           </div>
-
+ -->
 
 
 <div class='hotnewsblock'>
@@ -258,11 +293,12 @@ $('.carousel').carousel({
     </table>
 </div>
 
-<div class='weixingongzhong'>
+<!--<div class='weixingongzhong'>
 <img src="static/media/images/qrcode_for_gh_2b7424ebf230_258.jpg" >
 <h5 style='font-weight: 650;'>扫描上方二维码关注微信公众号（wutongtechnews）
 </h5>
 </div>
+ --> 
 
 </div> <!-- <div class="row" style="margin-left: 15px;">   -->       
 
