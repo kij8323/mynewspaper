@@ -567,3 +567,19 @@ margin-left: 80px;
 .programshow{
 	padding-bottom: 15px;
 }
+
+
+.table>tbody>tr>td>.program-content>a{
+	font-size: 14px;
+	overflow: hidden;
+	color: #444;
+	line-height: 1.5em;
+	display: block;
+	cursor: pointer;
+	position: relative;
+	text-decoration: none;
+}
+
+.table>tbody>tr>td>.program-content>a:hover{
+	color: #3ca5f6;
+}
