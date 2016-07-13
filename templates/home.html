@@ -228,6 +228,12 @@ $('.carousel').carousel({
           </div>
  -->
 
+<div class='advertisment hidden-xs'>
+  <a href="https://c.163.com/?tag=29d8f7acbfb8dcd0cc8c5d7c9dc58847&__da_Uv9Yds_KxUGuQgnLw">
+<img src="/static/media/images/wangyifengchao.png" >
+</a>
+</div>
+
 
 <div class='hotnewsblock'>
          <div class='head'>一周资讯排行</div>
@@ -248,14 +254,31 @@ $('.carousel').carousel({
     </table>
   </div><!-- class='headblock' -->
 
+<div class='programshow'>
+         <div class='head'>项目</div> 
+    <table class="table table-hover">
+      <tbody>
+{% for item in companyshow %}
+        <tr>
+          <td>
+            <div class="program-pic">
+              <img src="{{item.get_image_url}}">
+            </div>
+            <div class="program-content">
+              <a href="{{item.get_absolute_url}}">{{item.title}}</a>
+              <p>{{item.associatetitle}}</p>
+          </div>
+      
+          </td>
+        </tr>
+{% endfor %}
+      </tbody>
+    </table>
+<a  href="{% url 'company_built1' %}" class="btn  btn-success btn-block builtfirm">创建公司</a>
+</div>
 
  
 
-<div class='advertisment1 hidden-xs'>
-  <a href="http://www.underarmour.cn/">
-<img src="/static/media/images/ce7172a563ccffdad81cc76c48a10735.jpg" >
-</a>
-</div>
 
 <div class='hotopicblock'>
          <div class='head'>热门话题</div>
@@ -270,9 +293,9 @@ $('.carousel').carousel({
     </table>
 </div>
 
-<div class='advertisment2 hidden-xs'>
-  <a href="http://www.coca-cola.com.cn/">
-<img src="/static/media/images/1460628528987.png" >
+<div class='advertisment hidden-xs'>
+  <a href="http://www.189.cn/hd/lxj/?cmpid=jt-banner-163-am-lxj">
+<img src="/static/media/images/dianxinguanggao.gif" >
 </a>
 </div>
 

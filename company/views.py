@@ -20,12 +20,16 @@ sys.setdefaultencoding('utf-8')
 def company_detail(request, company_id):
 	company = Company.objects.get(pk=company_id)
 	firm_article = company.article_set.all
+	if company.financing == '其它'.encode('utf-8'):
+		financing_show = False
+	else :
+		financing_show = True
 	context = {
 		'company' : company,
 		'firm_article' : firm_article,
+		'financing_show': financing_show,
 	}
 	return render(request, 'company_detail.html', context)
-
 
 
 def company_list(request):
@@ -74,7 +78,7 @@ def company_content_fresh(request):
 		companylist = companylist
 	else :
 		companylist = companylist.filter(location=locationx)
-	companylist = companylist.filter(verify=True)		
+	companylist = companylist.filter(verify=True).order_by('-id')		
 	paginator = Paginator(companylist, 7)
 	page = request.GET.get('page')
 	try:

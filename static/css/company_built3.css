@@ -99,7 +99,7 @@ margin-bottom: 23px;
 }
 
 .firm_logo{
-	margin-top: 15px;
+
 }
 
 .btn_logo{
@@ -136,6 +136,9 @@ text-align: center;
 }
 
 
+.firm_advertise_icon{
+		width: 306px;
+}
 
 select {
 width: 140px;

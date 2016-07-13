@@ -13,6 +13,7 @@ from sphinxapi import *
 import sys
 from django.core.cache import cache
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from company.models import Company
 # Create your views here.
 ARTICLE_MAINPAGE_TIMERANGE = 15 #首页显示新闻数量
 ARTICLE_MAINPAGE_COVER_TIMERANGE = 15	#首页封面文章的发表时间范围
@@ -77,12 +78,12 @@ def index_search(request):
 def home(request):
 #	coverarticle = Article.objects.all().filter(timestamp__gte=datetime.date.today() - timedelta(days=ARTICLE_MAINPAGE_COVER_TIMERANGE)).filter(cover = True).order_by("-id")[0:3]
 	coverarticle = Article.objects.all().filter(original = True).order_by("-id")[0:3]
-	covertopic = Topic.objects.all().filter(timestamp__gte=datetime.date.today() - timedelta(days=TOPIC_MAINPAGE_COVER_TIMERANGE)).filter(cover = True).order_by("-id")[0:1]
 	queryset = Article.objects.all().order_by('-id')[0:ARTICLE_MAINPAGE_TIMERANGE]
 	topic = Topic.objects.all().filter(timestamp__gte=datetime.date.today() - timedelta(days=TOPIC_MAINPAGE_TIMERANGE)).order_by("-readers")[0:5]
 	#一个月内，最热文章排序
 	hotnews = Article.objects.all().filter(timestamp__gte=datetime.date.today() - timedelta(days=ARTICLE_MAINPAGE_HOT_TIMERANGE)).order_by("-readers")[0:5]
 	nicecomment = Comment.objects.all().filter(timestamp__gte=datetime.date.today() - timedelta(days=COMMENT_MAINPAGE_TIMERANGE)).order_by("-readers")[0:5]
+	companyshow = Company.objects.all().filter(verify  = True).order_by("-id")[0:3]
 	context = {
 	'queryset': queryset,
 	'topicquery' : topic,
@@ -92,7 +93,7 @@ def home(request):
 	'coverarticle0': coverarticle[0],
 	'coverarticle1': coverarticle[1],
 	'coverarticle2': coverarticle[2],
-	'covertopic': covertopic[0],
+	'companyshow': companyshow,	
 	}
 	return render(request, 'home.html', context)
 	#return render(request, 'home.html')

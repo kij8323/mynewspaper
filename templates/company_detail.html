@@ -15,6 +15,9 @@
 				<div class="brief">{{ company.associatetitle|safe }}</div>
 				<div class="tags">
 					<span class="i-tag">{{ company.industry }}</span>
+					{% if financing_show %}
+					<span class="i-tag">{{ company.financing }}</span>
+					{% endif %}
 				</div>
 				<div class="links">
 					<div class="address"><span class="glyphicon glyphicon-map-marker"></span> {{ company.location }} </div>
@@ -31,21 +34,22 @@
 		<div class='firm-article'>
 	{% for item in firm_article %}
 	<div class='firm-article-list'>
-	<a class="col-xs-8" href="{{item.get_absolute_url}}">
+	<a class="col-sm-8" href="{{item.get_absolute_url}}">
 	{{item.title}}
 	</a>
-	<span class="col-xs-4">{{item.timestamp}}</span>
+	<div class="reportime col-sm-4">{{item.timestamp}}</div>
 	</div>
 	{% endfor %}
 	</div>
 </div>
 {% endif %}
 
+
 <div class="ff-container row">
 	<h4 class="ff-title">公司介绍</h4>
 
 
-<div class="firm-product col-xs-4">
+<div class="firm-product col-sm-4">
 	<div class='ff-container-title'>
 	<span class="glyphicon glyphicon-king" aria-hidden="true"></span>
 		我们的产品
@@ -56,7 +60,7 @@
 	</div>
 </div>
 
-<div class="firm-client col-xs-4">
+<div class="firm-client col-sm-4">
 	<div class='ff-container-title'>
 	<span class="glyphicon glyphicon-pawn" aria-hidden="true"></span>
 		我们的用户
@@ -69,7 +73,7 @@
 
 
 {% if company.sameproduct %}
-<div class="col-xs-4">
+<div class="col-sm-4">
 	<div class='ff-container-title'>
 	<span class="glyphicon glyphicon-knight" aria-hidden="true"></span>
 		竞争对手
@@ -84,7 +88,7 @@
 
 <div class="clearfix"></div>
 {% if company.pastfinancing %}
-<div class="col-xs-4">
+<div class="col-sm-4">
 	<div class='ff-container-title'>
 	<span class="glyphicon glyphicon-piggy-bank" aria-hidden="true"></span>
 		过往融资
@@ -98,7 +102,7 @@
 
 
 {% if company.qita %}
-<div class="col-xs-4">
+<div class="col-sm-4">
 	<div class='ff-container-title'>
 	<span class="glyphicon glyphicon-bishop" aria-hidden="true"></span>
 		其它
@@ -114,28 +118,28 @@
 
 <!-- <div class="ff-imgshow row">
 
-<div class="firm-img col-xs-4">
+<div class="firm-img col-sm-4">
 	<div><img src="{{company.get_image1_url}}"></div>
 </div>
 
-<div class="firm-img col-xs-4">
+<div class="firm-img col-sm-4">
 	<div><img src="{{company.get_image2_url}}"></div>
 </div>
 
-<div class="firm-img col-xs-4">
+<div class="firm-img col-sm-4">
 	<div><img src="{{company.get_image3_url}}"></div>
 </div>
 
 </div> --><!-- <div class="ff-imgshow row"> -->
 
 <div class="gallery cf row">
-  <div class="col-xs-4">
+  <div class="col-sm-4">
     <img src="{{company.get_image1_url}}" />
   </div>
-  <div class="col-xs-4">
+  <div class="col-sm-4">
     <img src="{{company.get_image2_url}}" />
   </div>
-  <div class="col-xs-4">
+  <div class="col-sm-4">
     <img src="{{company.get_image3_url}}" />
   </div>
 </div>
