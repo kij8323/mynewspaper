@@ -79,4 +79,16 @@ h1{
 .team-introduce{
 	width: 100% !important;
 }
+.brief, .name {
+font-size: 13px !important;
+}
 
+.l-sidebar img {
+width: 58px !important;
+height: 58px !important;
+}
+
+.l-sidebar {
+	width: 50px  !important;
+
+}

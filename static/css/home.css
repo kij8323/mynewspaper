@@ -280,7 +280,7 @@ a:hover/*, .rightblock a:visited, .rightblock a:hover, .rightblock a:active*/{
 	overflow: hidden;
 	color: #444;
 	line-height: 1.5em;
-	display: block;
+	display: inline;
 	cursor: pointer;
 	padding-left: 12px;
 	position: relative;
@@ -540,6 +540,7 @@ margin-left: 80px;
 
 .program-content p {
 	color: #bbb;
+	margin: 0;
 	line-height: 24px;
 	padding: 0;
 	text-overflow: -o-ellipsis-lastline;
@@ -582,4 +583,24 @@ margin-left: 80px;
 
 .table>tbody>tr>td>.program-content>a:hover{
 	color: #3ca5f6;
+}
+
+.programmore
+{
+	margin-top: -30px;
+	right: 30px;
+	position: absolute;
+}
+
+.programmore a{
+		color: #978F8F;
+}
+
+.programmore a:hover{
+	color: #3ca5f6;
+}
+
+.article-infor{
+	margin-left: 15px;
+	color: #999;
 }

@@ -1,4 +1,4 @@
-{% for item in company %}
+		{% for item in company %}
 		<div class="table-content col-xs-12">
 			<div class="table-col table-content-ad col-xs-4">
 				<div class="firm-img">
@@ -29,17 +29,17 @@
 <div class="pagination">
     <span class="step-links">
 {% if company.has_previous %}
-        <a class='paginator' title='上一页' href='?page={{ company.previous_page_number }}'><span>&lt;</span></a>
+        <a class='paginator' title='上一页' id = '{{ company.previous_page_number}}' href='javascript:void(0);'><span>&lt;</span></a>
  {% endif %}
  {% for page in company.paginator.page_range %}
      {% if page = company.number %}
          <a class='paginator_current' title='当前页:{{ page }}'><span>{{ page }}</span></a>
      {% else %}
-         <a class='paginator' href='?page={{ page }}' title='{{ page }}'><span>{{ page }}</span></a>
+         <a class='paginator'  id = '{{ page }}' href='javascript:void(0);' title='{{ page }}'><span>{{ page }}</span></a>
      {% endif %}
  {% endfor %}
  {% if company.has_next %}
-     <a class='paginator' title='下一页' href='?page={{ company.next_page_number }}'><span>&gt;</span></a>
+     <a class='paginator' title='下一页' id = '{{ company.next_page_number }}' href='javascript:void(0);'><span>&gt;</span></a>
  {% endif %}
     </span>
 </div><!-- <div class="pagination"> -->

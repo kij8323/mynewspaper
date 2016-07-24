@@ -3,7 +3,7 @@
 # -*- coding: utf-8 -*-
 
 from django.shortcuts import render
-from .models import Company
+from .models import Company, CollectionCompany
 from django.shortcuts import render, HttpResponseRedirect, redirect
 import os
 from django.contrib.auth.decorators import login_required  
@@ -11,6 +11,7 @@ import json
 from django.http import HttpResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
+from django.http import Http404
 import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -20,22 +21,33 @@ sys.setdefaultencoding('utf-8')
 def company_detail(request, company_id):
 	company = Company.objects.get(pk=company_id)
 	firm_article = company.article_set.all
+	user = request.user
+	sharelink = request.get_host()+request.get_full_path()
 	if company.financing == '其它'.encode('utf-8'):
 		financing_show = False
 	else :
 		financing_show = True
+	collection = CollectionCompany.objects.filter(company=company, user=user.id)
+	if collection: 
+		collection = '已收藏'
+		collection_icon = 'glyphicon-star'
+	else:
+		collection = '收藏'
+		collection_icon = 'glyphicon-star-empty'
 	context = {
 		'company' : company,
 		'firm_article' : firm_article,
 		'financing_show': financing_show,
+		'collection': collection,
+		"collection_icon": collection_icon,
+		'sharelink': sharelink,
 	}
 	return render(request, 'company_detail.html', context)
-
 
 def company_list(request):
 	company = Company.objects.all().filter(verify = True).order_by('-id')
 		# 分页
-	paginator = Paginator(company, 7)
+	paginator = Paginator(company, 15)
 	page = request.GET.get('page')
 	try:
 		contacts = paginator.page(page)
@@ -79,8 +91,9 @@ def company_content_fresh(request):
 	else :
 		companylist = companylist.filter(location=locationx)
 	companylist = companylist.filter(verify=True).order_by('-id')		
-	paginator = Paginator(companylist, 7)
-	page = request.GET.get('page')
+	paginator = Paginator(companylist, 15)
+	#page = request.GET.get('page')
+	page = request.session.get('list_page', False)
 	try:
 		contacts = paginator.page(page)
 	except PageNotAnInteger:
@@ -99,6 +112,7 @@ def company_list_fresh(request):
 		request.session['firm-industry'] = request.GET.get('industry')
 		request.session['firm-financing'] = request.GET.get('financing')
 		request.session['firm-locationx'] = request.GET.get('locationx')
+		request.session['list_page'] = request.GET.get('list_page')
 		data = {
 			"test": 'ok',
 		}
@@ -106,7 +120,6 @@ def company_list_fresh(request):
 		return HttpResponse(json_data, content_type='application/json')
 	else:
 		raise Http404
-
 
 @login_required  
 def company_built1(request):
@@ -187,73 +200,117 @@ def company_built2(request):
 
 @login_required  
 def company_built3(request, company_id):
-	company = Company.objects.get(pk=company_id)
-	action_url = reverse("company_built3", kwargs={"company_id": company_id})
-	if request.method == 'POST' and request.FILES.get('img', False):
-		image = request.FILES['img']
-		company.logo = image
-		company.save() 
-		os.system('echo yes | python /home/shen/Documents/paperproject/mynewspaper/manage.py collectstatic')
-		return redirect(action_url)
-	if request.method == 'POST' and request.FILES.get('img1', False):
-		image = request.FILES['img1']
-		company.images1 = image
-		company.save() 
-		os.system('echo yes | python /home/shen/Documents/paperproject/mynewspaper/manage.py collectstatic')
-		return redirect(action_url)
-	if request.method == 'POST' and request.FILES.get('img2', False):
-		image = request.FILES['img2']
-		company.images2 = image
-		company.save() 
-		os.system('echo yes | python /home/shen/Documents/paperproject/mynewspaper/manage.py collectstatic')
-		return redirect(action_url)
-	if request.method == 'POST' and request.FILES.get('img3', False):
-		image = request.FILES['img3']
-		company.images3 = image
-		company.save() 
-		os.system('echo yes | python /home/shen/Documents/paperproject/mynewspaper/manage.py collectstatic')
-		return redirect(action_url)
-	if request.method == 'POST':
-		if request.POST.get('company_associatetitle') == '':
-			pass
-		else:
-			company.associatetitle = request.POST.get('company_associatetitle')
-		if request.POST.get('company_product') == '':
-			pass
-		else:
-			company.product = request.POST.get('company_product')
-		if request.POST.get('company_client') == '':
-			pass
-		else:
-			company.client = request.POST.get('company_client')
-		if request.POST.get('select_pastfinancing') == '0':
-			company.financing = "未融资".encode('utf-8')
-		elif request.POST.get('select_pastfinancing') == '1':
-			company.financing = "种子轮".encode('utf-8')
-		elif request.POST.get('select_pastfinancing') == '2':
-			company.financing = "天使轮".encode('utf-8')
-		elif request.POST.get('select_pastfinancing') == '3':
-			company.financing = "Pre-A".encode('utf-8')
-		elif request.POST.get('select_pastfinancing') == '4':
-			company.financing = "A轮".encode('utf-8')
-		elif request.POST.get('select_pastfinancing') == '5':
-			company.financing = "B轮".encode('utf-8')
-		elif request.POST.get('select_pastfinancing') == '6':
-			company.financing = "C轮".encode('utf-8')
-		elif request.POST.get('select_pastfinancing') == '7':
-			company.financing = "D轮及以上".encode('utf-8')
-		elif request.POST.get('select_pastfinancing') == '8':
-			company.financing = "其它".encode('utf-8')
-		company.sameproduct = request.POST.get('company_sameproduct')
-		company.qita = request.POST.get('company_qita')
-		company.team = request.POST.get('company_team')
-		company.pastfinancing = request.POST.get('company_pastfinancing')
-		company.save()
-		return redirect('builtsucss')
-	context = {
-		'company' : company,
-	}
-	return render(request, 'company_built3.html', context)
+	user = Company.objects.get(id = company_id).uper
+	sender = request.user
+	if user == sender:
+		company = Company.objects.get(pk=company_id)
+		action_url = reverse("company_built3", kwargs={"company_id": company_id})
+		if request.method == 'POST' and request.FILES.get('img', False):
+			image = request.FILES['img']
+			company.logo = image
+			company.save() 
+			os.system('echo yes | python /home/shen/Documents/paperproject/mynewspaper/manage.py collectstatic')
+			return redirect(action_url)
+		if request.method == 'POST' and request.FILES.get('img1', False):
+			image = request.FILES['img1']
+			company.images1 = image
+			company.save() 
+			os.system('echo yes | python /home/shen/Documents/paperproject/mynewspaper/manage.py collectstatic')
+			return redirect(action_url)
+		if request.method == 'POST' and request.FILES.get('img2', False):
+			image = request.FILES['img2']
+			company.images2 = image
+			company.save() 
+			os.system('echo yes | python /home/shen/Documents/paperproject/mynewspaper/manage.py collectstatic')
+			return redirect(action_url)
+		if request.method == 'POST' and request.FILES.get('img3', False):
+			image = request.FILES['img3']
+			company.images3 = image
+			company.save() 
+			os.system('echo yes | python /home/shen/Documents/paperproject/mynewspaper/manage.py collectstatic')
+			return redirect(action_url)
+		if request.method == 'POST':
+			if request.POST.get('company_associatetitle') == '':
+				pass
+			else:
+				company.associatetitle = request.POST.get('company_associatetitle')
+			if request.POST.get('company_product') == '':
+				pass
+			else:
+				company.product = request.POST.get('company_product')
+			if request.POST.get('company_client') == '':
+				pass
+			else:
+				company.client = request.POST.get('company_client')
+			if request.POST.get('select_pastfinancing') == '0':
+				company.financing = "未融资".encode('utf-8')
+			elif request.POST.get('select_pastfinancing') == '1':
+				company.financing = "种子轮".encode('utf-8')
+			elif request.POST.get('select_pastfinancing') == '2':
+				company.financing = "天使轮".encode('utf-8')
+			elif request.POST.get('select_pastfinancing') == '3':
+				company.financing = "Pre-A".encode('utf-8')
+			elif request.POST.get('select_pastfinancing') == '4':
+				company.financing = "A轮".encode('utf-8')
+			elif request.POST.get('select_pastfinancing') == '5':
+				company.financing = "B轮".encode('utf-8')
+			elif request.POST.get('select_pastfinancing') == '6':
+				company.financing = "C轮".encode('utf-8')
+			elif request.POST.get('select_pastfinancing') == '7':
+				company.financing = "D轮及以上".encode('utf-8')
+			elif request.POST.get('select_pastfinancing') == '8':
+				company.financing = "其它".encode('utf-8')
+			company.sameproduct = request.POST.get('company_sameproduct')
+			company.qita = request.POST.get('company_qita')
+			company.team = request.POST.get('company_team')
+			company.pastfinancing = request.POST.get('company_pastfinancing')
+			company.save()
+			return redirect('builtsucss')
+		context = {
+			'company' : company,
+		}
+		return render(request, 'company_built3.html', context)
+	else:
+		raise Http404
 
 def builtsucss(request):
 	return render(request, 'builtsucss.html')
+
+from django.core.cache import cache
+#收藏话题
+def collectioncompany(request):
+	try:
+		companyid = request.POST.get('companyid')
+		company = Company.objects.get(pk=companyid)
+		user = request.user
+	except Company.DoesNotExist:
+		raise Http404("Company does not exist")
+	collection = CollectionCompany.objects.filter(company=company, user=user)
+	cachekey = "company_collection_" + str(companyid)
+	if collection: 
+		collection.delete()
+		collecicon = '收藏'
+		collection_icon = 'glyphicon-star-empty'
+		if cache.get(cachekey) != None:
+			cache.decr(cachekey)
+		else:
+			company = Company.objects.get(id=value)
+			cache.set(cachekey,  company.collectioncompany_set.count(), 1209600)
+	else:
+		c = CollectionCompany(user=user, company=company)
+		c.save()
+		collecicon = '已收藏'
+		collection_icon = 'glyphicon-star'
+		if cache.get(cachekey) != None:
+			cache.incr(cachekey)
+		else:
+			company = Company.objects.get(id=value)
+			cache.set(cachekey,  company.collectioncompany_set.count(), 1209600)
+	data = {
+	 'collecicon': collecicon,
+	 'collection_icon': collection_icon,
+	 'collectioncount': cache.get(cachekey),
+	}
+	json_data = json.dumps(data)
+	return HttpResponse(json_data, content_type='application/json')
+

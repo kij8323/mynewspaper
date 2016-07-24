@@ -119,7 +119,7 @@ $('.carousel').carousel({
                     {% endif %}
                     <a href="{{item.get_absolute_url}}"><img src="{{item.get_image_url}}">
                      {% if item.original %}
-                      <span class="original-mark"  >原创</span>
+                      <span class="original-mark"  >探访</span>
                       {% endif %}
                       <div class="carousel-caption">
                         <h3>{{item.title}}</h3>
@@ -144,7 +144,7 @@ $('.carousel').carousel({
       <div class="col-xs-8 left-cover-img">
         <a href="{{coverarticle0.get_absolute_url}}"> 
           <img src="{{coverarticle0.get_image_url}}">
-          <span class="original-mark"  >原创</span>
+          <span class="original-mark"  >探访</span>
           <div class="rightblock"> 
             <div class="t-h1">{{coverarticle0.title}}</div>
           </div>
@@ -156,7 +156,7 @@ $('.carousel').carousel({
         <div class="col-xs-12 right-cover-img1">
         <a href="{{coverarticle1.get_absolute_url}}"> 
           <img src="{{coverarticle1.get_image_url}}">
-          <span class="original-mark"  >原创</span>
+          <span class="original-mark"  >探访</span>
           <div class="rightblock1"> 
             <div class="t-h2">{{coverarticle1.title}}</div>
           </div>
@@ -166,7 +166,7 @@ $('.carousel').carousel({
         <div class="col-xs-12 right-cover-img2">
         <a href="{{coverarticle2.get_absolute_url}}"> 
           <img src="{{coverarticle2.get_image_url}}">
-          <span class="original-mark"  >原创</span>
+          <span class="original-mark"  >探访</span>
           <div class="rightblock1"> 
             <div class="t-h2">{{coverarticle2.title}}</div>
           </div>
@@ -184,7 +184,7 @@ $('.carousel').carousel({
           <div class="col-xs-4 leftimgblock">
           <a href="{{item.get_absolute_url}}"><img src="{{item.get_image_url}}" ></a>
           {% if item.original %}
-          <span class="original-mark"  >原创</span>
+          <span class="original-mark"  >探访</span>
           {% endif %}
           </div> 
           <div class="col-xs-8 rightwordblock">
@@ -195,7 +195,6 @@ $('.carousel').carousel({
 
 <i class="icon-reply hidden-xs"></i><span class="hidden-xs">{{item.id|Article_comment}}  </span>   
 <i class="icon-collection hidden-xs"></i><span class="hidden-xs">{{item.id|Article_collection}} </span> 
-
           <p class="associatetitle hidden-xs" style='padding-left: 0px;'>{{item.associatetitle}}</p>
           </div> 
           </div> <!-- newsblock -->
@@ -247,16 +246,21 @@ $('.carousel').carousel({
           {% else %}
           <th scope="row" style="color: #ad0007;">{{ forloop.counter }}</th>
           {% endif %}
-          <td><a href="{{item.get_absolute_url}}">{{item.title}}</a></td>
-        </tr>
+          <td><a href="{{item.get_absolute_url}}">{{item.title}}</a><span class="article-infor hidden-xs">{{item.id|Article_readers}}次阅读</span> </td>        
+	</tr>
 {% endfor %}
       </tbody>
     </table>
   </div><!-- class='headblock' -->
 
 <div class='programshow'>
-         <div class='head'>项目</div> 
-    <table class="table table-hover">
+         <div class='head'>
+          新项目
+        </div> 
+         <div class='programmore'>
+          <a href="{% url 'company_list' %} ">更多</a> 
+         </div> 				    
+	<table class="table table-hover">
       <tbody>
 {% for item in companyshow %}
         <tr>

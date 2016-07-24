@@ -357,3 +357,24 @@ a:link{
 a:hover{
 	color: #337ab7;
 }
+
+
+
+.article-infor{
+	margin-left: 15px;
+}
+
+.original-mark {
+position: absolute;
+top: 0.5rem;
+left: 0.4rem;
+display: block;
+padding: 0.1rem 0.5rem;
+color: #fff;
+font-size: 1.3rem;
+text-align: center;
+border-radius: 0.2rem;
+z-index: 11;
+background-color:#5cb85c;
+}
+

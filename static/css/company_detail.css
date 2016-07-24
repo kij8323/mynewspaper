@@ -81,7 +81,7 @@ margin-right: 3px;
 
 .address {
 margin-right: 15px;
-float: left;
+display: inline-block;
 height: 30px;
 font-size: 13px;
 line-height: 30px;
@@ -93,14 +93,14 @@ color: #fff;
 height: 30px;
 font-size: 13px;
 line-height: 30px;
-float: left;
+
 }
 
 .links a, .links a:focus, .links a:hover{
 text-decoration: none;
 }
 
- .links a:hover {
+ .links a {
 color: #fff;
 }
 
@@ -178,6 +178,10 @@ margin-top: 15px;
 	text-align: left;
 }
 
+.reportitle{
+	text-align: right;
+}
+
 .firm-article-list{
 	/*margin-bottom: 10px;*/
 }
@@ -186,13 +190,12 @@ margin-top: 15px;
 }
 
 
-
-.writer a{
+.writer a, .firm-article-list a{
 	color: #333;
 	text-decoration:none;
 }
 
-.writer a:hover{
+.writer a:hover,  .firm-article-list a:hover{
 	color: #3ca5f6;
 }
 
@@ -262,4 +265,56 @@ font-size: 16px;
 .firm-admin img{
 	width: 108px;
 	height: 108px;
+}
+
+
+.rightside{
+color: #fff;
+}
+
+
+.articlecollection, .firm-share{ 
+	display: inline;
+	 cursor:pointer;
+	 margin-left: 30px;
+}
+
+.weichatshare{
+	 cursor:pointer;
+}
+
+.weiboshare{
+	background-position: 10px -259px;
+	background-image: url(/static/images/sharebackground.png);
+	display: inline-block;
+	height: 60px;
+	width: 60px;
+	background-color: #f63756;
+	border-bottom: 1px solid #f0f0f0;
+	margin-right: 20px;
+}
+
+.weichatshare{
+	background-position: -50px -259px;
+	background-image: url(/static/images/sharebackground.png);
+	display: inline-block;
+	height: 59px;
+	width: 59px;
+	background-color: #46BC45;
+	border-bottom: 1px solid #f0f0f0;
+	margin-right: 20px;
+}
+
+.qqzoneshare{
+	background-position: -121px -259px;
+	background-image: url(/static/images/sharebackground.png);
+	display: inline-block;
+	height: 60px;
+	width: 60px;
+	background-color: #EFDC11;
+	border-bottom: 1px solid #f0f0f0;
+}
+
+.modal-body{
+	text-align: center;
 }

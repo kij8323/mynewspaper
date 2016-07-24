@@ -10,7 +10,7 @@ from ckeditor.fields import RichTextField
 
 
 class Company(models.Model):
-	id = models.AutoField(primary_key=True)
+	id = models.AutoField(primary_key=True, db_index=True)
 	#公司名称
 	title = models.CharField(max_length=120)
 	#公司网址
@@ -83,3 +83,8 @@ class Company(models.Model):
 
 
 
+#收藏的话题多对多
+class CollectionCompany(models.Model):
+	id = models.AutoField(primary_key=True, db_index=True)
+	user = models.ForeignKey(MyUser, db_index=True)
+	company = models.ForeignKey(Company, db_index=True)

@@ -49,6 +49,39 @@ $(function() {
 })
 </script>
 
+<script type="text/javascript">
+$(function() {
+  $("body").on("click", '.paginator', function(){
+  	list_page = $(this).attr("id")
+  	list_page = parseInt(list_page)
+	industry = $('.industry-search .active').text() ;
+	financing = $('.financing-search .active').text() ;
+	locationx = $('.location-search .active').text() ;
+
+    $.ajaxSetup({
+    data: {
+          industry: industry, 
+          financing: financing, 
+          locationx: locationx, 
+          list_page: list_page,
+          },
+          });
+    $.ajax({
+        url: "{% url 'company_list_fresh' %}",
+        type: "get",
+        dataType: 'json',
+        success: function(data) {
+        	/*alert('ok')*/
+        	/*$("#content-ajax").html("")*/
+        	$("#content-ajax").load('{% url 'company_content_fresh' %}');
+        },
+        error: function(data) { 
+             /* alert("Got an error dude");*/
+        } 
+	    });
+    })
+})
+</script>
 
 {% endblock %}
 
@@ -130,19 +163,19 @@ $(function() {
 						<a href="javascript:void(0);">上海市</a>
 					</li>
 					<li>
+						<a href="javascript:void(0);">深圳市</a>
+					</li>
+					<li>
 						<a href="javascript:void(0);">天津市</a>
 					</li>
 					<li>
 						<a href="javascript:void(0);">重庆市</a>
 					</li>
 					<li>
-						<a href="javascript:void(0);">深圳市</a>
+						<a href="javascript:void(0);">广东省</a>
 					</li>
 					<li>
 						<a href="javascript:void(0);">四川省</a>
-					</li>
-					<li>
-						<a href="javascript:void(0);">广东省</a>
 					</li>
 					<li>
 						<a href="javascript:void(0);">其它</a>
@@ -269,17 +302,17 @@ $(function() {
 <div class="pagination">
     <span class="step-links">
 {% if company.has_previous %}
-        <a class='paginator' title='上一页' href='?page={{ company.previous_page_number }}'><span>&lt;</span></a>
+        <a class='paginator' title='上一页' id = '{{ company.previous_page_number}}' href='javascript:void(0);'><span>&lt;</span></a>
  {% endif %}
  {% for page in company.paginator.page_range %}
      {% if page = company.number %}
          <a class='paginator_current' title='当前页:{{ page }}'><span>{{ page }}</span></a>
      {% else %}
-         <a class='paginator' href='?page={{ page }}' title='{{ page }}'><span>{{ page }}</span></a>
+         <a class='paginator'  id = '{{ page }}' href='javascript:void(0);' title='{{ page }}'><span>{{ page }}</span></a>
      {% endif %}
  {% endfor %}
  {% if company.has_next %}
-     <a class='paginator' title='下一页' href='?page={{ company.next_page_number }}'><span>&gt;</span></a>
+     <a class='paginator' title='下一页' id = '{{ company.next_page_number }}' href='javascript:void(0);'><span>&gt;</span></a>
  {% endif %}
     </span>
 </div><!-- <div class="pagination"> -->

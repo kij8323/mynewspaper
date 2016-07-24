@@ -83,7 +83,7 @@ def home(request):
 	#一个月内，最热文章排序
 	hotnews = Article.objects.all().filter(timestamp__gte=datetime.date.today() - timedelta(days=ARTICLE_MAINPAGE_HOT_TIMERANGE)).order_by("-readers")[0:5]
 	nicecomment = Comment.objects.all().filter(timestamp__gte=datetime.date.today() - timedelta(days=COMMENT_MAINPAGE_TIMERANGE)).order_by("-readers")[0:5]
-	companyshow = Company.objects.all().filter(verify  = True).order_by("-id")[0:3]
+	companyshow = Company.objects.all().filter(verify  = True).order_by("-id")[0:5]
 	context = {
 	'queryset': queryset,
 	'topicquery' : topic,

@@ -1,9 +1,86 @@
 {% extends "base_1.html" %}
+{% load time_filter %}
 {% block HeadDoc %}
 <link href="/static/css/company_detail.css" rel="stylesheet">
+<script type="text/javascript">
+window.onload=function()//用window的onload事件，窗体加载完毕的时候
+{
+   $(".ff-container .clearfixsign:eq(2)").after('<div class="clearfix"></div>')
+}
+</script>
+
+
+<script>/*收藏topic*/
+$(function() {
+ $("body").on("click", '.articlecollection', function(){
+    $.ajaxSetup({
+    data: {csrfmiddlewaretoken: '{{ csrf_token }}', 
+          companyid: {{company.id}},
+          },
+          });
+    $.ajax({
+        url: "{% url 'collectioncompany' %}",
+        type: "post",
+        success: function(data) {
+          $('.articlecollection').html("<span class='glyphicon"+" "+data.collection_icon+"'></span>"+" "+data.collecicon+' ('+data.collectioncount+')')
+          },
+          error: function(data) { 
+            $.messager.popup("请先登录！");
+            $(".modal.msg-popup .modal-body").css({
+                'color': '#a94442',
+                "background-color":"#f2dede",
+                });
+            },
+        });
+  })
+})
+</script>
+
+
+<script>/*收藏topic*/
+$(function() {
+ $("body").on("click", '.firm-share', function(){
+ 		$('#myModal1').modal('toggle')
+  })
+})
+</script>
+
 {% endblock %}
 
 {% block content %}
+
+<!-- Modal1 -->
+<!-- Modal -->
+<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">分享到:</h4>
+      </div>
+      <div class="modal-body">
+	<a href="http://www.jiathis.com/send/?webid=tsina&url=http://{{sharelink}}&title={{article.title}}">
+	<i class="weiboshare">
+	</i>
+	</a>
+
+  <a class="jiathis_button_weixin">
+   <i class="weichatshare">
+  </i>
+  </a>
+
+  	<a href="http://www.jiathis.com/send/?webid=qzone&url=http://{{sharelink}}&title={{article.title}}">
+	<i class="qqzoneshare">
+	</i>
+	</a>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 <div class='container'>
 <div class='background-img'>
 	<div class="main-wrap">
@@ -20,24 +97,36 @@
 					{% endif %}
 				</div>
 				<div class="links">
-					<div class="address"><span class="glyphicon glyphicon-map-marker"></span> {{ company.location }} </div>
-					<a href="{{company.weburl}}" target="_blank" class="website"><span class="glyphicon glyphicon-link"></span> {{company.weburl}}</a>
+					<div class="address"><span class="glyphicon glyphicon-map-marker"></span>{{ company.location }} </div>
+					<a href="{{company.weburl}}" target="_blank" class="website"><span class="glyphicon glyphicon-link"></span>{{company.weburl}}</a>
 				</div>
 			</div>
 		</div>
 	</div><!-- <div class="main-wrap"> -->
+
+				<div class='rightside pull-right'>
+					<div class='firm-share'>
+						<span class='glyphicon glyphicon-share' ></span> 分享
+					</div>
+
+					<div class='articlecollection'>
+						<span class='glyphicon {{collection_icon}}'></span> {{collection}}  
+						({{company.id|Company_collection}})
+					</div>
+				</div>
+
 </div><!-- <div class='background-img'> -->
 
 {% if firm_article %}
 <div class="ff-container row">
-		<h4 class="ff-title">现场采访稿</h4>
+		<h4 class="ff-title">相关资讯</h4>
 		<div class='firm-article'>
 	{% for item in firm_article %}
-	<div class='firm-article-list'>
-	<a class="col-sm-8" href="{{item.get_absolute_url}}">
+	<div class='firm-article-list col-xs-12'>
+	<a class="reportitle col-xs-6" href="{{item.get_absolute_url}}">
 	{{item.title}}
 	</a>
-	<div class="reportime col-sm-4">{{item.timestamp}}</div>
+	<div class="reportime col-xs-6">{{item.timestamp}}</div>
 	</div>
 	{% endfor %}
 	</div>
@@ -49,7 +138,7 @@
 	<h4 class="ff-title">公司介绍</h4>
 
 
-<div class="firm-product col-sm-4">
+<div class="clearfixsign col-sm-4">
 	<div class='ff-container-title'>
 	<span class="glyphicon glyphicon-king" aria-hidden="true"></span>
 		我们的产品
@@ -60,7 +149,7 @@
 	</div>
 </div>
 
-<div class="firm-client col-sm-4">
+<div class="clearfixsign  col-sm-4">
 	<div class='ff-container-title'>
 	<span class="glyphicon glyphicon-pawn" aria-hidden="true"></span>
 		我们的用户
@@ -73,7 +162,7 @@
 
 
 {% if company.sameproduct %}
-<div class="col-sm-4">
+<div class="clearfixsign  col-sm-4">
 	<div class='ff-container-title'>
 	<span class="glyphicon glyphicon-knight" aria-hidden="true"></span>
 		竞争对手
@@ -86,9 +175,9 @@
 {% endif %}
 
 
-<div class="clearfix"></div>
+<!-- <div class="clearfix"></div> -->
 {% if company.pastfinancing %}
-<div class="col-sm-4">
+<div class="clearfixsign  col-sm-4">
 	<div class='ff-container-title'>
 	<span class="glyphicon glyphicon-piggy-bank" aria-hidden="true"></span>
 		过往融资
@@ -102,7 +191,7 @@
 
 
 {% if company.qita %}
-<div class="col-sm-4">
+<div class="clearfixsign  col-sm-4">
 	<div class='ff-container-title'>
 	<span class="glyphicon glyphicon-bishop" aria-hidden="true"></span>
 		其它
@@ -167,5 +256,8 @@
 
 
 </div><!-- <div class='container'> -->
+
+
+  <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
 {% endblock %}
 

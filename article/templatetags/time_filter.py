@@ -13,6 +13,7 @@ from article.models import Article
 from topic.models import Topic, Group
 from comment.models import Comment, CommentLike, CommentDisLike
 from notifications.models import Notification
+from company.models import Company
 COMMENT_PERPAGE_COUNT = 5 #topic页面每页显示多少个评论
 #楼层计算器,topic评论的楼层计算
 @register.filter
@@ -131,6 +132,18 @@ def Article_collection(value):
         cache.set(cachekey,  article.collection_set.count(), 1209600)
         return cache.get(cachekey)
 
+
+#缓存公司被收藏次数
+@register.filter
+def Company_collection(value): 
+    cachekey = "company_collection_" + str(value)
+    if cache.get(cachekey) != None:
+        return cache.get(cachekey)
+    else:
+        company = Company.objects.get(id=value)
+        cache.set(cachekey,  company.collectioncompany_set.count(), 1209600)
+        return cache.get(cachekey)
+
 #缓存话题组话题数量
 @register.filter
 def group_topic_count(value): 
@@ -214,6 +227,8 @@ def AtWhoUser(value):
 #显示包含搜索词的句子在页面上
 @register.filter
 def search(value): 
+    dr = re.compile(r'<[^>]+>',re.S)
+    value = dr.sub('',value)
     value = value.lower()
     search_word = cache.get("search_word").lower()
     search_word = search_word.split()

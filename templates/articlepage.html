@@ -6,7 +6,9 @@
           <div class="col-sm-12 newsblock" id="{{item.article.blockid}}">
           <div class="col-sm-4 leftimgblock">
           <a href="{{item.article.get_absolute_url}}"><img src="{{item.article.get_image_url}}" style="width: 220px; height:124px;"></a>
-
+            {% if item.article.original %}
+            <span class="original-mark"  >探访</span>
+            {% endif %}
 
 
          </div> 

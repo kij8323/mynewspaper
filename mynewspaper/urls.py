@@ -39,6 +39,7 @@ urlpatterns = [
     url(r'^user/(?P<user_id>[0-9]+)/userdashboard_commentocomment/$', 'accounts.views.userdashboard_commentocomment', name='userdashboard_commentocomment'),#个人点评
     url(r'^user/deleteinfo/$', 'accounts.views.deleteinfo', name='deleteinfo'),#删除个人收藏、评论。。。。。
     url(r'^user/(?P<user_id>[0-9]+)/company/$', 'accounts.views.userdashboardcompany', name='user_userdashboardcompany'),#个人公司
+    url(r'^user/(?P<user_id>[0-9]+)/collectionscompany/$', 'accounts.views.userdashboardcollectionscompany', name='user_detailcollectionscompany'),
 
     url(r'^group/index/$', 'topic.views.group_index', name='group_index'),#不用
     url(r'^group/all/$', 'topic.views.group_all', name='group_all'),#话题组首页
@@ -76,7 +77,7 @@ urlpatterns = [
     url(r'^company/built2/$', 'company.views.company_built2', name='company_built2'),#公司页
     url(r'^company/(?P<company_id>[0-9]+)/built3/$', 'company.views.company_built3', name='company_built3'),#公司页
     url(r'^company/builtsucss/$', 'company.views.builtsucss', name='builtsucss'),#公司success页
-
+    url(r'^topic/collectioncompany/$', 'company.views.collectioncompany', name='collectioncompany'),#收藏公司
 
 
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -20,7 +20,7 @@ from django.http import Http404
 from notifications.signals import notify
 from topic.models import CollectionTopic, Topic
 from article.models import Collection, Article
-from company.models import Company
+from company.models import Company, CollectionCompany
 from comment.models import Comment
 from notifications.models import Notification
 from article.tasks import readersin, add, readersout, instancedelete, instancesave
@@ -348,6 +348,39 @@ def userdashboardcollectionstopic(request, user_id):
 	return render(request, 'user_userdashboardcollectionstopic.html',  context)
 
 
+#我的收藏-公司
+def userdashboardcollectionscompany(request, user_id):	
+	try:
+		user = MyUser.objects.get(pk=user_id)
+		sender = request.user
+		if user == sender:
+			host = True
+			hostname = '我的'
+		else:
+			host = False
+			hostname = '他的'
+		collection = CollectionCompany.objects.filter(user = user).order_by('-id')
+		# 分页
+		paginator = Paginator(collection, 10)
+		page = request.GET.get('page')
+		try:
+			contacts = paginator.page(page)
+		except PageNotAnInteger:
+		# If page is not an integer, deliver first page.
+			contacts = paginator.page(1)
+		except EmptyPage:
+		# If page is out of range (e.g. 9999), deliver last page of results.
+			contacts = paginator.page(paginator.num_pages)
+		context = {
+			'collection' : contacts,
+			'host': host,
+			'userofinfor': user,
+			'hostname': hostname,
+			}
+	except MyUser.DoesNotExist:
+		raise Http404("MyUser does not exist")
+	return render(request, 'user_userdashboardcollectionscompany.html',  context)
+
 
 #我的评论-点评
 def userdashboard_commentocomment(request, user_id):	
@@ -491,6 +524,7 @@ def deleteinfo(request):
 			'Collection': Collection,
 			'CollectionTopic': CollectionTopic,
 			'Topic': Topic,
+			'CollectionCompany': CollectionCompany,
 		}
 		instanceid = request.POST.get('instanceid')
 		instancetype = request.POST.get('instancetype')
