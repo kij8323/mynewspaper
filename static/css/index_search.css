@@ -403,3 +403,44 @@ a:hover{
 .article-infor{
 	margin-left: 15px;
 }
+
+
+
+.firm-img{
+width: 70px;
+height: 70px;
+margin-bottom: 16px;
+margin-top: 7px;
+background: #f3f3f3;
+margin-left: -15px;
+}
+
+.firm-img img {
+border-radius: 3px;
+width: 100%;
+height: 100%;
+}
+
+.info {
+	margin-top: 12px;
+	margin-left: -12px;
+}
+
+.name a {
+	font-size: 18px;
+	margin-top: 5px;
+}
+
+.des {
+	line-height: 20px;
+	margin-top: 7px;
+	font-size: 16px;
+	color: #999;
+	text-overflow: -o-ellipsis-lastline;
+	overflow: hidden;
+	text-overflow: ellipsis;display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+}
+
+

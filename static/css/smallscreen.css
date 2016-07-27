@@ -92,3 +92,11 @@ height: 58px !important;
 	width: 50px  !important;
 
 }
+
+.name a, .des {
+font-size: 12px !important;
+}
+
+.info {
+	margin-left: 5px !important;
+}

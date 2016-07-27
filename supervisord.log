@@ -10424,3 +10424,1896 @@ worker: Warm shutdown (MainProcess)
 2016-07-24 22:47:00,044 INFO spawned: 'redis-server' with pid 1167
 2016-07-24 22:47:01,780 INFO success: celery entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
 2016-07-24 22:47:01,781 INFO success: redis-server entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-07-25 00:16:45,783 WARN received SIGTERM indicating exit request
+2016-07-25 00:16:45,783 INFO waiting for celery, redis-server to die
+2016-07-25 00:16:45,866 INFO stopped: redis-server (exit status 0)
+2016-07-25 00:16:47,416 INFO stopped: celery (exit status 0)
+2016-07-25 00:17:54,615 CRIT Supervisor running as root (no user in config file)
+2016-07-25 00:17:54,631 INFO RPC interface 'supervisor' initialized
+2016-07-25 00:17:54,631 INFO supervisord started with pid 1187
+2016-07-25 00:17:55,634 INFO spawned: 'autoreload' with pid 1193
+2016-07-25 00:17:55,635 INFO spawned: 'celery' with pid 1194
+2016-07-25 00:17:55,638 INFO spawned: 'redis-server' with pid 1195
+2016-07-25 00:17:55,651 DEBG 'redis-server' stdout output:
+[1195] 25 Jul 00:17:55.650 # Warning: no config file specified, using the default config. In order to specify a config file use redis-server /path/to/redis.conf
+
+2016-07-25 00:17:55,651 DEBG 'redis-server' stdout output:
+[1195] 25 Jul 00:17:55.651 * Max number of open files set to 10032
+
+2016-07-25 00:17:55,653 DEBG 'redis-server' stdout output:
+                _._                                                  
+           _.-``__ ''-._                                             
+      _.-``    `.  `_.  ''-._           Redis 2.8.4 (00000000/0) 64 bit
+  .-`` .-```.  ```\/    _.,_ ''-._                                   
+ (    '      ,       .-`  | `,    )     Running in stand alone mode
+ |`-._`-...-` __...-.``-._|'` _.-'|     Port: 6379
+ |    `-._   `._    /     _.-'    |     PID: 1195
+  `-._    `-._  `-./  _.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |           http://redis.io        
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |                                  
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+      `-._    `-.__.-'    _.-'                                       
+          `-._        _.-'                                           
+              `-.__.-'                                               
+
+
+2016-07-25 00:17:55,653 DEBG 'redis-server' stdout output:
+[1195] 25 Jul 00:17:55.653 # Server started, Redis version 2.8.4
+
+2016-07-25 00:17:55,653 DEBG 'redis-server' stdout output:
+[1195] 25 Jul 00:17:55.653 # WARNING overcommit_memory is set to 0! Background save may fail under low memory condition. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
+
+2016-07-25 00:17:55,655 DEBG 'redis-server' stdout output:
+[1195] 25 Jul 00:17:55.655 * DB loaded from disk: 0.001 seconds
+[1195] 25 Jul 00:17:55.655 * The server is now ready to accept connections on port 6379
+
+2016-07-25 00:17:56,044 DEBG 'celery' stdout output:
+/usr/local/lib/python2.7/dist-packages/django/core/management/base.py:259: RemovedInDjango19Warning: "requires_model_validation" is deprecated in favor of "requires_system_checks".
+  RemovedInDjango19Warning)
+
+
+2016-07-25 00:17:56,233 DEBG 'celery' stdout output:
+/usr/local/lib/python2.7/dist-packages/celery/platforms.py:812: RuntimeWarning: You are running the worker with superuser privileges, which is
+absolutely not recommended!
+
+Please specify a different user using the -u option.
+
+User information: uid=0 euid=0 gid=0 egid=0
+
+  uid=uid, euid=euid, gid=gid, egid=egid,
+
+
+2016-07-25 00:17:56,293 DEBG 'celery' stdout output:
+/usr/local/lib/python2.7/dist-packages/celery/apps/worker.py:161: CDeprecationWarning: 
+Starting from version 3.2 Celery will refuse to accept pickle by default.
+
+The pickle serializer is a security concern as it may give attackers
+the ability to execute any command.  It's important to secure
+your broker from unauthorized access when using pickle, so we think
+that enabling pickle should require a deliberate action and not be
+the default choice.
+
+If you depend on pickle then you should set a setting to disable this
+warning and to be sure that everything will continue working
+when you upgrade to Celery 3.2::
+
+    CELERY_ACCEPT_CONTENT = ['pickle', 'json', 'msgpack', 'yaml']
+
+You must only enable the serializers that you will actually use.
+
+
+  warnings.warn(CDeprecationWarning(W_PICKLE_DEPRECATED))
+
+
+2016-07-25 00:17:56,294 DEBG 'celery' stdout output:
+[2016-07-25 00:17:56,293: WARNING/MainProcess] /usr/local/lib/python2.7/dist-packages/celery/apps/worker.py:161: CDeprecationWarning: 
+Starting from version 3.2 Celery will refuse to accept pickle by default.
+
+The pickle serializer is a security concern as it may give attackers
+the ability to execute any command.  It's important to secure
+your broker from unauthorized access when using pickle, so we think
+that enabling pickle should require a deliberate action and not be
+the default choice.
+
+If you depend on pickle then you should set a setting to disable this
+warning and to be sure that everything will continue working
+when you upgrade to Celery 3.2::
+
+    CELERY_ACCEPT_CONTENT = ['pickle', 'json', 'msgpack', 'yaml']
+
+You must only enable the serializers that you will actually use.
+
+
+  warnings.warn(CDeprecationWarning(W_PICKLE_DEPRECATED))
+
+
+2016-07-25 00:17:56,365 DEBG 'celery' stdout output:
+[2016-07-25 00:17:56,365: INFO/MainProcess] Connected to redis://localhost:6379/0
+
+2016-07-25 00:17:56,373 DEBG 'celery' stdout output:
+[2016-07-25 00:17:56,373: INFO/MainProcess] mingle: searching for neighbors
+
+2016-07-25 00:17:57,374 INFO success: autoreload entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-07-25 00:17:57,375 INFO success: celery entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-07-25 00:17:57,375 INFO success: redis-server entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-07-25 00:17:57,378 DEBG 'celery' stdout output:
+[2016-07-25 00:17:57,377: INFO/MainProcess] mingle: all alone
+
+2016-07-25 00:17:57,395 DEBG 'celery' stdout output:
+/usr/local/lib/python2.7/dist-packages/djcelery/loaders.py:136: UserWarning: Using settings.DEBUG leads to a memory leak, never use this setting in production environments!
+  warn('Using settings.DEBUG leads to a memory leak, never '
+
+
+2016-07-25 00:17:57,395 DEBG 'celery' stdout output:
+[2016-07-25 00:17:57,394: WARNING/MainProcess] /usr/local/lib/python2.7/dist-packages/djcelery/loaders.py:136: UserWarning: Using settings.DEBUG leads to a memory leak, never use this setting in production environments!
+  warn('Using settings.DEBUG leads to a memory leak, never '
+
+
+2016-07-25 00:17:57,396 DEBG 'celery' stdout output:
+[2016-07-25 00:17:57,395: WARNING/MainProcess] celery@iZ25vn4n5xvZ ready.
+
+2016-07-25 06:27:32,691 DEBG 'celery' stdout output:
+[2016-07-25 06:27:32,690: INFO/MainProcess] Received task: article.tasks.readersin[c27b3f13-55fc-4662-addd-2e1ffb64b271]
+
+2016-07-25 06:27:32,794 DEBG 'celery' stdout output:
+[2016-07-25 06:27:32,793: INFO/MainProcess] Task article.tasks.readersin[c27b3f13-55fc-4662-addd-2e1ffb64b271] succeeded in 0.100864958s: 'readers +1 success!'
+
+2016-07-25 06:28:03,184 DEBG 'celery' stdout output:
+[2016-07-25 06:28:03,184: INFO/MainProcess] Received task: article.tasks.readersin[2bf8d500-b798-4c65-850f-9caf3f5504e8]
+
+2016-07-25 06:28:03,217 DEBG 'celery' stdout output:
+[2016-07-25 06:28:03,216: INFO/MainProcess] Task article.tasks.readersin[2bf8d500-b798-4c65-850f-9caf3f5504e8] succeeded in 0.0306457329971s: 'readers +1 success!'
+
+2016-07-25 06:45:57,342 DEBG 'celery' stdout output:
+[2016-07-25 06:45:57,342: INFO/MainProcess] Received task: article.tasks.readersin[4e347256-f696-4f7f-8e45-9b403941971b]
+
+2016-07-25 06:45:57,375 DEBG 'celery' stdout output:
+[2016-07-25 06:45:57,374: INFO/MainProcess] Task article.tasks.readersin[4e347256-f696-4f7f-8e45-9b403941971b] succeeded in 0.0307219070019s: 'readers +1 success!'
+
+2016-07-25 06:49:10,516 DEBG 'celery' stdout output:
+[2016-07-25 06:49:10,516: INFO/MainProcess] Received task: article.tasks.readersin[2dbd8b22-bb1a-49dc-8c55-50e418e64b9a]
+
+2016-07-25 06:49:10,531 DEBG 'celery' stdout output:
+[2016-07-25 06:49:10,531: INFO/MainProcess] Task article.tasks.readersin[2dbd8b22-bb1a-49dc-8c55-50e418e64b9a] succeeded in 0.0136029169989s: 'readers +1 success!'
+
+2016-07-25 06:52:19,915 DEBG 'celery' stdout output:
+[2016-07-25 06:52:19,915: INFO/MainProcess] Received task: article.tasks.readersin[05337b0d-a2da-4ed8-b4b2-ac814b2c9a73]
+
+2016-07-25 06:52:19,935 DEBG 'celery' stdout output:
+[2016-07-25 06:52:19,935: INFO/MainProcess] Task article.tasks.readersin[05337b0d-a2da-4ed8-b4b2-ac814b2c9a73] succeeded in 0.0178627160021s: 'readers +1 success!'
+
+2016-07-25 08:08:03,844 DEBG 'celery' stdout output:
+[2016-07-25 08:08:03,843: INFO/MainProcess] Received task: article.tasks.readersin[aa3246af-4d02-4d57-85db-7f29c8d773f2]
+
+2016-07-25 08:08:03,877 DEBG 'celery' stdout output:
+[2016-07-25 08:08:03,876: INFO/MainProcess] Task article.tasks.readersin[aa3246af-4d02-4d57-85db-7f29c8d773f2] succeeded in 0.0313070100019s: 'readers +1 success!'
+
+2016-07-25 08:33:16,120 DEBG 'celery' stdout output:
+[2016-07-25 08:33:16,119: INFO/MainProcess] Received task: article.tasks.readersin[1fd85599-0542-4625-87c3-f6542d275b9d]
+
+2016-07-25 08:33:16,141 DEBG 'celery' stdout output:
+[2016-07-25 08:33:16,140: INFO/MainProcess] Task article.tasks.readersin[1fd85599-0542-4625-87c3-f6542d275b9d] succeeded in 0.0196465119989s: 'readers +1 success!'
+
+2016-07-25 08:33:53,144 DEBG 'celery' stdout output:
+[2016-07-25 08:33:53,144: INFO/MainProcess] Received task: article.tasks.readersin[601fdd3e-1d79-4eff-8e54-1d81e863acd0]
+
+2016-07-25 08:33:53,162 DEBG 'celery' stdout output:
+[2016-07-25 08:33:53,162: INFO/MainProcess] Task article.tasks.readersin[601fdd3e-1d79-4eff-8e54-1d81e863acd0] succeeded in 0.015366464002s: 'readers +1 success!'
+
+2016-07-25 08:35:25,212 DEBG 'celery' stdout output:
+[2016-07-25 08:35:25,211: INFO/MainProcess] Received task: article.tasks.readersin[a1f12cb3-eea4-45aa-b284-c5f727fb24a3]
+
+2016-07-25 08:35:25,232 DEBG 'celery' stdout output:
+[2016-07-25 08:35:25,232: INFO/MainProcess] Task article.tasks.readersin[a1f12cb3-eea4-45aa-b284-c5f727fb24a3] succeeded in 0.0180879239997s: 'readers +1 success!'
+
+2016-07-25 08:35:55,167 DEBG 'celery' stdout output:
+[2016-07-25 08:35:55,166: INFO/MainProcess] Received task: article.tasks.readersin[e7d4a7d2-28bc-4037-ab24-1c93bf3c39cf]
+
+2016-07-25 08:35:55,185 DEBG 'celery' stdout output:
+[2016-07-25 08:35:55,185: INFO/MainProcess] Task article.tasks.readersin[e7d4a7d2-28bc-4037-ab24-1c93bf3c39cf] succeeded in 0.0170190719982s: 'readers +1 success!'
+
+2016-07-25 09:06:36,144 DEBG 'celery' stdout output:
+[2016-07-25 09:06:36,144: INFO/MainProcess] Received task: article.tasks.readersin[ec8c4136-c850-4be7-95b3-a9107475e36e]
+
+2016-07-25 09:06:36,161 DEBG 'celery' stdout output:
+[2016-07-25 09:06:36,161: INFO/MainProcess] Task article.tasks.readersin[ec8c4136-c850-4be7-95b3-a9107475e36e] succeeded in 0.0158908279991s: 'readers +1 success!'
+
+2016-07-25 09:23:13,968 DEBG 'celery' stdout output:
+[2016-07-25 09:23:13,968: INFO/MainProcess] Received task: article.tasks.readersin[a2dcf100-10d6-43b7-a6a7-31382caa8506]
+
+2016-07-25 09:23:13,986 DEBG 'celery' stdout output:
+[2016-07-25 09:23:13,986: INFO/MainProcess] Task article.tasks.readersin[a2dcf100-10d6-43b7-a6a7-31382caa8506] succeeded in 0.0161287539995s: 'readers +1 success!'
+
+2016-07-25 09:32:17,564 DEBG 'celery' stdout output:
+[2016-07-25 09:32:17,563: INFO/MainProcess] Received task: article.tasks.readersin[5ce1ad4d-d4ff-48ea-9ae1-dba6577213af]
+
+2016-07-25 09:32:17,586 DEBG 'celery' stdout output:
+[2016-07-25 09:32:17,586: INFO/MainProcess] Task article.tasks.readersin[5ce1ad4d-d4ff-48ea-9ae1-dba6577213af] succeeded in 0.0205204220038s: 'readers +1 success!'
+
+2016-07-25 09:40:01,004 DEBG 'celery' stdout output:
+[2016-07-25 09:40:01,004: INFO/MainProcess] Received task: article.tasks.readersin[2e33406e-0ee6-4b16-a15d-4e401ba3b4df]
+
+2016-07-25 09:40:01,033 DEBG 'celery' stdout output:
+[2016-07-25 09:40:01,032: INFO/MainProcess] Task article.tasks.readersin[2e33406e-0ee6-4b16-a15d-4e401ba3b4df] succeeded in 0.0267645349959s: 'readers +1 success!'
+
+2016-07-25 09:41:23,576 DEBG 'celery' stdout output:
+[2016-07-25 09:41:23,576: INFO/MainProcess] Received task: article.tasks.readersin[1e1b2d74-014e-45fd-b6bb-2adf5276eb5b]
+
+2016-07-25 09:41:23,596 DEBG 'celery' stdout output:
+[2016-07-25 09:41:23,596: INFO/MainProcess] Task article.tasks.readersin[1e1b2d74-014e-45fd-b6bb-2adf5276eb5b] succeeded in 0.0182755029964s: 'readers +1 success!'
+
+2016-07-25 09:41:30,614 DEBG 'celery' stdout output:
+[2016-07-25 09:41:30,614: INFO/MainProcess] Received task: article.tasks.readersin[5b1eb718-4fa3-43d1-bd8e-034f6638bdf6]
+
+2016-07-25 09:41:30,634 DEBG 'celery' stdout output:
+[2016-07-25 09:41:30,634: INFO/MainProcess] Task article.tasks.readersin[5b1eb718-4fa3-43d1-bd8e-034f6638bdf6] succeeded in 0.0179408509939s: 'readers +1 success!'
+
+2016-07-25 10:15:03,824 DEBG 'celery' stdout output:
+[2016-07-25 10:15:03,824: INFO/MainProcess] Received task: article.tasks.readersin[c2bf4fc5-6ffd-44a6-b09c-ecee34e1e1e8]
+
+2016-07-25 10:15:03,842 DEBG 'celery' stdout output:
+[2016-07-25 10:15:03,842: INFO/MainProcess] Task article.tasks.readersin[c2bf4fc5-6ffd-44a6-b09c-ecee34e1e1e8] succeeded in 0.0159248700002s: 'readers +1 success!'
+
+2016-07-25 10:24:03,093 DEBG 'celery' stdout output:
+[2016-07-25 10:24:03,093: INFO/MainProcess] Received task: article.tasks.readersin[3778de57-4fc0-4673-a4ad-64dd2a070b1f]
+
+2016-07-25 10:24:03,110 DEBG 'celery' stdout output:
+[2016-07-25 10:24:03,109: INFO/MainProcess] Task article.tasks.readersin[3778de57-4fc0-4673-a4ad-64dd2a070b1f] succeeded in 0.0146922439963s: 'readers +1 success!'
+
+2016-07-25 10:30:30,451 DEBG 'celery' stdout output:
+[2016-07-25 10:30:30,451: INFO/MainProcess] Received task: article.tasks.readersin[2a758811-64e7-40d7-8497-57a7dcb597be]
+
+2016-07-25 10:30:30,479 DEBG 'celery' stdout output:
+[2016-07-25 10:30:30,478: INFO/MainProcess] Task article.tasks.readersin[2a758811-64e7-40d7-8497-57a7dcb597be] succeeded in 0.0256596320032s: 'readers +1 success!'
+
+2016-07-25 11:41:21,963 DEBG 'celery' stdout output:
+[2016-07-25 11:41:21,962: INFO/MainProcess] Received task: article.tasks.readersin[5267bb84-fca8-4d51-8f53-64862db0349a]
+
+2016-07-25 11:41:21,993 DEBG 'celery' stdout output:
+[2016-07-25 11:41:21,993: INFO/MainProcess] Task article.tasks.readersin[5267bb84-fca8-4d51-8f53-64862db0349a] succeeded in 0.029106654998s: 'readers +1 success!'
+
+2016-07-25 12:09:27,984 DEBG 'celery' stdout output:
+[2016-07-25 12:09:27,984: INFO/MainProcess] Received task: article.tasks.readersin[ab9021d1-7ef3-47aa-8793-923627633538]
+
+2016-07-25 12:09:28,004 DEBG 'celery' stdout output:
+[2016-07-25 12:09:28,004: INFO/MainProcess] Task article.tasks.readersin[ab9021d1-7ef3-47aa-8793-923627633538] succeeded in 0.0167796110036s: 'readers +1 success!'
+
+2016-07-25 12:09:28,094 DEBG 'celery' stdout output:
+[2016-07-25 12:09:28,094: INFO/MainProcess] Received task: article.tasks.readersin[1106bf6e-501a-4626-ac73-4df87b443a33]
+
+2016-07-25 12:09:28,111 DEBG 'celery' stdout output:
+[2016-07-25 12:09:28,110: INFO/MainProcess] Task article.tasks.readersin[1106bf6e-501a-4626-ac73-4df87b443a33] succeeded in 0.0151004959989s: 'readers +1 success!'
+
+2016-07-25 13:15:46,467 DEBG 'celery' stdout output:
+[2016-07-25 13:15:46,467: INFO/MainProcess] Received task: article.tasks.readersin[bf06bd1b-318c-425d-979a-48ebc367b4df]
+
+2016-07-25 13:15:46,509 DEBG 'celery' stdout output:
+[2016-07-25 13:15:46,508: INFO/MainProcess] Task article.tasks.readersin[bf06bd1b-318c-425d-979a-48ebc367b4df] succeeded in 0.0385335659957s: 'readers +1 success!'
+
+2016-07-25 21:38:52,656 DEBG 'celery' stdout output:
+[2016-07-25 21:38:52,656: INFO/MainProcess] Received task: article.tasks.readersin[dd943e3d-8c0c-45fb-9e7c-11cdd91eca92]
+
+2016-07-25 21:38:52,675 DEBG 'celery' stdout output:
+[2016-07-25 21:38:52,675: INFO/MainProcess] Task article.tasks.readersin[dd943e3d-8c0c-45fb-9e7c-11cdd91eca92] succeeded in 0.0163833239931s: 'readers +1 success!'
+
+2016-07-25 21:38:56,939 DEBG 'celery' stdout output:
+[2016-07-25 21:38:56,939: INFO/MainProcess] Received task: article.tasks.readersin[67b95f0f-1cf4-45d5-9847-205e8b18b97d]
+
+2016-07-25 21:38:56,956 DEBG 'celery' stdout output:
+[2016-07-25 21:38:56,956: INFO/MainProcess] Task article.tasks.readersin[67b95f0f-1cf4-45d5-9847-205e8b18b97d] succeeded in 0.0156329250021s: 'readers +1 success!'
+
+2016-07-25 21:39:01,265 DEBG 'celery' stdout output:
+[2016-07-25 21:39:01,264: INFO/MainProcess] Received task: article.tasks.readersin[03edd7fa-41a0-467d-a5ea-46d1e7d73005]
+
+2016-07-25 21:39:01,284 DEBG 'celery' stdout output:
+[2016-07-25 21:39:01,283: INFO/MainProcess] Task article.tasks.readersin[03edd7fa-41a0-467d-a5ea-46d1e7d73005] succeeded in 0.0173314040003s: 'readers +1 success!'
+
+2016-07-25 21:39:45,660 DEBG 'celery' stdout output:
+[2016-07-25 21:39:45,659: INFO/MainProcess] Received task: article.tasks.readersin[3d25c2a6-123f-4e89-a841-33cecfb66944]
+
+2016-07-25 21:39:45,679 DEBG 'celery' stdout output:
+[2016-07-25 21:39:45,679: INFO/MainProcess] Task article.tasks.readersin[3d25c2a6-123f-4e89-a841-33cecfb66944] succeeded in 0.0171082190063s: 'readers +1 success!'
+
+2016-07-25 21:41:24,386 DEBG killing autoreload (pid 1193) with signal SIGTERM
+2016-07-25 21:41:24,387 INFO waiting for autoreload to stop
+2016-07-25 21:41:24,389 DEBG fd 7 closed, stopped monitoring <POutputDispatcher at 140231019179832 for <Subprocess at 140231019453904 with name autoreload in state STOPPING> (stdout)>
+2016-07-25 21:41:24,389 INFO stopped: autoreload (terminated by SIGTERM)
+2016-07-25 21:41:24,389 DEBG received SIGCLD indicating a child quit
+2016-07-25 21:41:24,391 DEBG killing redis-server (pid 1195) with signal SIGTERM
+2016-07-25 21:41:24,391 INFO waiting for redis-server to stop
+2016-07-25 21:41:24,391 DEBG 'redis-server' stdout output:
+[1195 | signal handler] (1469454084) Received SIGTERM, scheduling shutdown...
+
+2016-07-25 21:41:24,449 DEBG 'redis-server' stdout output:
+[1195] 25 Jul 21:41:24.449 # User requested shutdown...
+[1195] 25 Jul 21:41:24.449 * Saving the final RDB snapshot before exiting.
+
+2016-07-25 21:41:24,456 DEBG 'redis-server' stdout output:
+[1195] 25 Jul 21:41:24.455 * DB saved on disk
+[1195] 25 Jul 21:41:24.456 # Redis is now ready to exit, bye bye...
+
+2016-07-25 21:41:24,456 DEBG fd 13 closed, stopped monitoring <POutputDispatcher at 140231019189024 for <Subprocess at 140231019454264 with name redis-server in state STOPPING> (stdout)>
+2016-07-25 21:41:24,456 INFO stopped: redis-server (exit status 0)
+2016-07-25 21:41:24,456 DEBG received SIGCLD indicating a child quit
+2016-07-25 21:41:24,458 DEBG killing celery (pid 1194) with signal SIGTERM
+2016-07-25 21:41:24,458 INFO waiting for celery to stop
+2016-07-25 21:41:24,459 DEBG 'celery' stdout output:
+
+worker: Warm shutdown (MainProcess)
+
+2016-07-25 21:41:25,467 DEBG 'celery' stdout output:
+ 
+ -------------- celery@iZ25vn4n5xvZ v3.1.23 (Cipater)
+---- **** ----- 
+--- * ***  * -- Linux-3.13.0-32-generic-x86_64-with-Ubuntu-14.04-trusty
+-- * - **** --- 
+- ** ---------- [config]
+- ** ---------- .> app:         default:0x7f4784d8d710 (djcelery.loaders.DjangoLoader)
+- ** ---------- .> transport:   redis://localhost:6379/0
+- ** ---------- .> results:     
+- *** --- * --- .> concurrency: 2 (prefork)
+-- ******* ---- 
+--- ***** ----- [queues]
+ -------------- .> celery           exchange=celery(direct) key=celery
+                
+
+[tasks]
+  . article.tasks.add
+  . article.tasks.instancedelete
+  . article.tasks.instancesave
+  . article.tasks.readersin
+  . article.tasks.readersout
+
+
+2016-07-25 21:41:26,006 DEBG fd 10 closed, stopped monitoring <POutputDispatcher at 140231019188664 for <Subprocess at 140231019454120 with name celery in state STOPPING> (stdout)>
+2016-07-25 21:41:26,007 INFO stopped: celery (exit status 0)
+2016-07-25 21:41:26,007 DEBG received SIGCLD indicating a child quit
+2016-07-25 21:41:26,011 INFO spawned: 'autoreload' with pid 2841
+2016-07-25 21:41:27,013 INFO success: autoreload entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-07-25 21:41:27,017 INFO spawned: 'redis-server' with pid 2856
+2016-07-25 21:41:27,025 DEBG 'redis-server' stdout output:
+[2856] 25 Jul 21:41:27.024 # Warning: no config file specified, using the default config. In order to specify a config file use redis-server /path/to/redis.conf
+
+2016-07-25 21:41:27,025 DEBG 'redis-server' stdout output:
+[2856] 25 Jul 21:41:27.025 * Max number of open files set to 10032
+
+2016-07-25 21:41:27,027 DEBG 'redis-server' stdout output:
+                _._                                                  
+           _.-``__ ''-._                                             
+      _.-``    `.  `_.  ''-._           Redis 2.8.4 (00000000/0) 64 bit
+  .-`` .-```.  ```\/    _.,_ ''-._                                   
+ (    '      ,       .-`  | `,    )     Running in stand alone mode
+ |`-._`-...-` __...-.``-._|'` _.-'|     Port: 6379
+ |    `-._   `._    /     _.-'    |     PID: 2856
+  `-._    `-._  `-./  _.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |           http://redis.io        
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |                                  
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+      `-._    `-.__.-'    _.-'                                       
+          `-._        _.-'                                           
+              `-.__.-'                                               
+
+
+2016-07-25 21:41:27,027 DEBG 'redis-server' stdout output:
+[2856] 25 Jul 21:41:27.027 # Server started, Redis version 2.8.4
+
+2016-07-25 21:41:27,027 DEBG 'redis-server' stdout output:
+[2856] 25 Jul 21:41:27.027 # WARNING overcommit_memory is set to 0! Background save may fail under low memory condition. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
+
+2016-07-25 21:41:27,027 DEBG 'redis-server' stdout output:
+[2856] 25 Jul 21:41:27.027 * DB loaded from disk: 0.000 seconds
+
+2016-07-25 21:41:27,028 DEBG 'redis-server' stdout output:
+[2856] 25 Jul 21:41:27.028 * The server is now ready to accept connections on port 6379
+
+2016-07-25 21:41:28,028 INFO success: redis-server entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-07-25 21:41:28,032 INFO spawned: 'celery' with pid 2859
+2016-07-25 21:41:28,456 DEBG 'celery' stdout output:
+[2016-07-25 21:41:28,456: WARNING/MainProcess] /usr/local/lib/python2.7/dist-packages/celery/apps/worker.py:161: CDeprecationWarning: 
+Starting from version 3.2 Celery will refuse to accept pickle by default.
+
+The pickle serializer is a security concern as it may give attackers
+the ability to execute any command.  It's important to secure
+your broker from unauthorized access when using pickle, so we think
+that enabling pickle should require a deliberate action and not be
+the default choice.
+
+If you depend on pickle then you should set a setting to disable this
+warning and to be sure that everything will continue working
+when you upgrade to Celery 3.2::
+
+    CELERY_ACCEPT_CONTENT = ['pickle', 'json', 'msgpack', 'yaml']
+
+You must only enable the serializers that you will actually use.
+
+
+  warnings.warn(CDeprecationWarning(W_PICKLE_DEPRECATED))
+
+
+2016-07-25 21:41:28,514 DEBG 'celery' stdout output:
+[2016-07-25 21:41:28,514: INFO/MainProcess] Connected to redis://localhost:6379/0
+
+2016-07-25 21:41:28,521 DEBG 'celery' stdout output:
+[2016-07-25 21:41:28,520: INFO/MainProcess] mingle: searching for neighbors
+
+2016-07-25 21:41:29,522 INFO success: celery entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-07-25 21:41:29,525 DEBG 'celery' stdout output:
+[2016-07-25 21:41:29,525: INFO/MainProcess] mingle: all alone
+
+2016-07-25 21:41:29,533 DEBG 'celery' stdout output:
+[2016-07-25 21:41:29,533: WARNING/MainProcess] celery@iZ25vn4n5xvZ ready.
+
+2016-07-25 22:05:00,016 DEBG 'celery' stdout output:
+[2016-07-25 22:05:00,016: INFO/MainProcess] Received task: article.tasks.readersin[6d982f59-8b74-408a-bd51-75c4c4aea819]
+
+2016-07-25 22:05:00,061 DEBG 'celery' stdout output:
+[2016-07-25 22:05:00,060: INFO/MainProcess] Task article.tasks.readersin[6d982f59-8b74-408a-bd51-75c4c4aea819] succeeded in 0.0412686680065s: 'readers +1 success!'
+
+2016-07-25 22:08:20,726 DEBG 'celery' stdout output:
+[2016-07-25 22:08:20,726: INFO/MainProcess] Received task: article.tasks.readersin[69fa3c34-9d91-43f3-8ce8-296f99312bf3]
+
+2016-07-25 22:08:20,752 DEBG 'celery' stdout output:
+[2016-07-25 22:08:20,752: INFO/MainProcess] Task article.tasks.readersin[69fa3c34-9d91-43f3-8ce8-296f99312bf3] succeeded in 0.023997723998s: 'readers +1 success!'
+
+2016-07-25 22:09:24,663 DEBG 'celery' stdout output:
+[2016-07-25 22:09:24,663: INFO/MainProcess] Received task: article.tasks.readersin[40d8b726-a185-4ed6-9478-62e43551d928]
+
+2016-07-25 22:09:24,682 DEBG 'celery' stdout output:
+[2016-07-25 22:09:24,681: INFO/MainProcess] Task article.tasks.readersin[40d8b726-a185-4ed6-9478-62e43551d928] succeeded in 0.0167735669966s: 'readers +1 success!'
+
+2016-07-25 22:10:11,455 DEBG 'celery' stdout output:
+[2016-07-25 22:10:11,454: INFO/MainProcess] Received task: article.tasks.readersin[c78f50bd-0002-479c-9c34-901685c3c03b]
+
+2016-07-25 22:10:11,470 DEBG 'celery' stdout output:
+[2016-07-25 22:10:11,470: INFO/MainProcess] Task article.tasks.readersin[c78f50bd-0002-479c-9c34-901685c3c03b] succeeded in 0.0140321380022s: 'readers +1 success!'
+
+2016-07-25 22:10:24,038 DEBG 'celery' stdout output:
+[2016-07-25 22:10:24,038: INFO/MainProcess] Received task: article.tasks.readersin[11f3c388-c77e-4187-80bf-d9886dc54475]
+
+2016-07-25 22:10:24,071 DEBG 'celery' stdout output:
+[2016-07-25 22:10:24,071: INFO/MainProcess] Task article.tasks.readersin[11f3c388-c77e-4187-80bf-d9886dc54475] succeeded in 0.0309414310032s: 'readers +1 success!'
+
+2016-07-25 22:10:24,676 DEBG 'celery' stdout output:
+[2016-07-25 22:10:24,676: INFO/MainProcess] Received task: article.tasks.readersin[5e0de357-c3a7-4fc7-a065-baaf85858206]
+
+2016-07-25 22:10:24,692 DEBG 'celery' stdout output:
+[2016-07-25 22:10:24,692: INFO/MainProcess] Task article.tasks.readersin[5e0de357-c3a7-4fc7-a065-baaf85858206] succeeded in 0.0146924250002s: 'readers +1 success!'
+
+2016-07-25 22:10:33,330 DEBG 'celery' stdout output:
+[2016-07-25 22:10:33,330: INFO/MainProcess] Received task: article.tasks.readersin[b40562e7-224c-4875-903f-8c47590ea66e]
+
+2016-07-25 22:10:33,347 DEBG 'celery' stdout output:
+[2016-07-25 22:10:33,347: INFO/MainProcess] Task article.tasks.readersin[b40562e7-224c-4875-903f-8c47590ea66e] succeeded in 0.0150309210003s: 'readers +1 success!'
+
+2016-07-25 22:10:57,558 DEBG 'celery' stdout output:
+[2016-07-25 22:10:57,557: INFO/MainProcess] Received task: article.tasks.readersin[c3bfd6a4-8cbc-448c-bcce-033b62926e53]
+
+2016-07-25 22:10:57,575 DEBG 'celery' stdout output:
+[2016-07-25 22:10:57,575: INFO/MainProcess] Task article.tasks.readersin[c3bfd6a4-8cbc-448c-bcce-033b62926e53] succeeded in 0.0148098210047s: 'readers +1 success!'
+
+2016-07-25 22:10:59,511 DEBG 'celery' stdout output:
+[2016-07-25 22:10:59,510: INFO/MainProcess] Received task: article.tasks.readersin[8fb68249-17f5-447e-b160-110a7109fa2b]
+
+2016-07-25 22:10:59,540 DEBG 'celery' stdout output:
+[2016-07-25 22:10:59,540: INFO/MainProcess] Task article.tasks.readersin[8fb68249-17f5-447e-b160-110a7109fa2b] succeeded in 0.0281995250116s: 'readers +1 success!'
+
+2016-07-25 22:11:01,010 DEBG 'celery' stdout output:
+[2016-07-25 22:11:01,010: INFO/MainProcess] Received task: article.tasks.readersin[c157b1a0-2031-4ac4-9611-4053c1a30061]
+
+2016-07-25 22:11:01,032 DEBG 'celery' stdout output:
+[2016-07-25 22:11:01,032: INFO/MainProcess] Task article.tasks.readersin[c157b1a0-2031-4ac4-9611-4053c1a30061] succeeded in 0.0204301589984s: 'readers +1 success!'
+
+2016-07-25 22:11:07,380 DEBG 'celery' stdout output:
+[2016-07-25 22:11:07,380: INFO/MainProcess] Received task: article.tasks.readersin[e6a71904-5b98-48d3-ae57-bde0fffae2cf]
+
+2016-07-25 22:11:07,402 DEBG 'celery' stdout output:
+[2016-07-25 22:11:07,401: INFO/MainProcess] Task article.tasks.readersin[e6a71904-5b98-48d3-ae57-bde0fffae2cf] succeeded in 0.0192992470111s: 'readers +1 success!'
+
+2016-07-25 22:11:27,712 DEBG 'celery' stdout output:
+[2016-07-25 22:11:27,711: INFO/MainProcess] Received task: article.tasks.readersin[298e8807-1d89-480c-bb65-6aafea4be2d6]
+
+2016-07-25 22:11:27,729 DEBG 'celery' stdout output:
+[2016-07-25 22:11:27,729: INFO/MainProcess] Task article.tasks.readersin[298e8807-1d89-480c-bb65-6aafea4be2d6] succeeded in 0.0162818329991s: 'readers +1 success!'
+
+2016-07-25 22:12:55,804 DEBG 'celery' stdout output:
+[2016-07-25 22:12:55,804: INFO/MainProcess] Received task: article.tasks.readersin[b11b6b62-e3ab-4004-8d89-8460e4fa12ae]
+
+2016-07-25 22:12:55,821 DEBG 'celery' stdout output:
+[2016-07-25 22:12:55,821: INFO/MainProcess] Task article.tasks.readersin[b11b6b62-e3ab-4004-8d89-8460e4fa12ae] succeeded in 0.0155505290022s: 'readers +1 success!'
+
+2016-07-25 22:14:16,098 DEBG 'celery' stdout output:
+[2016-07-25 22:14:16,097: INFO/MainProcess] Received task: article.tasks.readersin[d8fe810d-525a-4479-868f-3ec34eb68df9]
+
+2016-07-25 22:14:16,113 DEBG 'celery' stdout output:
+[2016-07-25 22:14:16,113: INFO/MainProcess] Task article.tasks.readersin[d8fe810d-525a-4479-868f-3ec34eb68df9] succeeded in 0.0141358550027s: 'readers +1 success!'
+
+2016-07-25 22:14:25,975 DEBG 'celery' stdout output:
+[2016-07-25 22:14:25,975: INFO/MainProcess] Received task: article.tasks.readersin[fdf852cd-f84f-4b16-a4af-7f7b64fe14c4]
+
+2016-07-25 22:14:25,995 DEBG 'celery' stdout output:
+[2016-07-25 22:14:25,994: INFO/MainProcess] Task article.tasks.readersin[fdf852cd-f84f-4b16-a4af-7f7b64fe14c4] succeeded in 0.0176249810029s: 'readers +1 success!'
+
+2016-07-25 22:14:27,315 DEBG 'celery' stdout output:
+[2016-07-25 22:14:27,315: INFO/MainProcess] Received task: article.tasks.readersin[a31c2032-323a-4cdb-9190-d42acac3e157]
+
+2016-07-25 22:14:27,331 DEBG 'celery' stdout output:
+[2016-07-25 22:14:27,331: INFO/MainProcess] Task article.tasks.readersin[a31c2032-323a-4cdb-9190-d42acac3e157] succeeded in 0.0140429689927s: 'readers +1 success!'
+
+2016-07-25 22:14:29,931 DEBG 'celery' stdout output:
+[2016-07-25 22:14:29,930: INFO/MainProcess] Received task: article.tasks.readersin[4d297cb8-ae3a-4d88-898c-59d4ca22b1c1]
+
+2016-07-25 22:14:29,947 DEBG 'celery' stdout output:
+[2016-07-25 22:14:29,947: INFO/MainProcess] Task article.tasks.readersin[4d297cb8-ae3a-4d88-898c-59d4ca22b1c1] succeeded in 0.0145127099968s: 'readers +1 success!'
+
+2016-07-25 22:14:32,516 DEBG 'celery' stdout output:
+[2016-07-25 22:14:32,516: INFO/MainProcess] Received task: article.tasks.readersin[e72d4188-31e0-418e-8f13-d6c6ae36ca50]
+
+2016-07-25 22:14:32,536 DEBG 'celery' stdout output:
+[2016-07-25 22:14:32,535: INFO/MainProcess] Task article.tasks.readersin[e72d4188-31e0-418e-8f13-d6c6ae36ca50] succeeded in 0.017651637987s: 'readers +1 success!'
+
+2016-07-25 22:14:40,924 DEBG 'celery' stdout output:
+[2016-07-25 22:14:40,924: INFO/MainProcess] Received task: article.tasks.readersin[8330bf43-6886-4426-b9db-fc1340f2a3b3]
+
+2016-07-25 22:14:40,947 DEBG 'celery' stdout output:
+[2016-07-25 22:14:40,947: INFO/MainProcess] Task article.tasks.readersin[8330bf43-6886-4426-b9db-fc1340f2a3b3] succeeded in 0.0216095110081s: 'readers +1 success!'
+
+2016-07-25 22:14:40,949 DEBG 'celery' stdout output:
+[2016-07-25 22:14:40,949: INFO/MainProcess] Received task: article.tasks.readersin[8e1dddbb-840c-48bd-a407-ca1e8e7f24fb]
+
+2016-07-25 22:14:40,963 DEBG 'celery' stdout output:
+[2016-07-25 22:14:40,963: INFO/MainProcess] Task article.tasks.readersin[8e1dddbb-840c-48bd-a407-ca1e8e7f24fb] succeeded in 0.0133009650017s: 'readers +1 success!'
+
+2016-07-25 22:14:41,360 DEBG 'celery' stdout output:
+[2016-07-25 22:14:41,359: INFO/MainProcess] Received task: article.tasks.readersin[953b71e3-d0cc-4c88-b050-56f0e47e8035]
+
+2016-07-25 22:14:41,375 DEBG 'celery' stdout output:
+[2016-07-25 22:14:41,375: INFO/MainProcess] Task article.tasks.readersin[953b71e3-d0cc-4c88-b050-56f0e47e8035] succeeded in 0.0138179630012s: 'readers +1 success!'
+
+2016-07-25 22:14:42,922 DEBG 'celery' stdout output:
+[2016-07-25 22:14:42,921: INFO/MainProcess] Received task: article.tasks.readersin[991aa003-0306-4044-8acc-25be580d950e]
+
+2016-07-25 22:14:42,938 DEBG 'celery' stdout output:
+[2016-07-25 22:14:42,938: INFO/MainProcess] Task article.tasks.readersin[991aa003-0306-4044-8acc-25be580d950e] succeeded in 0.0147644079989s: 'readers +1 success!'
+
+2016-07-25 22:14:54,195 DEBG 'celery' stdout output:
+[2016-07-25 22:14:54,194: INFO/MainProcess] Received task: article.tasks.readersin[14c8eaa0-68a3-4143-a86e-b0f6a247d895]
+
+2016-07-25 22:14:54,213 DEBG 'celery' stdout output:
+[2016-07-25 22:14:54,213: INFO/MainProcess] Task article.tasks.readersin[14c8eaa0-68a3-4143-a86e-b0f6a247d895] succeeded in 0.0167804289958s: 'readers +1 success!'
+
+2016-07-25 22:15:00,772 DEBG 'celery' stdout output:
+[2016-07-25 22:15:00,772: INFO/MainProcess] Received task: article.tasks.readersin[1a92e15b-4f01-447f-aa26-7968dd7b1b54]
+
+2016-07-25 22:15:00,791 DEBG 'celery' stdout output:
+[2016-07-25 22:15:00,790: INFO/MainProcess] Task article.tasks.readersin[1a92e15b-4f01-447f-aa26-7968dd7b1b54] succeeded in 0.014940781999s: 'readers +1 success!'
+
+2016-07-25 22:15:12,374 DEBG 'celery' stdout output:
+[2016-07-25 22:15:12,374: INFO/MainProcess] Received task: article.tasks.readersin[f13add8d-6e44-4333-9b91-16fbbdcd6855]
+
+2016-07-25 22:15:12,391 DEBG 'celery' stdout output:
+[2016-07-25 22:15:12,391: INFO/MainProcess] Task article.tasks.readersin[f13add8d-6e44-4333-9b91-16fbbdcd6855] succeeded in 0.0154727760091s: 'readers +1 success!'
+
+2016-07-25 22:15:21,017 DEBG 'celery' stdout output:
+[2016-07-25 22:15:21,017: INFO/MainProcess] Received task: article.tasks.readersin[7dc772ea-8651-4acb-8ee4-b3a6f0c815be]
+
+2016-07-25 22:15:21,034 DEBG 'celery' stdout output:
+[2016-07-25 22:15:21,034: INFO/MainProcess] Task article.tasks.readersin[7dc772ea-8651-4acb-8ee4-b3a6f0c815be] succeeded in 0.014781735008s: 'readers +1 success!'
+
+2016-07-25 22:15:36,620 DEBG 'celery' stdout output:
+[2016-07-25 22:15:36,620: INFO/MainProcess] Received task: article.tasks.readersin[84a22201-5d11-4100-8e92-a31613b57c44]
+
+2016-07-25 22:15:36,638 DEBG 'celery' stdout output:
+[2016-07-25 22:15:36,638: INFO/MainProcess] Task article.tasks.readersin[84a22201-5d11-4100-8e92-a31613b57c44] succeeded in 0.0164432380116s: 'readers +1 success!'
+
+2016-07-25 22:16:11,564 DEBG 'celery' stdout output:
+[2016-07-25 22:16:11,564: INFO/MainProcess] Received task: article.tasks.readersin[28c51481-7026-4756-bdff-7e9923e4f6c2]
+
+2016-07-25 22:16:11,583 DEBG 'celery' stdout output:
+[2016-07-25 22:16:11,583: INFO/MainProcess] Task article.tasks.readersin[28c51481-7026-4756-bdff-7e9923e4f6c2] succeeded in 0.0172948379914s: 'readers +1 success!'
+
+2016-07-25 22:17:22,961 DEBG 'celery' stdout output:
+[2016-07-25 22:17:22,960: INFO/MainProcess] Received task: article.tasks.readersin[8d305077-a86b-476c-beea-b5076f1e5e7a]
+
+2016-07-25 22:17:22,978 DEBG 'celery' stdout output:
+[2016-07-25 22:17:22,978: INFO/MainProcess] Task article.tasks.readersin[8d305077-a86b-476c-beea-b5076f1e5e7a] succeeded in 0.015449945s: 'readers +1 success!'
+
+2016-07-25 22:18:30,839 DEBG 'celery' stdout output:
+[2016-07-25 22:18:30,839: INFO/MainProcess] Received task: article.tasks.readersin[d072c110-0ca1-491a-a141-d479c07b7a88]
+
+2016-07-25 22:18:30,855 DEBG 'celery' stdout output:
+[2016-07-25 22:18:30,855: INFO/MainProcess] Task article.tasks.readersin[d072c110-0ca1-491a-a141-d479c07b7a88] succeeded in 0.0142340869934s: 'readers +1 success!'
+
+2016-07-25 22:19:08,580 DEBG 'celery' stdout output:
+[2016-07-25 22:19:08,580: INFO/MainProcess] Received task: article.tasks.readersin[db65cb96-7fd2-4273-b93e-7bc8fa548eeb]
+
+2016-07-25 22:19:08,596 DEBG 'celery' stdout output:
+[2016-07-25 22:19:08,596: INFO/MainProcess] Task article.tasks.readersin[db65cb96-7fd2-4273-b93e-7bc8fa548eeb] succeeded in 0.0143065470038s: 'readers +1 success!'
+
+2016-07-25 22:19:49,556 DEBG 'celery' stdout output:
+[2016-07-25 22:19:49,556: INFO/MainProcess] Received task: article.tasks.readersin[7f25e5ec-7e70-4142-8247-0260ae4f6d7c]
+
+2016-07-25 22:19:49,573 DEBG 'celery' stdout output:
+[2016-07-25 22:19:49,573: INFO/MainProcess] Task article.tasks.readersin[7f25e5ec-7e70-4142-8247-0260ae4f6d7c] succeeded in 0.0148743290047s: 'readers +1 success!'
+
+2016-07-25 22:19:49,666 DEBG 'celery' stdout output:
+[2016-07-25 22:19:49,665: INFO/MainProcess] Received task: article.tasks.readersin[ecc0d272-82c0-44b3-80f4-c78fa51c9185]
+
+2016-07-25 22:19:49,681 DEBG 'celery' stdout output:
+[2016-07-25 22:19:49,681: INFO/MainProcess] Task article.tasks.readersin[ecc0d272-82c0-44b3-80f4-c78fa51c9185] succeeded in 0.0141135290032s: 'readers +1 success!'
+
+2016-07-25 22:20:39,444 DEBG 'celery' stdout output:
+[2016-07-25 22:20:39,444: INFO/MainProcess] Received task: article.tasks.readersin[f2dbe206-b80e-41d0-b5e6-e98f5a42599c]
+
+2016-07-25 22:20:39,463 DEBG 'celery' stdout output:
+[2016-07-25 22:20:39,463: INFO/MainProcess] Task article.tasks.readersin[f2dbe206-b80e-41d0-b5e6-e98f5a42599c] succeeded in 0.0172712940112s: 'readers +1 success!'
+
+2016-07-25 22:20:49,443 DEBG 'celery' stdout output:
+[2016-07-25 22:20:49,442: INFO/MainProcess] Received task: article.tasks.readersin[fdfcc6cb-6946-4925-8d63-0b0c8bac6c60]
+
+2016-07-25 22:20:49,475 DEBG 'celery' stdout output:
+[2016-07-25 22:20:49,475: INFO/MainProcess] Task article.tasks.readersin[fdfcc6cb-6946-4925-8d63-0b0c8bac6c60] succeeded in 0.0304373899999s: 'readers +1 success!'
+
+2016-07-25 22:21:09,262 DEBG 'celery' stdout output:
+[2016-07-25 22:21:09,261: INFO/MainProcess] Received task: article.tasks.readersin[029926d2-533e-4e86-85cc-a8d9e88c91ad]
+
+2016-07-25 22:21:09,280 DEBG 'celery' stdout output:
+[2016-07-25 22:21:09,280: INFO/MainProcess] Task article.tasks.readersin[029926d2-533e-4e86-85cc-a8d9e88c91ad] succeeded in 0.0176877560007s: 'readers +1 success!'
+
+2016-07-25 22:21:25,438 DEBG 'celery' stdout output:
+[2016-07-25 22:21:25,437: INFO/MainProcess] Received task: article.tasks.readersin[f845a49e-0a65-4058-aafc-a3e437883141]
+
+2016-07-25 22:21:25,454 DEBG 'celery' stdout output:
+[2016-07-25 22:21:25,454: INFO/MainProcess] Task article.tasks.readersin[f845a49e-0a65-4058-aafc-a3e437883141] succeeded in 0.0150487330102s: 'readers +1 success!'
+
+2016-07-25 22:21:31,700 DEBG 'celery' stdout output:
+[2016-07-25 22:21:31,699: INFO/MainProcess] Received task: article.tasks.readersin[085c9baa-2966-4ee0-a64c-ebc8cd26ae64]
+
+2016-07-25 22:21:31,716 DEBG 'celery' stdout output:
+[2016-07-25 22:21:31,716: INFO/MainProcess] Task article.tasks.readersin[085c9baa-2966-4ee0-a64c-ebc8cd26ae64] succeeded in 0.0144335579971s: 'readers +1 success!'
+
+2016-07-25 22:22:19,944 DEBG 'celery' stdout output:
+[2016-07-25 22:22:19,943: INFO/MainProcess] Received task: article.tasks.readersin[fcb5e987-8bca-46e3-b991-468e9dc7bf77]
+
+2016-07-25 22:22:19,959 DEBG 'celery' stdout output:
+[2016-07-25 22:22:19,958: INFO/MainProcess] Task article.tasks.readersin[fcb5e987-8bca-46e3-b991-468e9dc7bf77] succeeded in 0.0139237190015s: 'readers +1 success!'
+
+2016-07-25 22:23:46,644 DEBG 'celery' stdout output:
+[2016-07-25 22:23:46,643: INFO/MainProcess] Received task: article.tasks.readersin[03559280-8867-43d2-a442-2af57deeb696]
+
+2016-07-25 22:23:46,666 DEBG 'celery' stdout output:
+[2016-07-25 22:23:46,665: INFO/MainProcess] Task article.tasks.readersin[03559280-8867-43d2-a442-2af57deeb696] succeeded in 0.0205993959971s: 'readers +1 success!'
+
+2016-07-25 22:24:55,741 DEBG 'celery' stdout output:
+[2016-07-25 22:24:55,740: INFO/MainProcess] Received task: article.tasks.readersin[0d96b71a-0ada-419a-bc0a-eb3cfea981d2]
+
+2016-07-25 22:24:55,759 DEBG 'celery' stdout output:
+[2016-07-25 22:24:55,759: INFO/MainProcess] Task article.tasks.readersin[0d96b71a-0ada-419a-bc0a-eb3cfea981d2] succeeded in 0.0178649309964s: 'readers +1 success!'
+
+2016-07-25 22:25:51,933 DEBG 'celery' stdout output:
+[2016-07-25 22:25:51,933: INFO/MainProcess] Received task: article.tasks.readersin[d7e46b94-602a-4021-a0a5-8c3d42233df5]
+
+2016-07-25 22:25:51,952 DEBG 'celery' stdout output:
+[2016-07-25 22:25:51,951: INFO/MainProcess] Task article.tasks.readersin[d7e46b94-602a-4021-a0a5-8c3d42233df5] succeeded in 0.0169625459966s: 'readers +1 success!'
+
+2016-07-25 22:26:25,580 DEBG 'celery' stdout output:
+[2016-07-25 22:26:25,580: INFO/MainProcess] Received task: article.tasks.readersin[b6bb58d8-2619-46a7-a5b9-0b5593bedda0]
+
+2016-07-25 22:26:25,598 DEBG 'celery' stdout output:
+[2016-07-25 22:26:25,598: INFO/MainProcess] Task article.tasks.readersin[b6bb58d8-2619-46a7-a5b9-0b5593bedda0] succeeded in 0.0155373019952s: 'readers +1 success!'
+
+2016-07-25 22:28:18,775 DEBG 'celery' stdout output:
+[2016-07-25 22:28:18,774: INFO/MainProcess] Received task: article.tasks.readersin[5af0e3c9-2789-43e0-b14b-8674f3c65b41]
+
+2016-07-25 22:28:18,795 DEBG 'celery' stdout output:
+[2016-07-25 22:28:18,795: INFO/MainProcess] Task article.tasks.readersin[5af0e3c9-2789-43e0-b14b-8674f3c65b41] succeeded in 0.0190270530002s: 'readers +1 success!'
+
+2016-07-25 22:29:39,145 DEBG 'celery' stdout output:
+[2016-07-25 22:29:39,144: INFO/MainProcess] Received task: article.tasks.readersin[dfd36d25-ac20-4bcc-bc41-fd56396bea12]
+
+2016-07-25 22:29:39,161 DEBG 'celery' stdout output:
+[2016-07-25 22:29:39,161: INFO/MainProcess] Task article.tasks.readersin[dfd36d25-ac20-4bcc-bc41-fd56396bea12] succeeded in 0.0148533339961s: 'readers +1 success!'
+
+2016-07-25 22:32:15,633 DEBG 'celery' stdout output:
+[2016-07-25 22:32:15,632: INFO/MainProcess] Received task: article.tasks.readersin[834ebf22-276a-463a-be21-a742e4655c49]
+
+2016-07-25 22:32:15,653 DEBG 'celery' stdout output:
+[2016-07-25 22:32:15,652: INFO/MainProcess] Task article.tasks.readersin[834ebf22-276a-463a-be21-a742e4655c49] succeeded in 0.0176647930057s: 'readers +1 success!'
+
+2016-07-25 22:34:52,056 DEBG 'celery' stdout output:
+[2016-07-25 22:34:52,056: INFO/MainProcess] Received task: article.tasks.readersin[3e09e62f-6796-486c-9b02-eea56281dff3]
+
+2016-07-25 22:34:52,073 DEBG 'celery' stdout output:
+[2016-07-25 22:34:52,073: INFO/MainProcess] Task article.tasks.readersin[3e09e62f-6796-486c-9b02-eea56281dff3] succeeded in 0.0153309239977s: 'readers +1 success!'
+
+2016-07-25 22:39:26,439 DEBG 'celery' stdout output:
+[2016-07-25 22:39:26,439: INFO/MainProcess] Received task: article.tasks.readersin[5c0bc2df-c7c3-47a8-bac3-5e1e155059ab]
+
+2016-07-25 22:39:26,456 DEBG 'celery' stdout output:
+[2016-07-25 22:39:26,456: INFO/MainProcess] Task article.tasks.readersin[5c0bc2df-c7c3-47a8-bac3-5e1e155059ab] succeeded in 0.0153572819981s: 'readers +1 success!'
+
+2016-07-25 22:42:14,735 DEBG 'celery' stdout output:
+[2016-07-25 22:42:14,734: INFO/MainProcess] Received task: article.tasks.readersin[23c1fafd-4718-4bcf-b1f5-454fffc6ec96]
+
+2016-07-25 22:42:14,751 DEBG 'celery' stdout output:
+[2016-07-25 22:42:14,751: INFO/MainProcess] Task article.tasks.readersin[23c1fafd-4718-4bcf-b1f5-454fffc6ec96] succeeded in 0.0148059519997s: 'readers +1 success!'
+
+2016-07-25 22:45:12,404 DEBG 'celery' stdout output:
+[2016-07-25 22:45:12,404: INFO/MainProcess] Received task: article.tasks.readersin[354488a7-9c32-4e3d-bb57-1f6a1387b73d]
+
+2016-07-25 22:45:12,427 DEBG 'celery' stdout output:
+[2016-07-25 22:45:12,427: INFO/MainProcess] Task article.tasks.readersin[354488a7-9c32-4e3d-bb57-1f6a1387b73d] succeeded in 0.0214774390042s: 'readers +1 success!'
+
+2016-07-25 22:46:38,284 DEBG 'celery' stdout output:
+[2016-07-25 22:46:38,284: INFO/MainProcess] Received task: article.tasks.readersin[f6e58137-d91f-44ce-ba00-496d48b71db8]
+
+2016-07-25 22:46:38,301 DEBG 'celery' stdout output:
+[2016-07-25 22:46:38,301: INFO/MainProcess] Task article.tasks.readersin[f6e58137-d91f-44ce-ba00-496d48b71db8] succeeded in 0.014908076002s: 'readers +1 success!'
+
+2016-07-25 22:46:50,191 DEBG 'celery' stdout output:
+[2016-07-25 22:46:50,191: INFO/MainProcess] Received task: article.tasks.readersin[d2a6fcd1-fe69-4667-a645-a2f1e10400af]
+
+2016-07-25 22:46:50,210 DEBG 'celery' stdout output:
+[2016-07-25 22:46:50,209: INFO/MainProcess] Task article.tasks.readersin[d2a6fcd1-fe69-4667-a645-a2f1e10400af] succeeded in 0.0171376409999s: 'readers +1 success!'
+
+2016-07-25 23:01:19,424 DEBG 'celery' stdout output:
+[2016-07-25 23:01:19,424: INFO/MainProcess] Received task: article.tasks.readersin[0c9c7b1f-3417-4736-878f-4ef31651b875]
+
+2016-07-25 23:01:19,441 DEBG 'celery' stdout output:
+[2016-07-25 23:01:19,441: INFO/MainProcess] Task article.tasks.readersin[0c9c7b1f-3417-4736-878f-4ef31651b875] succeeded in 0.0154142940009s: 'readers +1 success!'
+
+2016-07-25 23:32:14,288 DEBG 'celery' stdout output:
+[2016-07-25 23:32:14,288: INFO/MainProcess] Received task: article.tasks.readersin[9759a2c0-ffbc-4bf3-b309-c29c05840d5d]
+
+2016-07-25 23:32:14,319 DEBG 'celery' stdout output:
+[2016-07-25 23:32:14,319: INFO/MainProcess] Task article.tasks.readersin[9759a2c0-ffbc-4bf3-b309-c29c05840d5d] succeeded in 0.0289644959994s: 'readers +1 success!'
+
+2016-07-25 23:57:09,632 DEBG 'celery' stdout output:
+[2016-07-25 23:57:09,632: INFO/MainProcess] Received task: article.tasks.readersin[6d1dd20b-d11d-4667-8e19-8b87d72e8518]
+
+2016-07-25 23:57:09,649 DEBG 'celery' stdout output:
+[2016-07-25 23:57:09,649: INFO/MainProcess] Task article.tasks.readersin[6d1dd20b-d11d-4667-8e19-8b87d72e8518] succeeded in 0.0154136600031s: 'readers +1 success!'
+
+2016-07-26 00:20:47,926 DEBG 'celery' stdout output:
+[2016-07-26 00:20:47,924: INFO/MainProcess] Received task: article.tasks.readersin[074c735b-ae91-4df5-9e17-f8cc70193a06]
+
+2016-07-26 00:20:47,946 DEBG 'celery' stdout output:
+[2016-07-26 00:20:47,945: INFO/MainProcess] Task article.tasks.readersin[074c735b-ae91-4df5-9e17-f8cc70193a06] succeeded in 0.019872364006s: 'readers +1 success!'
+
+2016-07-26 00:57:59,349 DEBG 'celery' stdout output:
+[2016-07-26 00:57:59,349: INFO/MainProcess] Received task: article.tasks.readersin[76400afb-6793-451d-a8aa-21096b76b197]
+
+2016-07-26 00:57:59,386 DEBG 'celery' stdout output:
+[2016-07-26 00:57:59,386: INFO/MainProcess] Task article.tasks.readersin[76400afb-6793-451d-a8aa-21096b76b197] succeeded in 0.0353502270009s: 'readers +1 success!'
+
+2016-07-26 00:57:59,454 DEBG 'celery' stdout output:
+[2016-07-26 00:57:59,453: INFO/MainProcess] Received task: article.tasks.readersin[69a64484-12c6-40bb-8916-3df4d254f98c]
+
+2016-07-26 00:57:59,469 DEBG 'celery' stdout output:
+[2016-07-26 00:57:59,469: INFO/MainProcess] Task article.tasks.readersin[69a64484-12c6-40bb-8916-3df4d254f98c] succeeded in 0.0142178989918s: 'readers +1 success!'
+
+2016-07-26 01:05:21,518 DEBG 'celery' stdout output:
+[2016-07-26 01:05:21,518: INFO/MainProcess] Received task: article.tasks.readersin[536a57ba-6cfb-4789-ba46-de1881965e9d]
+
+2016-07-26 01:05:21,535 DEBG 'celery' stdout output:
+[2016-07-26 01:05:21,535: INFO/MainProcess] Task article.tasks.readersin[536a57ba-6cfb-4789-ba46-de1881965e9d] succeeded in 0.0154497159965s: 'readers +1 success!'
+
+2016-07-26 01:05:21,771 DEBG 'celery' stdout output:
+[2016-07-26 01:05:21,771: INFO/MainProcess] Received task: article.tasks.readersin[58a1e9d2-5d77-4578-bc8b-14187811c67a]
+
+2016-07-26 01:05:21,788 DEBG 'celery' stdout output:
+[2016-07-26 01:05:21,788: INFO/MainProcess] Task article.tasks.readersin[58a1e9d2-5d77-4578-bc8b-14187811c67a] succeeded in 0.015265886992s: 'readers +1 success!'
+
+2016-07-26 03:55:59,524 DEBG 'celery' stdout output:
+[2016-07-26 03:55:59,524: INFO/MainProcess] Received task: article.tasks.readersin[c0ebfbde-020e-41d8-9289-88fc2f736093]
+
+2016-07-26 03:55:59,572 DEBG 'celery' stdout output:
+[2016-07-26 03:55:59,572: INFO/MainProcess] Task article.tasks.readersin[c0ebfbde-020e-41d8-9289-88fc2f736093] succeeded in 0.046195035s: 'readers +1 success!'
+
+2016-07-26 06:08:49,173 DEBG 'celery' stdout output:
+[2016-07-26 06:08:49,171: INFO/MainProcess] Received task: article.tasks.readersin[f5d006b6-c13a-413a-a1cd-e06d8101ccd4]
+
+2016-07-26 06:08:49,204 DEBG 'celery' stdout output:
+[2016-07-26 06:08:49,203: INFO/MainProcess] Task article.tasks.readersin[f5d006b6-c13a-413a-a1cd-e06d8101ccd4] succeeded in 0.0296683019988s: 'readers +1 success!'
+
+2016-07-26 06:21:26,067 DEBG 'celery' stdout output:
+[2016-07-26 06:21:26,065: INFO/MainProcess] Received task: article.tasks.readersin[5b0fd627-6731-4067-9e66-075297ee3e33]
+
+2016-07-26 06:21:26,086 DEBG 'celery' stdout output:
+[2016-07-26 06:21:26,085: INFO/MainProcess] Task article.tasks.readersin[5b0fd627-6731-4067-9e66-075297ee3e33] succeeded in 0.0174812299956s: 'readers +1 success!'
+
+2016-07-26 06:25:46,813 DEBG 'celery' stdout output:
+[2016-07-26 06:25:46,812: INFO/MainProcess] Received task: article.tasks.readersin[f133631a-7ff6-4880-bf20-f84fd5e4403d]
+
+2016-07-26 06:25:46,839 DEBG 'celery' stdout output:
+[2016-07-26 06:25:46,839: INFO/MainProcess] Task article.tasks.readersin[f133631a-7ff6-4880-bf20-f84fd5e4403d] succeeded in 0.0245828749903s: 'readers +1 success!'
+
+2016-07-26 06:27:16,565 DEBG 'celery' stdout output:
+[2016-07-26 06:27:16,565: INFO/MainProcess] Received task: article.tasks.readersin[0ae19a87-f148-4cb4-8d8a-7440cf2848ad]
+
+2016-07-26 06:27:16,591 DEBG 'celery' stdout output:
+[2016-07-26 06:27:16,590: INFO/MainProcess] Task article.tasks.readersin[0ae19a87-f148-4cb4-8d8a-7440cf2848ad] succeeded in 0.0232480959967s: 'readers +1 success!'
+
+2016-07-26 06:31:03,154 DEBG 'celery' stdout output:
+[2016-07-26 06:31:03,154: INFO/MainProcess] Received task: article.tasks.readersin[4bed6e68-23d9-489d-8f59-32035e3fe4d8]
+
+2016-07-26 06:31:03,183 DEBG 'celery' stdout output:
+[2016-07-26 06:31:03,183: INFO/MainProcess] Task article.tasks.readersin[4bed6e68-23d9-489d-8f59-32035e3fe4d8] succeeded in 0.0276609799912s: 'readers +1 success!'
+
+2016-07-26 06:40:53,983 DEBG 'celery' stdout output:
+[2016-07-26 06:40:53,983: INFO/MainProcess] Received task: article.tasks.readersin[4265ca05-9685-4267-90de-d001e43c1013]
+
+2016-07-26 06:40:54,000 DEBG 'celery' stdout output:
+[2016-07-26 06:40:54,000: INFO/MainProcess] Task article.tasks.readersin[4265ca05-9685-4267-90de-d001e43c1013] succeeded in 0.0157133559987s: 'readers +1 success!'
+
+2016-07-26 06:46:51,020 DEBG 'celery' stdout output:
+[2016-07-26 06:46:51,020: INFO/MainProcess] Received task: article.tasks.readersin[18a2fa4b-f1a0-416e-a542-a6ae8fa21a8e]
+
+2016-07-26 06:46:51,042 DEBG 'celery' stdout output:
+[2016-07-26 06:46:51,042: INFO/MainProcess] Task article.tasks.readersin[18a2fa4b-f1a0-416e-a542-a6ae8fa21a8e] succeeded in 0.0203364180052s: 'readers +1 success!'
+
+2016-07-26 06:49:56,365 DEBG 'celery' stdout output:
+[2016-07-26 06:49:56,364: INFO/MainProcess] Received task: article.tasks.readersin[9ae5325a-565b-4213-9c35-55e6d2e44a35]
+
+2016-07-26 06:49:56,384 DEBG 'celery' stdout output:
+[2016-07-26 06:49:56,384: INFO/MainProcess] Task article.tasks.readersin[9ae5325a-565b-4213-9c35-55e6d2e44a35] succeeded in 0.0181228169968s: 'readers +1 success!'
+
+2016-07-26 06:49:59,941 DEBG 'celery' stdout output:
+[2016-07-26 06:49:59,940: INFO/MainProcess] Received task: article.tasks.readersin[35ae17c2-8624-4030-b671-1da6fc951b5c]
+
+2016-07-26 06:49:59,961 DEBG 'celery' stdout output:
+[2016-07-26 06:49:59,961: INFO/MainProcess] Task article.tasks.readersin[35ae17c2-8624-4030-b671-1da6fc951b5c] succeeded in 0.0194872760039s: 'readers +1 success!'
+
+2016-07-26 06:50:02,100 DEBG 'celery' stdout output:
+[2016-07-26 06:50:02,100: INFO/MainProcess] Received task: article.tasks.readersin[371bde89-df42-45e9-8933-8b75eaad3e53]
+
+2016-07-26 06:50:02,118 DEBG 'celery' stdout output:
+[2016-07-26 06:50:02,118: INFO/MainProcess] Task article.tasks.readersin[371bde89-df42-45e9-8933-8b75eaad3e53] succeeded in 0.0167941539985s: 'readers +1 success!'
+
+2016-07-26 06:50:04,427 DEBG 'celery' stdout output:
+[2016-07-26 06:50:04,427: INFO/MainProcess] Received task: article.tasks.readersin[68359ceb-52f3-4243-8dee-885472c06a61]
+
+2016-07-26 06:50:04,443 DEBG 'celery' stdout output:
+[2016-07-26 06:50:04,443: INFO/MainProcess] Task article.tasks.readersin[68359ceb-52f3-4243-8dee-885472c06a61] succeeded in 0.014506003994s: 'readers +1 success!'
+
+2016-07-26 06:50:07,376 DEBG 'celery' stdout output:
+[2016-07-26 06:50:07,376: INFO/MainProcess] Received task: article.tasks.readersin[1161a3ca-e5e4-449a-b6f1-bc205068d043]
+
+2016-07-26 06:50:07,394 DEBG 'celery' stdout output:
+[2016-07-26 06:50:07,394: INFO/MainProcess] Task article.tasks.readersin[1161a3ca-e5e4-449a-b6f1-bc205068d043] succeeded in 0.0163375059929s: 'readers +1 success!'
+
+2016-07-26 06:50:10,697 DEBG 'celery' stdout output:
+[2016-07-26 06:50:10,696: INFO/MainProcess] Received task: article.tasks.readersin[336c4cbf-cb61-4cda-bd07-f5dac5a08a07]
+
+2016-07-26 06:50:10,715 DEBG 'celery' stdout output:
+[2016-07-26 06:50:10,714: INFO/MainProcess] Task article.tasks.readersin[336c4cbf-cb61-4cda-bd07-f5dac5a08a07] succeeded in 0.0160062840005s: 'readers +1 success!'
+
+2016-07-26 06:50:16,343 DEBG 'celery' stdout output:
+[2016-07-26 06:50:16,343: INFO/MainProcess] Received task: article.tasks.readersin[63ee67c7-f4f8-45b3-8058-a29afa92ccd3]
+
+2016-07-26 06:50:16,362 DEBG 'celery' stdout output:
+[2016-07-26 06:50:16,361: INFO/MainProcess] Task article.tasks.readersin[63ee67c7-f4f8-45b3-8058-a29afa92ccd3] succeeded in 0.0168020310084s: 'readers +1 success!'
+
+2016-07-26 06:50:26,165 DEBG 'celery' stdout output:
+[2016-07-26 06:50:26,164: INFO/MainProcess] Received task: article.tasks.readersin[7c446824-ba5d-4ef4-b7cb-362da083b258]
+
+2016-07-26 06:50:26,182 DEBG 'celery' stdout output:
+[2016-07-26 06:50:26,182: INFO/MainProcess] Task article.tasks.readersin[7c446824-ba5d-4ef4-b7cb-362da083b258] succeeded in 0.0167432739981s: 'readers +1 success!'
+
+2016-07-26 06:50:49,431 DEBG 'celery' stdout output:
+[2016-07-26 06:50:49,431: INFO/MainProcess] Received task: article.tasks.readersin[5485f514-5cd7-4c98-a736-b4b780b1507f]
+
+2016-07-26 06:50:49,450 DEBG 'celery' stdout output:
+[2016-07-26 06:50:49,449: INFO/MainProcess] Task article.tasks.readersin[5485f514-5cd7-4c98-a736-b4b780b1507f] succeeded in 0.0169456749863s: 'readers +1 success!'
+
+2016-07-26 07:04:32,719 DEBG 'celery' stdout output:
+[2016-07-26 07:04:32,719: INFO/MainProcess] Received task: article.tasks.readersin[661e302d-4b84-4c20-8e4d-754977362e66]
+
+2016-07-26 07:04:32,738 DEBG 'celery' stdout output:
+[2016-07-26 07:04:32,738: INFO/MainProcess] Task article.tasks.readersin[661e302d-4b84-4c20-8e4d-754977362e66] succeeded in 0.0175662039983s: 'readers +1 success!'
+
+2016-07-26 07:31:17,243 DEBG 'celery' stdout output:
+[2016-07-26 07:31:17,243: INFO/MainProcess] Received task: article.tasks.readersin[f541adee-d7f5-4a07-9c39-ecd7c3b9c102]
+
+2016-07-26 07:31:17,263 DEBG 'celery' stdout output:
+[2016-07-26 07:31:17,263: INFO/MainProcess] Task article.tasks.readersin[f541adee-d7f5-4a07-9c39-ecd7c3b9c102] succeeded in 0.0180198620073s: 'readers +1 success!'
+
+2016-07-26 07:31:17,550 DEBG 'celery' stdout output:
+[2016-07-26 07:31:17,549: INFO/MainProcess] Received task: article.tasks.readersin[d73a34c5-d52e-4837-9256-46e8d431618f]
+
+2016-07-26 07:31:17,588 DEBG 'celery' stdout output:
+[2016-07-26 07:31:17,588: INFO/MainProcess] Task article.tasks.readersin[d73a34c5-d52e-4837-9256-46e8d431618f] succeeded in 0.0368578839989s: 'readers +1 success!'
+
+2016-07-26 07:31:21,133 DEBG 'celery' stdout output:
+[2016-07-26 07:31:21,132: INFO/MainProcess] Received task: article.tasks.readersin[009aa6e2-5c20-42d0-80c2-c71d6f14a68c]
+
+2016-07-26 07:31:21,154 DEBG 'celery' stdout output:
+[2016-07-26 07:31:21,153: INFO/MainProcess] Task article.tasks.readersin[009aa6e2-5c20-42d0-80c2-c71d6f14a68c] succeeded in 0.0193831539946s: 'readers +1 success!'
+
+2016-07-26 07:31:26,708 DEBG 'celery' stdout output:
+[2016-07-26 07:31:26,708: INFO/MainProcess] Received task: article.tasks.readersin[b2ada722-986d-431c-b149-4d3364f6dbce]
+
+2016-07-26 07:31:26,725 DEBG 'celery' stdout output:
+[2016-07-26 07:31:26,725: INFO/MainProcess] Task article.tasks.readersin[b2ada722-986d-431c-b149-4d3364f6dbce] succeeded in 0.0150292040053s: 'readers +1 success!'
+
+2016-07-26 08:01:59,993 DEBG 'celery' stdout output:
+[2016-07-26 08:01:59,991: INFO/MainProcess] Received task: article.tasks.readersin[4241652f-9732-4c5b-9284-fc5980e65954]
+
+2016-07-26 08:02:00,012 DEBG 'celery' stdout output:
+[2016-07-26 08:02:00,012: INFO/MainProcess] Task article.tasks.readersin[4241652f-9732-4c5b-9284-fc5980e65954] succeeded in 0.0179791700066s: 'readers +1 success!'
+
+2016-07-26 08:02:14,545 DEBG 'celery' stdout output:
+[2016-07-26 08:02:14,543: INFO/MainProcess] Received task: article.tasks.readersin[4a0c1a0d-4168-4f22-a52a-babbc621a1a8]
+
+2016-07-26 08:02:14,567 DEBG 'celery' stdout output:
+[2016-07-26 08:02:14,567: INFO/MainProcess] Task article.tasks.readersin[4a0c1a0d-4168-4f22-a52a-babbc621a1a8] succeeded in 0.0209184130072s: 'readers +1 success!'
+
+2016-07-26 08:05:46,180 DEBG 'celery' stdout output:
+[2016-07-26 08:05:46,180: INFO/MainProcess] Received task: article.tasks.readersin[d23a0f74-0e06-48ca-b8db-a7b3f3bca0ae]
+
+2016-07-26 08:05:46,202 DEBG 'celery' stdout output:
+[2016-07-26 08:05:46,201: INFO/MainProcess] Task article.tasks.readersin[d23a0f74-0e06-48ca-b8db-a7b3f3bca0ae] succeeded in 0.0194571850006s: 'readers +1 success!'
+
+2016-07-26 08:07:23,947 DEBG 'celery' stdout output:
+[2016-07-26 08:07:23,946: INFO/MainProcess] Received task: article.tasks.readersin[3abde3b7-45fe-4783-acf0-f83fdc969e68]
+
+2016-07-26 08:07:23,965 DEBG 'celery' stdout output:
+[2016-07-26 08:07:23,964: INFO/MainProcess] Task article.tasks.readersin[3abde3b7-45fe-4783-acf0-f83fdc969e68] succeeded in 0.0162837300013s: 'readers +1 success!'
+
+2016-07-26 08:08:53,607 DEBG 'celery' stdout output:
+[2016-07-26 08:08:53,607: INFO/MainProcess] Received task: article.tasks.readersin[d5360bc4-cd63-4ea0-ab9f-8c7c7d26e4b3]
+
+2016-07-26 08:08:53,625 DEBG 'celery' stdout output:
+[2016-07-26 08:08:53,624: INFO/MainProcess] Task article.tasks.readersin[d5360bc4-cd63-4ea0-ab9f-8c7c7d26e4b3] succeeded in 0.0164671649982s: 'readers +1 success!'
+
+2016-07-26 08:09:13,450 DEBG 'celery' stdout output:
+[2016-07-26 08:09:13,449: INFO/MainProcess] Received task: article.tasks.readersin[fa807fcc-1769-418c-bece-8ed8c14446ec]
+
+2016-07-26 08:09:13,465 DEBG 'celery' stdout output:
+[2016-07-26 08:09:13,465: INFO/MainProcess] Task article.tasks.readersin[fa807fcc-1769-418c-bece-8ed8c14446ec] succeeded in 0.0142106420099s: 'readers +1 success!'
+
+2016-07-26 08:09:20,045 DEBG 'celery' stdout output:
+[2016-07-26 08:09:20,045: INFO/MainProcess] Received task: article.tasks.readersin[6fad23f5-56b5-4f0f-9c9f-6e305e83574c]
+
+2016-07-26 08:09:20,063 DEBG 'celery' stdout output:
+[2016-07-26 08:09:20,063: INFO/MainProcess] Task article.tasks.readersin[6fad23f5-56b5-4f0f-9c9f-6e305e83574c] succeeded in 0.0160516969918s: 'readers +1 success!'
+
+2016-07-26 08:09:38,442 DEBG 'celery' stdout output:
+[2016-07-26 08:09:38,442: INFO/MainProcess] Received task: article.tasks.readersin[892c1440-2791-4f38-aa27-03d1c8f59148]
+
+2016-07-26 08:09:38,459 DEBG 'celery' stdout output:
+[2016-07-26 08:09:38,459: INFO/MainProcess] Task article.tasks.readersin[892c1440-2791-4f38-aa27-03d1c8f59148] succeeded in 0.0136688630009s: 'readers +1 success!'
+
+2016-07-26 08:23:50,867 DEBG 'celery' stdout output:
+[2016-07-26 08:23:50,867: INFO/MainProcess] Received task: article.tasks.readersin[1085c2ca-401e-4f67-a157-b7c888aad328]
+
+2016-07-26 08:23:50,885 DEBG 'celery' stdout output:
+[2016-07-26 08:23:50,884: INFO/MainProcess] Task article.tasks.readersin[1085c2ca-401e-4f67-a157-b7c888aad328] succeeded in 0.0157704309968s: 'readers +1 success!'
+
+2016-07-26 08:40:30,283 DEBG 'celery' stdout output:
+[2016-07-26 08:40:30,282: INFO/MainProcess] Received task: article.tasks.readersin[5553eaa5-4b30-4169-bf7d-f570364367e5]
+
+2016-07-26 08:40:30,298 DEBG 'celery' stdout output:
+[2016-07-26 08:40:30,297: INFO/MainProcess] Task article.tasks.readersin[5553eaa5-4b30-4169-bf7d-f570364367e5] succeeded in 0.0142454919987s: 'readers +1 success!'
+
+2016-07-26 08:58:58,514 DEBG 'celery' stdout output:
+[2016-07-26 08:58:58,514: INFO/MainProcess] Received task: article.tasks.readersin[d4feaf17-4413-48da-ab4f-318df05e45a6]
+
+2016-07-26 08:58:58,536 DEBG 'celery' stdout output:
+[2016-07-26 08:58:58,536: INFO/MainProcess] Task article.tasks.readersin[d4feaf17-4413-48da-ab4f-318df05e45a6] succeeded in 0.0201018340013s: 'readers +1 success!'
+
+2016-07-26 09:13:49,613 DEBG 'celery' stdout output:
+[2016-07-26 09:13:49,612: INFO/MainProcess] Received task: article.tasks.readersin[6059b1fb-d4b3-4326-be73-e14ad76ac8c4]
+
+2016-07-26 09:13:49,631 DEBG 'celery' stdout output:
+[2016-07-26 09:13:49,631: INFO/MainProcess] Task article.tasks.readersin[6059b1fb-d4b3-4326-be73-e14ad76ac8c4] succeeded in 0.0166878320015s: 'readers +1 success!'
+
+2016-07-26 09:40:00,949 DEBG 'celery' stdout output:
+[2016-07-26 09:40:00,949: INFO/MainProcess] Received task: article.tasks.readersin[5573e674-e88d-4e40-a123-f7a5a24c11f2]
+
+2016-07-26 09:40:00,967 DEBG 'celery' stdout output:
+[2016-07-26 09:40:00,967: INFO/MainProcess] Task article.tasks.readersin[5573e674-e88d-4e40-a123-f7a5a24c11f2] succeeded in 0.0159180549963s: 'readers +1 success!'
+
+2016-07-26 09:47:02,294 DEBG 'celery' stdout output:
+[2016-07-26 09:47:02,294: INFO/MainProcess] Received task: article.tasks.readersin[fcd72555-e7da-42c3-bbdf-43568b6bcdb9]
+
+2016-07-26 09:47:02,315 DEBG 'celery' stdout output:
+[2016-07-26 09:47:02,315: INFO/MainProcess] Task article.tasks.readersin[fcd72555-e7da-42c3-bbdf-43568b6bcdb9] succeeded in 0.0188660840067s: 'readers +1 success!'
+
+2016-07-26 09:47:15,146 DEBG 'celery' stdout output:
+[2016-07-26 09:47:15,145: INFO/MainProcess] Received task: article.tasks.readersin[289cc0ff-e072-4ee0-9c3a-b331f736025d]
+
+2016-07-26 09:47:15,164 DEBG 'celery' stdout output:
+[2016-07-26 09:47:15,164: INFO/MainProcess] Task article.tasks.readersin[289cc0ff-e072-4ee0-9c3a-b331f736025d] succeeded in 0.0161865929986s: 'readers +1 success!'
+
+2016-07-26 09:51:16,485 DEBG 'celery' stdout output:
+[2016-07-26 09:51:16,484: INFO/MainProcess] Received task: article.tasks.readersin[8ecb4679-dfdb-4e08-9610-fffe65af1882]
+
+2016-07-26 09:51:16,503 DEBG 'celery' stdout output:
+[2016-07-26 09:51:16,502: INFO/MainProcess] Task article.tasks.readersin[8ecb4679-dfdb-4e08-9610-fffe65af1882] succeeded in 0.0155148779886s: 'readers +1 success!'
+
+2016-07-26 09:51:16,510 DEBG 'celery' stdout output:
+[2016-07-26 09:51:16,510: INFO/MainProcess] Received task: article.tasks.readersin[2fdb3055-6080-4b80-ab6c-1190597bb423]
+
+2016-07-26 09:51:16,527 DEBG 'celery' stdout output:
+[2016-07-26 09:51:16,526: INFO/MainProcess] Task article.tasks.readersin[2fdb3055-6080-4b80-ab6c-1190597bb423] succeeded in 0.0151569349982s: 'readers +1 success!'
+
+2016-07-26 09:51:18,467 DEBG 'celery' stdout output:
+[2016-07-26 09:51:18,466: INFO/MainProcess] Received task: article.tasks.readersin[d7302572-f532-4a02-ac6b-39c2c6f4e410]
+
+2016-07-26 09:51:18,498 DEBG 'celery' stdout output:
+[2016-07-26 09:51:18,497: INFO/MainProcess] Task article.tasks.readersin[d7302572-f532-4a02-ac6b-39c2c6f4e410] succeeded in 0.0295549379953s: 'readers +1 success!'
+
+2016-07-26 10:18:35,974 DEBG 'celery' stdout output:
+[2016-07-26 10:18:35,974: INFO/MainProcess] Received task: article.tasks.readersin[eb728986-bca9-45e5-aa18-d3abd48d36ad]
+
+2016-07-26 10:18:35,994 DEBG 'celery' stdout output:
+[2016-07-26 10:18:35,993: INFO/MainProcess] Task article.tasks.readersin[eb728986-bca9-45e5-aa18-d3abd48d36ad] succeeded in 0.017799674999s: 'readers +1 success!'
+
+2016-07-26 11:06:28,847 DEBG 'celery' stdout output:
+[2016-07-26 11:06:28,847: INFO/MainProcess] Received task: article.tasks.readersin[3a8d01d4-ae73-49ff-9266-46701357da04]
+
+2016-07-26 11:06:28,863 DEBG 'celery' stdout output:
+[2016-07-26 11:06:28,863: INFO/MainProcess] Task article.tasks.readersin[3a8d01d4-ae73-49ff-9266-46701357da04] succeeded in 0.015055803s: 'readers +1 success!'
+
+2016-07-26 11:42:39,934 DEBG 'celery' stdout output:
+[2016-07-26 11:42:39,934: INFO/MainProcess] Received task: article.tasks.readersin[0e25806f-6681-4af4-b552-26d645169423]
+
+2016-07-26 11:42:39,951 DEBG 'celery' stdout output:
+[2016-07-26 11:42:39,950: INFO/MainProcess] Task article.tasks.readersin[0e25806f-6681-4af4-b552-26d645169423] succeeded in 0.0151980609953s: 'readers +1 success!'
+
+2016-07-26 11:55:34,076 DEBG 'celery' stdout output:
+[2016-07-26 11:55:34,076: INFO/MainProcess] Received task: article.tasks.readersin[06a29b3d-b414-4677-9353-ca929bcabf0c]
+
+2016-07-26 11:55:34,092 DEBG 'celery' stdout output:
+[2016-07-26 11:55:34,092: INFO/MainProcess] Task article.tasks.readersin[06a29b3d-b414-4677-9353-ca929bcabf0c] succeeded in 0.0145270439971s: 'readers +1 success!'
+
+2016-07-26 11:55:34,445 DEBG 'celery' stdout output:
+[2016-07-26 11:55:34,445: INFO/MainProcess] Received task: article.tasks.readersin[909b6c4e-7be0-4edd-aa7e-733c0e586e0c]
+
+2016-07-26 11:55:34,476 DEBG 'celery' stdout output:
+[2016-07-26 11:55:34,476: INFO/MainProcess] Task article.tasks.readersin[909b6c4e-7be0-4edd-aa7e-733c0e586e0c] succeeded in 0.0300433029915s: 'readers +1 success!'
+
+2016-07-26 11:55:41,824 DEBG 'celery' stdout output:
+[2016-07-26 11:55:41,824: INFO/MainProcess] Received task: article.tasks.readersin[18d2b390-ba37-49b6-bc18-ef562429867e]
+
+2016-07-26 11:55:41,841 DEBG 'celery' stdout output:
+[2016-07-26 11:55:41,841: INFO/MainProcess] Task article.tasks.readersin[18d2b390-ba37-49b6-bc18-ef562429867e] succeeded in 0.0150958519953s: 'readers +1 success!'
+
+2016-07-26 11:55:41,983 DEBG 'celery' stdout output:
+[2016-07-26 11:55:41,983: INFO/MainProcess] Received task: article.tasks.readersin[a37da483-01d5-41c2-a189-0e3576a57a50]
+
+2016-07-26 11:55:42,006 DEBG 'celery' stdout output:
+[2016-07-26 11:55:42,006: INFO/MainProcess] Task article.tasks.readersin[a37da483-01d5-41c2-a189-0e3576a57a50] succeeded in 0.0215777830017s: 'readers +1 success!'
+
+2016-07-26 11:55:47,220 DEBG 'celery' stdout output:
+[2016-07-26 11:55:47,219: INFO/MainProcess] Received task: article.tasks.readersin[c8b78ec5-088d-49b7-a986-91aab61f645f]
+
+2016-07-26 11:55:47,241 DEBG 'celery' stdout output:
+[2016-07-26 11:55:47,241: INFO/MainProcess] Task article.tasks.readersin[c8b78ec5-088d-49b7-a986-91aab61f645f] succeeded in 0.0195600019943s: 'readers +1 success!'
+
+2016-07-26 11:55:50,411 DEBG 'celery' stdout output:
+[2016-07-26 11:55:50,410: INFO/MainProcess] Received task: article.tasks.readersin[f1684ec4-08e1-4ec4-954c-d1fa4620cfd1]
+
+2016-07-26 11:55:50,430 DEBG 'celery' stdout output:
+[2016-07-26 11:55:50,430: INFO/MainProcess] Task article.tasks.readersin[f1684ec4-08e1-4ec4-954c-d1fa4620cfd1] succeeded in 0.0175477369921s: 'readers +1 success!'
+
+2016-07-26 11:55:53,233 DEBG 'celery' stdout output:
+[2016-07-26 11:55:53,232: INFO/MainProcess] Received task: article.tasks.readersin[9f97db3a-0c10-4a46-9bf4-29724a1a1321]
+
+2016-07-26 11:55:53,250 DEBG 'celery' stdout output:
+[2016-07-26 11:55:53,249: INFO/MainProcess] Task article.tasks.readersin[9f97db3a-0c10-4a46-9bf4-29724a1a1321] succeeded in 0.0155162900046s: 'readers +1 success!'
+
+2016-07-26 11:55:58,817 DEBG 'celery' stdout output:
+[2016-07-26 11:55:58,817: INFO/MainProcess] Received task: article.tasks.readersin[98632786-f077-4f8f-977d-617af1a570b6]
+
+2016-07-26 11:55:58,823 DEBG 'celery' stdout output:
+[2016-07-26 11:55:58,823: INFO/MainProcess] Received task: article.tasks.readersin[5b5e3161-f04f-4d61-ad4b-f36860d90c19]
+
+2016-07-26 11:55:58,840 DEBG 'celery' stdout output:
+[2016-07-26 11:55:58,839: INFO/MainProcess] Task article.tasks.readersin[98632786-f077-4f8f-977d-617af1a570b6] succeeded in 0.0199643800006s: 'readers +1 success!'
+
+2016-07-26 11:55:58,844 DEBG 'celery' stdout output:
+[2016-07-26 11:55:58,844: INFO/MainProcess] Task article.tasks.readersin[5b5e3161-f04f-4d61-ad4b-f36860d90c19] succeeded in 0.0184956690064s: 'readers +1 success!'
+
+2016-07-26 11:56:06,602 DEBG 'celery' stdout output:
+[2016-07-26 11:56:06,601: INFO/MainProcess] Received task: article.tasks.readersin[4a8ac8e1-0999-4d3c-9185-78db34a088a6]
+
+2016-07-26 11:56:06,620 DEBG 'celery' stdout output:
+[2016-07-26 11:56:06,620: INFO/MainProcess] Task article.tasks.readersin[4a8ac8e1-0999-4d3c-9185-78db34a088a6] succeeded in 0.0163867230003s: 'readers +1 success!'
+
+2016-07-26 13:42:37,556 DEBG 'celery' stdout output:
+[2016-07-26 13:42:37,556: INFO/MainProcess] Received task: article.tasks.readersin[d4620863-45b3-48da-ab4f-e824c6ee37c5]
+
+2016-07-26 13:42:37,572 DEBG 'celery' stdout output:
+[2016-07-26 13:42:37,572: INFO/MainProcess] Task article.tasks.readersin[d4620863-45b3-48da-ab4f-e824c6ee37c5] succeeded in 0.0148469159903s: 'readers +1 success!'
+
+2016-07-26 14:12:11,809 DEBG 'celery' stdout output:
+[2016-07-26 14:12:11,808: INFO/MainProcess] Received task: article.tasks.readersin[343babdb-3f21-46d0-a05d-5f023d1a374a]
+
+2016-07-26 14:12:11,842 DEBG 'celery' stdout output:
+[2016-07-26 14:12:11,842: INFO/MainProcess] Task article.tasks.readersin[343babdb-3f21-46d0-a05d-5f023d1a374a] succeeded in 0.0323292179964s: 'readers +1 success!'
+
+2016-07-26 14:12:16,534 DEBG 'celery' stdout output:
+[2016-07-26 14:12:16,534: INFO/MainProcess] Received task: article.tasks.readersin[2b0d96bf-01d0-48b9-bd5c-26cf71c883f4]
+
+2016-07-26 14:12:16,552 DEBG 'celery' stdout output:
+[2016-07-26 14:12:16,552: INFO/MainProcess] Task article.tasks.readersin[2b0d96bf-01d0-48b9-bd5c-26cf71c883f4] succeeded in 0.0163634670025s: 'readers +1 success!'
+
+2016-07-26 14:36:44,454 DEBG 'celery' stdout output:
+[2016-07-26 14:36:44,453: INFO/MainProcess] Received task: article.tasks.readersin[ead58d82-2e66-41c6-8e14-1926768a9635]
+
+2016-07-26 14:36:44,471 DEBG 'celery' stdout output:
+[2016-07-26 14:36:44,471: INFO/MainProcess] Task article.tasks.readersin[ead58d82-2e66-41c6-8e14-1926768a9635] succeeded in 0.0153823409928s: 'readers +1 success!'
+
+2016-07-26 14:37:54,005 DEBG 'celery' stdout output:
+[2016-07-26 14:37:54,004: INFO/MainProcess] Received task: article.tasks.readersin[b011a4e0-f29a-46d4-bc90-fc3473aa9816]
+
+2016-07-26 14:37:54,029 DEBG 'celery' stdout output:
+[2016-07-26 14:37:54,029: INFO/MainProcess] Task article.tasks.readersin[b011a4e0-f29a-46d4-bc90-fc3473aa9816] succeeded in 0.0212545279937s: 'readers +1 success!'
+
+2016-07-26 14:46:03,697 DEBG 'celery' stdout output:
+[2016-07-26 14:46:03,696: INFO/MainProcess] Received task: article.tasks.readersin[4c569d7f-4e0d-4882-be7b-a27a626810b3]
+
+2016-07-26 14:46:03,741 DEBG 'celery' stdout output:
+[2016-07-26 14:46:03,740: INFO/MainProcess] Task article.tasks.readersin[4c569d7f-4e0d-4882-be7b-a27a626810b3] succeeded in 0.0417418050056s: 'readers +1 success!'
+
+2016-07-26 14:46:13,159 DEBG 'celery' stdout output:
+[2016-07-26 14:46:13,155: INFO/MainProcess] Received task: article.tasks.readersin[d48f720c-989a-4c2b-8d76-75d3447116f5]
+
+2016-07-26 14:46:13,172 DEBG 'celery' stdout output:
+[2016-07-26 14:46:13,172: INFO/MainProcess] Task article.tasks.readersin[d48f720c-989a-4c2b-8d76-75d3447116f5] succeeded in 0.0154638430104s: 'readers +1 success!'
+
+2016-07-26 14:46:23,155 DEBG 'celery' stdout output:
+[2016-07-26 14:46:23,155: INFO/MainProcess] Received task: article.tasks.readersin[0dfcde2b-8243-48b5-b232-77df55351066]
+
+2016-07-26 14:46:23,176 DEBG 'celery' stdout output:
+[2016-07-26 14:46:23,175: INFO/MainProcess] Task article.tasks.readersin[0dfcde2b-8243-48b5-b232-77df55351066] succeeded in 0.0174491830112s: 'readers +1 success!'
+
+2016-07-26 14:46:33,157 DEBG 'celery' stdout output:
+[2016-07-26 14:46:33,156: INFO/MainProcess] Received task: article.tasks.readersin[7bb5170d-50c5-4335-95c3-71d6d603d367]
+
+2016-07-26 14:46:33,189 DEBG 'celery' stdout output:
+[2016-07-26 14:46:33,189: INFO/MainProcess] Task article.tasks.readersin[7bb5170d-50c5-4335-95c3-71d6d603d367] succeeded in 0.0312601420155s: 'readers +1 success!'
+
+2016-07-26 16:45:01,616 DEBG 'celery' stdout output:
+[2016-07-26 16:45:01,616: INFO/MainProcess] Received task: article.tasks.readersin[8a1af643-c7fc-4d9d-a8ef-6cd07d695d9b]
+
+2016-07-26 16:45:01,664 DEBG 'celery' stdout output:
+[2016-07-26 16:45:01,663: INFO/MainProcess] Task article.tasks.readersin[8a1af643-c7fc-4d9d-a8ef-6cd07d695d9b] succeeded in 0.0449451539898s: 'readers +1 success!'
+
+2016-07-26 20:28:14,376 DEBG 'celery' stdout output:
+[2016-07-26 20:28:14,376: INFO/MainProcess] Received task: article.tasks.readersin[7d2a9592-257f-4806-90db-d93dfbf1704f]
+
+2016-07-26 20:28:14,410 DEBG 'celery' stdout output:
+[2016-07-26 20:28:14,409: INFO/MainProcess] Task article.tasks.readersin[7d2a9592-257f-4806-90db-d93dfbf1704f] succeeded in 0.032232202997s: 'readers +1 success!'
+
+2016-07-26 20:28:17,346 DEBG 'celery' stdout output:
+[2016-07-26 20:28:17,345: INFO/MainProcess] Received task: article.tasks.readersin[0ee9111a-3560-4b1c-a2c8-26d0fc38fab0]
+
+2016-07-26 20:28:17,367 DEBG 'celery' stdout output:
+[2016-07-26 20:28:17,367: INFO/MainProcess] Task article.tasks.readersin[0ee9111a-3560-4b1c-a2c8-26d0fc38fab0] succeeded in 0.0203977420169s: 'readers +1 success!'
+
+2016-07-26 22:46:25,826 DEBG 'celery' stdout output:
+[2016-07-26 22:46:25,826: INFO/MainProcess] Received task: article.tasks.readersin[a7086864-add9-4287-a96e-ca9ea7ff38da]
+
+2016-07-26 22:46:25,843 DEBG 'celery' stdout output:
+[2016-07-26 22:46:25,843: INFO/MainProcess] Task article.tasks.readersin[a7086864-add9-4287-a96e-ca9ea7ff38da] succeeded in 0.0154799679876s: 'readers +1 success!'
+
+2016-07-26 22:46:45,077 DEBG 'celery' stdout output:
+[2016-07-26 22:46:45,077: INFO/MainProcess] Received task: article.tasks.readersin[25fe48ca-658f-4697-8ea7-062b2e41c43c]
+
+2016-07-26 22:46:45,108 DEBG 'celery' stdout output:
+[2016-07-26 22:46:45,108: INFO/MainProcess] Task article.tasks.readersin[25fe48ca-658f-4697-8ea7-062b2e41c43c] succeeded in 0.0255046880047s: 'readers +1 success!'
+
+2016-07-27 00:34:02,234 DEBG 'celery' stdout output:
+[2016-07-27 00:34:02,232: INFO/MainProcess] Received task: article.tasks.readersin[3315a3ac-4d0e-4e2b-b69f-392476de18f3]
+
+2016-07-27 00:34:02,263 DEBG 'celery' stdout output:
+[2016-07-27 00:34:02,263: INFO/MainProcess] Task article.tasks.readersin[3315a3ac-4d0e-4e2b-b69f-392476de18f3] succeeded in 0.0295090069994s: 'readers +1 success!'
+
+2016-07-27 00:36:15,681 DEBG 'celery' stdout output:
+[2016-07-27 00:36:15,680: INFO/MainProcess] Received task: article.tasks.readersin[76b7a367-32b7-41a1-adcf-008aa062ba66]
+
+2016-07-27 00:36:15,696 DEBG 'celery' stdout output:
+[2016-07-27 00:36:15,696: INFO/MainProcess] Task article.tasks.readersin[76b7a367-32b7-41a1-adcf-008aa062ba66] succeeded in 0.0138782630092s: 'readers +1 success!'
+
+2016-07-27 00:38:29,036 DEBG 'celery' stdout output:
+[2016-07-27 00:38:29,036: INFO/MainProcess] Received task: article.tasks.readersin[5c4e2248-4e72-49ad-8284-7414aafcceb1]
+
+2016-07-27 00:38:29,054 DEBG 'celery' stdout output:
+[2016-07-27 00:38:29,054: INFO/MainProcess] Task article.tasks.readersin[5c4e2248-4e72-49ad-8284-7414aafcceb1] succeeded in 0.0159316790232s: 'readers +1 success!'
+
+2016-07-27 00:38:29,216 DEBG 'celery' stdout output:
+[2016-07-27 00:38:29,216: INFO/MainProcess] Received task: article.tasks.readersin[17a97319-c2b9-4da7-bc5f-e4916184fc85]
+
+2016-07-27 00:38:29,232 DEBG 'celery' stdout output:
+[2016-07-27 00:38:29,232: INFO/MainProcess] Task article.tasks.readersin[17a97319-c2b9-4da7-bc5f-e4916184fc85] succeeded in 0.0148206310114s: 'readers +1 success!'
+
+2016-07-27 00:40:42,184 DEBG 'celery' stdout output:
+[2016-07-27 00:40:42,184: INFO/MainProcess] Received task: article.tasks.readersin[7bd9e76d-3f36-439c-8e60-d0ad609e6c8b]
+
+2016-07-27 00:40:42,200 DEBG 'celery' stdout output:
+[2016-07-27 00:40:42,200: INFO/MainProcess] Task article.tasks.readersin[7bd9e76d-3f36-439c-8e60-d0ad609e6c8b] succeeded in 0.0145281860023s: 'readers +1 success!'
+
+2016-07-27 00:40:42,385 DEBG 'celery' stdout output:
+[2016-07-27 00:40:42,385: INFO/MainProcess] Received task: article.tasks.readersin[5f186326-5cfe-41f3-a5a4-ed929e820a4e]
+
+2016-07-27 00:40:42,402 DEBG 'celery' stdout output:
+[2016-07-27 00:40:42,402: INFO/MainProcess] Task article.tasks.readersin[5f186326-5cfe-41f3-a5a4-ed929e820a4e] succeeded in 0.0155070619949s: 'readers +1 success!'
+
+2016-07-27 00:42:55,509 DEBG 'celery' stdout output:
+[2016-07-27 00:42:55,508: INFO/MainProcess] Received task: article.tasks.readersin[d30557cd-f804-42f7-a289-5ff6b96461d0]
+
+2016-07-27 00:42:55,529 DEBG 'celery' stdout output:
+[2016-07-27 00:42:55,528: INFO/MainProcess] Task article.tasks.readersin[d30557cd-f804-42f7-a289-5ff6b96461d0] succeeded in 0.0188156650111s: 'readers +1 success!'
+
+2016-07-27 00:42:55,674 DEBG 'celery' stdout output:
+[2016-07-27 00:42:55,673: INFO/MainProcess] Received task: article.tasks.readersin[46829883-30d7-4559-bf0c-a13931c1f39b]
+
+2016-07-27 00:42:55,699 DEBG 'celery' stdout output:
+[2016-07-27 00:42:55,699: INFO/MainProcess] Task article.tasks.readersin[46829883-30d7-4559-bf0c-a13931c1f39b] succeeded in 0.0238129659847s: 'readers +1 success!'
+
+2016-07-27 00:45:08,877 DEBG 'celery' stdout output:
+[2016-07-27 00:45:08,877: INFO/MainProcess] Received task: article.tasks.readersin[8bbf294a-5691-4ed7-9c12-7815c7d2ed92]
+
+2016-07-27 00:45:08,887 DEBG 'celery' stdout output:
+[2016-07-27 00:45:08,887: INFO/MainProcess] Received task: article.tasks.readersin[c2bf03f7-a1c3-40ba-a6ef-05d1ac409e56]
+
+2016-07-27 00:45:08,896 DEBG 'celery' stdout output:
+[2016-07-27 00:45:08,896: INFO/MainProcess] Task article.tasks.readersin[8bbf294a-5691-4ed7-9c12-7815c7d2ed92] succeeded in 0.016765531007s: 'readers +1 success!'
+
+2016-07-27 00:45:08,905 DEBG 'celery' stdout output:
+[2016-07-27 00:45:08,905: INFO/MainProcess] Task article.tasks.readersin[c2bf03f7-a1c3-40ba-a6ef-05d1ac409e56] succeeded in 0.0143624009797s: 'readers +1 success!'
+
+2016-07-27 00:47:22,192 DEBG 'celery' stdout output:
+[2016-07-27 00:47:22,192: INFO/MainProcess] Received task: article.tasks.readersin[9e3a08f2-289d-4902-b5f1-1ea894863a2c]
+
+2016-07-27 00:47:22,214 DEBG 'celery' stdout output:
+[2016-07-27 00:47:22,214: INFO/MainProcess] Received task: article.tasks.readersin[2da34918-1d82-4416-945d-fc90e057ca62]
+
+2016-07-27 00:47:22,219 DEBG 'celery' stdout output:
+[2016-07-27 00:47:22,219: INFO/MainProcess] Task article.tasks.readersin[9e3a08f2-289d-4902-b5f1-1ea894863a2c] succeeded in 0.0251441690198s: 'readers +1 success!'
+
+2016-07-27 00:47:22,237 DEBG 'celery' stdout output:
+[2016-07-27 00:47:22,235: INFO/MainProcess] Task article.tasks.readersin[2da34918-1d82-4416-945d-fc90e057ca62] succeeded in 0.0193902550091s: 'readers +1 success!'
+
+2016-07-27 00:49:35,851 DEBG 'celery' stdout output:
+[2016-07-27 00:49:35,851: INFO/MainProcess] Received task: article.tasks.readersin[7b5f0f2e-67e9-47a8-8781-5086ff932eb0]
+
+2016-07-27 00:49:35,870 DEBG 'celery' stdout output:
+[2016-07-27 00:49:35,870: INFO/MainProcess] Task article.tasks.readersin[7b5f0f2e-67e9-47a8-8781-5086ff932eb0] succeeded in 0.0159366670123s: 'readers +1 success!'
+
+2016-07-27 00:49:36,359 DEBG 'celery' stdout output:
+[2016-07-27 00:49:36,359: INFO/MainProcess] Received task: article.tasks.readersin[567fe3f8-6714-49e1-a696-899ac50f06ee]
+
+2016-07-27 00:49:36,376 DEBG 'celery' stdout output:
+[2016-07-27 00:49:36,376: INFO/MainProcess] Task article.tasks.readersin[567fe3f8-6714-49e1-a696-899ac50f06ee] succeeded in 0.0151999490045s: 'readers +1 success!'
+
+2016-07-27 00:51:48,982 DEBG 'celery' stdout output:
+[2016-07-27 00:51:48,982: INFO/MainProcess] Received task: article.tasks.readersin[5d86ce4f-62c3-4bb2-bddf-52da5e268ffa]
+
+2016-07-27 00:51:49,001 DEBG 'celery' stdout output:
+[2016-07-27 00:51:49,000: INFO/MainProcess] Task article.tasks.readersin[5d86ce4f-62c3-4bb2-bddf-52da5e268ffa] succeeded in 0.0164675779815s: 'readers +1 success!'
+
+2016-07-27 08:28:43,524 DEBG 'celery' stdout output:
+[2016-07-27 08:28:43,523: INFO/MainProcess] Received task: article.tasks.readersin[475119c4-2c09-46d2-92b0-98d060591ce8]
+
+2016-07-27 08:28:43,540 DEBG 'celery' stdout output:
+[2016-07-27 08:28:43,540: INFO/MainProcess] Task article.tasks.readersin[475119c4-2c09-46d2-92b0-98d060591ce8] succeeded in 0.0137385579874s: 'readers +1 success!'
+
+2016-07-27 08:28:54,951 DEBG 'celery' stdout output:
+[2016-07-27 08:28:54,950: INFO/MainProcess] Received task: article.tasks.readersin[848414fe-0325-47f2-8438-b9446cc94198]
+
+2016-07-27 08:28:54,966 DEBG 'celery' stdout output:
+[2016-07-27 08:28:54,965: INFO/MainProcess] Task article.tasks.readersin[848414fe-0325-47f2-8438-b9446cc94198] succeeded in 0.0132131550054s: 'readers +1 success!'
+
+2016-07-27 08:28:58,684 DEBG 'celery' stdout output:
+[2016-07-27 08:28:58,684: INFO/MainProcess] Received task: article.tasks.readersin[acbde02c-1798-44e7-9e8d-863467f4c2fe]
+
+2016-07-27 08:28:58,701 DEBG 'celery' stdout output:
+[2016-07-27 08:28:58,701: INFO/MainProcess] Task article.tasks.readersin[acbde02c-1798-44e7-9e8d-863467f4c2fe] succeeded in 0.0137753589952s: 'readers +1 success!'
+
+2016-07-27 08:29:02,044 DEBG 'celery' stdout output:
+[2016-07-27 08:29:02,043: INFO/MainProcess] Received task: article.tasks.readersin[783deeae-2f4c-465f-88c2-d173477f50ef]
+
+2016-07-27 08:29:02,063 DEBG 'celery' stdout output:
+[2016-07-27 08:29:02,063: INFO/MainProcess] Task article.tasks.readersin[783deeae-2f4c-465f-88c2-d173477f50ef] succeeded in 0.0174259890046s: 'readers +1 success!'
+
+2016-07-27 08:29:17,088 DEBG 'celery' stdout output:
+[2016-07-27 08:29:17,088: INFO/MainProcess] Received task: article.tasks.readersin[027d9903-3b4c-4671-b6a6-f658a6adcc1a]
+
+2016-07-27 08:29:17,112 DEBG 'celery' stdout output:
+[2016-07-27 08:29:17,111: INFO/MainProcess] Task article.tasks.readersin[027d9903-3b4c-4671-b6a6-f658a6adcc1a] succeeded in 0.0214313229953s: 'readers +1 success!'
+
+2016-07-27 08:29:51,358 DEBG 'celery' stdout output:
+[2016-07-27 08:29:51,358: INFO/MainProcess] Received task: article.tasks.readersin[358a6fb5-8994-4441-a04a-c0ac11506913]
+
+2016-07-27 08:29:51,373 DEBG 'celery' stdout output:
+[2016-07-27 08:29:51,373: INFO/MainProcess] Received task: article.tasks.readersin[468cb980-e885-4c74-9a15-ef1619fc5234]
+
+2016-07-27 08:29:51,382 DEBG 'celery' stdout output:
+[2016-07-27 08:29:51,382: INFO/MainProcess] Task article.tasks.readersin[358a6fb5-8994-4441-a04a-c0ac11506913] succeeded in 0.0226207560045s: 'readers +1 success!'
+
+2016-07-27 08:29:51,394 DEBG 'celery' stdout output:
+[2016-07-27 08:29:51,394: INFO/MainProcess] Task article.tasks.readersin[468cb980-e885-4c74-9a15-ef1619fc5234] succeeded in 0.0177077139961s: 'readers +1 success!'
+
+2016-07-27 08:29:51,574 DEBG 'celery' stdout output:
+[2016-07-27 08:29:51,573: INFO/MainProcess] Received task: article.tasks.readersin[27434469-84c6-4004-a80f-a73a42becc20]
+
+2016-07-27 08:29:51,589 DEBG 'celery' stdout output:
+[2016-07-27 08:29:51,589: INFO/MainProcess] Task article.tasks.readersin[27434469-84c6-4004-a80f-a73a42becc20] succeeded in 0.0137545990001s: 'readers +1 success!'
+
+2016-07-27 08:29:56,168 DEBG 'celery' stdout output:
+[2016-07-27 08:29:56,168: INFO/MainProcess] Received task: article.tasks.readersin[4742e4f1-11d2-4d3d-ba35-0618c0aaadd9]
+
+2016-07-27 08:29:56,187 DEBG 'celery' stdout output:
+[2016-07-27 08:29:56,186: INFO/MainProcess] Task article.tasks.readersin[4742e4f1-11d2-4d3d-ba35-0618c0aaadd9] succeeded in 0.0165276599873s: 'readers +1 success!'
+
+2016-07-27 08:37:22,179 DEBG 'celery' stdout output:
+[2016-07-27 08:37:22,179: INFO/MainProcess] Received task: article.tasks.readersin[2bcb66d3-c0f6-4999-b867-8d87ea1b5085]
+
+2016-07-27 08:37:22,199 DEBG 'celery' stdout output:
+[2016-07-27 08:37:22,199: INFO/MainProcess] Task article.tasks.readersin[2bcb66d3-c0f6-4999-b867-8d87ea1b5085] succeeded in 0.0171369980089s: 'readers +1 success!'
+
+2016-07-27 08:41:28,576 DEBG 'celery' stdout output:
+[2016-07-27 08:41:28,576: INFO/MainProcess] Received task: article.tasks.readersin[7d261071-5b09-47c1-a814-13bb0a009dfb]
+
+2016-07-27 08:41:28,592 DEBG 'celery' stdout output:
+[2016-07-27 08:41:28,592: INFO/MainProcess] Task article.tasks.readersin[7d261071-5b09-47c1-a814-13bb0a009dfb] succeeded in 0.0146333120065s: 'readers +1 success!'
+
+2016-07-27 08:41:44,818 DEBG 'celery' stdout output:
+[2016-07-27 08:41:44,818: INFO/MainProcess] Received task: article.tasks.readersin[2cf4b9ad-06a3-436e-956b-7ef70dee7e8b]
+
+2016-07-27 08:41:44,838 DEBG 'celery' stdout output:
+[2016-07-27 08:41:44,837: INFO/MainProcess] Task article.tasks.readersin[2cf4b9ad-06a3-436e-956b-7ef70dee7e8b] succeeded in 0.0176083839906s: 'readers +1 success!'
+
+2016-07-27 08:42:07,376 DEBG 'celery' stdout output:
+[2016-07-27 08:42:07,376: INFO/MainProcess] Received task: article.tasks.readersin[ae45bf77-e190-4f03-84e1-fff4a3525af2]
+
+2016-07-27 08:42:07,395 DEBG 'celery' stdout output:
+[2016-07-27 08:42:07,395: INFO/MainProcess] Task article.tasks.readersin[ae45bf77-e190-4f03-84e1-fff4a3525af2] succeeded in 0.0171919739805s: 'readers +1 success!'
+
+2016-07-27 08:43:09,704 DEBG 'celery' stdout output:
+[2016-07-27 08:43:09,704: INFO/MainProcess] Received task: article.tasks.readersin[3f35fbd6-c117-47fa-ba99-cbddda5e5c7f]
+
+2016-07-27 08:43:09,723 DEBG 'celery' stdout output:
+[2016-07-27 08:43:09,722: INFO/MainProcess] Task article.tasks.readersin[3f35fbd6-c117-47fa-ba99-cbddda5e5c7f] succeeded in 0.0166499300103s: 'readers +1 success!'
+
+2016-07-27 08:47:26,965 DEBG 'celery' stdout output:
+[2016-07-27 08:47:26,964: INFO/MainProcess] Received task: article.tasks.readersin[c5ff10b8-6d31-49d6-a80e-74bdc5c76306]
+
+2016-07-27 08:47:26,980 DEBG 'celery' stdout output:
+[2016-07-27 08:47:26,980: INFO/MainProcess] Task article.tasks.readersin[c5ff10b8-6d31-49d6-a80e-74bdc5c76306] succeeded in 0.0139307209756s: 'readers +1 success!'
+
+2016-07-27 08:54:31,727 DEBG 'celery' stdout output:
+[2016-07-27 08:54:31,727: INFO/MainProcess] Received task: article.tasks.readersin[db06be41-6eae-42b9-b74d-82c1083120b6]
+
+2016-07-27 08:54:31,743 DEBG 'celery' stdout output:
+[2016-07-27 08:54:31,743: INFO/MainProcess] Task article.tasks.readersin[db06be41-6eae-42b9-b74d-82c1083120b6] succeeded in 0.0142179040122s: 'readers +1 success!'
+
+2016-07-27 08:54:31,831 DEBG 'celery' stdout output:
+[2016-07-27 08:54:31,831: INFO/MainProcess] Received task: article.tasks.readersin[373a02d1-a146-4c90-9f36-4f9c356b9f84]
+
+2016-07-27 08:54:31,846 DEBG 'celery' stdout output:
+[2016-07-27 08:54:31,846: INFO/MainProcess] Task article.tasks.readersin[373a02d1-a146-4c90-9f36-4f9c356b9f84] succeeded in 0.0139764640189s: 'readers +1 success!'
+
+2016-07-27 08:54:31,910 DEBG 'celery' stdout output:
+[2016-07-27 08:54:31,909: INFO/MainProcess] Received task: article.tasks.readersin[56b193c7-db9a-4146-9602-4f216705172f]
+
+2016-07-27 08:54:31,925 DEBG 'celery' stdout output:
+[2016-07-27 08:54:31,924: INFO/MainProcess] Task article.tasks.readersin[56b193c7-db9a-4146-9602-4f216705172f] succeeded in 0.0136791119876s: 'readers +1 success!'
+
+2016-07-27 08:55:24,748 DEBG 'celery' stdout output:
+[2016-07-27 08:55:24,747: INFO/MainProcess] Received task: article.tasks.readersin[0ce7d804-942f-467e-b7a0-b2090277c9a5]
+
+2016-07-27 08:55:24,765 DEBG 'celery' stdout output:
+[2016-07-27 08:55:24,764: INFO/MainProcess] Task article.tasks.readersin[0ce7d804-942f-467e-b7a0-b2090277c9a5] succeeded in 0.0154637749947s: 'readers +1 success!'
+
+2016-07-27 09:03:54,876 DEBG 'celery' stdout output:
+[2016-07-27 09:03:54,876: INFO/MainProcess] Received task: article.tasks.readersin[efc608f7-97f8-4fc2-818c-db50031ddbf3]
+
+2016-07-27 09:03:54,893 DEBG 'celery' stdout output:
+[2016-07-27 09:03:54,893: INFO/MainProcess] Task article.tasks.readersin[efc608f7-97f8-4fc2-818c-db50031ddbf3] succeeded in 0.0155388569983s: 'readers +1 success!'
+
+2016-07-27 09:09:08,975 DEBG 'celery' stdout output:
+[2016-07-27 09:09:08,975: INFO/MainProcess] Received task: article.tasks.readersin[08670525-2b9a-4ccc-a921-88e339296057]
+
+2016-07-27 09:09:09,013 DEBG 'celery' stdout output:
+[2016-07-27 09:09:09,012: INFO/MainProcess] Task article.tasks.readersin[08670525-2b9a-4ccc-a921-88e339296057] succeeded in 0.0361493869859s: 'readers +1 success!'
+
+2016-07-27 09:12:52,686 DEBG 'celery' stdout output:
+[2016-07-27 09:12:52,685: INFO/MainProcess] Received task: article.tasks.readersin[e9822aa0-f1ec-4380-b42b-3f2c2414bb44]
+
+2016-07-27 09:12:52,704 DEBG 'celery' stdout output:
+[2016-07-27 09:12:52,704: INFO/MainProcess] Task article.tasks.readersin[e9822aa0-f1ec-4380-b42b-3f2c2414bb44] succeeded in 0.0167404200183s: 'readers +1 success!'
+
+2016-07-27 09:13:09,736 DEBG 'celery' stdout output:
+[2016-07-27 09:13:09,736: INFO/MainProcess] Received task: article.tasks.readersin[3f2d9383-b6d7-4efa-b850-30f29a1e8f8c]
+
+2016-07-27 09:13:09,757 DEBG 'celery' stdout output:
+[2016-07-27 09:13:09,757: INFO/MainProcess] Task article.tasks.readersin[3f2d9383-b6d7-4efa-b850-30f29a1e8f8c] succeeded in 0.0195362619997s: 'readers +1 success!'
+
+2016-07-27 09:17:23,866 DEBG 'celery' stdout output:
+[2016-07-27 09:17:23,866: INFO/MainProcess] Received task: article.tasks.readersin[42fb1e01-35f5-4a80-ba46-f42d65112795]
+
+2016-07-27 09:17:23,888 DEBG 'celery' stdout output:
+[2016-07-27 09:17:23,888: INFO/MainProcess] Task article.tasks.readersin[42fb1e01-35f5-4a80-ba46-f42d65112795] succeeded in 0.0178947309905s: 'readers +1 success!'
+
+2016-07-27 09:20:59,586 DEBG 'celery' stdout output:
+[2016-07-27 09:20:59,585: INFO/MainProcess] Received task: article.tasks.readersin[676b7078-17f5-4d10-9ab3-0c2b4304a051]
+
+2016-07-27 09:20:59,603 DEBG 'celery' stdout output:
+[2016-07-27 09:20:59,602: INFO/MainProcess] Task article.tasks.readersin[676b7078-17f5-4d10-9ab3-0c2b4304a051] succeeded in 0.0153502729954s: 'readers +1 success!'
+
+2016-07-27 09:21:04,699 DEBG 'celery' stdout output:
+[2016-07-27 09:21:04,699: INFO/MainProcess] Received task: article.tasks.readersin[5800c346-eea7-4a83-be2b-3ae6bac0ca18]
+
+2016-07-27 09:21:04,716 DEBG 'celery' stdout output:
+[2016-07-27 09:21:04,715: INFO/MainProcess] Task article.tasks.readersin[5800c346-eea7-4a83-be2b-3ae6bac0ca18] succeeded in 0.0152178249846s: 'readers +1 success!'
+
+2016-07-27 09:33:37,028 DEBG 'celery' stdout output:
+[2016-07-27 09:33:37,025: INFO/MainProcess] Received task: article.tasks.readersin[066f7a69-d33f-4717-8428-69948e93f516]
+
+2016-07-27 09:33:37,044 DEBG 'celery' stdout output:
+[2016-07-27 09:33:37,044: INFO/MainProcess] Task article.tasks.readersin[066f7a69-d33f-4717-8428-69948e93f516] succeeded in 0.0169918079919s: 'readers +1 success!'
+
+2016-07-27 09:40:50,116 DEBG 'celery' stdout output:
+[2016-07-27 09:40:50,116: INFO/MainProcess] Received task: article.tasks.readersin[b34e2a24-e396-401f-bdef-c2a3ae176eb8]
+
+2016-07-27 09:40:50,133 DEBG 'celery' stdout output:
+[2016-07-27 09:40:50,133: INFO/MainProcess] Task article.tasks.readersin[b34e2a24-e396-401f-bdef-c2a3ae176eb8] succeeded in 0.0150038030115s: 'readers +1 success!'
+
+2016-07-27 10:09:50,425 DEBG 'celery' stdout output:
+[2016-07-27 10:09:50,424: INFO/MainProcess] Received task: article.tasks.readersin[c1bfbaa5-923b-4747-97eb-5991e45cac4d]
+
+2016-07-27 10:09:50,443 DEBG 'celery' stdout output:
+[2016-07-27 10:09:50,442: INFO/MainProcess] Task article.tasks.readersin[c1bfbaa5-923b-4747-97eb-5991e45cac4d] succeeded in 0.0163233000203s: 'readers +1 success!'
+
+2016-07-27 10:10:49,948 DEBG 'celery' stdout output:
+[2016-07-27 10:10:49,948: INFO/MainProcess] Received task: article.tasks.readersin[4e82b70f-f940-4738-9ef1-4781c75827ec]
+
+2016-07-27 10:10:49,966 DEBG 'celery' stdout output:
+[2016-07-27 10:10:49,966: INFO/MainProcess] Task article.tasks.readersin[4e82b70f-f940-4738-9ef1-4781c75827ec] succeeded in 0.0165006760217s: 'readers +1 success!'
+
+2016-07-27 10:10:55,499 DEBG 'celery' stdout output:
+[2016-07-27 10:10:55,497: INFO/MainProcess] Received task: article.tasks.readersin[ea02a2a0-11e1-4410-8006-bab023b6b946]
+
+2016-07-27 10:10:55,514 DEBG 'celery' stdout output:
+[2016-07-27 10:10:55,513: INFO/MainProcess] Task article.tasks.readersin[ea02a2a0-11e1-4410-8006-bab023b6b946] succeeded in 0.0151386780199s: 'readers +1 success!'
+
+2016-07-27 10:11:03,159 DEBG 'celery' stdout output:
+[2016-07-27 10:11:03,159: INFO/MainProcess] Received task: article.tasks.readersin[506a7ada-dd7c-4fec-8e25-edcc3b934573]
+
+2016-07-27 10:11:03,179 DEBG 'celery' stdout output:
+[2016-07-27 10:11:03,179: INFO/MainProcess] Task article.tasks.readersin[506a7ada-dd7c-4fec-8e25-edcc3b934573] succeeded in 0.0168175100116s: 'readers +1 success!'
+
+2016-07-27 10:57:51,112 DEBG 'celery' stdout output:
+[2016-07-27 10:57:51,112: INFO/MainProcess] Received task: article.tasks.readersin[6212f65a-d48d-4d96-813a-fbd57245be08]
+
+2016-07-27 10:57:51,153 DEBG 'celery' stdout output:
+[2016-07-27 10:57:51,152: INFO/MainProcess] Task article.tasks.readersin[6212f65a-d48d-4d96-813a-fbd57245be08] succeeded in 0.0384274130047s: 'readers +1 success!'
+
+2016-07-27 13:56:09,349 DEBG 'celery' stdout output:
+[2016-07-27 13:56:09,349: INFO/MainProcess] Received task: article.tasks.readersin[a1aabfa6-6558-490e-a9c4-1ebfc1899ac2]
+
+2016-07-27 13:56:09,383 DEBG 'celery' stdout output:
+[2016-07-27 13:56:09,383: INFO/MainProcess] Task article.tasks.readersin[a1aabfa6-6558-490e-a9c4-1ebfc1899ac2] succeeded in 0.0321565020131s: 'readers +1 success!'
+
+2016-07-27 14:05:29,465 DEBG 'celery' stdout output:
+[2016-07-27 14:05:29,464: INFO/MainProcess] Received task: article.tasks.readersin[41bea975-2574-45d8-8f74-a8e687bd1c7e]
+
+2016-07-27 14:05:29,483 DEBG 'celery' stdout output:
+[2016-07-27 14:05:29,483: INFO/MainProcess] Task article.tasks.readersin[41bea975-2574-45d8-8f74-a8e687bd1c7e] succeeded in 0.0179048910213s: 'readers +1 success!'
+
+2016-07-27 14:05:35,280 DEBG 'celery' stdout output:
+[2016-07-27 14:05:35,278: INFO/MainProcess] Received task: article.tasks.readersin[c263a5d3-dde8-4ebd-ad22-0b5bf5f14003]
+
+2016-07-27 14:05:35,300 DEBG 'celery' stdout output:
+[2016-07-27 14:05:35,299: INFO/MainProcess] Task article.tasks.readersin[c263a5d3-dde8-4ebd-ad22-0b5bf5f14003] succeeded in 0.0169673090277s: 'readers +1 success!'
+
+2016-07-27 14:11:59,773 DEBG 'celery' stdout output:
+[2016-07-27 14:11:59,772: INFO/MainProcess] Received task: article.tasks.readersin[131329e1-7164-47a3-a3f4-6bf2a2e656cb]
+
+2016-07-27 14:11:59,792 DEBG 'celery' stdout output:
+[2016-07-27 14:11:59,791: INFO/MainProcess] Task article.tasks.readersin[131329e1-7164-47a3-a3f4-6bf2a2e656cb] succeeded in 0.0165140750178s: 'readers +1 success!'
+
+2016-07-27 14:12:51,960 DEBG 'celery' stdout output:
+[2016-07-27 14:12:51,960: INFO/MainProcess] Received task: article.tasks.readersin[9e661cd0-a3c0-45e3-b85d-09631ef223dc]
+
+2016-07-27 14:12:51,978 DEBG 'celery' stdout output:
+[2016-07-27 14:12:51,978: INFO/MainProcess] Task article.tasks.readersin[9e661cd0-a3c0-45e3-b85d-09631ef223dc] succeeded in 0.016228641005s: 'readers +1 success!'
+
+2016-07-27 14:12:54,043 DEBG 'celery' stdout output:
+[2016-07-27 14:12:54,043: INFO/MainProcess] Received task: article.tasks.readersin[21739de0-316d-45e7-88e2-66131003f955]
+
+2016-07-27 14:12:54,066 DEBG 'celery' stdout output:
+[2016-07-27 14:12:54,066: INFO/MainProcess] Task article.tasks.readersin[21739de0-316d-45e7-88e2-66131003f955] succeeded in 0.0212191310129s: 'readers +1 success!'
+
+2016-07-27 14:15:22,983 DEBG 'celery' stdout output:
+[2016-07-27 14:15:22,983: INFO/MainProcess] Received task: article.tasks.readersin[757b8b43-8377-4a65-9487-13a2442a9e91]
+
+2016-07-27 14:15:23,005 DEBG 'celery' stdout output:
+[2016-07-27 14:15:23,004: INFO/MainProcess] Task article.tasks.readersin[757b8b43-8377-4a65-9487-13a2442a9e91] succeeded in 0.0178319920087s: 'readers +1 success!'
+
+2016-07-27 16:11:19,021 DEBG 'celery' stdout output:
+[2016-07-27 16:11:19,020: INFO/MainProcess] Received task: article.tasks.readersin[23768af5-b6e6-4a3e-a203-79e32831a113]
+
+2016-07-27 16:11:19,064 DEBG 'celery' stdout output:
+[2016-07-27 16:11:19,063: INFO/MainProcess] Task article.tasks.readersin[23768af5-b6e6-4a3e-a203-79e32831a113] succeeded in 0.0411840169982s: 'readers +1 success!'
+
+2016-07-27 17:38:11,225 DEBG 'celery' stdout output:
+[2016-07-27 17:38:11,225: INFO/MainProcess] Received task: article.tasks.readersin[39097c43-d3ba-45f9-b5f2-78dbcb9f59bd]
+
+2016-07-27 17:38:11,244 DEBG 'celery' stdout output:
+[2016-07-27 17:38:11,244: INFO/MainProcess] Task article.tasks.readersin[39097c43-d3ba-45f9-b5f2-78dbcb9f59bd] succeeded in 0.0175454829878s: 'readers +1 success!'
+
+2016-07-27 18:54:09,036 DEBG 'celery' stdout output:
+[2016-07-27 18:54:09,036: INFO/MainProcess] Received task: article.tasks.readersin[76ced7d8-0b61-4abe-bd43-fb525924a909]
+
+2016-07-27 18:54:09,088 DEBG 'celery' stdout output:
+[2016-07-27 18:54:09,088: INFO/MainProcess] Task article.tasks.readersin[76ced7d8-0b61-4abe-bd43-fb525924a909] succeeded in 0.0502153999987s: 'readers +1 success!'
+
+2016-07-27 18:54:19,036 DEBG 'celery' stdout output:
+[2016-07-27 18:54:19,036: INFO/MainProcess] Received task: article.tasks.readersin[c829912f-6733-4e14-b756-0f4c339d92e0]
+
+2016-07-27 18:54:19,080 DEBG 'celery' stdout output:
+[2016-07-27 18:54:19,080: INFO/MainProcess] Task article.tasks.readersin[c829912f-6733-4e14-b756-0f4c339d92e0] succeeded in 0.0428402060061s: 'readers +1 success!'
+
+2016-07-27 18:54:29,036 DEBG 'celery' stdout output:
+[2016-07-27 18:54:29,036: INFO/MainProcess] Received task: article.tasks.readersin[349be5d5-a2e8-452d-90b4-66bf48ac7ae7]
+
+2016-07-27 18:54:29,055 DEBG 'celery' stdout output:
+[2016-07-27 18:54:29,055: INFO/MainProcess] Task article.tasks.readersin[349be5d5-a2e8-452d-90b4-66bf48ac7ae7] succeeded in 0.016811479989s: 'readers +1 success!'
+
+2016-07-27 18:54:39,038 DEBG 'celery' stdout output:
+[2016-07-27 18:54:39,037: INFO/MainProcess] Received task: article.tasks.readersin[85228c7a-014f-4aad-ade6-0f22d3e9f2cc]
+
+2016-07-27 18:54:39,075 DEBG 'celery' stdout output:
+[2016-07-27 18:54:39,075: INFO/MainProcess] Task article.tasks.readersin[85228c7a-014f-4aad-ade6-0f22d3e9f2cc] succeeded in 0.035156530008s: 'readers +1 success!'
+
+2016-07-27 18:54:49,033 DEBG 'celery' stdout output:
+[2016-07-27 18:54:49,033: INFO/MainProcess] Received task: article.tasks.readersin[31174e29-51aa-4400-a961-b96ea4b9a88b]
+
+2016-07-27 18:54:49,052 DEBG 'celery' stdout output:
+[2016-07-27 18:54:49,051: INFO/MainProcess] Task article.tasks.readersin[31174e29-51aa-4400-a961-b96ea4b9a88b] succeeded in 0.0160980630026s: 'readers +1 success!'
+
+2016-07-27 18:54:59,044 DEBG 'celery' stdout output:
+[2016-07-27 18:54:59,044: INFO/MainProcess] Received task: article.tasks.readersin[e03ca691-8fe0-48ff-8eba-7dd7fbb8b838]
+
+2016-07-27 18:54:59,072 DEBG 'celery' stdout output:
+[2016-07-27 18:54:59,071: INFO/MainProcess] Task article.tasks.readersin[e03ca691-8fe0-48ff-8eba-7dd7fbb8b838] succeeded in 0.0256741539924s: 'readers +1 success!'
+
+2016-07-27 18:55:09,036 DEBG 'celery' stdout output:
+[2016-07-27 18:55:09,036: INFO/MainProcess] Received task: article.tasks.readersin[8c717c42-6e97-4830-acda-26df73d3356d]
+
+2016-07-27 18:55:09,054 DEBG 'celery' stdout output:
+[2016-07-27 18:55:09,054: INFO/MainProcess] Task article.tasks.readersin[8c717c42-6e97-4830-acda-26df73d3356d] succeeded in 0.016775120981s: 'readers +1 success!'
+
+2016-07-27 18:55:19,036 DEBG 'celery' stdout output:
+[2016-07-27 18:55:19,036: INFO/MainProcess] Received task: article.tasks.readersin[b580df07-8f29-4dc5-8799-fea704ff81d7]
+
+2016-07-27 18:55:19,057 DEBG 'celery' stdout output:
+[2016-07-27 18:55:19,056: INFO/MainProcess] Task article.tasks.readersin[b580df07-8f29-4dc5-8799-fea704ff81d7] succeeded in 0.0172996220062s: 'readers +1 success!'
+
+2016-07-27 18:58:40,832 DEBG 'celery' stdout output:
+[2016-07-27 18:58:40,832: INFO/MainProcess] Received task: article.tasks.readersin[27a0df87-591e-4d88-8400-ab9eae838244]
+
+2016-07-27 18:58:40,848 DEBG 'celery' stdout output:
+[2016-07-27 18:58:40,848: INFO/MainProcess] Task article.tasks.readersin[27a0df87-591e-4d88-8400-ab9eae838244] succeeded in 0.0147122890048s: 'readers +1 success!'
+
+2016-07-27 20:30:03,745 DEBG 'celery' stdout output:
+[2016-07-27 20:30:03,744: INFO/MainProcess] Received task: article.tasks.readersin[1762bcd8-3a01-4196-8744-39b4bb62fb61]
+
+2016-07-27 20:30:03,774 DEBG 'celery' stdout output:
+[2016-07-27 20:30:03,774: INFO/MainProcess] Task article.tasks.readersin[1762bcd8-3a01-4196-8744-39b4bb62fb61] succeeded in 0.0282270280004s: 'readers +1 success!'
+
+2016-07-27 20:30:09,307 DEBG 'celery' stdout output:
+[2016-07-27 20:30:09,306: INFO/MainProcess] Received task: article.tasks.readersin[d54a3154-a53e-44c5-b1bc-02bee009cd54]
+
+2016-07-27 20:30:09,328 DEBG 'celery' stdout output:
+[2016-07-27 20:30:09,328: INFO/MainProcess] Task article.tasks.readersin[d54a3154-a53e-44c5-b1bc-02bee009cd54] succeeded in 0.0199786140001s: 'readers +1 success!'
+
+2016-07-27 20:30:16,470 DEBG 'celery' stdout output:
+[2016-07-27 20:30:16,470: INFO/MainProcess] Received task: article.tasks.readersin[ea4ead1e-58b5-4f46-b24d-4306bb32149e]
+
+2016-07-27 20:30:16,487 DEBG 'celery' stdout output:
+[2016-07-27 20:30:16,487: INFO/MainProcess] Task article.tasks.readersin[ea4ead1e-58b5-4f46-b24d-4306bb32149e] succeeded in 0.0151782480243s: 'readers +1 success!'
+
+2016-07-27 20:30:19,754 DEBG 'celery' stdout output:
+[2016-07-27 20:30:19,754: INFO/MainProcess] Received task: article.tasks.readersin[dd547ff8-2d77-4d88-b69c-b68d655c6706]
+
+2016-07-27 20:30:19,782 DEBG 'celery' stdout output:
+[2016-07-27 20:30:19,781: INFO/MainProcess] Task article.tasks.readersin[dd547ff8-2d77-4d88-b69c-b68d655c6706] succeeded in 0.0256814530003s: 'readers +1 success!'
+
+2016-07-27 20:41:17,923 DEBG 'celery' stdout output:
+[2016-07-27 20:41:17,922: INFO/MainProcess] Received task: article.tasks.readersin[8fbc0f80-6c0e-4e8f-8f84-60fd1f0867da]
+
+2016-07-27 20:41:17,942 DEBG 'celery' stdout output:
+[2016-07-27 20:41:17,941: INFO/MainProcess] Task article.tasks.readersin[8fbc0f80-6c0e-4e8f-8f84-60fd1f0867da] succeeded in 0.0158270319807s: 'readers +1 success!'
+
+2016-07-27 21:50:57,885 DEBG killing redis-server (pid 2856) with signal SIGTERM
+2016-07-27 21:50:57,885 INFO waiting for redis-server to stop
+2016-07-27 21:50:57,886 DEBG 'redis-server' stdout output:
+[2856 | signal handler] (1469627457) Received SIGTERM, scheduling shutdown...
+
+2016-07-27 21:50:57,958 DEBG 'redis-server' stdout output:
+[2856] 27 Jul 21:50:57.957 # User requested shutdown...
+[2856] 27 Jul 21:50:57.957 * Saving the final RDB snapshot before exiting.
+
+2016-07-27 21:50:57,965 DEBG 'redis-server' stdout output:
+[2856] 27 Jul 21:50:57.965 * DB saved on disk
+[2856] 27 Jul 21:50:57.965 # Redis is now ready to exit, bye bye...
+
+2016-07-27 21:50:57,966 DEBG fd 11 closed, stopped monitoring <POutputDispatcher at 140231018821248 for <Subprocess at 140231019454264 with name redis-server in state STOPPING> (stdout)>
+2016-07-27 21:50:57,966 INFO stopped: redis-server (exit status 0)
+2016-07-27 21:50:57,966 DEBG received SIGCLD indicating a child quit
+2016-07-27 21:50:57,968 DEBG killing celery (pid 2859) with signal SIGTERM
+2016-07-27 21:50:57,968 INFO waiting for celery to stop
+2016-07-27 21:50:57,968 DEBG 'celery' stdout output:
+
+worker: Warm shutdown (MainProcess)
+
+2016-07-27 21:50:58,977 DEBG 'celery' stdout output:
+ 
+ -------------- celery@iZ25vn4n5xvZ v3.1.23 (Cipater)
+---- **** ----- 
+--- * ***  * -- Linux-3.13.0-32-generic-x86_64-with-Ubuntu-14.04-trusty
+-- * - **** --- 
+- ** ---------- [config]
+- ** ---------- .> app:         default:0x7f0208bc06d0 (djcelery.loaders.DjangoLoader)
+- ** ---------- .> transport:   redis://localhost:6379/0
+- ** ---------- .> results:     
+- *** --- * --- .> concurrency: 2 (prefork)
+-- ******* ---- 
+--- ***** ----- [queues]
+ -------------- .> celery           exchange=celery(direct) key=celery
+                
+
+[tasks]
+  . article.tasks.add
+  . article.tasks.instancedelete
+  . article.tasks.instancesave
+  . article.tasks.readersin
+  . article.tasks.readersout
+
+
+2016-07-27 21:50:59,517 DEBG fd 14 closed, stopped monitoring <POutputDispatcher at 140231018822760 for <Subprocess at 140231019454120 with name celery in state STOPPING> (stdout)>
+2016-07-27 21:50:59,518 INFO stopped: celery (exit status 0)
+2016-07-27 21:50:59,518 DEBG received SIGCLD indicating a child quit
+2016-07-27 21:50:59,522 INFO spawned: 'redis-server' with pid 6893
+2016-07-27 21:50:59,529 DEBG 'redis-server' stdout output:
+[6893] 27 Jul 21:50:59.529 # Warning: no config file specified, using the default config. In order to specify a config file use redis-server /path/to/redis.conf
+
+2016-07-27 21:50:59,530 DEBG 'redis-server' stdout output:
+[6893] 27 Jul 21:50:59.530 * Max number of open files set to 10032
+
+2016-07-27 21:50:59,531 DEBG 'redis-server' stdout output:
+                _._                                                  
+           _.-``__ ''-._                                             
+      _.-``    `.  `_.  ''-._           Redis 2.8.4 (00000000/0) 64 bit
+  .-`` .-```.  ```\/    _.,_ ''-._                                   
+ (    '      ,       .-`  | `,    )     Running in stand alone mode
+ |`-._`-...-` __...-.``-._|'` _.-'|     Port: 6379
+ |    `-._   `._    /     _.-'    |     PID: 6893
+  `-._    `-._  `-./  _.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |           http://redis.io        
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |                                  
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+      `-._    `-.__.-'    _.-'                                       
+          `-._        _.-'                                           
+              `-.__.-'                                               
+
+
+2016-07-27 21:50:59,532 DEBG 'redis-server' stdout output:
+[6893] 27 Jul 21:50:59.532 # Server started, Redis version 2.8.4
+
+2016-07-27 21:50:59,532 DEBG 'redis-server' stdout output:
+[6893] 27 Jul 21:50:59.532 # WARNING overcommit_memory is set to 0! Background save may fail under low memory condition. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
+
+2016-07-27 21:50:59,532 DEBG 'redis-server' stdout output:
+[6893] 27 Jul 21:50:59.532 * DB loaded from disk: 0.000 seconds
+
+2016-07-27 21:50:59,533 DEBG 'redis-server' stdout output:
+[6893] 27 Jul 21:50:59.533 * The server is now ready to accept connections on port 6379
+
+2016-07-27 21:51:00,534 INFO success: redis-server entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-07-27 21:51:00,538 INFO spawned: 'celery' with pid 6896
+2016-07-27 21:51:00,959 DEBG 'celery' stdout output:
+[2016-07-27 21:51:00,959: WARNING/MainProcess] /usr/local/lib/python2.7/dist-packages/celery/apps/worker.py:161: CDeprecationWarning: 
+Starting from version 3.2 Celery will refuse to accept pickle by default.
+
+The pickle serializer is a security concern as it may give attackers
+the ability to execute any command.  It's important to secure
+your broker from unauthorized access when using pickle, so we think
+that enabling pickle should require a deliberate action and not be
+the default choice.
+
+If you depend on pickle then you should set a setting to disable this
+warning and to be sure that everything will continue working
+when you upgrade to Celery 3.2::
+
+    CELERY_ACCEPT_CONTENT = ['pickle', 'json', 'msgpack', 'yaml']
+
+You must only enable the serializers that you will actually use.
+
+
+  warnings.warn(CDeprecationWarning(W_PICKLE_DEPRECATED))
+
+
+2016-07-27 21:51:01,018 DEBG 'celery' stdout output:
+[2016-07-27 21:51:01,017: INFO/MainProcess] Connected to redis://localhost:6379/0
+
+2016-07-27 21:51:01,024 DEBG 'celery' stdout output:
+[2016-07-27 21:51:01,024: INFO/MainProcess] mingle: searching for neighbors
+
+2016-07-27 21:51:02,025 INFO success: celery entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-07-27 21:51:02,029 DEBG 'autoreload' stdout output:
+redis-server: stopped
+celery: stopped
+redis-server: started
+celery: started
+
+2016-07-27 21:51:02,029 DEBG 'celery' stdout output:
+[2016-07-27 21:51:02,029: INFO/MainProcess] mingle: all alone
+
+2016-07-27 21:51:02,036 DEBG 'celery' stdout output:
+[2016-07-27 21:51:02,036: WARNING/MainProcess] celery@iZ25vn4n5xvZ ready.
+
+2016-07-27 21:56:31,933 DEBG killing redis-server (pid 6893) with signal SIGTERM
+2016-07-27 21:56:31,934 INFO waiting for redis-server to stop
+2016-07-27 21:56:31,934 DEBG 'redis-server' stdout output:
+[6893 | signal handler] (1469627791) Received SIGTERM, scheduling shutdown...
+
+2016-07-27 21:56:32,008 DEBG 'redis-server' stdout output:
+[6893] 27 Jul 21:56:32.008 # User requested shutdown...
+[6893] 27 Jul 21:56:32.008 * Saving the final RDB snapshot before exiting.
+
+2016-07-27 21:56:32,016 DEBG 'redis-server' stdout output:
+[6893] 27 Jul 21:56:32.015 * DB saved on disk
+[6893] 27 Jul 21:56:32.015 # Redis is now ready to exit, bye bye...
+
+2016-07-27 21:56:32,016 DEBG fd 11 closed, stopped monitoring <POutputDispatcher at 140231018823120 for <Subprocess at 140231019454264 with name redis-server in state STOPPING> (stdout)>
+2016-07-27 21:56:32,016 INFO stopped: redis-server (exit status 0)
+2016-07-27 21:56:32,016 DEBG received SIGCLD indicating a child quit
+2016-07-27 21:56:32,018 DEBG killing celery (pid 6896) with signal SIGTERM
+2016-07-27 21:56:32,018 INFO waiting for celery to stop
+2016-07-27 21:56:32,018 DEBG 'celery' stdout output:
+
+worker: Warm shutdown (MainProcess)
+
+2016-07-27 21:56:33,028 DEBG 'celery' stdout output:
+ 
+ -------------- celery@iZ25vn4n5xvZ v3.1.23 (Cipater)
+---- **** ----- 
+--- * ***  * -- Linux-3.13.0-32-generic-x86_64-with-Ubuntu-14.04-trusty
+-- * - **** --- 
+- ** ---------- [config]
+- ** ---------- .> app:         default:0x7f613b96b6d0 (djcelery.loaders.DjangoLoader)
+- ** ---------- .> transport:   redis://localhost:6379/0
+- ** ---------- .> results:     
+- *** --- * --- .> concurrency: 2 (prefork)
+-- ******* ---- 
+--- ***** ----- [queues]
+ -------------- .> celery           exchange=celery(direct) key=celery
+                
+
+[tasks]
+  . article.tasks.add
+  . article.tasks.instancedelete
+  . article.tasks.instancesave
+  . article.tasks.readersin
+  . article.tasks.readersout
+
+
+2016-07-27 21:56:33,564 DEBG fd 14 closed, stopped monitoring <POutputDispatcher at 140231018822472 for <Subprocess at 140231019454120 with name celery in state STOPPING> (stdout)>
+2016-07-27 21:56:33,564 INFO stopped: celery (exit status 0)
+2016-07-27 21:56:33,565 DEBG received SIGCLD indicating a child quit
+2016-07-27 21:56:33,569 INFO spawned: 'redis-server' with pid 7016
+2016-07-27 21:56:33,576 DEBG 'redis-server' stdout output:
+[7016] 27 Jul 21:56:33.576 # Warning: no config file specified, using the default config. In order to specify a config file use redis-server /path/to/redis.conf
+
+2016-07-27 21:56:33,577 DEBG 'redis-server' stdout output:
+[7016] 27 Jul 21:56:33.577 * Max number of open files set to 10032
+
+2016-07-27 21:56:33,578 DEBG 'redis-server' stdout output:
+                _._                                                  
+           _.-``__ ''-._                                             
+      _.-``    `.  `_.  ''-._           Redis 2.8.4 (00000000/0) 64 bit
+  .-`` .-```.  ```\/    _.,_ ''-._                                   
+ (    '      ,       .-`  | `,    )     Running in stand alone mode
+ |`-._`-...-` __...-.``-._|'` _.-'|     Port: 6379
+ |    `-._   `._    /     _.-'    |     PID: 7016
+  `-._    `-._  `-./  _.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |           http://redis.io        
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |                                  
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+      `-._    `-.__.-'    _.-'                                       
+          `-._        _.-'                                           
+              `-.__.-'                                               
+
+
+2016-07-27 21:56:33,579 DEBG 'redis-server' stdout output:
+[7016] 27 Jul 21:56:33.579 # Server started, Redis version 2.8.4
+
+2016-07-27 21:56:33,579 DEBG 'redis-server' stdout output:
+[7016] 27 Jul 21:56:33.579 # WARNING overcommit_memory is set to 0! Background save may fail under low memory condition. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
+
+2016-07-27 21:56:33,579 DEBG 'redis-server' stdout output:
+[7016] 27 Jul 21:56:33.579 * DB loaded from disk: 0.000 seconds
+
+2016-07-27 21:56:33,580 DEBG 'redis-server' stdout output:
+[7016] 27 Jul 21:56:33.580 * The server is now ready to accept connections on port 6379
+
+2016-07-27 21:56:34,581 INFO success: redis-server entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-07-27 21:56:34,585 INFO spawned: 'celery' with pid 7019
+2016-07-27 21:56:35,019 DEBG 'celery' stdout output:
+[2016-07-27 21:56:35,019: WARNING/MainProcess] /usr/local/lib/python2.7/dist-packages/celery/apps/worker.py:161: CDeprecationWarning: 
+Starting from version 3.2 Celery will refuse to accept pickle by default.
+
+The pickle serializer is a security concern as it may give attackers
+the ability to execute any command.  It's important to secure
+your broker from unauthorized access when using pickle, so we think
+that enabling pickle should require a deliberate action and not be
+the default choice.
+
+If you depend on pickle then you should set a setting to disable this
+warning and to be sure that everything will continue working
+when you upgrade to Celery 3.2::
+
+    CELERY_ACCEPT_CONTENT = ['pickle', 'json', 'msgpack', 'yaml']
+
+You must only enable the serializers that you will actually use.
+
+
+  warnings.warn(CDeprecationWarning(W_PICKLE_DEPRECATED))
+
+
+2016-07-27 21:56:35,079 DEBG 'celery' stdout output:
+[2016-07-27 21:56:35,078: INFO/MainProcess] Connected to redis://localhost:6379/0
+
+2016-07-27 21:56:35,086 DEBG 'celery' stdout output:
+[2016-07-27 21:56:35,086: INFO/MainProcess] mingle: searching for neighbors
+
+2016-07-27 21:56:36,088 INFO success: celery entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-07-27 21:56:36,091 DEBG 'autoreload' stdout output:
+redis-server: stopped
+celery: stopped
+redis-server: started
+celery: started
+
+2016-07-27 21:56:36,091 DEBG 'celery' stdout output:
+[2016-07-27 21:56:36,091: INFO/MainProcess] mingle: all alone
+
+2016-07-27 21:56:36,098 DEBG 'celery' stdout output:
+[2016-07-27 21:56:36,098: WARNING/MainProcess] celery@iZ25vn4n5xvZ ready.
+
+2016-07-27 22:23:05,934 DEBG 'celery' stdout output:
+[2016-07-27 22:23:05,934: INFO/MainProcess] Received task: article.tasks.readersin[b3e6313f-dffd-4489-893a-1e79052ba28d]
+
+2016-07-27 22:23:05,965 DEBG 'celery' stdout output:
+[2016-07-27 22:23:05,964: INFO/MainProcess] Task article.tasks.readersin[b3e6313f-dffd-4489-893a-1e79052ba28d] succeeded in 0.0264394739934s: 'readers +1 success!'
+
+2016-07-27 23:25:29,736 DEBG 'celery' stdout output:
+[2016-07-27 23:25:29,736: INFO/MainProcess] Received task: article.tasks.readersin[026b059a-2b70-4d0f-915d-a426990641b9]
+
+2016-07-27 23:25:29,761 DEBG 'celery' stdout output:
+[2016-07-27 23:25:29,761: INFO/MainProcess] Task article.tasks.readersin[026b059a-2b70-4d0f-915d-a426990641b9] succeeded in 0.0239015429979s: 'readers +1 success!'
+
+2016-07-27 23:26:00,300 DEBG 'celery' stdout output:
+[2016-07-27 23:26:00,299: INFO/MainProcess] Received task: article.tasks.readersin[aa8ef7dd-9f26-4762-85bb-76a7aaca99da]
+
+2016-07-27 23:26:00,320 DEBG 'celery' stdout output:
+[2016-07-27 23:26:00,320: INFO/MainProcess] Task article.tasks.readersin[aa8ef7dd-9f26-4762-85bb-76a7aaca99da] succeeded in 0.0189545100147s: 'readers +1 success!'
+

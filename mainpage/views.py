@@ -29,32 +29,47 @@ def index_search(request):
 		mode = SPH_MATCH_ALL
 		host = 'localhost'
 		port = 9312
-		index = '*'
-		filtercol = 'group_id'
-		filtervals = []
-		sortby = ''
-		groupby = ''
-		groupsort = '@group desc'
-		limit = 0
+		indexfirm = 'mysqlfirm'
+		indexarticle = 'mysql'
+		# filtercol = 'group_id'
+		# filtervals = []
+		# sortby = ''
+		# groupby = ''
+		# groupsort = '@group desc'
+		# limit = 0
 		cl = SphinxClient()
 		cl.SetServer ( host, port )
 		cl.SetWeights ( [100, 1] )
 		cl.SetMatchMode ( mode )
-		res = cl.Query ( q, index )
-		if not res:
+
+		res1 = cl.Query ( q, indexfirm )
+		if not res1:
 			print 'query failed: %s' % cl.GetLastError()
 			sys.exit(1)
 		if cl.GetLastWarning():
 			print 'WARNING: %s\n' % cl.GetLastWarning()
-		index = [] #查询结果的id集合
-		if res.has_key('matches'):
-			for match in res['matches']:
-				index.append(match['id'])  
-		test = Article.objects.all().filter(id__in = index).order_by('-id') #获得属于id集合的对象的queryset
-		print (test.count())
+		index1 = [] #查询结果的id集合
+		if res1.has_key('matches'):
+			for match in res1['matches']:
+				index1.append(match['id'])  
+		test1 = Company.objects.all().filter(id__in = index1).filter(verify = True).order_by('-id') #获得属于id集合的对象的queryset
+		
+		res2 = cl.Query ( q, indexarticle )
+		if not res2:
+			print 'query failed: %s' % cl.GetLastError()
+			sys.exit(1)
+		if cl.GetLastWarning():
+			print 'WARNING: %s\n' % cl.GetLastWarning()
+		index2 = [] #查询结果的id集合
+		if res2.has_key('matches'):
+			for match in res2['matches']:
+				index2.append(match['id']) 
+		test2 = Article.objects.all().filter(id__in = index2).order_by('-id') #获得属于id集合的对象的queryset
+		
+		
 		cache.set("search_word", q)
 		# 分页
-		paginator = Paginator(test, 10)
+		paginator = Paginator(test2, 10)
 		page = request.GET.get('page')
 		try:
 			contacts = paginator.page(page)
@@ -67,12 +82,14 @@ def index_search(request):
 		context = {
 			'articlequery' : contacts,
 			'search_word' : q,
+			'test1' : test1,
 		}
 	else:
 		context = {
 			'articlequery' : None,
 		}
 	return render(request, 'index_search.html', context)
+
 
 #首页
 def home(request):
