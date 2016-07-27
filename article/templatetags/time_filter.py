@@ -264,9 +264,7 @@ def search(value):
 def highlight(value): 
     search_word = cache.get("search_word").lower()  
     search_word = search_word.split()
-    print search_word
     for item in search_word:
         test = '<font color=red>'+item+'</font>'
         value = value.lower().replace(item, test);
-    print 'ok'
     return value

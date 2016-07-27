@@ -73,16 +73,28 @@ def index_search(request):
 		page = request.GET.get('page')
 		try:
 			contacts = paginator.page(page)
+			pageshow = int(page)
+			if pageshow == 1 or pageshow == None:
+				firmshow = True
+			else:
+				firmshow = False
 		except PageNotAnInteger:
 		# If page is not an integer, deliver first page.
 			contacts = paginator.page(1)
+			firmshow = True
 		except EmptyPage:
 		# If page is out of range (e.g. 9999), deliver last page of results.
 			contacts = paginator.page(paginator.num_pages)
+			pageshow = int(page)
+			if pageshow == 1 or pageshow == None:
+				firmshow = True
+			else:
+				firmshow = False
 		context = {
 			'articlequery' : contacts,
 			'search_word' : q,
 			'test1' : test1,
+			'firmshow' : firmshow,
 		}
 	else:
 		context = {

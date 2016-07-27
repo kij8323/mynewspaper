@@ -12317,3 +12317,71 @@ celery: started
 2016-07-27 23:26:00,320 DEBG 'celery' stdout output:
 [2016-07-27 23:26:00,320: INFO/MainProcess] Task article.tasks.readersin[aa8ef7dd-9f26-4762-85bb-76a7aaca99da] succeeded in 0.0189545100147s: 'readers +1 success!'
 
+2016-07-27 23:43:08,937 DEBG 'celery' stdout output:
+[2016-07-27 23:43:08,936: INFO/MainProcess] Received task: article.tasks.readersin[f99a61a9-8c98-44d1-a940-6e21bf0d5e74]
+
+2016-07-27 23:43:08,956 DEBG 'celery' stdout output:
+[2016-07-27 23:43:08,956: INFO/MainProcess] Task article.tasks.readersin[f99a61a9-8c98-44d1-a940-6e21bf0d5e74] succeeded in 0.0182470270083s: 'readers +1 success!'
+
+2016-07-27 23:45:34,829 WARN received SIGTERM indicating exit request
+2016-07-27 23:45:34,829 DEBG killing redis-server (pid 7016) with signal SIGTERM
+2016-07-27 23:45:34,829 INFO waiting for autoreload, celery, redis-server to die
+2016-07-27 23:45:34,832 DEBG 'redis-server' stdout output:
+[7016 | signal handler] (1469634334) Received SIGTERM, scheduling shutdown...
+
+2016-07-27 23:45:34,882 DEBG 'redis-server' stdout output:
+[7016] 27 Jul 23:45:34.882 # User requested shutdown...
+[7016] 27 Jul 23:45:34.882 * Saving the final RDB snapshot before exiting.
+
+2016-07-27 23:45:34,889 DEBG 'redis-server' stdout output:
+[7016] 27 Jul 23:45:34.889 * DB saved on disk
+[7016] 27 Jul 23:45:34.889 # Redis is now ready to exit, bye bye...
+
+2016-07-27 23:45:34,889 DEBG fd 11 closed, stopped monitoring <POutputDispatcher at 140231018857248 for <Subprocess at 140231019454264 with name redis-server in state STOPPING> (stdout)>
+2016-07-27 23:45:34,889 INFO stopped: redis-server (exit status 0)
+2016-07-27 23:45:34,890 DEBG received SIGCLD indicating a child quit
+2016-07-27 23:45:34,890 DEBG killing celery (pid 7019) with signal SIGTERM
+2016-07-27 23:45:34,890 DEBG 'celery' stdout output:
+
+worker: Warm shutdown (MainProcess)
+2016-07-27 23:45:34,890 DEBG 'celery' stdout output:
+
+
+2016-07-27 23:45:35,900 DEBG 'celery' stdout output:
+ 
+ -------------- celery@iZ25vn4n5xvZ v3.1.23 (Cipater)
+---- **** ----- 
+--- * ***  * -- Linux-3.13.0-32-generic-x86_64-with-Ubuntu-14.04-trusty
+-- * - **** --- 
+- ** ---------- [config]
+- ** ---------- .> app:         default:0x7f974cd5e6d0 (djcelery.loaders.DjangoLoader)
+- ** ---------- .> transport:   redis://localhost:6379/0
+- ** ---------- .> results:     
+- *** --- * --- .> concurrency: 2 (prefork)
+-- ******* ---- 
+--- ***** ----- [queues]
+ -------------- .> celery           exchange=celery(direct) key=celery
+                
+
+[tasks]
+  . article.tasks.add
+  . article.tasks.instancedelete
+  . article.tasks.instancesave
+  . article.tasks.readersin
+  . article.tasks.readersout
+
+
+2016-07-27 23:45:36,442 DEBG fd 14 closed, stopped monitoring <POutputDispatcher at 140231018860128 for <Subprocess at 140231019454120 with name celery in state STOPPING> (stdout)>
+2016-07-27 23:45:36,442 INFO stopped: celery (exit status 0)
+2016-07-27 23:45:36,442 DEBG received SIGCLD indicating a child quit
+2016-07-27 23:45:36,442 DEBG killing autoreload (pid 2841) with signal SIGTERM
+2016-07-27 23:45:36,445 DEBG fd 8 closed, stopped monitoring <POutputDispatcher at 140231018819736 for <Subprocess at 140231019453904 with name autoreload in state STOPPING> (stdout)>
+2016-07-27 23:45:36,456 INFO stopped: autoreload (terminated by SIGTERM)
+2016-07-27 23:45:36,456 DEBG received SIGCLD indicating a child quit
+2016-07-27 23:46:45,848 CRIT Supervisor running as root (no user in config file)
+2016-07-27 23:46:45,869 INFO RPC interface 'supervisor' initialized
+2016-07-27 23:46:45,869 INFO supervisord started with pid 1169
+2016-07-27 23:46:46,871 INFO spawned: 'celery' with pid 1175
+2016-07-27 23:46:46,873 INFO spawned: 'redis-server' with pid 1176
+2016-07-27 23:46:48,538 INFO success: celery entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-07-27 23:46:48,538 INFO success: redis-server entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
