@@ -428,7 +428,7 @@ height: 100%;
 
 .name a {
 	font-size: 18px;
-	margin-top: 5px;
+
 }
 
 .des {
@@ -443,4 +443,7 @@ height: 100%;
 	-webkit-box-orient: vertical;
 }
 
-
+.investmentname{
+		font-size: 18px;
+		margin-top: 30px;
+}

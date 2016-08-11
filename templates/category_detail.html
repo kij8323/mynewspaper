@@ -127,6 +127,9 @@ $(window).resize(function(){
             {% if item.article.original %}
             <span class="original-mark"  >探访</span>
             {% endif %}
+          {% if item.article.deep %}
+            <span class="deep-mark" >深度</span>
+            {% endif %}
           </div> 
           <div class="col-sm-8 rightwordblock">
           <h3><a href="{{item.article.get_absolute_url}}">{{item.article.title}}</a></h3>
@@ -148,7 +151,7 @@ $(window).resize(function(){
     </div>
 
 
- <button  id="morecomment-btn-block" type="button" class='btn btn-lg btn-default btn-block ' >点击加载更多</button> 
+ <button  id="morecomment-btn-block" type="button" class='btn btn-lg btn-default btn-block btn-success' >点击加载更多</button> 
 
         </div><!-- class="col-sm-8 leftcontainer" -->
       <!-- </div> --><!-- <div class="row">  -->  

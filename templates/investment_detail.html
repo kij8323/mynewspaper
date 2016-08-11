@@ -1,0 +1,157 @@
+{% extends "base_1.html" %}
+{% load time_filter %}
+{% block HeadDoc %}
+<link href="/static/css/investment_detail.css" rel="stylesheet">
+
+
+
+<script>/*收藏topic*/
+$(function() {
+ $("body").on("click", '.articlecollection', function(){
+    $.ajaxSetup({
+    data: {csrfmiddlewaretoken: '{{ csrf_token }}', 
+          investmentid: {{investment.id}},
+          },
+          });
+    $.ajax({
+        url: "{% url 'collectioninvestment' %}",
+        type: "post",
+        success: function(data) {
+          $('.articlecollection').html("<span class='glyphicon"+" "+data.collection_icon+"'></span>"+" "+data.collecicon+' ('+data.collectioncount+')')
+          },
+          error: function(data) { 
+            $.messager.popup("请先登录！");
+            $(".modal.msg-popup .modal-body").css({
+                'color': '#a94442',
+                "background-color":"#f2dede",
+                });
+            },
+        });
+  })
+})
+</script>
+
+
+<script>/*分享topic*/
+$(function() {
+ $("body").on("click", '.firm-share', function(){
+ 		$('#myModal1').modal('toggle')
+  })
+})
+</script>
+
+{% endblock %}
+
+{% block content %}
+
+<!-- Modal1 -->
+<!-- Modal -->
+<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">分享到:</h4>
+      </div>
+      <div class="modal-body">
+	<a href="http://www.jiathis.com/send/?webid=tsina&url=http://{{sharelink}}&title={{article.title}}">
+	<i class="weiboshare">
+	</i>
+	</a>
+
+  <a class="jiathis_button_weixin">
+   <i class="weichatshare">
+  </i>
+  </a>
+
+  	<a href="http://www.jiathis.com/send/?webid=qzone&url=http://{{sharelink}}&title={{article.title}}">
+	<i class="qqzoneshare">
+	</i>
+	</a>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class='container'>
+<div class='background-img'>
+	<div class="main-wrap">
+		<div class="l-sidebar"><img src="{{investment.get_image_url}}"></div>
+		<div class="main">
+			<div class="name-info">
+				<span class="name ">{{ investment.title }}</span>
+				<div class="brief">成立时间：{{ investment.fundtime }}</div>
+				<div class="tags">
+					投资偏好：
+					{% if investment.preference1 %}
+					<span class="i-tag">{{ investment.preference1 }}</span>
+					{%  endif %}
+					{% if investment.preference2 %}
+					<span class="i-tag">{{ investment.preference2 }}</span>
+					{%  endif %}
+					{% if investment.preference3 %}
+					<span class="i-tag">{{ investment.preference3 }}</span>
+					{%  endif %}
+					{% if investment.preference4 %}
+					<span class="i-tag">{{ investment.preference4 }}</span>
+					{%  endif %}
+					{% if investment.preference5 %}
+					<span class="i-tag">{{ investment.preference5 }}</span>
+					{%  endif %}
+				</div>
+				<div class="links">
+					<a href="http://{{investment.weburl}}/" target="_blank" class="website"><span class="glyphicon glyphicon-link"></span>{{ investment.weburl }}</a>	
+				</div>
+
+			</div>
+		</div>
+	</div><!-- <div class="main-wrap"> -->
+
+				<div class='rightside pull-right'>
+					<div class='firm-share'>
+						<span class='glyphicon glyphicon-share' ></span> 分享
+					</div>
+
+					<div class='articlecollection'>
+						<span class='glyphicon {{collection_icon}}'></span> {{collection}}  
+						({{investment.id|Investment_collection}})
+					</div>
+				</div>
+</div><!-- <div class='background-img'> -->
+
+
+
+<div class="ff-container">
+	<h4 class="ff-title">机构简介</h4>
+{{investment.introduce|safe}}
+
+</div>
+
+
+
+{% if investment_article %}
+<div class="ff-container">
+		<h4 class="ff-title">相关资讯</h4>
+		<div class='firm-article'>
+	{% for item in investment_article %}
+	<div class='firm-article-list'>
+	<a class="reportitle" href="{{item.get_absolute_url}}">
+	{{item.title}}
+	</a>
+	<span class="reportime">{{item.timestamp}}</span>
+	</div>
+	{% endfor %}
+	</div>
+</div>
+{% endif %}
+
+
+</div><!-- <div class='container'> -->
+
+
+  <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+{% endblock %}
+

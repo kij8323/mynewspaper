@@ -14,6 +14,7 @@ import sys
 from django.core.cache import cache
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from company.models import Company
+from investment.models import Investment
 # Create your views here.
 ARTICLE_MAINPAGE_TIMERANGE = 15 #首页显示新闻数量
 ARTICLE_MAINPAGE_COVER_TIMERANGE = 15	#首页封面文章的发表时间范围
@@ -31,6 +32,7 @@ def index_search(request):
 		port = 9312
 		indexfirm = 'mysqlfirm'
 		indexarticle = 'mysql'
+		indexinvestment = 'mysqlinvestment'
 		# filtercol = 'group_id'
 		# filtervals = []
 		# sortby = ''
@@ -65,6 +67,18 @@ def index_search(request):
 			for match in res2['matches']:
 				index2.append(match['id']) 
 		test2 = Article.objects.all().filter(id__in = index2).order_by('-id') #获得属于id集合的对象的queryset
+
+		res3 = cl.Query ( q, indexinvestment )
+		if not res3:
+			print 'query failed: %s' % cl.GetLastError()
+			sys.exit(1)
+		if cl.GetLastWarning():
+			print 'WARNING: %s\n' % cl.GetLastWarning()
+		index3 = [] #查询结果的id集合
+		if res3.has_key('matches'):
+			for match in res3['matches']:
+				index3.append(match['id']) 
+		test3 = Investment.objects.all().filter(id__in = index3).order_by('-id') #获得属于id集合的对象的queryset
 		
 		
 		cache.set("search_word", q)
@@ -73,7 +87,7 @@ def index_search(request):
 		page = request.GET.get('page')
 		try:
 			contacts = paginator.page(page)
-			pageshow = int(page)
+			pageshow = int(page)#判断是否显示公司
 			if pageshow == 1 or pageshow == None:
 				firmshow = True
 			else:
@@ -81,11 +95,11 @@ def index_search(request):
 		except PageNotAnInteger:
 		# If page is not an integer, deliver first page.
 			contacts = paginator.page(1)
-			firmshow = True
+			firmshow = True#判断是否显示公司
 		except EmptyPage:
 		# If page is out of range (e.g. 9999), deliver last page of results.
 			contacts = paginator.page(paginator.num_pages)
-			pageshow = int(page)
+			pageshow = int(page)#判断是否显示公司
 			if pageshow == 1 or pageshow == None:
 				firmshow = True
 			else:
@@ -94,6 +108,7 @@ def index_search(request):
 			'articlequery' : contacts,
 			'search_word' : q,
 			'test1' : test1,
+			'test3' : test3,
 			'firmshow' : firmshow,
 		}
 	else:
@@ -101,6 +116,7 @@ def index_search(request):
 			'articlequery' : None,
 		}
 	return render(request, 'index_search.html', context)
+
 
 
 #首页

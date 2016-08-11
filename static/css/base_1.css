@@ -238,3 +238,11 @@ vertical-align:middle
 /*	background-color: #F13F47;*/
 	vertical-align: text-top;
 }
+
+.paginator_current, .paginator{
+	margin-bottom: 10px;
+}
+
+.paginator_first{
+	width: 72px !important;
+}

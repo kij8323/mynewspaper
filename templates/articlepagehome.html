@@ -40,6 +40,9 @@ $(window).resize(function(){
 {% if item.original %}
 <span class="original-mark"  >探访</span>
 {% endif %} 
+{% if item.deep %}
+<span class="deep-mark" >深度</span>
+{% endif %}
          </div> 
           <div class="col-xs-8 rightwordblock">
           <h3><a href="{{item.get_absolute_url}}">{{item.title}}</a></h3>

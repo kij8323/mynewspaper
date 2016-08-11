@@ -12,7 +12,7 @@ from django.dispatch import receiver
 import os
 from django.core.cache import cache
 from company.models import Company
-
+from investment.models import Investment
 # 文章
 class Article(models.Model):
 	id = models.AutoField(primary_key=True, db_index=True)
@@ -42,8 +42,12 @@ class Article(models.Model):
 	readers = models.IntegerField(default=0, db_index=True)
 	#是否为原创
 	original = models.BooleanField(default=False, db_index=True)
+	#深度
+	deep = models.BooleanField(default=False, db_index=True)
 	#公司
 	company = models.ForeignKey(Company, null=True, blank=True)
+	#机构
+	investment = models.ForeignKey(Investment, null=True, blank=True)
 
 	def __unicode__(self):
 		return self.title

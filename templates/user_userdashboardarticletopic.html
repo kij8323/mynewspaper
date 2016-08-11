@@ -156,8 +156,8 @@ $(function() {
       <div class="pagination">
           <span class="step-links">
       {% if topic.has_previous %}
-              <a class='paginator' title='上一页' href='?page={{ topic.previous_page_number }}'><span>&lt;</span></a>
-       {% endif %}
+               <a class='paginator paginator_first' title='上一页' href='?page={{ topic.previous_page_number }}'><span>上一页</span></a>
+{% endif %}
        {% for page in topic.paginator.page_range %}
            {% if page = topic.number %}
                <a class='paginator_current' title='当前页:{{ page }}'><span>{{ page }}</span></a>
@@ -166,8 +166,8 @@ $(function() {
            {% endif %}
        {% endfor %}
        {% if topic.has_next %}
-           <a class='paginator' title='下一页' href='?page={{ topic.next_page_number }}'><span>&gt;</span></a>
-       {% endif %}
+           <a class='paginator paginator_first' title='下一页' href='?page={{ topic.next_page_number }}'><span>下一页</span></a>
+{% endif %}
           </span>
       </div><!-- <div class="pagination"> -->
       </div><!-- <div class='paginationcontain'> -->

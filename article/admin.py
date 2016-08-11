@@ -5,7 +5,7 @@ from django.contrib import admin
 from .models import Article, Category, Relation, Collection
 
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title','timestamp')
+    list_display = ('id', 'title','original','deep','timestamp')
 
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('id', 'title','timestamp')

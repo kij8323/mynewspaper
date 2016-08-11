@@ -109,6 +109,31 @@ $.fn.smartFloat = function() {
 <div class="clearfix"></div>
 {% endif %}
 
+{% if firmshow %}
+{% for item in test3 %}
+ <div class="col-xs-12 newsblock" >
+    <div class="col-xs-2">
+        <div class="firm-img">
+          <a href="{{item.get_absolute_url}}">
+          <img src="{{item.get_image_url}}">
+          </a>
+        </div><!-- <div class="firm-img"> -->
+    </div><!-- <div class="col-xs-2"> -->
+    <div class="col-xs-10">
+        <div class="info">
+          <div class="investmentname">
+            <a href="{{item.get_absolute_url}}">
+            {{item.title|highlight|safe}}
+            </a>
+          </div><!-- <div class="name"> -->
+        </div><!--  <div class="info"> -->
+        </div><!-- <div class="col-xs-10"> -->
+</div><!-- <div class="col-xs-12 newsblock" > -->
+{% endfor %}
+<div class="clearfix"></div>
+{% endif %}
+
+
 {% for item in articlequery %}
 
           <div class="col-sm-12 newsblock" id="{{item.blockid}}">
@@ -132,8 +157,8 @@ $.fn.smartFloat = function() {
       <div class="pagination">
           <span class="step-links">
       {% if articlequery.has_previous %}
-              <a class='paginator' title='上一页' href='?page={{ articlequery.previous_page_number }}'><span>&lt;</span></a>
-       {% endif %}
+        <a class='paginator paginator_first' title='上一页' href='?search_word={{search_word}}&page={{ articlequery.previous_page_number }}'><span>上一页</span></a>       
+{% endif %}
        {% for page in articlequery.paginator.page_range %}
            {% if page = articlequery.number %}
                <a class='paginator_current' title='当前页:{{ page }}'><span>{{ page }}</span></a>
@@ -142,8 +167,8 @@ $.fn.smartFloat = function() {
            {% endif %}
        {% endfor %}
        {% if articlequery.has_next %}
-           <a class='paginator' title='下一页' href='?search_word={{search_word}}&page={{ articlequery.next_page_number }}'><span>&gt;</span></a>
-       {% endif %}
+    <a class='paginator paginator_first' title='下一页' href='?search_word={{search_word}}&page={{ articlequery.next_page_number }}'><span>下一页</span></a>       
+{% endif %}
           </span>
       </div><!-- <div class="pagination"> -->
       </div><!-- <div class='paginationcontain'> -->

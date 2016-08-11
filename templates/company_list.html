@@ -302,17 +302,25 @@ $(function() {
 <div class="pagination">
     <span class="step-links">
 {% if company.has_previous %}
-        <a class='paginator' title='上一页' id = '{{ company.previous_page_number}}' href='javascript:void(0);'><span>&lt;</span></a>
+        <a class='paginator paginator_first' title='上一页' id = '{{ company.previous_page_number}}' href='javascript:void(0);'><span>上一页</span></a>
  {% endif %}
- {% for page in company.paginator.page_range %}
+ {% if ellipsis_front %}
+<a class='paginator' href='?page=1' title='1'><span>1</span></a>
+ <div class='paginator'><span>...</span></div>
+ {% endif %}
+ {% for page in pagerange %}
      {% if page = company.number %}
          <a class='paginator_current' title='当前页:{{ page }}'><span>{{ page }}</span></a>
      {% else %}
          <a class='paginator'  id = '{{ page }}' href='javascript:void(0);' title='{{ page }}'><span>{{ page }}</span></a>
      {% endif %}
  {% endfor %}
+ {% if ellipsis_real %}
+<div class='paginator'><span>...</span></div>
+<a class='paginator' href='?page={{last_page}}' title='{{last_page}}'><span>{{last_page}}</span></a>
+ {% endif %}
  {% if company.has_next %}
-     <a class='paginator' title='下一页' id = '{{ company.next_page_number }}' href='javascript:void(0);'><span>&gt;</span></a>
+     <a class='paginator paginator_first' title='下一页' id = '{{ company.next_page_number }}' href='javascript:void(0);'><span>下一页</span></a>
  {% endif %}
     </span>
 </div><!-- <div class="pagination"> -->

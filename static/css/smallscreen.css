@@ -100,3 +100,8 @@ font-size: 12px !important;
 .info {
 	margin-left: 5px !important;
 }
+
+.table-col .info{
+	padding: 0px !important;
+
+}

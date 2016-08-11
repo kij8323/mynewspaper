@@ -90,6 +90,7 @@ $(function() {
   <ul class="nav nav-pills rightblock">
       <li class="presentationw1" role="presentation"><a href="{% url 'user_detailcollections' userofinfor.id %}">文章</a></li>
       <li class="presentationw3" role="presentation"><a href="{% url 'user_detailcollectionscompany' userofinfor.id %}">公司</a></li>
+      <li class="presentationw4" role="presentation"><a href="{% url 'user_detailcollectionsinvestment' userofinfor.id %}">机构</a></li>
       <li class="presentationw2" role="presentation"><a href="{% url 'user_detailcollectionstopic' userofinfor.id %}">话题</a></li>
 
     </ul>
@@ -128,20 +129,20 @@ $(function() {
       <div class='paginationcontain'>
       <div class="pagination">
           <span class="step-links">
-      {% if company.has_previous %}
-              <a class='paginator' title='上一页' href='?page={{ company.previous_page_number }}'><span>&lt;</span></a>
+              {% if collection.has_previous %}
+              <a class='paginator paginator_first' title='上一页' href='?page={{ collection.previous_page_number }}'><span>上一页</span></a>
        {% endif %}
-       {% for page in company.paginator.page_range %}
-           {% if page = company.number %}
+       {% for page in collection.paginator.page_range %}
+           {% if page = collection.number %}
                <a class='paginator_current' title='当前页:{{ page }}'><span>{{ page }}</span></a>
            {% else %}
                <a class='paginator' href='?page={{ page }}' title='{{ page }}'><span>{{ page }}</span></a>
            {% endif %}
        {% endfor %}
-       {% if company.has_next %}
-           <a class='paginator' title='下一页' href='?page={{ company.next_page_number }}'><span>&gt;</span></a>
-       {% endif %}
-          </span>
+       {% if collection.has_next %}
+           <a class='paginator paginator_first' title='下一页' href='?page={{ collection.next_page_number }}'><span>下一页</span></a>
+       {% endif %}  
+	</span>
       </div><!-- <div class="pagination"> -->
       </div><!-- <div class='paginationcontain'> -->
       </div><!-- <div class="dashboard"> -->

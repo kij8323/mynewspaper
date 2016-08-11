@@ -186,6 +186,9 @@ $('.carousel').carousel({
           {% if item.original %}
           <span class="original-mark"  >探访</span>
           {% endif %}
+{% if item.deep %}
+<span class="deep-mark" >深度</span>
+{% endif %}
           </div> 
           <div class="col-xs-8 rightwordblock">
           <h3><a href="{{item.get_absolute_url}}">{{item.title}}</a></h3>
@@ -204,7 +207,7 @@ $('.carousel').carousel({
 <div id="morecomment">
 </div>
 
- <button  id="morecomment-btn-block" type="button" class='btn btn-lg btn-default btn-block ' >点击加载更多</button> 
+ <button  id="morecomment-btn-block" type="button" class='btn btn-lg btn-default btn-block btn-success' >点击加载更多</button> 
 
 
         </div><!-- class="col-sm-8 leftcontainer" -->
@@ -235,7 +238,7 @@ $('.carousel').carousel({
 
 
 <div class='hotnewsblock'>
-         <div class='head'>一周资讯排行</div>
+         <div class='head'>近期资讯排行</div>
 
     <table class="table table-hover hotnews">
       <tbody>
@@ -282,27 +285,6 @@ $('.carousel').carousel({
 </div>
 
  
-
-
-<div class='hotopicblock'>
-         <div class='head'>热门话题</div>
-    <table class="table table-hover hotopic">
-      <tbody>
-{% for item in topicquery %}
-        <tr>
-          <td><a href="{{item.get_absolute_url}}">{{item.title}}<span>{{item.id|Topic_comment}}条回复</span></a></td>
-        </tr>
-{% endfor %}
-      </tbody>
-    </table>
-</div>
-
-<div class='advertisment hidden-xs'>
-  <a href="http://www.189.cn/hd/lxj/?cmpid=jt-banner-163-am-lxj">
-<img src="/static/media/images/dianxinguanggao.gif" >
-</a>
-</div>
-
 <div class='nicecommentblock'>
 <div class='head'>精彩点评</div>
     <table class="table table-hover nicecomment">
@@ -319,6 +301,29 @@ $('.carousel').carousel({
       </tbody>
     </table>
 </div>
+
+
+
+<div class='advertisment hidden-xs'>
+  <a href="http://www.189.cn/hd/lxj/?cmpid=jt-banner-163-am-lxj">
+<img src="/static/media/images/dianxinguanggao.gif" >
+</a>
+</div>
+
+
+<div class='hotopicblock'>
+         <div class='head'>热门话题</div>
+    <table class="table table-hover hotopic">
+      <tbody>
+{% for item in topicquery %}
+        <tr>
+          <td><a href="{{item.get_absolute_url}}">{{item.title}}<span>{{item.id|Topic_comment}}条回复</span></a></td>
+        </tr>
+{% endfor %}
+      </tbody>
+    </table>
+</div>
+
 
 <!--<div class='weixingongzhong'>
 <img src="static/media/images/qrcode_for_gh_2b7424ebf230_258.jpg" >

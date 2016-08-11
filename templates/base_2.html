@@ -152,8 +152,9 @@ $(document).ready(function(){
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="categorybutton subcate hidden-xs"><a href="#">资讯<span class="caret"></span></a></li>
+            <li class="categorybutton subcate hidden-xs"><a href="javascript:;">资讯<span class="caret"></span></a></li>
             <li class="subcate hidden-xs"><a href="{% url 'company_list' %}">项目板</a></li>
+            <li class="subcate hidden-xs"><a href="{% url 'investment_list_index' %}">投资机构</a></li>
             <li class="subcate hidden-xs"><a href="{% url 'group_all' %}">话题</a></li>
           </ul>
 <div id='index_search'>
@@ -201,6 +202,8 @@ $(document).ready(function(){
       <a href="{% url 'category_detail' 12 %}">智能交通</a>
       <a href="{% url 'category_detail' 10 %}">机器人</a>
       <a href="{% url 'category_detail' 11 %}">市场新闻</a>
+        <a href="{% url 'category_detail' 13 %}">实地探访</a>
+
       </span>
       </div>
     </div>

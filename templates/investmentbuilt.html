@@ -1,0 +1,295 @@
+{% extends "base_1.html" %}
+{% load time_filter %}
+{% block HeadDoc %}
+{% load staticfiles %}
+<link href="/static/css/company_built3.css" rel="stylesheet">
+<script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+<script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+
+
+<script>/*验证输入图片*/
+$(document).ready(function(){
+  $("div#iconform form").submit(function(e){
+    var input = $("#iconinput").val()
+    if (input == "")
+    {
+      $('#erroricon').css("margin-bottom","-34.718px");
+    $('#erroricon').fadeIn("slow").fadeOut(3000);
+    return false;
+    }
+    else
+    {
+    /*alert("ok");*/
+    return true;
+    }
+  });
+});
+</script>
+
+
+
+
+
+{% endblock %}
+ {% block content %}
+
+<!-- Modal1 -->
+
+
+
+
+ <div class="container">
+  <div class='head'>
+  </div>
+
+  <div class='form-content'>
+
+
+
+<form enctype="multipart/form-data" class="creat-form"  action="" method="post">
+    {% csrf_token %}
+
+
+
+
+
+  <div class="ff-form-title">
+    <span class='span-mark-author'>
+    创投介绍
+    </span>
+  </div>
+
+
+  <div class='input-row'>
+  
+  <div class="sidebar">
+  <label style='color:red'>公司名称</label>
+  </div>
+  <div class='content'>
+    <div class="text-input">
+        <input class="form-control" id='investment_title' name="investment_title"  type="text">
+       </div>
+  </div>
+  </div>  
+
+  <div class='input-row'>
+  <div class="sidebar">
+  <label style='color:red'>公司网址</label>
+  </div>
+  <div class='content'>
+    <div class="text-input">
+        <input class="form-control" id='investment_weburl' name="investment_weburl"  type="text">
+       </div>
+  </div>
+  </div>  
+ 
+   <div class='input-row'>
+   <div class="sidebar">
+  <label style='color:red'>成立时间</label>
+  </div>
+  <div class='content'>
+    <div class="text-input">
+        <input class="form-control" id='investment_fundtime' name="investment_fundtime"  type="text"  value="——">
+       </div>
+  </div>
+  </div>  
+
+
+   <div class='input-row'>
+   <div class="sidebar">
+  <label style='color:red'>投资案例</label>
+  </div>
+  <div class='content'>
+    <div class="text-input">
+        <input class="form-control" id='investment_investindex' name="investment_investindex"  type="text">
+       </div>
+  </div>
+  </div>  
+
+
+    <div class='input-row'>
+  <div class="sidebar">
+  <label style='color:red'>简介</label>
+  </div>
+  <div class='content'>
+    <div class="text-input">
+    <textarea   rows="8" cols="40" maxlength="200" minlength="5" id='investment_introduce' name="investment_introduce"  type="text"></textarea>
+    <script>
+        // Replace the <textarea id="editor1"> with a CKEditor
+        // instance, using default configuration.
+       company_product = CKEDITOR.replace( 'investment_introduce' , {
+        language: 'zh-cn',
+        toolbar: [[ ]],
+        width: '457px',
+    });
+    </script>
+       </div>
+  </div>
+  </div>  
+
+  <div class='input-row'>
+    <div class="sidebar">
+  <label style='color:red'>投资偏好1</label>
+  </div>
+  <div class='content'>
+    <div class="text-input">
+        <input class="form-control" id='investment_preference1' name="investment_preference1"  type="text" value="——">
+       </div>
+  </div>
+  </div>
+
+  <div class='input-row'>
+    <div class="sidebar">
+  <label>投资偏好2</label>
+  </div>
+  <div class='content'>
+    <div class="text-input">
+        <input class="form-control" id='investment_preference2' name="investment_preference2"  type="text">
+       </div>
+  </div>
+  </div>
+
+  <div class='input-row'>
+    <div class="sidebar">
+  <label>投资偏好3</label>
+  </div>
+  <div class='content'>
+    <div class="text-input">
+        <input class="form-control" id='investment_preference3' name="investment_preference3"  type="text">
+       </div>
+  </div>
+  </div>
+
+  <div class='input-row'>
+    <div class="sidebar">
+  <label>投资偏好4</label>
+  </div>
+  <div class='content'>
+    <div class="text-input">
+        <input class="form-control" id='investment_preference4' name="investment_preference4"  type="text">
+       </div>
+  </div>
+  </div>
+
+  <div class='input-row'>
+    <div class="sidebar">
+  <label>投资偏好5</label>
+  </div>
+  <div class='content'>
+    <div class="text-input">
+        <input class="form-control" id='investment_preference5' name="investment_preference5"  type="text">
+       </div>
+  </div>
+  </div>
+
+  <div class='input-row'>
+    <div class="sidebar">
+  <label style='color:red'>投资领域1</label>
+  </div>
+  <div class='content'>
+    <div class="text-input">
+        <input class="form-control" id='investment_investfiled1' name="investment_investfiled1"  type="text" value="——">
+       </div>
+  </div>
+  </div>  
+
+  <div class='input-row'>
+    <div class="sidebar">
+  <label>投资领域2</label>
+  </div>
+  <div class='content'>
+    <div class="text-input">
+        <input class="form-control" id='investment_investfiled2' name="investment_investfiled2"  type="text">
+       </div>
+  </div>
+  </div>  
+
+  <div class='input-row'>
+    <div class="sidebar">
+  <label>投资领域3</label>
+  </div>
+  <div class='content'>
+    <div class="text-input">
+        <input class="form-control" id='investment_investfiled3' name="investment_investfiled3"  type="text">
+       </div>
+  </div>
+  </div>  
+
+  <div class='input-row'>
+    <div class="sidebar">
+  <label>投资领域4</label>
+  </div>
+  <div class='content'>
+    <div class="text-input">
+        <input class="form-control" id='investment_investfiled4' name="investment_investfiled4"  type="text">
+       </div>
+  </div>
+  </div>  
+
+  <div class='input-row'>
+    <div class="sidebar">
+  <label>投资领域5</label>
+  </div>
+  <div class='content'>
+    <div class="text-input">
+        <input class="form-control" id='investment_investfiled5' name="investment_investfiled5"  type="text">
+       </div>
+  </div>
+  </div>  
+
+  <div class='input-row'>
+    <div class="sidebar">
+  <label>投资领域6</label>
+  </div>
+  <div class='content'>
+    <div class="text-input">
+        <input class="form-control" id='investment_investfiled6' name="investment_investfiled6"  type="text">
+       </div>
+  </div>
+  </div>  
+
+
+
+  <div class='input-row'>
+    <div class="sidebar">
+  <label>投资领域7</label>
+  </div>
+  <div class='content'>
+    <div class="text-input">
+        <input class="form-control" id='investment_investfiled7' name="investment_investfiled7"  type="text">
+       </div>
+  </div>
+  </div>  
+
+  <div class='input-row'>
+    <div class="sidebar">
+  <label>投资领域8</label>
+  </div>
+  <div class='content'>
+    <div class="text-input">
+        <input class="form-control" id='investment_investfiled8' name="investment_investfiled8"  type="text">
+       </div>
+  </div>
+  </div>  
+
+  <div class='input-row'>
+    <div class="sidebar">
+  <label>投资领域9</label>
+  </div>
+  <div class='content'>
+    <div class="text-input">
+        <input class="form-control" id='investment_investfiled9' name="investment_investfiled9"  type="text">
+       </div>
+  </div>
+  </div>  
+
+<a id='iconinputcover' href="#" onclick="document.getElementById('iconinput').click(); return false;" /><h5>浏览本地图片...</h5></a>
+<input id='iconinput' type="file" name="img"  accept="image/*" style="visibility: hidden;"/>
+
+<button type="submit" class="btn btn-default btn-success">完成</button>
+</form>
+  </div>
+
+</div>
+
+ {% endblock %}

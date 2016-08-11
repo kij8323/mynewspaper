@@ -34,6 +34,22 @@ def company_detail(request, company_id):
 	else:
 		collection = '收藏'
 		collection_icon = 'glyphicon-star-empty'
+	if company.get_image1_url() == '/static/media/images/companylogo.png' and company.get_image2_url() == '/static/media/images/companylogo.png' and company.get_image3_url() == '/static/media/images/companylogo.png':
+		firmimageshow = False
+	else:
+		firmimageshow = True
+	if company.get_image1_url() == '/static/media/images/companylogo.png':
+		firmimageshow1 = False
+	else:
+		firmimageshow1 = True
+	if company.get_image2_url() == '/static/media/images/companylogo.png':
+		firmimageshow2 = False
+	else:
+		firmimageshow2 = True
+	if company.get_image3_url() == '/static/media/images/companylogo.png':
+		firmimageshow3 = False
+	else:
+		firmimageshow3 = True
 	context = {
 		'company' : company,
 		'firm_article' : firm_article,
@@ -41,6 +57,10 @@ def company_detail(request, company_id):
 		'collection': collection,
 		"collection_icon": collection_icon,
 		'sharelink': sharelink,
+		'firmimageshow': firmimageshow, 
+		'firmimageshow1': firmimageshow1, 
+		'firmimageshow2': firmimageshow2, 
+		'firmimageshow3': firmimageshow3, 
 	}
 	return render(request, 'company_detail.html', context)
 
@@ -57,8 +77,33 @@ def company_list(request):
 	except EmptyPage:
 	# If page is out of range (e.g. 9999), deliver last page of results.
 		contacts = paginator.page(paginator.num_pages)
+##############################################################################
+	pagerange = contacts.paginator.page_range
+	last_page = contacts.paginator.page_range[-1]
+	print last_page
+	if contacts.paginator.page_range[-1] > 8 and contacts.number<=5:
+		pagerange = range(1,8) 
+		ellipsis_front = False
+		ellipsis_real = True
+	elif contacts.paginator.page_range[-1] > 8 and contacts.number+4>contacts.paginator.page_range[-1] and contacts.number>5:
+		pagerange = range(contacts.paginator.page_range[-1]-6, contacts.paginator.page_range[-1]+1)
+		ellipsis_front = True
+		ellipsis_real = False
+	elif contacts.paginator.page_range[-1] > 8 and contacts.number+4<=contacts.paginator.page_range[-1] and contacts.number>5:
+		pagerange = range(contacts.number-3, contacts.number+4)
+		ellipsis_front = True
+		ellipsis_real = True
+	else:
+		ellipsis_front = False
+		ellipsis_real = False
+##############################################################################
+
 	context = {
 		'company' : contacts,
+		'pagerange': pagerange,
+		'ellipsis_front': ellipsis_front,
+		'ellipsis_real': ellipsis_real,
+		'last_page': last_page,
 	}
 	return render(request, 'company_list.html', context)
 
@@ -102,8 +147,33 @@ def company_content_fresh(request):
 	except EmptyPage:
 	# If page is out of range (e.g. 9999), deliver last page of results.
 		contacts = paginator.page(paginator.num_pages)
+##############################################################################
+	pagerange = contacts.paginator.page_range
+	last_page = contacts.paginator.page_range[-1]
+	print last_page
+	if contacts.paginator.page_range[-1] > 8 and contacts.number<=5:
+		pagerange = range(1,8) 
+		ellipsis_front = False
+		ellipsis_real = True
+	elif contacts.paginator.page_range[-1] > 8 and contacts.number+4>contacts.paginator.page_range[-1] and contacts.number>5:
+		pagerange = range(contacts.paginator.page_range[-1]-6, contacts.paginator.page_range[-1]+1)
+		ellipsis_front = True
+		ellipsis_real = False
+	elif contacts.paginator.page_range[-1] > 8 and contacts.number+4<=contacts.paginator.page_range[-1] and contacts.number>5:
+		pagerange = range(contacts.number-3, contacts.number+4)
+		ellipsis_front = True
+		ellipsis_real = True
+	else:
+		ellipsis_front = False
+		ellipsis_real = False
+##############################################################################
+
 	context = {
 		"company": contacts,
+		'pagerange': pagerange,
+		'ellipsis_front': ellipsis_front,
+		'ellipsis_real': ellipsis_real,
+		'last_page': last_page,
 	}
 	return render(request, 'company_content_fresh.html',  context)
 
@@ -294,7 +364,6 @@ def collectioncompany(request):
 		if cache.get(cachekey) != None:
 			cache.decr(cachekey)
 		else:
-			company = Company.objects.get(id=value)
 			cache.set(cachekey,  company.collectioncompany_set.count(), 1209600)
 	else:
 		c = CollectionCompany(user=user, company=company)
@@ -304,7 +373,6 @@ def collectioncompany(request):
 		if cache.get(cachekey) != None:
 			cache.incr(cachekey)
 		else:
-			company = Company.objects.get(id=value)
 			cache.set(cachekey,  company.collectioncompany_set.count(), 1209600)
 	data = {
 	 'collecicon': collecicon,

@@ -27,6 +27,7 @@ from article.tasks import readersin, add, readersout, instancedelete, instancesa
 import os
 from django.core.cache import cache
 from django.conf import settings
+from investment.models import Investment, CollectionInvestment
 #登录页面
 def loggin(request):
 	form = LoginForm(request.GET or None)
@@ -381,6 +382,39 @@ def userdashboardcollectionscompany(request, user_id):
 		raise Http404("MyUser does not exist")
 	return render(request, 'user_userdashboardcollectionscompany.html',  context)
 
+#我的收藏-机构
+def userdashboardcollectionsinvestment(request, user_id):	
+	try:
+		user = MyUser.objects.get(pk=user_id)
+		sender = request.user
+		if user == sender:
+			host = True
+			hostname = '我的'
+		else:
+			host = False
+			hostname = '他的'
+		collection = CollectionInvestment.objects.filter(user = user).order_by('-id')
+		# 分页
+		paginator = Paginator(collection, 10)
+		page = request.GET.get('page')
+		try:
+			contacts = paginator.page(page)
+		except PageNotAnInteger:
+		# If page is not an integer, deliver first page.
+			contacts = paginator.page(1)
+		except EmptyPage:
+		# If page is out of range (e.g. 9999), deliver last page of results.
+			contacts = paginator.page(paginator.num_pages)
+		context = {
+			'collection' : contacts,
+			'host': host,
+			'userofinfor': user,
+			'hostname': hostname,
+			}
+	except MyUser.DoesNotExist:
+		raise Http404("MyUser does not exist")
+	return render(request, 'user_userdashboardcollectionsinvestment.html',  context)
+
 
 #我的评论-点评
 def userdashboard_commentocomment(request, user_id):	
@@ -525,6 +559,7 @@ def deleteinfo(request):
 			'CollectionTopic': CollectionTopic,
 			'Topic': Topic,
 			'CollectionCompany': CollectionCompany,
+			'CollectionInvestment': CollectionInvestment,
 		}
 		instanceid = request.POST.get('instanceid')
 		instancetype = request.POST.get('instancetype')

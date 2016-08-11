@@ -40,6 +40,7 @@ urlpatterns = [
     url(r'^user/deleteinfo/$', 'accounts.views.deleteinfo', name='deleteinfo'),#删除个人收藏、评论。。。。。
     url(r'^user/(?P<user_id>[0-9]+)/company/$', 'accounts.views.userdashboardcompany', name='user_userdashboardcompany'),#个人公司
     url(r'^user/(?P<user_id>[0-9]+)/collectionscompany/$', 'accounts.views.userdashboardcollectionscompany', name='user_detailcollectionscompany'),
+    url(r'^user/(?P<user_id>[0-9]+)/collectionsinvestment/$', 'accounts.views.userdashboardcollectionsinvestment', name='user_detailcollectionsinvestment'),#个人收藏话题
 
     url(r'^group/index/$', 'topic.views.group_index', name='group_index'),#不用
     url(r'^group/all/$', 'topic.views.group_all', name='group_all'),#话题组首页
@@ -80,4 +81,9 @@ urlpatterns = [
     url(r'^topic/collectioncompany/$', 'company.views.collectioncompany', name='collectioncompany'),#收藏公司
 
 
+   url(r'^investment/list/id/$', 'investment.views.investment_list_id', name='investment_list_id'),#公司页
+    url(r'^investment/list/index/$', 'investment.views.investment_list_index', name='investment_list_index'),#公司页
+    url(r'^investment/(?P<investment_id>[0-9]+)/$', 'investment.views.investment_detail', name='investment_detail'),#公司页
+    url(r'^topic/collectioninvestment/$', 'investment.views.collectioninvestment', name='collectioninvestment'),#收藏公司
+    url(r'^investment/built/$', 'investment.views.investmentbuilt', name='investmentbuilt'),#收藏公司
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

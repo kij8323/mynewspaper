@@ -14,6 +14,7 @@ from topic.models import Topic, Group
 from comment.models import Comment, CommentLike, CommentDisLike
 from notifications.models import Notification
 from company.models import Company
+from investment.models import Investment
 COMMENT_PERPAGE_COUNT = 5 #topic页面每页显示多少个评论
 #楼层计算器,topic评论的楼层计算
 @register.filter
@@ -142,6 +143,17 @@ def Company_collection(value):
     else:
         company = Company.objects.get(id=value)
         cache.set(cachekey,  company.collectioncompany_set.count(), 1209600)
+        return cache.get(cachekey)
+
+#缓存机构被收藏次数
+@register.filter
+def Investment_collection(value): 
+    cachekey = "investment_collection_" + str(value)
+    if cache.get(cachekey) != None:
+        return cache.get(cachekey)
+    else:
+        investment = Investment.objects.get(id=value)
+        cache.set(cachekey,  investment.collectioninvestment_set.count(), 1209600)
         return cache.get(cachekey)
 
 #缓存话题组话题数量

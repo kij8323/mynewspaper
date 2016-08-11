@@ -221,18 +221,25 @@ $(function() {
 
 </div> --><!-- <div class="ff-imgshow row"> -->
 
+{% if firmimageshow %}
 <div class="gallery cf row">
+{% if firmimageshow1 %}
   <div class="col-sm-4">
     <img src="{{company.get_image1_url}}" />
   </div>
+ {% endif %}
+ {% if firmimageshow2 %}
   <div class="col-sm-4">
     <img src="{{company.get_image2_url}}" />
   </div>
+   {% endif %}
+   {% if firmimageshow3 %}
   <div class="col-sm-4">
     <img src="{{company.get_image3_url}}" />
   </div>
+  {% endif %}
 </div>
-
+{% endif %}
 
 
 {% if company.team %}

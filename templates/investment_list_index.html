@@ -1,0 +1,167 @@
+{% extends "base_1.html" %}
+{% block HeadDoc %}
+<link href="/static/css/investment_list_index.css" rel="stylesheet">
+<script src="/static/js/topic_detail.js"></script>
+{% endblock %}
+
+{% block content %}
+<div class='container'>
+	<div class='content-search '>
+
+		<div class="ff-form-title">
+		    <span class='span-mark-author'>
+		    机构信息
+		    </span>
+		</div>
+
+
+		<dl class='industry-search comp-filter'>
+<!-- 			<div class = 'industry-active'>
+				<dt>
+					排序：
+					<a href="javascript:void(0);"  class="active">默认</a>
+				</dt>
+			</div> -->
+			<dd>
+				<ul class="list-inline">
+					<div class = 'industry-active'>
+						排序：
+					<li>
+						<a href= "{% url 'investment_list_index' %}" class="active" >最活跃投资机构</a>
+					</li>
+					<li>
+						<a href="{% url 'investment_list_id' %}">最新收录</a>
+					</li>
+					</div>
+				</ul>
+			</dd>
+		</dl>
+
+
+</div>	<!-- <div class='content-search '> -->
+
+<div class='content-list'>
+
+	<div class='row'> 
+		<div class="ff-form-title">
+		    <span class='span-mark-author'>
+		    机构列表
+		    </span>
+		</div>
+
+		<div class="table-head hidden-xs  col-xs-12">
+			<div class="table-head-ad col-xs-3">
+				投资机构
+			</div>
+			<div class="table-head-ad col-xs-3">
+				成立时间
+			</div>
+			<div class="table-head-ad col-xs-3">
+				投资案例
+			</div>
+			<div class="table-head-ad col-xs-3">
+				投资偏好
+			</div>
+<!-- 			<div class="table-head-ad col-xs-2">
+				关注
+			</div> -->
+		</div>
+
+
+
+
+		<div id='content-ajax'>
+		{% for item in investment %}
+		{% if forloop.last %}
+		<style type="text/css">
+/*		.table-content{
+			border-bottom: 1px solid #ddd;
+		}*/
+		</style>
+		{% endif %}
+		<div class="table-content col-xs-12">
+			<div class="table-col table-content-ad col-xs-3">
+				<div class="firm-img">
+					<a href="{{item.get_absolute_url}}">
+					<img src="{{item.get_image_url}}">
+					</a>
+				</div>
+				<div class="info">
+					<div class="name">
+						<a href="{{item.get_absolute_url}}">
+						{{item.title}}
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="table-col-ad col-xs-3">
+				<div class='chuizhicenter1'>
+				<div class='chuizhicenter'>
+				{{item.fundtime}}
+				</div>
+				</div>
+			</div>
+			<div class="table-col-ad col-xs-3">
+				<div class='chuizhicenter1'>
+				<div class='chuizhicenter'>
+				{{item.investindex}}
+				</div>
+				</div>
+			</div>
+			<div class="table-col-ad col-xs-3">
+				<div class='chuizhicenter1'>
+				<div class='chuizhicenter'>
+				<div>{{item.preference1}}</div>
+				{% if item.preference2 %}
+				<div>{{item.preference2}}</div>
+				{% endif %}
+				{% if item.preference3 %}
+				<div>{{item.preference3}}</div>
+				{% endif %}
+				{% if item.preference4 %}
+				<div>{{item.preference4}}</div>
+				{% endif %}
+				{% if item.preference5 %}
+				<div>{{item.preference5}}</div>
+				{% endif %}
+				</div>
+				</div>
+			</div>
+			<!-- <div class="table-col-ad col-xs-3">{{item.title}}</div> -->
+		</div>
+		{% endfor %}
+<!--  </div>  --><!-- <div class="group-list-block"> -->
+
+<div class='paginationcontain'>
+<div class="pagination">
+    <span class="step-links">
+{% if investment.has_previous %}
+         <a class='paginator paginator_first' title='上一页' href='?page={{ investment.previous_page_number }}'><span>上一页</span></a>
+{% endif %}
+  {% if ellipsis_front %}
+<a class='paginator' href='?page=1' title='1'><span>1</span></a>
+ <div class='paginator'><span>...</span></div>
+ {% endif %}
+ {% for page in pagerange %}
+     {% if page = investment.number %}
+         <a class='paginator_current' title='当前页:{{ page }}'><span>{{ page }}</span></a>
+     {% else %}
+         <a class='paginator'   href='?page={{ page }}' title='{{ page }}'><span>{{ page }}</span></a>
+     {% endif %}
+ {% endfor %}
+  {% if ellipsis_real %}
+<div class='paginator'><span>...</span></div>
+<a class='paginator' href='?page={{last_page}}' title='{{last_page}}'><span>{{last_page}}</span></a>
+ {% endif %} 
+{% if investment.has_next %}
+     <a class='paginator paginator_first' title='下一页' href='?page={{ investment.next_page_number }}'><span>下一页</span></a>
+{% endif %}
+    </span>
+</div><!-- <div class="pagination"> -->
+</div><!-- <div id='content-ajax'> -->
+
+	</div><!-- <div class="table-head hidden-xs"> -->
+ </div><!-- <div class='content-list'> -->
+</div>
+{% endblock %}
+

@@ -326,10 +326,6 @@ bottom:20px
 
 #morecomment-btn-block{
 	width: 100%;
-	color: #bbb;
-	border: 1px solid #f0f0f0;
-	outline:none;
-	margin-bottom: 50px;
 }
 
 .btn-block {
@@ -378,3 +374,18 @@ z-index: 11;
 background-color:#5cb85c;
 }
 
+
+
+.deep-mark{
+position: absolute;
+top: 0.5rem;
+left: 0.4rem;
+display: block;
+padding: 0.1rem 0.5rem;
+color: #fff;
+font-size: 1.3rem;
+text-align: center;
+border-radius: 0.2rem;
+z-index: 11;
+background-color:#7174F7;
+}

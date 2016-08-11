@@ -1,0 +1,153 @@
+{% extends "base_1.html" %}
+{% load time_filter %}
+{% block HeadDoc %}
+<link href="/static/css/user_userdashboardcollectionsinvestment.css" rel="stylesheet">
+<script src="/static/js/topic_detail.js"></script>
+<link href="/static/css/userinfopub.css" rel="stylesheet">
+<script src="/static/js/userinfopub.js"></script>
+<script>/*删除信息*/
+$(function() {
+ $("body").on("click", '.icon-delete', function(){
+  instanceid = $(this).parent().parent().attr("id");
+  $.cookie("instanceid", instanceid);  
+  $('#myModal1').modal('show')
+  })
+})
+</script>
+<script>/*确认删除*/
+$(function() {
+ $("body").on("click", '.confirmdelete', function(){
+  instanceid = $.cookie('instanceid')
+    $.ajaxSetup({
+    data: {csrfmiddlewaretoken: '{{ csrf_token }}', 
+          instancetype: 'CollectionInvestment',
+          instanceid: instanceid,
+          },
+          });
+    $.ajax({
+        url: "{% url 'deleteinfo' %}",
+        type: "post",
+        dataType: 'json',
+        success: function(data) {
+          $('#'+instanceid).remove();
+          $.removeCookie('instanceid');
+          },
+          error: function(data) { 
+          $.removeCookie('instanceid');
+              $.messager.popup("发生错误请重新操作");
+              $(".modal.msg-popup .modal-body").css({
+                  'color': '#a94442',
+                  "background-color":"#f2dede",
+                  });
+               },
+          });
+  })
+})
+</script>
+
+{% endblock %}
+
+
+ {% block content %}
+
+  <!-- Modal1 -->
+<div class="modal" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">删除确认</h4>
+      </div>
+      <div class="modal-body">
+        <h5>你确认要删除吗</h5>
+        <button type="button" class="btn btn-default btn-success myModalbtn confirmdelete" data-dismiss="modal">确定</button>
+        <button type="button" class="btn btn-default myModalbtn" data-dismiss="modal">取消</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+ <div class="container">
+<div class="container-user">
+
+  <div class="col-xs-2">
+  <ul class="nav nav-pills nav-stacked leftblock">
+     <li class="presentation1" role="presentation"><a href="{% url 'user_detailinformations' userofinfor.id%}"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>{{hostname}}主页</a></li>
+      <li class="presentation5" role="presentation"><a href="{% url 'user_userdashboardcompany' userofinfor.id%}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>{{hostname}}文章</a></li>
+      <li class="presentation2" role="presentation"><a href="{% url 'user_detailcomments' userofinfor.id%}"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span>{{hostname}}评论</a></li>
+      <li class="presentation6" role="presentation"><a href="{% url 'user_userdashboardcompany' userofinfor.id%}"><span class="glyphicon glyphicon-piggy-bank" aria-hidden="true"></span>{{hostname}}公司</a></li>
+       {% if host %}
+      <li class="presentation3" role="presentation"><a href="{% url 'user_detailnotifications' userofinfor.id%}"><span class="glyphicon glyphicon-inbox" aria-hidden="true"></span>{{hostname}}消息  <span class="badge">{{ user.id|user_unread_count }}</span></a></li>
+      
+      <li class="presentation4" role="presentation"><a href="{% url 'user_detailcollections' userofinfor.id%}"><span class="glyphicon glyphicon-paperclip" aria-hidden="true"></span>{{hostname}}收藏</a></li>
+
+
+
+      {% endif %}
+    </ul>
+</div><!-- class="col-md-2" -->
+  <div class="col-xs-10">
+  <ul class="nav nav-pills rightblock">
+      <li class="presentationw1" role="presentation"><a href="{% url 'user_detailcollections' userofinfor.id %}">文章</a></li>
+      <li class="presentationw3" role="presentation"><a href="{% url 'user_detailcollectionscompany' userofinfor.id %}">公司</a></li>
+      <li class="presentationw4" role="presentation"><a href="{% url 'user_detailcollectionsinvestment' userofinfor.id %}">机构</a></li>
+      <li class="presentationw2" role="presentation"><a href="{% url 'user_detailcollectionstopic' userofinfor.id %}">话题</a></li>
+
+    </ul>
+
+
+    <div class="dashboard col-xs-12">
+      {% for item in collection %}
+       <div class = 'commentlist col-xs-12' id='{{ item.id }}'>
+
+        <div class = 'col-sm-2'>
+          <a href="{{item.investment.get_absolute_url}}">
+        <img src="{{ item.investment.get_image_url}}">
+        </a>
+        </div>
+        <div class='investmenttitle'>
+        <a href="{{item.investment.get_absolute_url}}">
+              {{ item.investment.title }}
+        </a>
+        </div>
+
+
+      <div class = 'commentinfo'>
+
+{% if host %}
+<i class="icon-delete pull-right"></i>
+{% endif %}
+
+      </div>
+
+       </div><!-- <div class = 'commentlist'> -->
+      {% endfor %}
+
+      <div class='paginationcontain'>
+      <div class="pagination">
+          <span class="step-links">
+              {% if collection.has_previous %}
+              <a class='paginator paginator_first' title='上一页' href='?page={{ collection.previous_page_number }}'><span>上一页</span></a>
+       {% endif %}
+       {% for page in collection.paginator.page_range %}
+           {% if page = collection.number %}
+               <a class='paginator_current' title='当前页:{{ page }}'><span>{{ page }}</span></a>
+           {% else %}
+               <a class='paginator' href='?page={{ page }}' title='{{ page }}'><span>{{ page }}</span></a>
+           {% endif %}
+       {% endfor %}
+       {% if collection.has_next %}
+           <a class='paginator paginator_first' title='下一页' href='?page={{ collection.next_page_number }}'><span>下一页</span></a>
+       {% endif %}  
+	</span>
+      </div><!-- <div class="pagination"> -->
+      </div><!-- <div class='paginationcontain'> -->
+      </div><!-- <div class="dashboard"> -->
+
+</div><!-- class="col-md-10" -->
+
+</div><!-- class="container-user" -->
+</div><!-- class="container" -->
+ {% endblock %}
+ 
+

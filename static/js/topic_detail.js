@@ -33,12 +33,6 @@ $(document).ready(function(){
       $(this).css("background-color","#CCF4D9");
       $(this).children("a").css("color","#449d44");
   });
- $("#morecomment-btn-block").mouseenter(function(){
-      $(this).css("background-color","#f0f0f0");
-  });
-  $("#morecomment-btn-block").mouseleave(function(){
-      $(this).css("background-color","white");
-  });
  $(".replyleftframe").mouseenter(function(){
       $(this).css("background-color","#3ca5f6");
       $(this).css("color","white");
