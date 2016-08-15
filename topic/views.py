@@ -44,7 +44,7 @@ def moretopic(request):
 	if request.is_ajax():
 		request.session['grouplen'] = request.POST.get('grouplen')
 		grouplen = int(request.session['grouplen'])
-		topic = Topic.objects.all()
+		topic = Topic.objects.all().filter(timestamp__gte=datetime.date.today() - timedelta(days=GROUP_ALL_GROUP_TIMERANGE)).order_by("-readers")
 	if topic.count() == grouplen:
 		loadcompleted = '已全部加载完成'
 	else:
