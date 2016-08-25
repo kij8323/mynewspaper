@@ -1,0 +1,18 @@
+from django.contrib import admin
+
+# Register your models here.
+from .models import Products, Application
+
+class ProductsAdmin(admin.ModelAdmin):
+	list_display = ('id', 'title', 'amount', 'status', 'timestamp')
+	class Meta:
+		model = Products
+
+class ApplicationAdmin(admin.ModelAdmin):
+	list_display = ('id', 'user', 'products')
+	class Meta:
+		model = Application
+
+admin.site.register(Products, ProductsAdmin)
+
+admin.site.register(Application, ApplicationAdmin)

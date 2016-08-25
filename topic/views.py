@@ -239,7 +239,7 @@ def topicomment(request):
 				cache.incr(cachekey)
 			else:
 				cache.set(cachekey, topic.comment_set.count(), settings.CACHE_EXPIRETIME)
-			userlist = atwho(text = text, sender = user, targetcomment = None
+			userlist = atwho(text = text, sender = user, targetcomment = None, targetproducts = None
 							, targetarticle = None, targetopic = topic)
 			for item in userlist:
 				atwhouser = MyUser.objects.get(username = item)
@@ -290,7 +290,7 @@ def topcommentcomment(request):
 				cache.set(cachekey, topic.comment_set.count(), settings.CACHE_EXPIRETIME)
 			targetcomment.readers = targetcomment.readers + 1
 			targetcomment.save()
-			userlist = atwho(text = text, sender = user, targetcomment = targetcomment
+			userlist = atwho(text = text, sender = user, targetcomment = targetcomment, targetproducts = None
 							, targetarticle = None, targetopic = topic)
 			for item in userlist:
 				atwhouser = MyUser.objects.get(username = item)

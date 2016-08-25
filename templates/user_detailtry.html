@@ -1,0 +1,198 @@
+{% extends "base_1.html" %}
+{% load time_filter %}
+{% block HeadDoc %}
+<link href="/static/css/user_detailtry.css" rel="stylesheet">
+<link href="/static/css/userinfopub.css" rel="stylesheet">
+<script src="/static/js/userinfopub.js"></script>
+<script>/*验证输入图片*/
+$(document).ready(function(){
+  $("div#iconform form").submit(function(e){
+    var input = $("#iconinput").val()
+    if (input == "")
+    {
+      $('#erroricon').css("margin-bottom","-34.718px");
+    $('#erroricon').fadeIn("slow").fadeOut(3000);
+    return false;
+    }
+    else
+    {
+    /*alert("ok");*/
+    return true;
+    }
+  });
+});
+</script>
+
+
+<script>/*验证email地址*/
+$(document).ready(function(){
+  $("div#emailform form").submit(function(e){
+    var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    var input = $("#id_email").val()
+    if (input == "")
+    {
+    $('#erroriconemail').css("margin-bottom","-34.718px");
+    $('#erroriconemail').fadeIn("slow").fadeOut(3000);   
+    return false;
+    }
+    if (filter.test(input))
+    {
+      return true;
+    }
+    else
+    {
+      $('#erroriconwrongemail').css("margin-bottom","-34.718px");
+    $('#erroriconwrongemail').fadeIn("slow").fadeOut(3000);
+    return false;
+    }
+  });
+});
+</script>
+
+<script>/*验证密码*/
+$(document).ready(function(){
+  $("div#passwordform form").submit(function(e){
+    var input = $("#passwordinput").val()
+    var reinput = $("#repasswordinput").val()
+    if (input == "")
+    {
+      $('#erroriconpassword').css("margin-bottom","-34.718px");
+    $('#erroriconpassword').fadeIn("slow").fadeOut(3000);
+    return false;
+    }
+    if (reinput == "")
+    {
+      $('#erroriconrepassword').css("margin-bottom","-34.718px");
+    $('#erroriconrepassword').fadeIn("slow").fadeOut(3000);
+    return false;
+    }
+    if (reinput !== input)
+    {
+      $('#erroriconwrongpassword').css("margin-bottom","-34.718px");
+    $('#erroriconwrongpassword').fadeIn("slow").fadeOut(3000);
+    return false;
+    }
+    if (input.length<5)
+    {
+      $('#erroriconpassword6').css("margin-bottom","-34.718px");
+    $('#erroriconpassword6').fadeIn("slow").fadeOut(3000);
+    return false;
+    }
+    else
+    {
+    return true;
+    }
+  });
+});
+</script>
+
+<script>/*验证输入图片*/
+
+$(document).ready(function(){
+  $("div#privcycommentform form").submit(function(e){
+    var input = $("#privcycomment").val()
+    if (input == "")
+    {
+      $('#erroriconprivcycomment').css("margin-bottom","-34.718px");
+    $('#erroriconprivcycomment').fadeIn("slow").fadeOut(3000);
+    return false;
+    }
+    else
+    {
+    return true;
+    }
+  });
+});
+</script>
+
+{% endblock %}
+
+ {% block content %}
+
+
+ <div class="container">
+<div class="container-user">
+
+
+	<div class="col-xs-2 hidden-xs">
+	<ul class="nav nav-pills nav-stacked leftblock">
+     <li class="presentation1" role="presentation"><a href="{% url 'user_detailinformations' userofinfor.id%}"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>{{hostname}}主页</a></li>
+      <li class="presentation5" role="presentation"><a href="{% url 'user_userdashboardarticle' userofinfor.id%}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>{{hostname}}文章</a></li>
+      <li class="presentation2" role="presentation"><a href="{% url 'user_detailcomments' userofinfor.id%}"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span>{{hostname}}评论</a></li>
+        <li class="presentation6" role="presentation"><a href="{% url 'user_userdashboardcompany' userofinfor.id%}"><span class="glyphicon glyphicon-piggy-bank" aria-hidden="true"></span>{{hostname}}公司</a></li>
+      
+       {% if host %}
+      <li class="presentation3" role="presentation"><a href="{% url 'user_detailnotifications' userofinfor.id%}"><span class="glyphicon glyphicon-inbox" aria-hidden="true"></span>{{hostname}}消息  <span class="badge">{{ user.id|user_unread_count }}</span></a></li>
+      
+      <li class="presentation4" role="presentation"><a href="{% url 'user_detailcollections' userofinfor.id%}"><span class="glyphicon glyphicon-paperclip" aria-hidden="true"></span>{{hostname}}收藏</a></li>
+
+      <li class="presentation7" role="presentation"><a href="{% url 'user_detailtry' userofinfor.id%}"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>{{hostname}}试用</a></li>
+
+      {% endif %}
+    </ul>
+</div><!-- class="col-md-2" -->
+	<div class="col-xs-10">
+	<ul class="nav nav-pills rightblock hidden-xs">
+      <li class="presentationw1" role="presentation"><a href="#">试用产品</a></li>
+      <li class="presentationw2" role="presentation"><a href="#"></a></li>
+      <li class="presentationw3" role="presentation"><a href="#"></a></li>
+    </ul>
+
+    <div class="dashboard col-xs-12">
+      {% for item in application %}
+       <div class = 'commentlist col-xs-12'>
+
+        <div class = 'col-sm-3'>
+          <a href="{{item.products.get_absolute_url}}">
+        <img src="{{ item.products.get_image_url}}">
+        </a>
+          {% if item.products.status = 1 %}
+          <span class="mark apply-mark">申请中</span>
+          {% endif %}
+          {% if item.products.status = 2 %}
+          <span class="mark experience-mark">体验中</span>
+          {% endif %}
+          {% if item.products.status = 3 %}
+          <span class="mark end-mark">已结束</span>
+          {% endif %}
+        </div>
+
+        <a href="{{item.products.get_absolute_url}}">
+              {{ item.products.title }}
+        </a>
+
+        <p>市场价：{{item.products.price}}</p>
+        <p>数量：{{item.products.amount}}</p>
+
+
+       </div><!-- <div class = 'commentlist'> -->
+      {% endfor %}
+
+      <div class='paginationcontain'>
+      <div class="pagination">
+          <span class="step-links">
+      {% if application.has_previous %}
+              <a class='paginator paginator_first' title='上一页' href='?page={{ application.previous_page_number }}'><span>&lt;</span></a>
+       {% endif %}
+       {% for page in application.paginator.page_range %}
+           {% if page = application.number %}
+               <a class='paginator_current' title='当前页:{{ page }}'><span>{{ page }}</span></a>
+           {% else %}
+               <a class='paginator' href='?page={{ page }}' title='{{ page }}'><span>{{ page }}</span></a>
+           {% endif %}
+       {% endfor %}
+       {% if application.has_next %}
+           <a class='paginator paginator_first' title='下一页' href='?page={{ application.next_page_number }}'><span>&gt;</span></a>
+       {% endif %}
+          </span>
+      </div><!-- <div class="pagination"> -->
+      </div><!-- <div class='paginationcontain'> -->
+      </div><!-- <div class="dashboard"> -->
+
+</div><!-- class="col-md-10" -->
+
+</div><!-- class="container-user" -->
+</div><!-- class="container" -->
+ {% endblock %}
+ 
+

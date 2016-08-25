@@ -1,0 +1,300 @@
+{% extends "base_3.html" %}
+{% load time_filter %}
+{% load staticfiles %}
+{% block HeadDoc %}
+<link href="/static/css/products_apply.css" rel="stylesheet">
+<script src="/static/js/topic_detail.js"></script>
+<script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+<script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+
+
+<script>/*倒计时*/
+$(function(){ 
+    $('.timer').each(function(){
+      var SysSecond; 
+      var InterValObj; 
+      var a = $(this).children(".products-time").text()
+      var node = $(this)
+      SysSecond = parseInt(a); 
+    /*  alert('x')*/
+     //将时间减去1秒，计算天、时、分、秒 
+     function SetRemainTime() { 
+      if (SysSecond > 0) { 
+       SysSecond = SysSecond - 1; 
+       var second = Math.floor(SysSecond % 60);             // 计算秒     
+       var minite = Math.floor((SysSecond / 60) % 60);      //计算分 
+       var hour = Math.floor((SysSecond / 3600) % 24);      //计算小时 
+       var day = Math.floor((SysSecond / 3600) / 24);        //计算天 
+     
+       node.html('<span class="glyphicon glyphicon-time" aria-hidden="true"></span> 距离申请结束：'+"<i>"+day +"</i>"+ "天" + "<i>"+ hour + "</i>"+"小时" + "<i>"+ minite + "</i>"+"分" + "<i>"+second +"</i>"+ "秒"); 
+      } else {//剩余时间小于或等于0的时候，就停止间隔函数 
+       window.clearInterval(InterValObj); 
+       //这里可以添加倒计时时间为0后需要执行的事件 
+      } 
+     } 
+
+     InterValObj = window.setInterval(SetRemainTime, 1000);
+    });
+}); 
+</script>
+
+<script>
+$.fn.imgsizeFunction = function() { 
+  width = $(this).css('width');
+  x = (parseFloat(width)*0.68)
+  return  $(this).css('height',x+'px');
+}
+</script>
+
+<script>
+$(function(){ 
+  $('.products-pic img').imgsizeFunction();
+  $('.hotry-img img').imgsizeFunction();
+}); 
+</script>
+
+<script>
+$(window).resize(function(){
+  $('.products-pic img').imgsizeFunction();
+  $('.hotry-img img').imgsizeFunction();
+});
+</script>
+
+
+
+
+
+
+<script>/*输入联系方式莫太框*/
+$(function() {
+ $("body").on("click", '#applybutton', function(){
+      $('#myModal1').modal('toggle')
+  })
+})
+</script>
+
+<script>
+$(document).ready(function(){
+  $("div#connectionform form").submit(function(e){
+    var input1 = $("#phonenumberinput").val()
+    var input2 = $("#addressinput").val()
+    if (input1 == "")
+    {
+      $('#errorphonenumber').css("margin-bottom","-34.718px");
+      $('#errorphonenumber').fadeIn("slow").fadeOut(3000);
+    return false;
+    }
+    if (input2 == "")
+    {
+      $('#erroraddress').css("margin-bottom","-34.718px");
+      $('#erroraddress').fadeIn("slow").fadeOut(3000);
+    return false;
+    }
+    else
+    {
+    return true;
+    }
+  });
+});
+</script>
+
+{% endblock %}
+
+
+
+ {% block content %}
+ <!-- Modal1 -->
+<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <!-- <span id="errorphonenumber" style="text-align: center;">请输入手机号</span> -->
+        <!-- <span id="erroraddress" style="text-align: center;">请输入试用产品收货地址</span> -->
+        <h4 class="modal-title" id="myModalLabel">请填写/确认联系方式<span id="errorphonenumber" style="text-align: center;">请输入手机号</span> <span id="erroraddress" style="text-align: center;">请输入试用产品收货地址</span></h4>
+      </div>
+      <div class="modal-body">
+
+<div id='connectionform'>
+<form  action="" method="post" >
+  {% csrf_token %}
+  <!-- <label for="passwordinput">新密码</label> -->
+  {% if user.phonenumber %}
+    <input  id='phonenumberinput' class="form-control" type="tel" name="phonenumberinput" placeholder="常用手机号" value="{{user.phonenumber}}" />
+  {% else %}
+      <input  id='phonenumberinput' class="form-control" type="tel" name="phonenumberinput" placeholder="常用手机号"  />
+  {% endif %}
+
+  {% if user.address %}
+      <input id='addressinput'  class="form-control " type="text" name="addressinput" placeholder="试用产品收货地址" value="{{user.address}}"/>
+  {% else %}
+      <input id='addressinput'  class="form-control " type="text" name="addressinput" placeholder="试用产品收货地址" />
+  {% endif %}
+<button type="submit" class="btn btn-default btn-success">确定</button>
+<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+</form>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class='map'>
+            <a href="{% url 'productsall' %}">
+              梧桐试用
+            </a>
+             &gt;
+              {{products.title}}
+          </div>
+      	<div class="try-info col-sm-12">
+      		<div class="products-pic col-sm-6">
+      			<img src="{{products.get_image_url}}">
+      		</div>
+      		<div class="products-info col-sm-6">
+      			<div class="try-title">
+      			<h4>{{products.title}}</h4>
+      			</div>
+      			<div class="try-amount-price-apply col-sm-12">
+	      			<div class="try-amount-price col-sm-6">
+	      				<p>市场价&nbsp;&nbsp;<span>{{products.price}}</span></p>
+	      				<p>数&nbsp;&nbsp;&nbsp;量&nbsp;&nbsp;<span>{{products.amount}}</span></p>
+	      			</div>
+	      			<div class="apply-amount col-sm-6">
+	      				<h4><span>{{products.id|products_applyamount_count}}</span> 人已申请</h4>
+	      			</div>
+      			</div>
+		          <div class="timer col-sm-12">
+		            <div class="products-time">
+		              {{ products.ret_timesince_sec}}
+		            </div>          
+		          </div>
+		          <div class="apply-bottom  col-sm-12">
+                {% if products.status = 1 %}
+                      {% if user.is_authenticated %}
+                        {% if applybutton %}
+                            <button type="button" class="btn btn-success btn-lg" >已申请</button>
+                        {% else %}
+                            <button type="button" class="btn btn-success btn-lg" id='applybutton'>立即申请</button>
+                        {% endif %}
+                      {% else %}
+                      <button type="button" class="btn btn-success btn-lg" onclick="window.location.href='{% url 'register' %}'" >立即申请</button>
+                      {% endif %}
+                {% elif products.status = 2 %}
+                          <button type="button" class="btn btn-warning btn-lg" >体验中</button>
+                {% elif products.status = 3 %}
+                          <button type="button" class="btn btn-danger btn-lg" >已结束</button>
+                {% endif %}
+		          </div>
+
+		          <div class="try-share  col-sm-12">
+						<a href="http://www.jiathis.com/send/?webid=tsina&url=http://{{sharelink}}&title={{article.title}}">
+						<i class="weiboshare">
+						</i>
+						</a>
+						  <a class="jiathis_button_weixin">
+						   <i class="weichatshare">
+						  </i>
+						  </a>
+					  	<a href="http://www.jiathis.com/send/?webid=qzone&url=http://{{sharelink}}&title={{article.title}}">
+						<i class="qqzoneshare">
+						</i>
+						</a>
+		          </div>
+
+      		</div><!-- <div class="products-pic col-sm-6"> -->
+      	</div><!-- <div class="try-info col-sm-12">
+ -->
+			<div class='products-detail col-sm-9'>
+				<div class="menu">
+				  <ul class="nav nav-pills rightblock">
+              <li class="presentationw1" role="presentation"><a href="{% url 'products_detail' products.id %}">商品详情</a></li>
+              <li class="presentationw2" role="presentation"><a href="{% url 'productsapply' products.id %}">申请名单</a></li>
+				    </ul>
+	             </div>
+               {% if products.status = 2 or  products.status = 3 %}
+              <div class="products-apply-info">
+                <div class="proposer">
+                  <h4>申请成功者 ( {{products.amount}} ) </h4>
+                  <ul class="applicationlist">
+                  {% for item in applicationlistsucss %}
+                    <li>
+                      <div>
+                        <a href="{{item.user.get_absolute_url}}">
+                          <img  class="img-circle commentusericon" src='{{item.user.get_image_url}}'>
+                        </a>
+                      </div>
+                      <p>{{item.user.username}}</p>
+                    </li>
+                  {% endfor %}
+                  <div style="clear:both;"></div>
+                </ul>
+                </div><!-- <div class="proposer"> -->
+        </div><!-- <div class="products-apply-info"> -->
+        {% endif %}
+
+	            <div class="products-apply-info">
+                <div class="proposer">
+                  <h4>申请者 ( {{products.id|products_applyamount_count}} ) </h4>
+                  <ul class="applicationlist">
+        					{% for item in applicationlist%}
+                    <li>
+                      <div>
+                        <a href="{{item.user.get_absolute_url}}">
+                          <img  class="img-circle commentusericon" src='{{item.user.get_image_url}}'>
+                        </a>
+                      </div>
+                      <p>{{item.user.username}}</p>
+                    </li>
+                  {% endfor %}
+                  <div style="clear:both;"></div>
+                </ul>
+                </div><!-- <div class="proposer"> -->
+                
+				</div><!-- <div class="products-apply-info"> -->
+			</div><!-- <div class='products-detail col-sm-9'> -->
+
+			<div class="col-sm-3">
+        <div class="hot-try-company">
+          <div class="hot-try-title">提供方</div>
+        <div class="hotry-list col-xs-12">
+          <div class="hotry-company-img col-xs-5">
+            <img src="{{products.company.get_image_url}}">
+          </div>
+          <div class="hotry-company-info col-xs-7">
+            <a href="{{products.company.get_absolute_url}}" class="hotry-title">{{products.company.title}}</a>
+            <p>{{products.company.associatetitle}}</p>
+          </div>
+        </div>
+         <div style="clear:both;"></div>
+        </div>
+
+        <div class="hot-try">
+          <div class="hot-try-title">热门试用</div>
+        {% for item in hotry %}
+        <div class="hotry-list col-xs-12">
+          <div class="hotry-img col-xs-5">
+            <img src="{{item.get_image_url}}">
+          </div>
+          <div class="hotry-info col-xs-7">
+            <a href="{{item.get_absolute_url}}" class="hotry-title">{{item.title}}</a>
+            <div class="hotry-amount">数量：{{item.amount}}</div>
+          </div>
+        </div>
+        {% endfor %}
+        <div style="clear:both;"></div>
+        </div>
+			</div>
+
+
+
+
+        </div><!-- <div class="col-sm-12"> -->
+      </div><!-- row -->
+    </div> <!-- /container -->
+
+      <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+{% endblock %}

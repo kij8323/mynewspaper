@@ -3,6 +3,7 @@ from django.db import models
 from accounts.models import MyUser
 from article.models import Article
 from topic.models import Topic
+from products.models import Products
 from ckeditor.fields import RichTextField
 from django.forms import ModelForm
 # Create your models here.
@@ -15,6 +16,11 @@ class Comment(models.Model):
 	#评论的视频
 	article = models.ForeignKey(Article, null=True, blank=True, db_index=True)
 	topic = models.ForeignKey(Topic, null=True, blank=True, db_index=True)
+
+	#评论的产品试用
+	products = models.ForeignKey(Products, null=True, blank=True, db_index=True)
+
+
 	#评论内容
 	text = RichTextField(max_length=5000, null=True, blank=True)
 	#评论发表时间

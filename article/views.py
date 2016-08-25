@@ -158,7 +158,7 @@ def articlecomment(request):
 				cache.set(cachekey, article.comment_set.count(), settings.CACHE_EXPIRETIME)
 			#返回@用户的列表，并向@的用户发送消息
 			userlist = atwho(text = text, sender = user
-							, targetcomment = None, targetarticle = article
+							, targetcomment = None, targetarticle = article, targetproducts = None
 							, targetopic = None)
 			#给被@的用户增加链接
 			for item in userlist:
@@ -208,7 +208,7 @@ def commentcomment(request):
 			#被评论的评论readers+1放到消息队列中
 			readersin.delay(targetcomment)
 			#返回@用户的列表，并向@的用户发送消息
-			userlist = atwho(text = text, sender = user, targetcomment = targetcomment
+			userlist = atwho(text = text, sender = user, targetcomment = targetcomment, targetproducts = None
 							, targetarticle = article, targetopic = None )
 			#给被@的用户增加链接
 			for item in userlist:

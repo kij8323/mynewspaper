@@ -42,6 +42,8 @@ urlpatterns = [
     url(r'^user/(?P<user_id>[0-9]+)/collectionscompany/$', 'accounts.views.userdashboardcollectionscompany', name='user_detailcollectionscompany'),
     url(r'^user/(?P<user_id>[0-9]+)/collectionsinvestment/$', 'accounts.views.userdashboardcollectionsinvestment', name='user_detailcollectionsinvestment'),#个人收藏话题
 
+   url(r'^user/(?P<user_id>[0-9]+)/try/$', 'accounts.views.userdashboardtry', name='user_detailtry'),#个人试用
+
     url(r'^group/index/$', 'topic.views.group_index', name='group_index'),#不用
     url(r'^group/all/$', 'topic.views.group_all', name='group_all'),#话题组首页
     url(r'^group/(?P<group_id>[0-9]+)/$', 'topic.views.group_detail', name='group_detail'),#话题组页
@@ -86,4 +88,12 @@ urlpatterns = [
     url(r'^investment/(?P<investment_id>[0-9]+)/$', 'investment.views.investment_detail', name='investment_detail'),#公司页
     url(r'^topic/collectioninvestment/$', 'investment.views.collectioninvestment', name='collectioninvestment'),#收藏公司
     url(r'^investment/built/$', 'investment.views.investmentbuilt', name='investmentbuilt'),#收藏公司
+
+   url(r'^products/all/$', 'products.views.productsall', name='productsall'),#试用首页
+    url(r'^products/(?P<products_id>[0-9]+)/$', 'products.views.products_detail', name='products_detail'),#试用页
+    url(r'^productscomment/$', 'products.views.productscomment', name='productscomment'),#试用评论
+    url(r'^products/productscommentcomment/$', 'products.views.productscommentcomment', name='productscommentcomment'),#发表话题评论的评论
+    url(r'^products/morecomment/$', 'products.views.productsmorecomment', name='productsmorecomment'),#文章页显示更多评论按钮
+    url(r'^products/commentpage/(?P<products_id>[0-9]+)/$', 'products.views.productscommentpage', name='productscommentpage'),#文章页加载更多评论页面
+   url(r'^products/apply/(?P<products_id>[0-9]+)/$', 'products.views.productsapply', name='productsapply'),#文章页加载更多评论页面
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

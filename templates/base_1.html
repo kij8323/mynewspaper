@@ -130,6 +130,17 @@ $(document).ready(function(){
 });
 </script>
 
+<!-- 订阅 -->
+<script type="text/javascript">
+$(document).ready(function(){
+  $(".guanzhu").mouseenter(function(){
+      $(".guanzhu").popover('show');
+  });
+  $(".guanzhu").mouseleave(function(){
+      $(".guanzhu").popover('hide');
+  });  
+    });
+</script>
 
 
   {% block HeadDoc %}
@@ -171,6 +182,7 @@ $(document).ready(function(){
       </form>
 </div>
           <ul class="nav navbar-nav navbar-right">
+          <li class="subcate hidden-xs guanzhu" data-toggle="popover" data-placement="bottom" data-html="true" data-content='<img src="/static/media/images/qrcode_for_gh_5dadb4ff2030_430.jpg" width="129px"> <div>扫码订阅微信公众平台</div>'><a href="javascript:;">订阅</a></li>
         {% if user.is_authenticated %}
 	<li class="subcate visible-xs-block"><a href="{% url 'userlogout' %}">退出</a></li>
         <li class='userinfobutton hidden-xs'><a  href="{{user.get_absolute_url}}"><span><img  class="img-circle baseusericon" src='{{user.get_image_url}}'></span>{{user.username}}</a><span class="dropdown-toggle" data-toggle="dropdown"></span>  <ul class="dropdown-menu hidden-xs" aria-labelledby="dLabel">
@@ -180,6 +192,7 @@ $(document).ready(function(){
                 <li><a href="{% url 'user_detailcomments' user.id %}">我的评论</a></li>
                 <li><a href="{% url 'user_userdashboardcompany' user.id %}">我的公司</a></li>
                 <li><a href="{% url 'company_built1'  %}">创建公司</a></li>
+                <li><a href="{% url 'user_detailtry' user.id %}">我的试用</a></li>
                 <li><a href="{% url 'userlogout' %}">退出</a></li>
   </ul></li>
 

@@ -292,9 +292,9 @@ $('.carousel').carousel({
 {% for item in nicecomment %}
         <tr>
           {% if item.article %}
-          <td><a href="{{item.article.get_absolute_url}}">{{item.user}} 评 {{item.article.title}}<br></a>{{item.text|safe}}</td>
+          <td><a href="{{item.article.get_absolute_url}}">{{item.user}} 评 {{item.article.title}}<br></a>{{item.text|wordtwoline|safe}}</td>
           {% else %}
-          <td> <a href="{{item.topic.get_absolute_url}}">{{item.user}} 评 {{item.topic.title}}<br></a>{{item.text|safe}}</td>
+          <td> <a href="{{item.topic.get_absolute_url}}">{{item.user}} 评 {{item.topic.title}}<br></a>{{item.text|wordtwoline|safe}}</td>
           {% endif %}
         </tr>
 {% endfor %}

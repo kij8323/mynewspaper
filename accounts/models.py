@@ -75,6 +75,8 @@ class MyUser(AbstractBaseUser):
 	fakepassword = models.CharField(max_length=255,null=True, blank=True)
 	USERNAME_FIELD = 'username'
 	REQUIRED_FIELDS = ['email']
+	phonenumber = models.CharField(max_length=200, null=True, blank=True)
+	address = models.CharField(max_length=200, null=True, blank=True)
 
 
 	def __unicode__(self):

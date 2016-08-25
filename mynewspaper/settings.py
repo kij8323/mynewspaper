@@ -56,6 +56,7 @@ INSTALLED_APPS = (
     'djsupervisor',
     'company',
     'investment',
+    'products',
 )
 
 

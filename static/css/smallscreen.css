@@ -116,4 +116,17 @@ font-size: 12px !important;
 
 }
 
+.apply-amount h4{
+	float: none !important;
+	font-size: 14px;
+	line-height: 1.42857143;
+}
+
+.apply-amount{
+	border-left: 0px !important;
+}
+
+.hot-try, .hot-try-company{
+	margin-left: -15px;
+}
 

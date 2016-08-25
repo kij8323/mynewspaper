@@ -28,6 +28,9 @@ import os
 from django.core.cache import cache
 from django.conf import settings
 from investment.models import Investment, CollectionInvestment
+
+
+from products.models import Products, Application
 #登录页面
 def loggin(request):
 	form = LoginForm(request.GET or None)
@@ -83,10 +86,12 @@ def register(request):
 		user = authenticate(username=username, password=password)
 		if user:
 			login(request, user)
+			if request.session.get('lastpage', False):
+				return redirect(request.session['lastpage'])
+			else:
+				return redirect(reverse('home'))
 		else:
 			return redirect(reverse('register'))
-		#return render(request,'base_1.html')
-		return redirect(reverse('home'))
 	context = {
 		"form": form,
 		"action_url": action_url,
@@ -547,6 +552,40 @@ def userdashboardarticletopic(request, user_id):
 	except MyUser.DoesNotExist:
 		raise Http404("MyUser does not exist")
 	return render(request, 'user_userdashboardarticletopic.html',  context)
+
+#我的试用
+def userdashboardtry(request, user_id):
+	try:
+		user = MyUser.objects.get(pk=user_id)
+		sender = request.user
+		if user == sender:
+			host = True
+			hostname = '我的'
+		else:
+			host = False
+			hostname = '他的'
+		application = Application.objects.filter(user = user).order_by("-id")
+		# 分页
+		paginator = Paginator(application, 10)
+		page = request.GET.get('page')
+		try:
+			contacts = paginator.page(page)
+		except PageNotAnInteger:
+		# If page is not an integer, deliver first page.
+			contacts = paginator.page(1)
+		except EmptyPage:
+		# If page is out of range (e.g. 9999), deliver last page of results.
+			contacts = paginator.page(paginator.num_pages)
+		context = {
+			'application' : contacts,
+			'host': host,
+			'userofinfor': user,
+			'hostname': hostname,
+			}
+	except MyUser.DoesNotExist:
+		raise Http404("MyUser does not exist")
+	return render(request, 'user_detailtry.html',  context)
+
 
 
 #ajax删除我的的评论，我的收藏....

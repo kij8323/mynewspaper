@@ -5,4 +5,4 @@ from django.dispatch import Signal
 
 #注册消息
 notify = Signal(providing_args=['target_object', 'verb', 'text'
-								, 'target_article', 'target_topic'])
+								, 'target_article', 'target_topic', 'target_products'])

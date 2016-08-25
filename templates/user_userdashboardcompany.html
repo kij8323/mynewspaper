@@ -22,7 +22,7 @@
       <li class="presentation3" role="presentation"><a href="{% url 'user_detailnotifications' userofinfor.id%}"><span class="glyphicon glyphicon-inbox" aria-hidden="true"></span>{{hostname}}消息  <span class="badge">{{ user.id|user_unread_count }}</span></a></li>
       
       <li class="presentation4" role="presentation"><a href="{% url 'user_detailcollections' userofinfor.id%}"><span class="glyphicon glyphicon-paperclip" aria-hidden="true"></span>{{hostname}}收藏</a></li>
-
+        <li class="presentation7" role="presentation"><a href="{% url 'user_detailtry' userofinfor.id%}"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>{{hostname}}试用</a></li>
 
       {% endif %}
     </ul>

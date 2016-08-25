@@ -15,6 +15,7 @@ from comment.models import Comment, CommentLike, CommentDisLike
 from notifications.models import Notification
 from company.models import Company
 from investment.models import Investment
+from products.models import Products, Application
 COMMENT_PERPAGE_COUNT = 5 #topic页面每页显示多少个评论
 #楼层计算器,topic评论的楼层计算
 @register.filter
@@ -213,6 +214,18 @@ def user_unread_count(value):
         cache.set(cachekey,  unread)
         return cache.get(cachekey)
 
+#缓存试用申请人数
+@register.filter
+def products_applyamount_count(value): 
+    products = Products.objects.get(id = value)
+    cachekey = "products_applyamount_" + str(products.id)
+    if cache.get(cachekey) != None:
+        return cache.get(cachekey)
+    else:
+        applyamount =  Application.objects.filter(products=products).count()
+        cache.set(cachekey,  applyamount)
+        return cache.get(cachekey)
+
 #给被@的用户加上链接
 @register.filter
 def AtWhoUser(value): 
@@ -280,3 +293,13 @@ def highlight(value):
         test = '<font color=red>'+item+'</font>'
         value = value.lower().replace(item, test);
     return value
+
+
+#不能显示超过50个字符
+@register.filter
+def wordtwoline(value): 
+    if len(value) > 50:
+        return value[0:50]+'...'
+    else:
+        return value
+
