@@ -102,8 +102,11 @@ $(function() {
         {% if item.article %}
         Re文章：<a href="{{item.article.get_absolute_url}}">{{item.article.title}}
         </a>
-        {% else %}
+        {% elif  item.topic %}
         Re话题：<a href="{{item.topic.get_absolute_url}}">{{item.topic.title}}
+        </a>
+        {% else %}
+        Re试用：<a href="{{item.products.get_absolute_url}}">{{item.products.title}}
         </a>
         {% endif %}
       </span>

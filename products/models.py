@@ -10,7 +10,7 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 from ckeditor.fields import RichTextField
 from django.utils import timezone
-
+from ckeditor_uploader.fields import RichTextUploadingField
 
 
 
@@ -19,9 +19,9 @@ class Products(models.Model):
 	#产品名称
 	title = models.CharField(max_length=120)
 	#产品介绍
-	introduction = RichTextField(max_length=20000,null=True)
+	introduction = RichTextUploadingField(max_length=20000, null=True, blank=True) 
 	#产品价格
-	price = models.IntegerField(default=0)
+	price = models.CharField(max_length=100, null=True, blank=True)
 	#产品数量
 	amount = models.IntegerField(default=0)
 	#是否审核通过
@@ -63,3 +63,9 @@ class Application(models.Model):
 	products = models.ForeignKey(Products)
 	#是否中奖
 	verify = models.BooleanField(default=False, db_index=True)
+
+	def get_userphone(self):
+	    return self.user.phonenumber
+
+	def get_useraddr(self):
+	    return self.user.address

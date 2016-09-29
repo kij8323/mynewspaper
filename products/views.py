@@ -71,13 +71,16 @@ def products_detail(request, products_id):
 		user.phonenumber = request.POST.get('phonenumberinput')
 		user.address = request.POST.get('addressinput')
 		user.save()
-		news_App = Application(user=user, products=products)
-		news_App.save()
-		cachekey = "products_applyamount_" + str(products_id)
-		if cache.get(cachekey) != None:
-			cache.incr(cachekey)
-		else:
-			cache.set(cachekey, Application.objects.filter(products=products).count(), settings.CACHE_EXPIRETIME)
+		try:
+			application = Application.objects.get(user=user.id, products=products)
+		except Application.DoesNotExist:
+			news_App = Application(user=user, products=products)
+			news_App.save()
+			cachekey = "products_applyamount_" + str(products_id)
+			if cache.get(cachekey) != None:
+				cache.incr(cachekey)
+			else:
+				cache.set(cachekey, Application.objects.filter(products=products).count(), settings.CACHE_EXPIRETIME)
 		return redirect(reverse("products_detail", kwargs={"products_id": products_id}))
 	else:
 		try:
@@ -115,6 +118,21 @@ def products_detail(request, products_id):
 		}
 		return render(request, 'products_detail.html',  context)
 
+
+def productsaddress(request, products_id):
+	try:
+		products = Products.objects.get(pk=products_id)
+	except products.DoesNotExist:
+		raise Http404("Products does not exist")
+	application = Application.objects.filter(products=products)
+	user = request.user
+	context = {
+		"application":application,
+	}
+	return render(request, 'productsaddress.html',  context)
+
+
+
 def productsapply(request, products_id):
 	try:
 		products = Products.objects.get(pk=products_id)
@@ -125,13 +143,16 @@ def productsapply(request, products_id):
 		user.phonenumber = request.POST.get('phonenumberinput')
 		user.address = request.POST.get('addressinput')
 		user.save()
-		news_App = Application(user=user, products=products)
-		news_App.save()
-		cachekey = "products_applyamount_" + str(products_id)
-		if cache.get(cachekey) != None:
-			cache.incr(cachekey)
-		else:
-			cache.set(cachekey, Application.objects.filter(products=products).count(), settings.CACHE_EXPIRETIME)
+		try:
+			application = Application.objects.get(user=user.id, products=products)
+		except Application.DoesNotExist:
+			news_App = Application(user=user, products=products)
+			news_App.save()
+			cachekey = "products_applyamount_" + str(products_id)
+			if cache.get(cachekey) != None:
+				cache.incr(cachekey)
+			else:
+				cache.set(cachekey, Application.objects.filter(products=products).count(), settings.CACHE_EXPIRETIME)
 		return redirect(reverse("products_detail", kwargs={"products_id": products_id}))
 	else:
 		try:
@@ -219,6 +240,8 @@ def productscommentcomment(request):
 		#comment = Comment.objects.filter(products=products)
 		targetcomment = Comment.objects.get(pk=preentid)
 		user = request.user
+		receiver = targetcomment.user.username
+		text="@"+receiver+" "+text
 		try:
 			c = Comment(user=user, products=products, text=text, parent=targetcomment)
 			c.save()

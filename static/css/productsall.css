@@ -2,6 +2,12 @@ body{
 	background-color: #f0f4fb;
 }
 
+.try-introduce-first{
+	background-color:  white;
+	padding: 15px 30px;
+	height: 108px;
+}
+
 .try-introduce{
 	background-color:  white;
 	padding: 15px 30px;
@@ -9,12 +15,12 @@ body{
 	border-left: 1px solid #f0f0f0;
 }
 
-.try-introduce h4{
+.try-introduce h4, .try-introduce-first h4{
 	line-height:10px;
 	margin-left: 40px;
 }
 
-.try-introduce p{
+.try-introduce p, .try-introduce-first p{
 	color: #7F7C7C;
 	margin-bottom: 0px;
 	margin-top: 20px;
@@ -198,4 +204,12 @@ z-index: 11;
 .apply-amount h4{
 	float: right;
 	line-height: 30px;
+}
+
+
+
+.logoimg img{
+	width: 100%;
+	margin-top: 0px;
+	margin-bottom: 15px;
 }

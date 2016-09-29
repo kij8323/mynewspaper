@@ -96,4 +96,5 @@ urlpatterns = [
     url(r'^products/morecomment/$', 'products.views.productsmorecomment', name='productsmorecomment'),#文章页显示更多评论按钮
     url(r'^products/commentpage/(?P<products_id>[0-9]+)/$', 'products.views.productscommentpage', name='productscommentpage'),#文章页加载更多评论页面
    url(r'^products/apply/(?P<products_id>[0-9]+)/$', 'products.views.productsapply', name='productsapply'),#文章页加载更多评论页面
+#    url(r'^products/address/(?P<products_id>[0-9]+)/$', 'products.views.productsaddress', name='productsaddress'),#文章页加载更多评论页面
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

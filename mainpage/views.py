@@ -15,6 +15,7 @@ from django.core.cache import cache
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from company.models import Company
 from investment.models import Investment
+from products.models import Products, Application
 # Create your views here.
 ARTICLE_MAINPAGE_TIMERANGE = 15 #首页显示新闻数量
 ARTICLE_MAINPAGE_COVER_TIMERANGE = 15	#首页封面文章的发表时间范围
@@ -22,6 +23,7 @@ TOPIC_MAINPAGE_COVER_TIMERANGE = 25 #争议话题的发表时间范围
 TOPIC_MAINPAGE_TIMERANGE = 15 #热门话题的时间范围
 ARTICLE_MAINPAGE_HOT_TIMERANGE = 21 #一周新闻排行的时间范围
 COMMENT_MAINPAGE_TIMERANGE = 30 #精彩点评的时间范围
+HOTRY_MAINPAGE_RANGE = 5 #首页显示热门试用
 
 #搜索页面
 def index_search(request):
@@ -129,6 +131,7 @@ def home(request):
 	hotnews = Article.objects.all().filter(timestamp__gte=datetime.date.today() - timedelta(days=ARTICLE_MAINPAGE_HOT_TIMERANGE)).order_by("-readers")[0:5]
 	nicecomment = Comment.objects.all().filter(timestamp__gte=datetime.date.today() - timedelta(days=COMMENT_MAINPAGE_TIMERANGE)).order_by("-readers")[0:5]
 	companyshow = Company.objects.all().filter(verify  = True).order_by("-id")[0:5]
+	hotry = Products.objects.filter(status = 1).order_by('-id')[0:HOTRY_MAINPAGE_RANGE]
 	context = {
 	'queryset': queryset,
 	'topicquery' : topic,
@@ -139,6 +142,7 @@ def home(request):
 	'coverarticle1': coverarticle[1],
 	'coverarticle2': coverarticle[2],
 	'companyshow': companyshow,	
+	'hotry':hotry,
 	}
 	return render(request, 'home.html', context)
 	#return render(request, 'home.html')
@@ -181,7 +185,7 @@ def articlepagehome(request):
 	homearticle = Article.objects.all().order_by('-id')
 	homearticlelen = int(homearticlelen)
 	print homearticlelen
-	articlequery = homearticle[homearticlelen:homearticlelen+5]
+	articlequery = homearticle[homearticlelen-1:homearticlelen-1+5]
 	context = {
 		"articlequery": articlequery,
 	}

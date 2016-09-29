@@ -48,6 +48,9 @@ class Article(models.Model):
 	company = models.ForeignKey(Company, null=True, blank=True)
 	#机构
 	investment = models.ForeignKey(Investment, null=True, blank=True)
+	#是否显示微信公众号
+	wechat = models.BooleanField(default=False)
+
 
 	def __unicode__(self):
 		return self.title

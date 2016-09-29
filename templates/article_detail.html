@@ -32,7 +32,7 @@ $(function() {
               $('.article-pl-count').text(parseInt(commnetcount)+1)
           },
           error: function(data) { 
-              alert("Got an error dude");
+              return 0;
           } 
     });
     $('html,body').animate({scrollTop:$('.freshcomment').offset().top}, 100);
@@ -82,7 +82,7 @@ $(function() {
               $('.article-pl-count').text(parseInt(commnetcount)+1)
           },
           error: function(data) { 
-              alert("Got an error dude");
+              return 0;
           }
     });
     $('html,body').animate({scrollTop:$('.freshcomment').offset().top}, 100);
@@ -319,7 +319,7 @@ $(window).resize(function(){
 <div class="col-sm-1 hidden-xs">
 <ul id="sidebar">
   <li>
-	<a href="http://www.jiathis.com/send/?webid=tsina&url=http://{{sharelink}}&title={{article.title}}">
+	<a href="http://www.jiathis.com/send/?webid=tsina&url=http://{{sharelink}}&title={{article.title}}&appkey=2155349390">
 	<i class="weiboshare">
 	</i>
 	</a>
@@ -400,16 +400,24 @@ $(window).resize(function(){
      <a href="{% url 'contactus' %}" target="_blank">梧桐观点联系</a>, 违者将承担法律责任！
    </h5>
    {% endif %}
+
+     {% if article.wechat %}
+        <div class='wechat'>
+           <img src="/static/media/images/qrcode_for_gh_5dadb4ff2030_430.jpg" >
+                     <p>微信公众号：wutongguandian</p>
+        </div>
+     {% endif %}
+
 </div>
 
 
 
 <div id="catetag">
-  <div class="pull-left hidden-xs">
+  <div class="pull-left">
   <h5 style='font-weight:bold;'>类别&nbsp:&nbsp&nbsp</h5>
   </div>
   {% for item in thisrelationtag %}
-  <div class="search-tag img-rounded hidden-xs">
+  <div class="search-tag img-rounded">
   <a href="{{item.category.get_absolute_url}}">
   {{item.category.title}}
   </a>
@@ -419,6 +427,24 @@ $(window).resize(function(){
 {% if article.company %}
 <div class='firm-page'><a href="{{article.company.get_absolute_url}}">浏览项目</a></div>
 {% endif %}
+
+
+
+
+              <div class="try-share visible-xs-block">
+            <a href="http://www.jiathis.com/send/?webid=tsina&url=http://{{sharelink}}&title={{article.title}}&appkey=2155349390">
+            <i class="mobileweiboshare">
+            </i>
+            </a>
+              <a class="jiathis_button_weixin">
+               <i class="mobileweichatshare">
+              </i>
+              </a>
+              <a href="http://www.jiathis.com/send/?webid=qzone&url=http://{{sharelink}}&title={{article.title}}">
+            <i class="mobileqqzoneshare">
+            </i>
+            </a>
+              </div>
 
 
 <div class="comment-form">

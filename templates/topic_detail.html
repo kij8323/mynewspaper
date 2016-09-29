@@ -30,7 +30,7 @@ $(function() {
               $('.article-pl-count').text(parseInt(commnetcount)+1)
           },
           error: function(data) { 
-              alert("Got an error dude");
+              return 0;
           } 
     });
     $('html,body').animate({scrollTop:$('.freshcomment').offset().top}, 100);
@@ -78,7 +78,7 @@ $(function() {
               $('.article-pl-count').text(parseInt(commnetcount)+1)
           },
           error: function(data) { 
-              alert("Got an error dude");
+              return 0;
           }
     });
     /*$('html,body').animate({scrollTop:$('#btn-block').offset().top}, 100);*/
@@ -292,7 +292,7 @@ $(function(){
 <div class="col-sm-1 hidden-xs">
 <ul id="sidebar">
   <li>
-	<a href="http://www.jiathis.com/send/?webid=tsina&url=http://{{sharelink}}&title={{topic.title}}">
+	<a href="http://www.jiathis.com/send/?webid=tsina&url=http://{{sharelink}}&title={{topic.title}}&appkey=2155349390">
 	<i class="weiboshare">
 	</i>
 	</a>
@@ -362,7 +362,7 @@ $(function(){
 </div>
 
 <div class="article-content-wrap">
-     <p>{{topic.content|safe}}</p>
+     <p>{{topic.content|AtWhoUser|safe}}</p>
 </div>
 
 

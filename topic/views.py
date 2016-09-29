@@ -24,7 +24,7 @@ from django.conf import settings
 from article.tasks import readersin, add
 from django.core.cache import cache
 # from .forms import TopicForm
-GROUP_ALL_GROUP_TIMERANGE = 100#话题组首页显示的话题的时间范围
+GROUP_ALL_GROUP_TIMERANGE = 30#话题组首页显示的话题的时间范围
 TOPIC_DETAIL_HOTCOMMENT_READERSRANGE = 3 #最热回复的门限制
 TOPIC_DETAIL_HOTTOPIC_TIMERAGE = 30#话题页右侧热门话题的时间范围
 # Create your views here.
@@ -206,6 +206,8 @@ def newtopic(request):
 			else:
 				group = Group.objects.get(id=group.id)
 				cache.set(cachekey,  group.topicount)
+			userlist = atwho(text = content, sender = request.user, targetcomment = None, targetproducts = None
+							, targetarticle = None, targetopic = new_topic)
 			return redirect(request.session['lastpage'])
 		else:
 			messages.error(request, '您输入的话题内容有误,请改正！')
@@ -277,6 +279,8 @@ def topcommentcomment(request):
 		comment = Comment.objects.filter(topic=topic)
 		targetcomment = Comment.objects.get(pk=preentid)
 		user = request.user
+		receiver = targetcomment.user.username
+		text="@"+receiver+" "+text
 		print user
 		try:
 			c = Comment(user=user, topic=topic, text=text, parent=targetcomment)

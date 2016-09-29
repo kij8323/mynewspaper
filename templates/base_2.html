@@ -47,7 +47,7 @@ $(function() {
     event.stopPropagation();  
     $('.category').css("margin-bottom","-70px");
     $('.category').fadeToggle();
-    if ($('.categorybutton').css('border-bottom-width') == '0px'){
+    if ($('.category').css('display') != 'none'){
         $('.categorybutton').css("border-bottom","2px solid #67CA87");
         $('.categorybutton').css("height","50px");
      }
@@ -141,6 +141,18 @@ $(document).ready(function(){
     });
 </script>
 
+<script type="text/javascript">
+$(document).ready(function(){
+  $(".underline .subcate").mouseenter(function(){
+      $(this).css("border-bottom","2px solid #67CA87");
+      $(this).css("height","50px");
+  });
+  $(".underline .subcate").mouseleave(function(){
+      $(this).css("border-bottom","0px");
+  });  
+    });
+</script>
+
   {% block HeadDoc %}
   {% endblock %}
 
@@ -162,8 +174,9 @@ $(document).ready(function(){
           <a class="navbar-brand" href="{% url 'home' %}"><img  class="basewebicon" src='/static/images/Abstract Tree.jpg'></a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
+          <ul class="nav navbar-nav underline">
             <li class="categorybutton subcate hidden-xs"><a href="javascript:;">资讯<span class="caret"></span></a></li>
+           <li class="subcate hidden-xs"><a href="{% url 'productsall' %}">试用</a></li>
             <li class="subcate hidden-xs"><a href="{% url 'company_list' %}">项目板</a></li>
             <li class="subcate hidden-xs"><a href="{% url 'investment_list_index' %}">投资机构</a></li>
             <li class="subcate hidden-xs"><a href="{% url 'group_all' %}">话题</a></li>
@@ -182,7 +195,9 @@ $(document).ready(function(){
           <ul class="nav navbar-nav navbar-right">
 
 
-          <li class="subcate hidden-xs guanzhu" data-toggle="popover" data-placement="bottom" data-html="true" data-content='<img src="/static/media/images/qrcode_for_gh_5dadb4ff2030_430.jpg" width="129px"> <div>扫码订阅微信公众平台</div>'><a href="javascript:;">订阅</a></li>
+          <li class="subcate hidden-xs guanzhu" data-toggle="popover" data-placement="bottom" data-html="true" data-content='<img src="/static/media/images/qrcode_for_gh_5dadb4ff2030_430.jpg" width="129px"> <p>扫码订阅公众号</p>'><a href="javascript:;">订阅</a></li>
+          <li class="subcate visible-xs-block"><a href="{% url 'home' %}">资讯</a></li>
+          <li class="subcate visible-xs-block"><a href="{% url 'productsall' %}">试用</a></li>
         {% if user.is_authenticated %}
 	<li class="subcate visible-xs-block"><a href="{% url 'userlogout' %}">退出</a></li>	
         <li class='userinfobutton hidden-xs'><a  href="{{user.get_absolute_url}}"><span><img  class="img-circle baseusericon" src='{{user.get_image_url}}'></span>{{user.username}}</a><span class="dropdown-toggle" data-toggle="dropdown"></span>  <ul class="dropdown-menu hidden-xs" aria-labelledby="dLabel">

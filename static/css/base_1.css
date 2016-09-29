@@ -7,8 +7,8 @@
 
 
 .navbar-default .navbar-nav>li>a {
-	color: black;
-	font-size:16px;
+	color: #333333;
+	font-size:15px;
 }
 
 .navbar-nav>.subcate>a:hover {
@@ -250,4 +250,10 @@ vertical-align:middle
 
 .popover-content{
 	text-align: center;
+	padding: 0px;
+}
+
+
+.popover.bottom {
+margin-top: 0px;
 }

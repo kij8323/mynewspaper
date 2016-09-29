@@ -196,6 +196,8 @@ def commentcomment(request):
 		#comment = Comment.objects.filter(article=article)
 		targetcomment = Comment.objects.get(pk=preentid)
 		user = request.user
+		receiver = targetcomment.user.username
+		text="@"+receiver+" "+text
 		try:
 			c = Comment(user=user, article=article, text=text, parent=targetcomment)
 			c.save()

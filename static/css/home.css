@@ -166,13 +166,14 @@ a:hover/*, .rightblock a:visited, .rightblock a:hover, .rightblock a:active*/{
 	text-overflow: ellipsis;display: -webkit-box;
 	-webkit-line-clamp: 2;
 	-webkit-box-orient: vertical;
+	margin-bottom: 12px;
 }
 
 .associatetitle{
 	text-overflow: -o-ellipsis-lastline;
 	overflow: hidden;
 	text-overflow: ellipsis;display: -webkit-box;
-	-webkit-line-clamp: 2;
+	-webkit-line-clamp: 1;
 	-webkit-box-orient: vertical;
 }
 
@@ -181,6 +182,8 @@ a:hover/*, .rightblock a:visited, .rightblock a:hover, .rightblock a:active*/{
 	font-size: 14px;
 	color: #999;
 	line-height: 24px;
+	margin-bottom: 0px;
+	margin-top: 11px;
 }
 
 .associatetitle{
@@ -189,8 +192,8 @@ a:hover/*, .rightblock a:visited, .rightblock a:hover, .rightblock a:active*/{
 
 .newsblock{
 	padding-left: 0px;
-	padding-bottom: 15px;
-	margin-bottom: 15px;
+	padding-bottom: 30px;
+	margin-bottom: 30px;
 	border-bottom: 1px solid #f0f0f0;
 	}
 
@@ -262,11 +265,12 @@ a:hover/*, .rightblock a:visited, .rightblock a:hover, .rightblock a:active*/{
 
 .head{
 	/*color: #449d44;*/
+	/*color: #449d44;*/
 	border-bottom: 0px solid #ddd;
 	font-weight: 620;
 	font-size: 18px;
-	padding-left: 12px;
-	border-left: 4px solid #67CA87;
+	padding-bottom: 3px;
+	border-bottom: 2px solid #67CA87;
 	margin-bottom: 9px;
 }
 
@@ -287,26 +291,23 @@ a:hover/*, .rightblock a:visited, .rightblock a:hover, .rightblock a:active*/{
 }
 
 
-.hotopic>tbody>tr>td, .nicecomment>tbody>tr>td{
+.hotopic>tbody>tr>td{
 	padding: 8px 16px;
 }
+
+.nicecomment>tbody>tr>td{
+	padding: 8px 5px;
+}
+
+.nicecomment>tbody>tr>td:first-child{
+	padding: 8px 1px 8px 8px;
+}
+
 
 .table>tbody>tr>td>p{
 	padding-left:0px;
 }
 
-.hotopic>tbody>tr>td>a:before, .nicecomment>tbody>tr>td>a:before{
-	content: "";
-	display: inline-block;
-	width: 3px;
-	height: 3px;
-	background-color: #777;
-	margin-bottom: 3px;
-	position: absolute;
-	top: 8px;
-	left: -8px;
-	color: #9e9e9e;
-}
 
 .table>tbody>tr>td>a>span{
 	margin-left: 9px;
@@ -338,6 +339,22 @@ a:hover/*, .rightblock a:visited, .rightblock a:hover, .rightblock a:active*/{
 	color: #9e9e9e;
 }
 
+.hotopic>tbody>tr>td>a:before{
+	content: "";
+	display: inline-block;
+	position: absolute;
+	top: 4px;
+	left: -16px;
+	border-style: solid;
+	border-color: #fff #fff #fff #67CA87;
+	-webkit-transform-origin: 25% center;
+	transform-origin: 25% center;
+	border-width: 4px;
+}
+
+.hotopic>tbody>tr>td{
+	padding-left: 24px;
+}
 .advertisment{
 /*	width: 100%;*/
 	/*height: 130px;*/
@@ -356,8 +373,8 @@ a:hover/*, .rightblock a:visited, .rightblock a:hover, .rightblock a:active*/{
 .hotnews{
 	border: 1px solid #9e9e9e;
 }*/
-.nicecommentblock, .hotopicblock, .hotnewsblock, .programshow{
-	background-color: #fafafa;
+.nicecommentblock, .hotopicblock, .hotnewsblock, .programshow, .hotryshow{
+	background-color: #ffffff;
 	padding-top: 12px; 
 }
 
@@ -623,3 +640,91 @@ border-radius: 0.2rem;
 z-index: 11;
 background-color:#7174F7;
 }
+
+
+.commentline, .commentline p{
+	text-overflow: -o-ellipsis-lastline;
+	overflow: hidden;
+	text-overflow: ellipsis;display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	padding-left: 0px;
+}
+
+
+.hotryshow table{
+	margin-left: 8px;
+	margin-bottom: 8px;
+}
+.hotry-content{
+		display: block;
+	text-overflow: -o-ellipsis-lastline;
+	overflow: hidden;
+	text-overflow: ellipsis;display: -webkit-box;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
+	margin-left: 148px;
+}
+
+.hotry-pic {
+width: 135px;
+height: 92px;
+float: left;
+border: 3px solid #eee;
+}
+
+
+
+.hotry-pic img {
+	width: 100%;
+	height: 100%;
+	border-radius: 3px;
+}
+
+
+.hotry-content p {
+	color: #bbb;
+	line-height: 24px;
+	padding: 0;
+	margin-top: 46px;
+	margin-bottom: 0px;
+	text-overflow: -o-ellipsis-lastline;
+	overflow: hidden;
+	text-overflow: ellipsis;display: -webkit-box;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
+}
+
+.table>tbody>tr>td>.hotry-content>a{
+	font-size: 14px;
+	overflow: hidden;
+	color: #444;
+	line-height: 1.5em;
+	display: block;
+	cursor: pointer;
+	position: relative;
+	text-decoration: none;
+	/*margin-top: 7px;*/
+}
+
+.table>tbody>tr>td>.hotry-content>a:hover{
+	color: #3ca5f6;
+}
+
+
+
+.hotrymore
+{
+	margin-top: -35px;
+	right: 30px;
+	position: absolute;
+}
+
+.hotrymore a{
+		color: #978F8F;
+}
+
+.hotrymore a:hover{
+	color: #3ca5f6;
+}
+

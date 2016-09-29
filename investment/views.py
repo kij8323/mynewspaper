@@ -104,11 +104,13 @@ def investment_detail(request, investment_id):
 		collection = '收藏'
 		collection_icon = 'glyphicon-star-empty'
 	investment_article = investment.article_set.all
+	sharelink = request.get_host()+request.get_full_path()
 	context = {
 		'investment': investment,
 		'collection': collection,
 		'collection_icon': collection_icon,
 		'investment_article': investment_article,
+		'sharelink':sharelink,
 	}
 	return render(request, 'investment_detail.html', context)
 

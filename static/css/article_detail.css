@@ -515,3 +515,70 @@ a:hover{
 	border-color:#449d44;
 }
 
+
+.wechat{
+	text-align: center;
+	margin-top: 38px;
+}
+.wechat p{
+	font-weight: 700;
+	font-size: 14px;
+	color: #333;
+}
+
+.wechat img{
+	width: 215px;
+}
+
+
+
+
+
+
+
+
+.mobileweichatshare{
+	 cursor:pointer;
+}
+
+
+.mobileweiboshare{
+	background-position: 7px -32px;
+	background-image: url(/static/images/sharebackground.png);
+	display: inline-block;
+	height: 33px;
+	width: 33px;
+	background-color: #f63756;
+	border-bottom: 1px solid #f0f0f0;
+	margin-right: 20px;
+	border-radius: 50%;
+}
+
+.mobileweichatshare{
+	background-position: -32px -32px;
+	background-image: url(/static/images/sharebackground.png);
+	display: inline-block;
+	height: 33px;
+	width: 33px;
+	background-color: #46BC45;
+	border-bottom: 1px solid #f0f0f0;
+	margin-right: 20px;
+	border-radius: 50%;
+}
+
+.mobileqqzoneshare{
+	background-position: -69px -32px;
+	background-image: url(/static/images/sharebackground.png);
+	display: inline-block;
+	height: 33px;
+	width: 33px;
+	background-color: #EFDC11;
+	border-bottom: 1px solid #f0f0f0;
+	border-radius: 50%;
+}
+
+.try-share{
+		padding: 15px 0px 0px 0px;
+		text-align: center;
+		margin-top: 125px;
+}

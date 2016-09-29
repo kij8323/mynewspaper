@@ -110,6 +110,9 @@ $(function() {
         {% if item.target_article %}
         来自文章：<a href="{{item.target_article.get_absolute_url}}">{{item.target_article.title}}
         </a>
+        {% elif item.target_products %}
+        来自试用：<a href="{{item.target_products.get_absolute_url}}">{{item.target_products.title}}
+        </a>     
         {% else %}
         来自话题：<a href="{{item.target_topic.get_absolute_url}}">{{item.target_topic.title}}
         </a>

@@ -231,14 +231,14 @@ $('.carousel').carousel({
  -->
 
 <div class='advertisment hidden-xs'>
-  <a href="https://c.163.com/?tag=29d8f7acbfb8dcd0cc8c5d7c9dc58847&__da_Uv9Yds_KxUGuQgnLw">
-<img src="/static/media/images/wangyifengchao.png" >
+  <a href="http://detail.meizu.com/item/meizu_pro6.html?rc=bdpz&utm_source=baidu&utm_medium=pinzhuan&utm_content=youtu-9%2E20">
+<img src="/static/media/images/meizuguanggao.jpg" >
 </a>
 </div>
 
 
 <div class='hotnewsblock'>
-         <div class='head'>近期资讯排行</div>
+         <div class='head'>近期热文</div>
 
     <table class="table table-hover hotnews">
       <tbody>
@@ -256,24 +256,25 @@ $('.carousel').carousel({
     </table>
   </div><!-- class='headblock' -->
 
-<div class='programshow'>
+<div class='hotryshow'>
          <div class='head'>
-          新项目
+          最新试用
         </div> 
-         <div class='programmore'>
-          <a href="{% url 'company_list' %} ">更多</a> 
-         </div> 				    
-	<table class="table table-hover">
+         <div class='hotrymore'>
+          <a href="{% url 'productsall' %} ">更多></a> 
+         </div> 
+    <table class="table table-hover">
       <tbody>
-{% for item in companyshow %}
+{% for item in hotry %}
         <tr>
           <td>
-            <div class="program-pic">
+            <div class="hotry-pic">
               <img src="{{item.get_image_url}}">
             </div>
-            <div class="program-content">
+            <div class="hotry-content">
               <a href="{{item.get_absolute_url}}">{{item.title}}</a>
-              <p>{{item.associatetitle}}</p>
+              <!-- <p>市场价：{{item.price}}</p> -->
+              <p>数量：{{item.amount}}</p>
           </div>
       
           </td>
@@ -281,35 +282,7 @@ $('.carousel').carousel({
 {% endfor %}
       </tbody>
     </table>
-<a  href="{% url 'company_built1' %}" class="btn  btn-success btn-block builtfirm">创建公司</a>
 </div>
-
- 
-<div class='nicecommentblock'>
-<div class='head'>精彩点评</div>
-    <table class="table table-hover nicecomment">
-      <tbody>
-{% for item in nicecomment %}
-        <tr>
-          {% if item.article %}
-          <td><a href="{{item.article.get_absolute_url}}">{{item.user}} 评 {{item.article.title}}<br></a>{{item.text|wordtwoline|safe}}</td>
-          {% else %}
-          <td> <a href="{{item.topic.get_absolute_url}}">{{item.user}} 评 {{item.topic.title}}<br></a>{{item.text|wordtwoline|safe}}</td>
-          {% endif %}
-        </tr>
-{% endfor %}
-      </tbody>
-    </table>
-</div>
-
-
-
-<div class='advertisment hidden-xs'>
-  <a href="http://www.189.cn/hd/lxj/?cmpid=jt-banner-163-am-lxj">
-<img src="/static/media/images/dianxinguanggao.gif" >
-</a>
-</div>
-
 
 <div class='hotopicblock'>
          <div class='head'>热门话题</div>
@@ -318,6 +291,39 @@ $('.carousel').carousel({
 {% for item in topicquery %}
         <tr>
           <td><a href="{{item.get_absolute_url}}">{{item.title}}<span>{{item.id|Topic_comment}}条回复</span></a></td>
+        </tr>
+{% endfor %}
+      </tbody>
+    </table>
+</div>
+
+ 
+
+
+
+<div class='advertisment hidden-xs'>
+  <a href="http://shop.10086.cn/hd/q3/yingx?WT.mc_id=GzWnZBnqOwx4Otu29CVO&UX.aucm=">
+<img src="/static/media/images/yidongguanggao.jpg" >
+</a>
+</div>
+
+
+<div class='nicecommentblock'>
+<div class='head'>精彩点评</div>
+    <table class="table table-hover nicecomment">
+      <tbody>
+{% for item in nicecomment %}
+        <tr>
+          <td>
+          <img  class="img-circle usericon hidden-xs" src='{{item.user.get_image_url}}'>
+          </td>
+          {% if item.article %}
+          <td><a href="{{item.article.get_absolute_url}}">{{item.user}} 评 {{item.article.title}}<br></a><div class='commentline'>{{item.text|safe}}</div></td>
+           {% elif item.products %}
+          <td><a href="{{item.products.get_absolute_url}}">{{item.user}} 评 {{item.products.title}}<br></a><div class='commentline'>{{item.text|safe}}</div></td>
+          {% else %}
+          <td> <a href="{{item.topic.get_absolute_url}}">{{item.user}} 评 {{item.topic.title}}<br></a><div class='commentline'>{{item.text|safe}}</div></td>
+          {% endif %}
         </tr>
 {% endfor %}
       </tbody>

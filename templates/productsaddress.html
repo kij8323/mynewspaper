@@ -1,0 +1,36 @@
+{% extends "base_3.html" %}
+{% load time_filter %}
+{% load staticfiles %}
+{% block HeadDoc %}
+<link href="/static/css/products_detail.css" rel="stylesheet">
+<script src="/static/js/topic_detail.js"></script>
+<script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+<script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+
+<style type="text/css">
+.infor span{
+  margin-right: 100px;
+}
+</style>
+
+{% endblock %}
+
+
+
+ {% block content %}
+
+    <div class="container">
+      <div class="row">
+{% for item in application %}
+<div class='infor'>
+    <span class='username'>{{item.user.username}}</span>
+    <span class='phonenumber'>{{item.user.phonenumber}}</span>
+   <span class='address'>{{item.user.address}}</span>
+
+</div>
+{% endfor %}
+      </div><!-- row -->
+    </div> <!-- /container -->
+
+      <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+{% endblock %}

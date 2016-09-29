@@ -45,9 +45,6 @@ body{
 	margin-bottom: 15px;
 		padding-top: 2%;
 	padding-bottom: 2%;
-	margin-bottom: -32px;
-	margin-left: 330px;
-	margin-right: -330px;
 }
 
 .messages li{
@@ -63,9 +60,6 @@ body{
 	padding-top: 2%;
 	padding-bottom: 2%;
 	border-radius: 4px;
-	margin-bottom: -32px;
-	margin-left: 330px;
-	margin-right: -330px;
 }
 .headimag{
 	width: 30%;

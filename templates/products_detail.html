@@ -3,7 +3,7 @@
 {% load staticfiles %}
 {% block HeadDoc %}
 <link href="/static/css/products_detail.css" rel="stylesheet">
-<script src="/static/js/topic_detail.js"></script>
+<script src="/static/js/products_detail.js"></script>
 <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
 <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
 
@@ -26,7 +26,7 @@ $(function(){
        var hour = Math.floor((SysSecond / 3600) % 24);      //计算小时 
        var day = Math.floor((SysSecond / 3600) / 24);        //计算天 
      
-       node.html('<span class="glyphicon glyphicon-time" aria-hidden="true"></span> 距离申请结束：'+"<i>"+day +"</i>"+ "天" + "<i>"+ hour + "</i>"+"小时" + "<i>"+ minite + "</i>"+"分" + "<i>"+second +"</i>"+ "秒"); 
+       node.html('<span class="glyphicon glyphicon-time" aria-hidden="true"></span> 距离申请结束：'+"<i>"+day +"</i>"+ " 天 " + "<i>"+ hour + "</i>"+" 小时 " + "<i>"+ minite + "</i>"+" 分 " + "<i>"+second +"</i>"+ " 秒 "); 
       } else {//剩余时间小于或等于0的时候，就停止间隔函数 
        window.clearInterval(InterValObj); 
        //这里可以添加倒计时时间为0后需要执行的事件 
@@ -85,7 +85,7 @@ $(function() {
               $('.article-pl-count').text(parseInt(commnetcount)+1)
           },
           error: function(data) { 
-              alert("Got an error dude");
+              return 0;
           } 
     });
     $('html,body').animate({scrollTop:$('.freshcomment').offset().top}, 100);
@@ -135,7 +135,7 @@ $(function() {
               $('.article-pl-count').text(parseInt(commnetcount)+1)
           },
           error: function(data) { 
-              alert("Got an error dude");
+              return 0;
           }
     });
     $('html,body').animate({scrollTop:$('.freshcomment').offset().top}, 100);
@@ -310,6 +310,9 @@ $(document).ready(function(){
   {% else %}
       <input id='addressinput'  class="form-control " type="text" name="addressinput" placeholder="试用产品收货地址" />
   {% endif %}
+<img src="/static/media/images/qrcode_for_gh_5dadb4ff2030_430.jpg" width="86px">
+<p>扫码或关注微信公众号: wutongguandian 提高申请试用成功率</p>
+
 <button type="submit" class="btn btn-default btn-success">确定</button>
 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
 </form>
@@ -372,7 +375,7 @@ $(document).ready(function(){
 		          </div>
 
 		          <div class="try-share  col-sm-12">
-						<a href="http://www.jiathis.com/send/?webid=tsina&url=http://{{sharelink}}&title={{article.title}}">
+						<a href="http://www.jiathis.com/send/?webid=tsina&url=http://{{sharelink}}&title={{products.title}}&appkey=2155349390">
 						<i class="weiboshare">
 						</i>
 						</a>
@@ -380,7 +383,7 @@ $(document).ready(function(){
 						   <i class="weichatshare">
 						  </i>
 						  </a>
-					  	<a href="http://www.jiathis.com/send/?webid=qzone&url=http://{{sharelink}}&title={{article.title}}">
+					  	<a href="http://www.jiathis.com/send/?webid=qzone&url=http://{{sharelink}}&title={{products.title}}">
 						<i class="qqzoneshare">
 						</i>
 						</a>
@@ -389,6 +392,30 @@ $(document).ready(function(){
       		</div><!-- <div class="products-pic col-sm-6"> -->
       	</div><!-- <div class="try-info col-sm-12">
  -->
+<div class="try-introduce-block col-sm-12">
+<div class="col-sm-3 try-introduce-first">
+  <div class="try-step">1</div>
+  <h4>试用申请</h4>
+  <p>点击申请按钮，即可参加试用活动</p>
+</div>
+<div class="col-sm-3 try-introduce">
+  <div class="try-step">2</div>
+  <h4>名单确认</h4>
+  <p>我们公布申请成功用户名单</p>
+</div>
+<div class="col-sm-3 try-introduce">
+  <div class="try-step">3</div>
+  <h4>开始体验</h4>
+  <p>用户接收我们快递的试用产品后开始体验</p>
+</div>
+<div class="col-sm-3 try-introduce">
+  <div class="try-step">4</div>
+  <h4>评论提交</h4>
+  <p>用户试用后在产品申请试用页面下提交体验评论</p>
+</div>
+</div>
+
+
 			<div class='products-detail col-sm-9'>
 				<div class="menu">
 				  <ul class="nav nav-pills rightblock">

@@ -254,6 +254,11 @@ $(document).ready(function(){
 <div class="col-xs-12 dashboard">
 
 <div class="col-xs-12 iconline">
+  <h4>{{userofinfor.username}}</h4>
+</div>
+
+
+<div class="col-xs-12 iconline">
   <h4 class="col-xs-1 lefticon">头像:</h4><img class="pull-left img-circle icon" src="{{userofinfor.get_image_url}}" >
 {% if host %}
 <button  type="button" class="pull-right btn btn-success" data-toggle="modal" data-target="#myModal1">
