@@ -258,3 +258,7 @@ vertical-align:middle
 .popover.bottom {
 margin-top: 0px;
 }
+
+.cke_dark_background img{
+	max-width: 140px;
+}

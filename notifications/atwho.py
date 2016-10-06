@@ -31,7 +31,7 @@ def atwho(text, sender, targetcomment, targetarticle, targetopic , targetproduct
 			if cache.get(cachekey) != None:
 				cache.incr(cachekey)
 			else:
-				unread = Notification.objects.filter(recipient = self.recipient).filter(read = False).count()
+				unread = Notification.objects.filter(recipient = user).filter(read = False).count()
 				cache.set(cachekey,  unread, settings.CACHE_EXPIRETIME)
 			userlist.append(item.encode('utf8'))
 	return userlist

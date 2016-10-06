@@ -12,6 +12,7 @@ import json
 from django.http import HttpResponse
 import traceback 
 from notifications.signals import notify
+from notifications.models import Notification
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from notifications.atwho import atwho
 from django.views.decorators.cache import cache_page
@@ -232,6 +233,12 @@ def newtopic(request):
 def renewtopic(request, topic_id):
 	try:
 		topic = Topic.objects.get(pk=topic_id)
+		user = topic.writer
+		sender = request.user
+		if user == sender:
+			pass
+		else:
+			return redirect(request.session['lastpage'])
 	except Topic.DoesNotExist:
 		raise Http404("Does not exist")
 	# grouptitle = request.session.get('group', False)
@@ -294,7 +301,7 @@ def topicomment(request):
 				if cache.get(cachekey) != None:
 					cache.incr(cachekey)
 				else:
-					unread = Notification.objects.filter(recipient = self.recipient).filter(read = False).count()
+					unread = Notification.objects.filter(recipient = topic.writer).filter(read = False).count()
 					cache.set(cachekey,  unread, settings.CACHE_EXPIRETIME)
 			topic.updated = timezone.now()
 			instancesave.delay(topic)
@@ -357,7 +364,7 @@ def topcommentcomment(request):
 				if cache.get(cachekey) != None:
 					cache.incr(cachekey)
 				else:
-					unread = Notification.objects.filter(recipient = self.recipient).filter(read = False).count()
+					unread = Notification.objects.filter(recipient = topic.writer).filter(read = False).count()
 					cache.set(cachekey,  unread, settings.CACHE_EXPIRETIME)
 			topic.updated = timezone.now()
 			instancesave.delay(topic)
