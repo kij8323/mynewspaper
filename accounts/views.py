@@ -75,11 +75,9 @@ def register(request):
 	if form.is_valid():
 		human = True
 		username = request.POST.get('username')
-		email = request.POST.get('email')
 		password = request.POST.get('password2')
 		new_user = MyUser()
 		new_user.username = username
-		new_user.email = email
 		new_user.set_password(password) #RIGHT
 		new_user.save()
 		#注册成功后直接登录
@@ -232,7 +230,7 @@ def userdashboardnotifications(request, user_id):
 		else:
 			host = False
 			hostname = '他的'
-		notifications = Notification.objects.filter(recipient = user).filter(verb = '@').order_by("-timestamp")
+		notifications = Notification.objects.filter(recipient = user).exclude(verb = '_@_').order_by("-timestamp")
 		# 分页
 		paginator = Paginator(notifications, 10)
 		page = request.GET.get('page')
@@ -543,6 +541,7 @@ def userdashboardarticletopic(request, user_id):
 		except EmptyPage:
 		# If page is out of range (e.g. 9999), deliver last page of results.
 			contacts = paginator.page(paginator.num_pages)
+		request.session['lastpage'] = request.get_full_path()
 		context = {
 			'topic' : contacts,
 			'host': host,

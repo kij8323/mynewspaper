@@ -124,7 +124,11 @@ $(window).resize(function(){
           <div class="try-info">
             <span class="amount">数量：{{item.amount}}</span>
             <span class="applyNums">申请人数：{{item.id|products_applyamount_count}}</span>
+          {% if item.status != 1 %}
+            <span class="openprice">测评话题：{{item.reportnum}}</span>
+          {% else %}
             <span class="openprice">市场价：{{item.price}}</span>
+          {% endif %}
           </div> 
         </div><!-- <div class="products-img"> -->
       </div> <!-- <div class="products-information" > -->

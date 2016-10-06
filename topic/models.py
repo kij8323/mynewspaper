@@ -13,6 +13,7 @@ from django.db.models.signals import pre_save, post_delete
 from accounts.models import MyUser
 from django.utils.translation import ugettext_lazy as _
 from django.core.cache import cache
+from products.models import Products
 # Create your models here.
 class Group(models.Model):
 	id = models.AutoField(primary_key=True, db_index=True)
@@ -66,6 +67,8 @@ class Topic(models.Model):
 	#是否为封面
 	cover = models.BooleanField(default=False, db_index=True)
 	#自定义查询语句
+	products = models.ForeignKey(Products, null=True, blank=True, db_index=True)
+
 	#objects = ArticleManager()
 	def __unicode__(self):
 		return self.title

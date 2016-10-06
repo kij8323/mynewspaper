@@ -278,11 +278,6 @@ var jiathis_config = {
 </script>
 
 
-<script>
-$(function(){ 
-  $(".form-control").addClass("hidden-xs");
-}); 
-</script>
 
 {% endblock %}
 
@@ -355,6 +350,9 @@ $(function(){
                 <span class="article-time">{{topic.timestamp|date:"Y-m-d H:i"}}</span>
                 <span class="article-share">阅读:{{topic.id|Topic_readers}}</span>
                 <span class="article-pl">评论:<span class="article-pl-count">{{topic.id|Topic_comment}}</span></span>
+                {% if host %}
+                <a href="{% url 'renewtopic' topic.id%}"><span class="topic-edite pull-right">编辑/更改</span></a>
+                {% endif %}
 <!--                 <span class="topic-pl">收藏</span> -->
             </div>
 
@@ -417,7 +415,7 @@ $(function(){
                   {{childitem.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前 :
                    </span>
                   <div class="pl-content">{{childitem.text|AtWhoUser|safe}}</div>
-                  <div class="btn-dp-child hidden-xs">
+                  <div class="btn-dp-child">
                     <i class="icon-childcomment"></i>回复
                     </div>
 
@@ -438,7 +436,7 @@ $(function(){
                   <div class="freshchildcomment{{item.id}}" style='margin-top : 1em;'>
                   </div>
                     {{form}}
-                <button  id="btn-block" type="button" class='btn btn-lg btn-success btn-block btn-reply hidden-xs'>发表</button>
+                <button  id="btn-block" type="button" class='btn btn-lg btn-success btn-block btn-reply'>发表</button>
               </div>
       </div>
       </div>
@@ -500,7 +498,7 @@ $(function(){
                   {{childitem.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前 :
                    </span>
                   <div class="pl-content">{{childitem.text|AtWhoUser|safe}}</div>
-                  <div class="btn-dp-child hidden-xs">
+                  <div class="btn-dp-child">
                     <i class="icon-childcomment"></i>回复
                     </div>
 
@@ -521,7 +519,7 @@ $(function(){
                   <div class="freshchildcomment{{item.id}}" style='margin-top : 1em;'>
                   </div>
                     {{form}}
-                <button  id="btn-block" type="button" class='btn btn-lg btn-success btn-block btn-reply hidden-xs' >发表</button>
+                <button  id="btn-block" type="button" class='btn btn-lg btn-success btn-block btn-reply' >发表</button>
               </div>
       </div>
       </div>
@@ -555,7 +553,7 @@ $(function(){
 
 
 
-<div class="comment-form hidden-xs">
+<div class="comment-form">
      <span class="span-mark-author">发表评论</span>
       <div class="author-info">
       {% if user.is_authenticated %}
@@ -575,7 +573,7 @@ $(function(){
         // instance, using default configuration.
        editor = CKEDITOR.replace( 'editor1' , {
         language: 'zh-cn',
-        toolbar: [[ '-', 'Bold', 'Italic', 'Format', 'Smiley','paragraph', ]],
+        toolbar: [['Link','Unlink'], ['Image','Flash'], ['-', 'Bold', 'Italic', 'Format'], ['Smiley', ]],
         width: '100%',
     });
     </script>

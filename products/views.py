@@ -19,6 +19,7 @@ from django.http import Http404
 from article.form import CommentForm
 from django.shortcuts import render, HttpResponseRedirect, redirect
 from django.core.urlresolvers import reverse
+from topic.models import Topic
 
 def productsall(request):
 	products = Products.objects.order_by('-id')
@@ -70,11 +71,12 @@ def products_detail(request, products_id):
 	if request.method == 'POST' and user.is_authenticated:
 		user.phonenumber = request.POST.get('phonenumberinput')
 		user.address = request.POST.get('addressinput')
+		reason = request.POST.get('reasoninput')
 		user.save()
 		try:
 			application = Application.objects.get(user=user.id, products=products)
 		except Application.DoesNotExist:
-			news_App = Application(user=user, products=products)
+			news_App = Application(user=user, products=products, reason = reason)
 			news_App.save()
 			cachekey = "products_applyamount_" + str(products_id)
 			if cache.get(cachekey) != None:
@@ -142,11 +144,12 @@ def productsapply(request, products_id):
 	if request.method == 'POST' and user.is_authenticated:
 		user.phonenumber = request.POST.get('phonenumberinput')
 		user.address = request.POST.get('addressinput')
+		reason = request.POST.get('reasoninput')
 		user.save()
 		try:
 			application = Application.objects.get(user=user.id, products=products)
 		except Application.DoesNotExist:
-			news_App = Application(user=user, products=products)
+			news_App = Application(user=user, products=products, reason = reason)
 			news_App.save()
 			cachekey = "products_applyamount_" + str(products_id)
 			if cache.get(cachekey) != None:
@@ -186,6 +189,70 @@ def productsapply(request, products_id):
 			'applicationlistsucss':applicationlistsucss,
 		}
 		return render(request, 'products_apply.html',  context)
+
+def productsreport(request, products_id):
+	try:
+		products = Products.objects.get(pk=products_id)
+	except products.DoesNotExist:
+		raise Http404("Products does not exist")
+	user = request.user
+	if request.method == 'POST' and user.is_authenticated:
+		user.phonenumber = request.POST.get('phonenumberinput')
+		user.address = request.POST.get('addressinput')
+		user.save()
+		try:
+			application = Application.objects.get(user=user.id, products=products)
+		except Application.DoesNotExist:
+			news_App = Application(user=user, products=products)
+			news_App.save()
+			cachekey = "products_applyamount_" + str(products_id)
+			if cache.get(cachekey) != None:
+				cache.incr(cachekey)
+			else:
+				cache.set(cachekey, Application.objects.filter(products=products).count(), settings.CACHE_EXPIRETIME)
+		# news_App = Application(user=user, products=products)
+		# news_App.save()
+		# cachekey = "products_applyamount_" + str(products_id)
+		# if cache.get(cachekey) != None:
+		# 	cache.incr(cachekey)
+		# else:
+		# 	cache.set(cachekey, Application.objects.filter(products=products).count(), settings.CACHE_EXPIRETIME)
+		return redirect(reverse("products_detail", kwargs={"products_id": products_id}))
+	else:
+		try:
+			application = Application.objects.get(user=user.id, products=products)
+			applybutton = True
+		except Application.DoesNotExist:
+			applybutton = False
+		# if application:
+		# 	applybutton = True
+		# else:
+		# 	applybutton = False
+		#把本页地址装入session
+		request.session['lastpage'] = request.get_full_path()
+		#分享链接的地址
+		sharelink = request.get_host()+request.get_full_path()
+		# applyamount = Application.objects.filter(products=products).count()
+		hotry = Products.objects.filter(status = 1).exclude(id = products_id).order_by('-id')[0:5]
+		#测评报告列表
+		reportlist = Topic.objects.filter(products=products).order_by('-id')
+		#中奖名单
+		#applicationlistsucss = Application.objects.filter(products=products).filter(verify=True)
+		
+		context = {
+			"products":products,
+			"form": CommentForm,
+			'sharelink': sharelink,
+			'user':user,
+			'applybutton':applybutton,
+			# 'applyamount':applyamount,
+			'hotry':hotry,
+			'reportlist':reportlist,
+			# 'applicationlist':applicationlist,
+			# 'applicationlistsucss':applicationlistsucss,
+		}
+		return render(request, 'products_report.html',  context)
+
 
 #ajax，文章评论
 def productscomment(request):

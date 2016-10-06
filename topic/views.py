@@ -21,7 +21,7 @@ from django.contrib.auth.decorators import login_required
 import datetime
 from datetime import timedelta
 from django.conf import settings
-from article.tasks import readersin, add
+from article.tasks import readersin, add, instancesave
 from django.core.cache import cache
 # from .forms import TopicForm
 GROUP_ALL_GROUP_TIMERANGE = 30#话题组首页显示的话题的时间范围
@@ -110,6 +110,12 @@ def group_detail(request, group_id):
 def topic_detail(request, topic_id):
 	try:
 		topic = Topic.objects.get(pk=topic_id)
+		user = topic.writer
+		sender = request.user
+		if user == sender:
+			host = True
+		else:
+			host = False
 	except Topic.DoesNotExist:
 		raise Http404("Does not exist")
 	#count = Comment.objects.filter(topic=topic).count()
@@ -177,6 +183,7 @@ def topic_detail(request, topic_id):
 		'page': page,
 		'sharelink': sharelink,
 		'collection': collection,
+		'host': host,
 	}
 	#print "topic_detail"
 	return render(request, 'topic_detail.html',  context)
@@ -220,6 +227,49 @@ def newtopic(request):
 			}
 	return render(request, 'newtopic.html',  context)
 
+#编辑话题
+@login_required(login_url='/user/loggin/')
+def renewtopic(request, topic_id):
+	try:
+		topic = Topic.objects.get(pk=topic_id)
+	except Topic.DoesNotExist:
+		raise Http404("Does not exist")
+	# grouptitle = request.session.get('group', False)
+	# group = False
+	if request.method == 'POST':
+		form = TopicForm(request.POST)
+		if form.is_valid():
+			content = form.cleaned_data['content']
+			title = form.cleaned_data['title']
+			topic.content = content
+			topic.title = title
+			# new_topic.writer = request.user
+			# new_topic.group = group
+			topic.save()
+			# group.topicount += 1
+			# group.save()
+			# cachekey = "group_topic_count_" + str(group.id)
+			# if cache.get(cachekey) != None:
+			# 	cache.incr(cachekey)
+			# else:
+			# 	group = Group.objects.get(id=group.id)
+			# 	cache.set(cachekey,  group.topicount)
+			# userlist = atwho(text = content, sender = request.user, targetcomment = None, targetproducts = None
+			# 				, targetarticle = None, targetopic = new_topic)
+			return redirect(request.session['lastpage'])
+		else:
+			messages.error(request, '您输入的话题内容有误,请改正！')
+			return redirect(request.get_full_path())#回到本页
+	else:
+		print  request.user
+		context = {
+			'myform': TopicForm,
+			'topic': topic,
+			}
+	return render(request, 'renewtopic.html',  context)
+
+
+
 #ajax，发送评论,post
 def topicomment(request):
 	if request.is_ajax() and request.method == 'POST':
@@ -234,8 +284,20 @@ def topicomment(request):
 		try:
 			c = Comment(user=user, topic=topic, text=text)
 			c.save()
+			if topic.writer != user:
+				notify.send(sender=user, target_object= None
+						, recipient = topic.writer, verb='#'
+						, text=text, target_article = None
+						, target_products = None
+						, target_topic = topic)
+				cachekey = "user_unread_count" + str(topic.writer.id)
+				if cache.get(cachekey) != None:
+					cache.incr(cachekey)
+				else:
+					unread = Notification.objects.filter(recipient = self.recipient).filter(read = False).count()
+					cache.set(cachekey,  unread, settings.CACHE_EXPIRETIME)
 			topic.updated = timezone.now()
-			topic.save()
+			instancesave.delay(topic)
 			cachekey = "topic_comment_" + str(topicid)
 			if cache.get(cachekey) != None:
 				cache.incr(cachekey)
@@ -285,15 +347,26 @@ def topcommentcomment(request):
 		try:
 			c = Comment(user=user, topic=topic, text=text, parent=targetcomment)
 			c.save()
+			if topic.writer != user:
+				notify.send(sender=user, target_object= None
+						, recipient = topic.writer, verb='#'
+						, text=text, target_article = None
+						, target_products = None
+						, target_topic = topic)
+				cachekey = "user_unread_count" + str(topic.writer.id)
+				if cache.get(cachekey) != None:
+					cache.incr(cachekey)
+				else:
+					unread = Notification.objects.filter(recipient = self.recipient).filter(read = False).count()
+					cache.set(cachekey,  unread, settings.CACHE_EXPIRETIME)
 			topic.updated = timezone.now()
-			topic.save()
+			instancesave.delay(topic)
 			cachekey = "topic_comment_" + str(topicid)
 			if cache.get(cachekey) != None:
 				cache.incr(cachekey)
 			else:
 				cache.set(cachekey, topic.comment_set.count(), settings.CACHE_EXPIRETIME)
-			targetcomment.readers = targetcomment.readers + 1
-			targetcomment.save()
+			readersin(targetcomment)
 			userlist = atwho(text = text, sender = user, targetcomment = targetcomment, targetproducts = None
 							, targetarticle = None, targetopic = topic)
 			for item in userlist:

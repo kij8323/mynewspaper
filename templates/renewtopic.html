@@ -1,0 +1,93 @@
+{% extends "base_1.html" %}
+{% block HeadDoc %}
+{% load staticfiles %}
+<link href="/static/css/newtopic.css" rel="stylesheet">
+<script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+<script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+<script>/*验证输入图片*/
+$(document).ready(function(){
+  $("form").submit(function(e){
+    var input_title = $("#id_title").val()
+    var input_content = CKEDITOR.instances.id_content.getData()
+    if (input_title == "")
+    {
+    $.messager.popup("标题不能为空！");
+    $(".modal.msg-popup .modal-body").css({
+        'color': '#a94442',
+        "background-color":"#f2dede",
+        });
+    return false;
+    }
+    else if(input_content == "")
+    {
+    $.messager.popup("内容不能为空！");
+    $(".modal.msg-popup .modal-body").css({
+        'color': '#a94442',
+        "background-color":"#f2dede",
+        });
+    return false;
+    }
+    else
+    {
+    return true;
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+ $("#id_title").val('{{topic.title}}');
+
+})
+</script>
+{% endblock %}
+
+ {% block content %}
+
+<div class="container">
+<div class="center-warp">
+{% if topic %}
+
+	<div id="erroricon_title" style="text-align: center;">请输入标题</div>
+
+<form   enctype="multipart/form-data" action="" method="post">
+  {% csrf_token %}
+<p><label for="id_title">标题:</label> <input id="id_title" maxlength="120" name="title" type="text"></p>
+<p><label for="id_content">内容:</label> </p>
+<div class="django-ckeditor-widget" data-field-id="id_content" style="display: inline-block;">
+    <textarea    cols="40" id="id_content" maxlength="5000" name="content" rows="10" data-processed="0"
+    placeholder=""  type="text">{{topic.content|safe}}</textarea>
+    <script>
+        // Replace the <textarea id="editor1"> with a CKEditor
+        // instance, using default configuration.
+       content = CKEDITOR.replace( 'content' , {
+        language: 'zh-cn',
+        filebrowserWindowWidth: 940, 
+        toolbar_Basic: [["Source", "-", "Bold", "Italic"]], 
+        toolbar_Full: [["Styles", "Format", "Bold", "Italic", "Underline", "Strike", "SpellChecker", "Undo", "Redo"], ["Link", "Unlink", "Anchor"], ["Image", "Flash", "Table", "HorizontalRule"], ["TextColor", "BGColor"], ["Smiley", "SpecialChar"], ["Source"]], 
+        filebrowserUploadUrl: "/ckeditor/upload/", 
+        filebrowserBrowseUrl: "/ckeditor/browse/", 
+        skin: "moono", 
+        filebrowserWindowHeight: 725, 
+        toolbar: "Full",
+        width: '100%',
+
+    });
+    </script>
+</div>
+  <p></p>
+<input type="submit" value="提交" class="btn btn-lg btn-success btn-block">
+</form>
+
+{% else %}
+<ul class="breadcrumbs">
+            <li>无效的链接，请从上一级链接.<span> &gt; </span></li>
+        </ul>
+{% endif %}
+
+</div><!-- <div class="center-warp"> -->
+</div><!-- class="container" -->
+ {% endblock %}
+ 
+

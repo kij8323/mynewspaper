@@ -158,3 +158,14 @@ body{
 .group-informatio-blank{
 	margin-right: 20px
 }
+
+
+
+.icon-dp{
+	background-image: url(/static/images/sharebackground.png);
+	cursor: pointer;
+	width: 20px;
+	height: 23px;
+	background-position: -170px -173px;
+	margin-right: 30px;
+}

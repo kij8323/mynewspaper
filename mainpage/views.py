@@ -21,8 +21,8 @@ ARTICLE_MAINPAGE_TIMERANGE = 15 #首页显示新闻数量
 ARTICLE_MAINPAGE_COVER_TIMERANGE = 15	#首页封面文章的发表时间范围
 TOPIC_MAINPAGE_COVER_TIMERANGE = 25 #争议话题的发表时间范围
 TOPIC_MAINPAGE_TIMERANGE = 15 #热门话题的时间范围
-ARTICLE_MAINPAGE_HOT_TIMERANGE = 21 #一周新闻排行的时间范围
-COMMENT_MAINPAGE_TIMERANGE = 30 #精彩点评的时间范围
+ARTICLE_MAINPAGE_HOT_TIMERANGE = 15 #一周新闻排行的时间范围
+COMMENT_MAINPAGE_TIMERANGE = 15 #精彩点评的时间范围
 HOTRY_MAINPAGE_RANGE = 5 #首页显示热门试用
 
 #搜索页面
@@ -35,6 +35,8 @@ def index_search(request):
 		indexfirm = 'mysqlfirm'
 		indexarticle = 'mysql'
 		indexinvestment = 'mysqlinvestment'
+		indextopic = 'mysqltopic'
+		indexproducts = 'mysqlproducts'
 		# filtercol = 'group_id'
 		# filtervals = []
 		# sortby = ''
@@ -82,6 +84,29 @@ def index_search(request):
 				index3.append(match['id']) 
 		test3 = Investment.objects.all().filter(id__in = index3).order_by('-id') #获得属于id集合的对象的queryset
 		
+		res4 = cl.Query ( q, indextopic )
+		if not res4:
+			print 'query failed: %s' % cl.GetLastError()
+			sys.exit(1)
+		if cl.GetLastWarning():
+			print 'WARNING: %s\n' % cl.GetLastWarning()
+		index4 = [] #查询结果的id集合
+		if res4.has_key('matches'):
+			for match in res4['matches']:
+				index4.append(match['id']) 
+		test4 = Topic.objects.all().filter(id__in = index4).order_by('-id') #获得属于id集合的对象的queryset
+
+		res5 = cl.Query ( q, indexproducts )
+		if not res5:
+			print 'query failed: %s' % cl.GetLastError()
+			sys.exit(1)
+		if cl.GetLastWarning():
+			print 'WARNING: %s\n' % cl.GetLastWarning()
+		index5 = [] #查询结果的id集合
+		if res5.has_key('matches'):
+			for match in res5['matches']:
+				index5.append(match['id']) 
+		test5 = Products.objects.all().filter(id__in = index5).order_by('-id') #获得属于id集合的对象的queryset
 		
 		cache.set("search_word", q)
 		# 分页
@@ -112,6 +137,8 @@ def index_search(request):
 			'test1' : test1,
 			'test3' : test3,
 			'firmshow' : firmshow,
+			'test4' : test4,
+			'test5' : test5,
 		}
 	else:
 		context = {

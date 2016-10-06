@@ -31,7 +31,7 @@ function showinfo(param) {
 <script>/*ajax判断用户名是否已被注册*/
 $(function() {
 /*  var csrf_token = $(#formsignin).data('csrf');*/
-  $("#id_username").bind('input propertychange',function() {
+  $("#id_username").blur(function() {
     var username = $(this).val()
     if (username!=""){
     $.ajaxSetup({
@@ -80,28 +80,12 @@ $(function() {
 })
 </script>
 
-<!-- $('#username').bind('input propertychange', function() -->
-<script>/*Email地址格式是否正确！*/
-$(function() {
-  $("#id_email").bind('input propertychange',function() {
-    var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-    var emailadd = $(this).val()
-    if (filter.test(emailadd)){
-      $("#emailaddnook").css("display", "none");
-      $("#emailrequired").css("display", "none");
-    }
-    else{
-      $("#emailrequired").css("display", "none");
-      showinfo('#emailaddnook')
-    }
-  })
-})
-</script>
 
 <script>/*密码长度至少6位*/
 $(function() {
-  $("#id_password1").bind('input propertychange',function() {
+  $("#id_password1").blur(function()  {
     var password1 = $(this).val()
+    if (password1!=""){
     if ( password1.length >= 6 ){
       $("#password1nook").css("display", "none");
       $("#password1required").css("display", "none");
@@ -110,14 +94,16 @@ $(function() {
       $("#password1required").css("display", "none");
       showinfo('#password1nook')
     }
+    }
   })
 })
 </script>
 
 <script>/*两次密码输入不同！*/
 $(function() {
-  $("#id_password2").bind('input propertychange',function() {
+  $("#id_password2").blur(function()  {
     var password2 = $(this).val()
+    if (password2!=""){
     var password1 = $("#id_password1").val()
     if ( password2 == password1 ){
       $("#password2required").css("display", "none");
@@ -127,6 +113,7 @@ $(function() {
       $("#password2required").css("display", "none");
       showinfo('#password2nook')
     }
+    }
   })
 })
 </script>
@@ -135,7 +122,6 @@ $(function() {
 $(document).ready(function(){
   $("div.container-loggin form").submit(function(e){
     var username = $("#id_username").val()
-    var email = $("#id_email").val()
     var password1 = $("#id_password1").val()
     var password2 = $("#id_password2").val()
     var errorlist
@@ -151,13 +137,6 @@ $(document).ready(function(){
       $("#usernamenlength").css("display", "none");
       $("#usernamerequired").css("display", "none");
       showinfo('#usernamerequired')
-    return false;
-    }
-    else if (email == "")
-    {
-      $("#emailaddnook").css("display", "none");
-      $("#emailrequired").css("display", "none");
-      showinfo('#emailrequired')
     return false;
     }
     else if (password1 == "")
@@ -193,7 +172,6 @@ $(document).ready(function(){
   <div class="container-loggin">
   <form class="form-signin" id='formsignin' role="form" method='POST' action='{{ action_url }}'>
   {% csrf_token %}
-  <img class='headimag' src="/static/images/logotree/logo_7.jpg">
   <div class="form-label">
  <!--  <div id='test'></div> -->
   <div id="usernameok" class="successlist">恭喜，该用户名可注册！</div>
@@ -202,10 +180,6 @@ $(document).ready(function(){
   <div id="usernamenlength" class="cuserrorlist">用户名长度不能超过20个字符!</div>
   <div id="usernamerequired" class="cuserrorlist">请输入用户名！</div>
 <label for="id_username">Username:</label><input class="form-control" id="id_username" name="username" placeholder="用户名" type="text">
-
-  <div id="emailaddnook" class="cuserrorlist">Email地址格式不正确！</div>
-  <div id="emailrequired" class="cuserrorlist">请输入邮箱地址！</div>
-<label for="id_email">Email:</label><input class="form-control" id="id_email" name="email" maxlength="30"  placeholder="邮箱地址" type="text">
 
 
 <div id="password1nook" class="cuserrorlist">密码长度至少6位！</div>

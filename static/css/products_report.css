@@ -1,3 +1,4 @@
+
 body{
 	background-color: #f0f4fb;
 }
@@ -50,12 +51,12 @@ body{
 .timer{
 	padding: 15px 30px;
 	font-size: 15px;
-
+/*	height: 56px;*/
 }
 
 .timer i{
 	color: #5cb85c;
-	font-size: 18px;
+	font-size: 20px;
 }
 
 .apply-bottom{
@@ -129,7 +130,7 @@ body{
 	color: #555;
 }
 
-.presentationw1{
+.presentationw3{
 	border-bottom: 2px solid #67CA87;
 }
 
@@ -138,7 +139,7 @@ body{
 }
 
 
-.products-detail-info{
+.products-apply-info{
 	padding: 25px 30px;
 }
 
@@ -416,10 +417,34 @@ a{
 }
 
 
+.applicationlist li{
+margin-bottom: 30px;
+width: 50px;
+float: left;
+margin-right: 38px;
+position: relative;
+list-style: none;
+}
+
+.applicationlist p{
+	line-height: 1;
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+text-align: center;
+font-size: 12px;
+margin-top: 5px;
+}
+
+.proposer h4{
+	border-bottom: 1px solid #f0f0f0;
+	padding-bottom: 8px;
+	font-size: 14px;
+}
+
 .hotry-list{
 	margin-top: 15px;
 }
-
 
 
 
@@ -468,8 +493,3 @@ a{
 	margin-top:30px;
 	background-color: white;
 }
-
-.comment a{
-	color: #337ab7;
-}
-

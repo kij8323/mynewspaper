@@ -48,9 +48,11 @@ class MyUser(AbstractBaseUser):
 	    max_length=255,
 	    unique=True,
 	)
-	email = models.EmailField(
-	    verbose_name='email address',
-	    max_length=255,
+	email = models.CharField(
+			max_length=120,
+			null=True,
+			blank=True,
+			default='',
 	    #unique=True,
 	)
 	first_name = models.CharField(

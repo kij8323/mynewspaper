@@ -3,7 +3,7 @@
 {% block HeadDoc %}
 <link href="/static/css/index_search.css" rel="stylesheet">
 <script src="/static/js/topic_detail.js"></script>
-
+<link href="/static/css/group_detail.css" rel="stylesheet">
 <!-- 网页刷新后，将url中的“?search_word=手机+苹果”分割为“手机 苹果“显示在搜索栏内 函数注册-->
 <script language="javascript" charset='GB2312'>   
 function GetRequest() {   
@@ -98,7 +98,7 @@ $.fn.smartFloat = function() {
         <div class="info">
           <div class="name">
             <a href="{{item.get_absolute_url}}">
-            {{item.title|highlight|safe}}
+           [公司]  {{item.title|highlight|safe}}
 		</a>
           </div><!-- <div class="name"> -->
           <div class="des">{{item.associatetitle}}</div>
@@ -123,7 +123,7 @@ $.fn.smartFloat = function() {
         <div class="info">
           <div class="investmentname">
             <a href="{{item.get_absolute_url}}">
-            {{item.title|highlight|safe}}
+           [机构]  {{item.title|highlight|safe}}
             </a>
           </div><!-- <div class="name"> -->
         </div><!--  <div class="info"> -->
@@ -133,6 +133,78 @@ $.fn.smartFloat = function() {
 <div class="clearfix"></div>
 {% endif %}
 
+{% if firmshow %}
+{% for item in test5 %}
+ <div class="col-xs-12 newsblock" >
+    <div class="col-xs-2">
+        <div class="firm-img">
+          <a href="{{item.get_absolute_url}}">
+          <img src="{{item.get_image_url}}">
+          </a>
+        </div><!-- <div class="firm-img"> -->
+    </div><!-- <div class="col-xs-2"> -->
+    <div class="col-xs-10">
+        <div class="info">
+          <div class="investmentname">
+            <a href="{{item.get_absolute_url}}">
+           [试用] {{item.title|highlight|safe}}
+            </a>
+          </div><!-- <div class="name"> -->
+        </div><!--  <div class="info"> -->
+        </div><!-- <div class="col-xs-10"> -->
+</div><!-- <div class="col-xs-12 newsblock" > -->
+{% endfor %}
+<div class="clearfix"></div>
+{% endif %}
+
+{% if firmshow %}
+{% for item in test4 %}
+<div class="col-xs-12 newsblock" >
+ <div class="group-list">
+ <a href="{{item.get_absolute_url}}">
+ [话题] {{item.title|highlight|safe}}
+ </a>
+ <div class="group-information">
+ <span class='group-informatio-blank'>
+  <a href="{{item.writer.get_absolute_url}}">
+ <img  class="commentusericon" src='{{item.writer.get_image_url}}'>
+  </a>
+ <a href="{{item.writer.get_absolute_url}}">
+{{item.writer}}
+ </a>
+ </span>
+
+ <span class='group-informatio-blank'>
+
+ {{item.timestamp}}
+
+</span>
+ <span class='group-informatio-blank'>
+回复数:{{item.id|Topic_comment}}
+</span>
+
+
+{%  if item.id|Topic_comment %}
+ <span class='group-informatio-blank'>
+最新回复:
+{{item.lastcommentime.user}}
+</span>
+
+ <span class='group-informatio-blank'>
+{{item.lastcommentime.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month|time_blank_n}}前
+</span>
+{% endif %}
+
+</div>
+</div>
+</div>
+
+{% endfor %}
+<div class="clearfix"></div>
+{% endif %}
+
+
+
 
 {% for item in articlequery %}
 
@@ -141,7 +213,7 @@ $.fn.smartFloat = function() {
           <a href="{{item.get_absolute_url}}"><img src={"{item.get_image_url}}" style="width: 220px; height:124px;"></a>
           </div>  -->
           <div class="rightwordblock-search">
-          <h3><a href="{{item.get_absolute_url}}">{{item.title|highlight|safe}}</a></h3>
+          <h3><a href="{{item.get_absolute_url}}">[文章] {{item.title|highlight|safe}}</a></h3>
           <span><img  class="img-circle usericon hidden-xs" src='{{item.writer.get_image_url}}'></span>
           <span class="writer"><a href="{{item.writer.get_absolute_url}}">{{item.user}}{{item.writer}}</a></span> 
           <span class="posttime">{{item.timestamp}}</span> 

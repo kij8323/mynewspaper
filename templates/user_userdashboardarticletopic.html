@@ -54,6 +54,18 @@ $(function() {
   })
 })
 </script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $(".icon-dp").mouseenter(function(){
+      $(this).css("background-position","-170px -223px");
+  });
+  $(".icon-dp").mouseleave(function(){
+      $(this).css("background-position"," -170px -173px");
+  });
+})
+</script>
 {% endblock %}
 
 
@@ -107,7 +119,7 @@ $(function() {
 
 
 
-        <a href="{{item.topic.get_absolute_url}}">
+        <a href="{{item.get_absolute_url}}">
               {{ item.title }}
         </a>
 
@@ -148,6 +160,7 @@ $(function() {
         </span>
 
         <i class="icon-delete pull-right"></i>
+        <a href="{% url 'renewtopic' item.id%}"> <i class="icon-dp pull-right" ></i></a>
       </div>
 
        </div><!-- <div class = 'commentlist'> -->

@@ -79,7 +79,7 @@ h1{
 .team-introduce{
 	width: 100% !important;
 }
-.brief, .name {
+.brief, .name, .investmentname {
 font-size: 13px !important;
 }
 

@@ -30,6 +30,8 @@ class Products(models.Model):
 	status = models.IntegerField(default=1)
 	#第多少期试用
 	periods = models.IntegerField(default=1)
+	#报告数量
+	reportnum = models.IntegerField(default=0)
 	#产品图片
 	picture = models.ImageField(upload_to='images/', blank=True, default='images/companylogo.png')
 
@@ -61,6 +63,7 @@ class Application(models.Model):
 	id = models.AutoField(primary_key=True, db_index=True)
 	user = models.ForeignKey(MyUser)
 	products = models.ForeignKey(Products)
+	reason = models.CharField(max_length=1000, null=True, blank=True)
 	#是否中奖
 	verify = models.BooleanField(default=False, db_index=True)
 
