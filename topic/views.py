@@ -84,7 +84,7 @@ def group_detail(request, group_id):
 		groupall = Group.objects.all().order_by("-topicount")
 		topic = group.topic_set.all().order_by("-updated")
 		# 分页
-		paginator = Paginator(topic, 10)
+		paginator = Paginator(topic, 16)
 		page = request.GET.get('page')
 		try:
 			contacts = paginator.page(page)
@@ -138,7 +138,7 @@ def topic_detail(request, topic_id):
 	else:
 		collection = '收藏'
 	# 分页
-	paginator = Paginator(comment, 5)
+	paginator = Paginator(comment, 12)
 	page = request.GET.get('page')
 	try:
 		contacts = paginator.page(page)
@@ -348,9 +348,20 @@ def topcommentcomment(request):
 		comment = Comment.objects.filter(topic=topic)
 		targetcomment = Comment.objects.get(pk=preentid)
 		user = request.user
-		receiver = targetcomment.user.username
-		text="@"+receiver+" "+text
-		print user
+		if targetcomment.user == user:
+			pass;
+		else:
+			notify.send(sender=user, target_object= None
+					, recipient = targetcomment.user, verb='$'
+					, text=text, target_article = None
+					, target_products = None
+					, target_topic = topic)
+			cachekey = "user_unread_count" + str(targetcomment.user.id)
+			if cache.get(cachekey) != None:
+				cache.incr(cachekey)
+			else:
+				unread = Notification.objects.filter(recipient = targetcomment.user.id).filter(read = False).count()
+				cache.set(cachekey,  unread, settings.CACHE_EXPIRETIME)
 		try:
 			c = Comment(user=user, topic=topic, text=text, parent=targetcomment)
 			c.save()

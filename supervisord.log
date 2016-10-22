@@ -54923,3 +54923,80 @@ worker: Warm shutdown (MainProcess)
 2016-10-02 07:51:24,439 INFO spawned: 'redis-server' with pid 1201
 2016-10-02 07:51:26,273 INFO success: celery entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
 2016-10-02 07:51:26,273 INFO success: redis-server entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-10-06 16:57:26,267 WARN received SIGTERM indicating exit request
+2016-10-06 16:57:26,270 INFO waiting for celery, redis-server to die
+2016-10-06 16:57:26,365 INFO stopped: redis-server (exit status 0)
+2016-10-06 16:57:27,916 INFO stopped: celery (exit status 0)
+2016-10-06 16:58:40,488 CRIT Supervisor running as root (no user in config file)
+2016-10-06 16:58:40,547 INFO RPC interface 'supervisor' initialized
+2016-10-06 16:58:40,547 INFO supervisord started with pid 1180
+2016-10-06 16:58:41,550 INFO spawned: 'celery' with pid 1218
+2016-10-06 16:58:41,551 INFO spawned: 'redis-server' with pid 1219
+2016-10-06 16:58:43,359 INFO success: celery entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-10-06 16:58:43,359 INFO success: redis-server entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-10-06 16:59:57,339 WARN received SIGTERM indicating exit request
+2016-10-06 16:59:57,341 INFO waiting for celery, redis-server to die
+2016-10-06 16:59:57,436 INFO stopped: redis-server (exit status 0)
+2016-10-06 16:59:58,985 INFO stopped: celery (exit status 0)
+2016-10-06 17:01:03,024 CRIT Supervisor running as root (no user in config file)
+2016-10-06 17:01:03,039 INFO RPC interface 'supervisor' initialized
+2016-10-06 17:01:03,040 INFO supervisord started with pid 1141
+2016-10-06 17:01:04,042 INFO spawned: 'celery' with pid 1209
+2016-10-06 17:01:04,044 INFO spawned: 'redis-server' with pid 1210
+2016-10-06 17:01:05,715 INFO success: celery entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-10-06 17:01:05,715 INFO success: redis-server entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-10-10 23:11:31,065 WARN received SIGTERM indicating exit request
+2016-10-10 23:11:31,067 INFO waiting for celery, redis-server to die
+2016-10-10 23:11:31,087 INFO stopped: redis-server (exit status 0)
+2016-10-10 23:11:32,634 INFO stopped: celery (exit status 0)
+2016-10-10 23:12:45,945 CRIT Supervisor running as root (no user in config file)
+2016-10-10 23:12:45,985 INFO RPC interface 'supervisor' initialized
+2016-10-10 23:12:45,985 INFO supervisord started with pid 1199
+2016-10-10 23:12:46,988 INFO spawned: 'celery' with pid 1207
+2016-10-10 23:12:46,990 INFO spawned: 'redis-server' with pid 1208
+2016-10-10 23:12:48,846 INFO success: celery entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-10-10 23:12:48,846 INFO success: redis-server entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-10-12 22:36:39,952 WARN received SIGTERM indicating exit request
+2016-10-12 22:36:40,026 INFO waiting for celery, redis-server to die
+2016-10-12 22:36:40,881 INFO stopped: redis-server (exit status 0)
+2016-10-12 22:36:42,633 INFO stopped: celery (exit status 0)
+2016-10-12 22:37:51,132 CRIT Supervisor running as root (no user in config file)
+2016-10-12 22:37:51,199 INFO RPC interface 'supervisor' initialized
+2016-10-12 22:37:51,199 INFO supervisord started with pid 1217
+2016-10-12 22:37:52,202 INFO spawned: 'celery' with pid 1255
+2016-10-12 22:37:52,204 INFO spawned: 'redis-server' with pid 1256
+2016-10-12 22:37:54,005 INFO success: celery entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-10-12 22:37:54,005 INFO success: redis-server entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-10-13 06:40:34,686 WARN received SIGTERM indicating exit request
+2016-10-13 06:40:34,687 INFO waiting for celery, redis-server to die
+2016-10-13 06:40:34,748 INFO stopped: redis-server (exit status 0)
+2016-10-13 06:40:36,296 INFO stopped: celery (exit status 0)
+2016-10-13 06:41:49,248 CRIT Supervisor running as root (no user in config file)
+2016-10-13 06:41:49,288 INFO RPC interface 'supervisor' initialized
+2016-10-13 06:41:49,288 INFO supervisord started with pid 1177
+2016-10-13 06:41:50,291 INFO spawned: 'celery' with pid 1183
+2016-10-13 06:41:50,293 INFO spawned: 'redis-server' with pid 1184
+2016-10-13 06:41:52,209 INFO success: celery entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-10-13 06:41:52,209 INFO success: redis-server entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-10-15 00:57:03,366 WARN received SIGTERM indicating exit request
+2016-10-15 00:57:03,367 INFO waiting for celery, redis-server to die
+2016-10-15 00:57:03,390 INFO stopped: redis-server (exit status 0)
+2016-10-15 00:57:05,940 INFO stopped: celery (exit status 0)
+2016-10-15 00:58:22,408 CRIT Supervisor running as root (no user in config file)
+2016-10-15 00:58:22,439 INFO RPC interface 'supervisor' initialized
+2016-10-15 00:58:22,440 INFO supervisord started with pid 1226
+2016-10-15 00:58:23,442 INFO spawned: 'celery' with pid 1232
+2016-10-15 00:58:23,444 INFO spawned: 'redis-server' with pid 1233
+2016-10-15 00:58:25,126 INFO success: celery entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-10-15 00:58:25,127 INFO success: redis-server entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-10-22 00:43:49,465 WARN received SIGTERM indicating exit request
+2016-10-22 00:43:49,852 INFO waiting for celery, redis-server to die
+2016-10-22 00:43:49,938 INFO stopped: redis-server (exit status 0)
+2016-10-22 00:43:51,749 INFO stopped: celery (exit status 0)
+2016-10-22 00:45:01,415 CRIT Supervisor running as root (no user in config file)
+2016-10-22 00:45:01,476 INFO RPC interface 'supervisor' initialized
+2016-10-22 00:45:01,476 INFO supervisord started with pid 1236
+2016-10-22 00:45:02,479 INFO spawned: 'celery' with pid 1242
+2016-10-22 00:45:02,480 INFO spawned: 'redis-server' with pid 1243
+2016-10-22 00:45:04,250 INFO success: celery entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-10-22 00:45:04,250 INFO success: redis-server entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)

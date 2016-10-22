@@ -61,9 +61,6 @@ $(function(){
 <div class="container">
 <div class="col-sm-9">
 
-  <ul class="breadcrumbs">
-            <li><a href="{% url 'group_all' %}">话题组</a></li>
-        </ul>
 
  <div class="group-name">
  	{{group.title}}
@@ -151,32 +148,6 @@ $(function(){
 </div><!-- class="col-sm-8" -->
 
 <div class="col-sm-3 hidden-xs">
-<div id='rightstableblock'>
-<div id='hotarticle'>
-  <div class="pull-left" >
-  <h4><b>话题组</b></h4>
-  <span class="span-mark"></span>
-  </div>
-<div class="rightnewtpic">
- {% for item in groupall %}
-  <div class="rightitle">
-      <a href="{{item.get_absolute_url}}">
- <div class='mod-thumb'><img src="{{item.get_image_url}}"></div>
-  </a>
- <div class="project-content">
- 	<a href="{{item.get_absolute_url}}">
- {{item.title}}
- </a>
-  <div class='group-information'>
- ({{item.id|group_topic_count}}则话题)
-  </div><!--   <div class='group-information'> -->
- </div> <!-- <div class="project-content"> -->
- </div><!-- <div class="rightitle"> -->
- {% endfor %}
- </div><!-- <div class="rightnewtpic"> -->
- </div><!-- <div id='hotarticle'> -->
-</div><!-- <div id='rightstableblock'> -->
-
 
 
 </div><!-- class="col-sm-4" -->

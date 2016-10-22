@@ -8,6 +8,7 @@ reload(sys)
 sys.setdefaultencoding( "utf-8" )
 from django.core.cache import cache
 from django.conf import settings
+from notifications.models import Notification
 
 #给评论中每一个被@的用户发送notifications，并返回一个被@用户的列表
 def atwho(text, sender, targetcomment, targetarticle, targetopic , targetproducts):

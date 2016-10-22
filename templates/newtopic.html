@@ -39,7 +39,6 @@ $(document).ready(function(){
 <div class="center-warp">
 {% if group %}
 <ul class="breadcrumbs">
-            <li><a href="{% url 'group_all' %}">话题组</a><span> &gt; </span></li>
             <li><a href="{{ group.get_absolute_url }}">{{ group.title }}</a><span> &gt; </span></li>
             <li>提交话题</li>
         </ul>

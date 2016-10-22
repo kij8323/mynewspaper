@@ -16,7 +16,7 @@ from notifications.models import Notification
 from company.models import Company
 from investment.models import Investment
 from products.models import Products, Application
-COMMENT_PERPAGE_COUNT = 5 #topic页面每页显示多少个评论
+COMMENT_PERPAGE_COUNT = 12 #topic页面每页显示多少个评论
 #楼层计算器,topic评论的楼层计算
 @register.filter
 def pageaculate(value, arg): 
@@ -208,6 +208,8 @@ def user_unread_count(value):
     user = MyUser.objects.get(id = value)
     cachekey = "user_unread_count" + str(user.id)
     if cache.get(cachekey) != None:
+        if cache.get(cachekey) < 0:
+            cache.set(cachekey, 0)
         return cache.get(cachekey)
     else:
         unread = Notification.objects.filter(recipient = user).filter(read = False).count()

@@ -46,6 +46,38 @@ $(function() {
 })
 </script>
 
+
+<script>/*回复私信*/
+$(function() {
+ $("body").on("click", '.reprivcy', function(){
+  privcytarge = $($(this).parent().parent().children().get(0)).attr("id");
+  privcytargename = $($(this).parent().parent().children().get(0)).text();
+  $('#modealprivcyino').text("回复私信给：" + privcytargename)
+  $('#privcytarget').val(privcytarge)
+  $.ajaxSetup({
+  data: {csrfmiddlewaretoken: '{{ csrf_token }}', 
+        privcytargetid: privcytarge,
+        },
+        });
+  $.ajax({
+        url: "{% url 'notificationsconversation' %}",
+        type: "post",
+        dataType: 'json',
+        success: function(data) {
+          $('#notificationsconversation').text('')
+          for(var i=0;i<data.notifications.length;i++){
+                  $('#notificationsconversation').append("<div class='notilinetime '>"+data.notificationstime[i]+"</div>"+"<div class='notiline "+ data.backcolor[i] +"'>" + data.notifications[i]+"</div>")
+                            }
+          },
+        error: function(data) { 
+          alert('2')
+          },
+        });
+
+  $('#myModal4').modal('show')
+  })
+})
+</script>
 {% endblock %}
 
 
@@ -67,6 +99,43 @@ $(function() {
     </div>
   </div>
 </div>
+
+<!-- Modal4 -->
+<div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <div id="erroriconprivcycomment" style="text-align: center;">请输入内容</div>
+        <h4 class="modal-title" id="myModalLabel"></h4>
+        <div id="notificationsconversation"></div>
+      </div>
+      <div class="modal-body">
+<div id='privcycommentform'>
+  
+{% if user.is_authenticated %}
+<form  action="" method="post">
+  {% csrf_token %}
+  <label for="privcycomment" id="modealprivcyino"></label>
+<!-- <input  id='privcycomment' class="form-control" type="text" name="privcycomment" /> -->
+<textarea  id='privcycomment'  class="form-control" type="text" name="privcycomment" ></textarea>
+<input  id='privcytarget' class="form-control" type="text" name="privcytarget"  />
+<button type="submit" class="btn btn-default btn-success">确定</button>
+<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+</form>
+{% else %}
+<div class="authboard">
+<div class="authboardword">
+<h4>请<a href="{% url 'loggin' %}">登录</a>后给他发信</h4>
+</div>
+</div>
+{% endif %} 
+
+</div>
+      </div>
+    </div>
+  </div>
+</div>
  
  <div class="container">
 <div class="container-user">
@@ -76,9 +145,8 @@ $(function() {
      <li class="presentation1" role="presentation"><a href="{% url 'user_detailinformations' userofinfor.id%}"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>{{hostname}}主页</a></li>
       <li class="presentation5" role="presentation"><a href="{% url 'user_userdashboardarticle' userofinfor.id%}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>{{hostname}}文章</a></li>
       <li class="presentation2" role="presentation"><a href="{% url 'user_detailcomments' userofinfor.id%}"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span>{{hostname}}评论</a></li>
-      <li class="presentation6" role="presentation"><a href="{% url 'user_userdashboardcompany' userofinfor.id%}"><span class="glyphicon glyphicon-piggy-bank" aria-hidden="true"></span>{{hostname}}公司</a></li>       
 {% if host %}
-      <li class="presentation3" role="presentation"><a href="{% url 'user_detailnotifications' userofinfor.id%}"><span class="glyphicon glyphicon-inbox" aria-hidden="true"></span>{{hostname}}消息<span class="badge">{{ user.id|user_unread_count }}</span></a></li>
+      <li class="presentation3" role="presentation"><a href="{% url 'user_detailnotifications' userofinfor.id%}"><span class="glyphicon glyphicon-inbox" aria-hidden="true"></span>{{hostname}}消息<span class="badge inboxcount1">{{ user.id|user_unread_count }}</span></a></li>
       
       <li class="presentation4" role="presentation"><a href="{% url 'user_detailcollections' userofinfor.id%}"><span class="glyphicon glyphicon-paperclip" aria-hidden="true"></span>{{hostname}}收藏</a></li>
 
@@ -97,7 +165,7 @@ $(function() {
     <div class="dashboard">
       {% for item in notifications %}
       <div class = 'commentlist' id='{{item.id}}'>
-      <a href="{{item.sender_object.get_absolute_url}}">{{item.sender_object.username}}</a>给你发送了私信:
+      <a id = '{{item.sender_object.id}}' href="{{item.sender_object.get_absolute_url}}">{{item.sender_object.username}}</a>给你发送了私信:
       {% if item.read %}
       {% else %}
       <i class="pull-right"><span class="badge">未读</span></i>
@@ -109,6 +177,9 @@ $(function() {
       <div class = 'commentinfo'>
         {{item.timestamp}}
         <i class="icon-delete pull-right"></i>
+      <a href="javascript:;" class='reprivcy pull-right'>
+        回复
+      </a>
       </div><!-- <div class = 'commentinfo'> -->
       </div><!-- <div class = 'commentlist'> -->
       {% endfor %}

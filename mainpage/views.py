@@ -32,9 +32,7 @@ def index_search(request):
 		mode = SPH_MATCH_ALL
 		host = 'localhost'
 		port = 9312
-		indexfirm = 'mysqlfirm'
 		indexarticle = 'mysql'
-		indexinvestment = 'mysqlinvestment'
 		indextopic = 'mysqltopic'
 		indexproducts = 'mysqlproducts'
 		# filtercol = 'group_id'
@@ -48,17 +46,6 @@ def index_search(request):
 		cl.SetWeights ( [100, 1] )
 		cl.SetMatchMode ( mode )
 
-		res1 = cl.Query ( q, indexfirm )
-		if not res1:
-			print 'query failed: %s' % cl.GetLastError()
-			sys.exit(1)
-		if cl.GetLastWarning():
-			print 'WARNING: %s\n' % cl.GetLastWarning()
-		index1 = [] #查询结果的id集合
-		if res1.has_key('matches'):
-			for match in res1['matches']:
-				index1.append(match['id'])  
-		test1 = Company.objects.all().filter(id__in = index1).filter(verify = True).order_by('-id') #获得属于id集合的对象的queryset
 		
 		res2 = cl.Query ( q, indexarticle )
 		if not res2:
@@ -72,17 +59,6 @@ def index_search(request):
 				index2.append(match['id']) 
 		test2 = Article.objects.all().filter(id__in = index2).order_by('-id') #获得属于id集合的对象的queryset
 
-		res3 = cl.Query ( q, indexinvestment )
-		if not res3:
-			print 'query failed: %s' % cl.GetLastError()
-			sys.exit(1)
-		if cl.GetLastWarning():
-			print 'WARNING: %s\n' % cl.GetLastWarning()
-		index3 = [] #查询结果的id集合
-		if res3.has_key('matches'):
-			for match in res3['matches']:
-				index3.append(match['id']) 
-		test3 = Investment.objects.all().filter(id__in = index3).order_by('-id') #获得属于id集合的对象的queryset
 		
 		res4 = cl.Query ( q, indextopic )
 		if not res4:
@@ -134,8 +110,6 @@ def index_search(request):
 		context = {
 			'articlequery' : contacts,
 			'search_word' : q,
-			'test1' : test1,
-			'test3' : test3,
 			'firmshow' : firmshow,
 			'test4' : test4,
 			'test5' : test5,

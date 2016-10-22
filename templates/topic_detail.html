@@ -333,14 +333,15 @@ var jiathis_config = {
 
 <div class="col-sm-8">
 
-  <ul class="breadcrumbs hidden-xs">
-            <li><a href="{% url 'group_all' %}">话题组</a><span> &gt; </span></li>
+  <ul class="breadcrumbs">
             <li><a href="{{ group.get_absolute_url }}">{{ group.title }}</a></li>
         </ul>
 
 <div id="article">
  <h1 class="t-h1">{{topic.title}}</h1>
 
+
+{% if ifhotcomment %}
 <div class="article-author">
                 <a href="{{topic.writer.get_absolute_url}}">
                <img  class="commentusericon1 hidden-xs" src='{{topic.writer.get_image_url}}'>
@@ -364,6 +365,27 @@ var jiathis_config = {
 </div>
 
 
+
+              <div class="try-share visible-xs-block">
+            <a href="http://www.jiathis.com/send/?webid=tsina&url=http://{{sharelink}}&title={{topic.title}}&appkey=2155349390">
+            <i class="mobileweiboshare">
+            </i>
+            </a>
+              <a class="jiathis_button_weixin">
+               <i class="mobileweichatshare">
+              </i>
+              </a>
+              <a href="http://www.jiathis.com/send/?webid=qzone&url=http://{{sharelink}}&title={{topic.title}}">
+            <i class="mobileqqzoneshare">
+            </i>
+            </a>
+              </div>
+{% else %}
+
+{% endif %}
+
+
+
 <!--                             热门回复                         -->
 {% if ifhotcomment and commentorderbyreaders %}
 <div id='hotboader'>
@@ -381,6 +403,9 @@ var jiathis_config = {
       
 
       <div class="pl-content">{{item.text|AtWhoUser|safe}}</div>
+
+
+
 
       <div class="pl-box-btm" id = '{{item.user}}'>
 
@@ -410,7 +435,7 @@ var jiathis_config = {
                   <div class = 'childcomment'>
                     <img  class="commentusericon hidden-xs" src='{{childitem.user.get_image_url}}'>
                   <div class = 'rightchildcomment' id = '{{childitem.user}}'>
-                  <span class="author-name"><a href="{{childitems.user.get_absolute_url}}">{{childitem.user}}</a></span>
+                  <span class="author-name"><a href="{{childitem.user.get_absolute_url}}">{{childitem.user}}</a></span>
                   <span class="author-time">
                   {{childitem.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前 :
                    </span>
@@ -493,7 +518,7 @@ var jiathis_config = {
                   <div class = 'childcomment'>
                     <img  class="commentusericon hidden-xs" src='{{childitem.user.get_image_url}}'>
                   <div class = 'rightchildcomment' id = '{{childitem.user}}'>
-                  <span class="author-name"><a href="{{childitems.user.get_absolute_url}}">{{childitem.user}}</a></span>
+                  <span class="author-name"><a href="{{childitem.user.get_absolute_url}}">{{childitem.user}}</a></span>
                   <span class="author-time">
                   {{childitem.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前 :
                    </span>

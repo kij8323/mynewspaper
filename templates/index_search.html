@@ -3,7 +3,6 @@
 {% block HeadDoc %}
 <link href="/static/css/index_search.css" rel="stylesheet">
 <script src="/static/js/topic_detail.js"></script>
-<link href="/static/css/group_detail.css" rel="stylesheet">
 <!-- 网页刷新后，将url中的“?search_word=手机+苹果”分割为“手机 苹果“显示在搜索栏内 函数注册-->
 <script language="javascript" charset='GB2312'>   
 function GetRequest() {   
@@ -161,9 +160,11 @@ $.fn.smartFloat = function() {
 {% for item in test4 %}
 <div class="col-xs-12 newsblock" >
  <div class="group-list">
+  <h3>
  <a href="{{item.get_absolute_url}}">
  [话题] {{item.title|highlight|safe}}
  </a>
+</h3>
  <div class="group-information">
  <span class='group-informatio-blank'>
   <a href="{{item.writer.get_absolute_url}}">

@@ -157,7 +157,7 @@ bottom:20px
 
 
 
-.rightwordblock-search h3{
+.group-list h3,.rightwordblock-search h3{
 	font-size: 18px;
 	color: black;
 	margin-top: 5px;
@@ -447,3 +447,39 @@ height: 100%;
 		font-size: 18px;
 		margin-top: 30px;
 }
+
+
+
+
+
+.group-list{
+	padding-bottom: 15px;
+	/*border-bottom: 1px solid #f0f0f0;*/
+}
+
+
+.group-information{
+	margin: 0px 0 0 0;
+	font-size: 14px;
+	color: #999;
+	line-height: 24px;
+	margin-top: 6px;
+}
+
+.group-information a, .group-founder a{
+	color: #337ab7;
+}
+
+.group-informatio-blank{
+	margin-right: 20px
+}
+
+.commentusericon{
+	width: 25px;
+	height: 25px;
+	border-radius: 3px;
+	background-color: #eee;
+	/*margin: 4px 1em 0 0;*/
+	vertical-align: middle;
+}
+

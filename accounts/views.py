@@ -2,8 +2,9 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 from django.shortcuts import render
-from .form import LoginForm, RegisterForm
-from .models import MyUser, MyUserIconForm
+from .form import LoginForm, RegisterForm, RepasswordForm
+
+from .models import MyUser, MyUserIconForm, Repassworduser
 
 from notifications.models import Notification
 # from comment.models import Comment
@@ -28,7 +29,7 @@ import os
 from django.core.cache import cache
 from django.conf import settings
 from investment.models import Investment, CollectionInvestment
-
+import datetime 
 
 from products.models import Products, Application
 #登录页面
@@ -168,8 +169,13 @@ def userdashboardinformations(request, user_id):
 		if request.method == 'POST' and request.POST.get('privcycomment', False):
 			text = request.POST.get('privcycomment')
 			try:
-				# c = Comment(user=user, is_privcycomment=True, text=text)
 				notify.send(sender=sender, target_object=None, recipient = user, verb="_@_", text=text)
+				cachekey = "user_unread_count" + str(user.id)
+				if cache.get(cachekey) != None:
+					cache.incr(cachekey)
+				else:
+					unread = Notification.objects.filter(recipient = user).filter(read = False).count()
+					cache.set(cachekey,  unread, settings.CACHE_EXPIRETIME)	
 			except:
 				traceback.print_exc()
 			return redirect(action_url)
@@ -275,6 +281,24 @@ def privcynotifications(request, user_id):
 		except EmptyPage:
 		# If page is out of range (e.g. 9999), deliver last page of results.
 			contacts = paginator.page(paginator.num_pages)
+
+		if request.method == 'POST' and request.POST.get('privcycomment', False) and request.POST.get('privcytarget', False):
+			text = request.POST.get('privcycomment')
+			targetid = int(request.POST.get('privcytarget'))
+			targetuser = MyUser.objects.get(id = targetid)
+			try:
+				# c = Comment(user=user, is_privcycomment=True, text=text)
+				notify.send(sender=sender, target_object=None, recipient = targetuser, verb="_@_", text=text)
+				cachekey = "user_unread_count" + str(targetuser.id)
+				if cache.get(cachekey) != None:
+					cache.incr(cachekey)
+				else:
+					unread = Notification.objects.filter(recipient = targetuser).filter(read = False).count()
+					cache.set(cachekey,  unread, settings.CACHE_EXPIRETIME)	
+			except:
+				traceback.print_exc()
+			return redirect(request.get_full_path())
+
 		context = {
 			'userofinfor': user,
 			"notifications": contacts,
@@ -617,6 +641,8 @@ def inbox(request):
 	if request.is_ajax():
 		cachekey = "user_unread_count" + str(request.user.id)
 		if cache.get(cachekey) != None:
+			if cache.get(cachekey) < 0:
+				cache.set(cachekey, 0, settings.CACHE_EXPIRETIME)
 			unread = cache.get(cachekey)
 		else:
 			unread = Notification.objects.filter(recipient = request.user).filter(read = False).count()
@@ -638,3 +664,68 @@ def test(request):
 		'test':test,
 		}
 	return render(request, 'test.html', context)
+
+
+def notificationsconversation(request):
+	if request.is_ajax():
+		targetid = request.POST.get('privcytargetid')
+		recipient = MyUser.objects.get(id = targetid)
+
+		notifications1 = Notification.objects.filter(recipient = recipient).filter(sender_object = request.user).filter(verb = '_@_')
+		notifications2 = Notification.objects.filter(recipient = request.user).filter(sender_object = recipient).filter(verb = '_@_')
+		notifications = notifications1|notifications2
+		test = []
+		test2 = []
+		test3 = []
+		for item in notifications:
+			text = item.sender_object.username+' : '+item.text
+			beijingtime = item.timestamp + datetime.timedelta(hours=8) 
+			time = beijingtime.strftime('%Y.%m.%d %H:%M')
+			if item.sender_object == request.user:
+				backcolor = 'backgreen'	
+			else:
+				backcolor = 'backwhite'	
+			test.append(text);  
+			test2.append(time);
+			test3.append(backcolor);
+		data = {
+			"notifications": test,
+			"notificationstime": test2,
+			"backcolor": test3,
+			}
+		json_data = json.dumps(data)
+		return HttpResponse(json_data, content_type='application/json')
+	else:
+		raise Http404
+
+
+
+
+
+def repassword(request):
+	form = RepasswordForm(request.GET or None)
+	next_url = request.GET.get('next')
+	action_url = reverse("repassword")
+	if form.is_valid():
+		human = True
+		username = form.cleaned_data['username']
+		phonenumber = form.cleaned_data['phonenumber']
+		try:
+			user = MyUser.objects.get(username=username, phonenumber=phonenumber)
+		except MyUser.DoesNotExist:
+			user = None
+		if 	user:
+			new_repassworduser = Repassworduser(username = username, userid = user.id, phonenumber = phonenumber)
+			new_repassworduser.save()
+			user.set_password('wutong')
+			user.save()
+			return render(request, 'builtsucss.html')
+		else:
+			messages.error(request, '输入信息错误，请重新输入！')
+	context = {
+		"form": form,
+		"action_url": action_url,
+		"submit_btn": "提交",
+		}
+	return render(request, 'repassword.html',  context)
+

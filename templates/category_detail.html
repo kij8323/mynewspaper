@@ -157,31 +157,6 @@ $(window).resize(function(){
       <!-- </div> --><!-- <div class="row">  -->  
 
 <div class="col-sm-3 hidden-xs">
-<div id='rightstableblock'>
-<div id='hotarticle'>
-  <div class="pull-left" >
-  <h4><b>类别</b></h4>
-  <span class="span-mark"></span>
-  </div>
-<div class="rightnewtpic">
- {% for item in categoryquery %}
-  <div class="rightitle">
-
-          <a href="{{item.get_absolute_url}}">
- <div class='mod-thumb'>
-  <img src="{{item.get_image_url}}"></div>
-  </a>
-
- <div class="project-content">
-  <a href="{{item.get_absolute_url}}">
- {{item.title}}
- </a>
- </div> <!-- <div class="project-content"> -->
- </div><!-- <div class="rightitle"> -->
- {% endfor %}
- </div><!-- <div class="rightnewtpic"> -->
- </div><!-- <div id='hotarticle'> -->
-</div><!-- <div id='rightstableblock'> -->
 </div><!-- class="col-sm-4" -->
 
 

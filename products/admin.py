@@ -9,7 +9,7 @@ class ProductsAdmin(admin.ModelAdmin):
 		model = Products
 
 class ApplicationAdmin(admin.ModelAdmin):
-	list_display = ('id', 'products', 'user', 'get_userphone', 'get_useraddr', 'reason')
+	list_display = ('id', 'products', 'user', 'get_userphone', 'address', 'reason')
 	class Meta:
 		model = Application
 

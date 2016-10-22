@@ -66,6 +66,7 @@ class Application(models.Model):
 	reason = models.CharField(max_length=1000, null=True, blank=True)
 	#是否中奖
 	verify = models.BooleanField(default=False, db_index=True)
+	address = models.CharField(max_length=200, null=True, blank=True)
 
 	def get_userphone(self):
 	    return self.user.phonenumber

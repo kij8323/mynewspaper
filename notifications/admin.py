@@ -5,6 +5,6 @@ from django.contrib import admin
 from .models import Notification
 
 class NotificationAdmin(admin.ModelAdmin):
-    list_display = ('id', 'sender_object','recipient', 'text')
+    list_display = ('id', 'sender_object','recipient', 'text', 'verb')
 
 admin.site.register(Notification, NotificationAdmin)

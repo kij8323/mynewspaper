@@ -22,7 +22,7 @@ urlpatterns = [
     url(r'^user/userlogout/', 'accounts.views.userlogout', name='userlogout'),#用户登出，不用
     url(r'^user/register/', 'accounts.views.register', name='register'),#用户注册
     url(r'^user/inbox/', 'accounts.views.inbox', name='inbox'),#消息数ajax  
-
+    url(r'^user/repassword/', 'accounts.views.repassword', name='repassword'),#登录
     url(r'^captcha/', include('captcha.urls')),  #验证码设置
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),#富文本框
     url(r'^captchaview/$', 'accounts.views.captchaview', name='captchaview'),#刷新验证码ajax
@@ -43,6 +43,7 @@ urlpatterns = [
     url(r'^user/(?P<user_id>[0-9]+)/collectionsinvestment/$', 'accounts.views.userdashboardcollectionsinvestment', name='user_detailcollectionsinvestment'),#个人收藏话题
 
    url(r'^user/(?P<user_id>[0-9]+)/try/$', 'accounts.views.userdashboardtry', name='user_detailtry'),#个人试用
+   url(r'^user/notificationsconversation/$', 'accounts.views.notificationsconversation', name='notificationsconversation'),#私信ajax
 
     url(r'^group/index/$', 'topic.views.group_index', name='group_index'),#不用
     url(r'^group/all/$', 'topic.views.group_all', name='group_all'),#话题组首页

@@ -135,3 +135,7 @@ font-size: 12px !important;
 	border-left: 0px !important;
 	border-top: 1px solid #f0f0f0;
 }
+
+.breadcrumbs{
+	margin-left: 0px !important;
+}

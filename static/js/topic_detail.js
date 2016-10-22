@@ -131,14 +131,7 @@ $(function(){
 })
 
 
-/*回复评论按钮*/
-/*$(function(){
-  $("body").on("click", '.btn-dp-reply', function(){
-    $(this).next().next(".form-comment-reply").fadeToggle();
-    x = $(this).parent().attr("id");
-    $(this).next().next('.form-comment-reply').children('#id_commentext').focus()
-  });
-})*/
+
 
 
 /*回复评论的评论按钮*/
@@ -149,4 +142,3 @@ $(function(){
     $(this).parent().parent().parent().children('#id_commentext').focus().val($(this).parent().parent().parent().children('#id_commentext').val()+"@"+x+' ');
   });
 })
-

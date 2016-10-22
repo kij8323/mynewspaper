@@ -89,7 +89,7 @@ def new_notification(sender, **kwargs):
 						verb = verb,
 						text = text,
 						)
-		c.save()
+		instancesave.delay(c)
 	except:
 		traceback.print_exc()
 

@@ -142,6 +142,18 @@ class UserProfile(models.Model):
 #     	}
 
 
+#用户信息数据库
+class Repassworduser(models.Model):
+	username = models.CharField(
+	    max_length=255,
+	)
+	userid = models.CharField(
+	    max_length=255,
+	)
+	phonenumber = models.CharField(
+	    max_length=255,
+	)
+
 class MyUserIconForm(ModelForm):
     class Meta:
         model = MyUser

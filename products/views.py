@@ -76,7 +76,7 @@ def products_detail(request, products_id):
 		try:
 			application = Application.objects.get(user=user.id, products=products)
 		except Application.DoesNotExist:
-			news_App = Application(user=user, products=products, reason = reason)
+			news_App = Application(user=user, products=products, reason = reason, address = request.POST.get('addressinput'))
 			news_App.save()
 			cachekey = "products_applyamount_" + str(products_id)
 			if cache.get(cachekey) != None:
@@ -307,8 +307,11 @@ def productscommentcomment(request):
 		#comment = Comment.objects.filter(products=products)
 		targetcomment = Comment.objects.get(pk=preentid)
 		user = request.user
-		receiver = targetcomment.user.username
-		text="@"+receiver+" "+text
+		if targetcomment.user == user:
+			pass;
+		else:
+			receiver = targetcomment.user.username
+			text="@"+receiver+" "+text
 		try:
 			c = Comment(user=user, products=products, text=text, parent=targetcomment)
 			c.save()

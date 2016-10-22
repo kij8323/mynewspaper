@@ -89,6 +89,26 @@ class LoginForm(forms.Form):
             raise forms.ValidationError("用户不存在！")
 
 
+#登录表
+class RepasswordForm(forms.Form):
+    username = forms.CharField(
+        widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': '用户名'}),
+        error_messages={'required': '请输入用户名'})
+    phonenumber = forms.CharField(
+        widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': '常用手机号'}),
+        error_messages={'required': '请输入常用手机号'})
+    captcha = CaptchaField(error_messages={'required': '请输入验证码','invalid':'验证码错误' })
+    def clean_username(self):
+        username = self.cleaned_data.get("username")
+        try:
+            exists = MyUser.objects.get(username=username)
+            return username
+        except MyUser.DoesNotExist:
+            raise forms.ValidationError("用户不存在！")
+
+
 #在admin中增加用户
 class UserCreationForm(forms.ModelForm):
     """A form for creating new users. Includes all the required
