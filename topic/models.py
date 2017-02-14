@@ -9,11 +9,14 @@ from django.forms import ModelForm
 from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.dispatch import receiver
-from django.db.models.signals import pre_save, post_delete
+from django.db.models.signals import pre_save, post_delete, post_save
 from accounts.models import MyUser
 from django.utils.translation import ugettext_lazy as _
 from django.core.cache import cache
 from products.models import Products
+from DjangoUeditor.models import UEditorField
+import os
+from article.tasks import topicwritescore, instancesave
 # Create your models here.
 class Group(models.Model):
 	id = models.AutoField(primary_key=True, db_index=True)
@@ -44,6 +47,11 @@ class Group(models.Model):
 	def get_absolute_url(self):
 		return reverse('group_detail', kwargs={"group_id": self.id})
 
+class Groupmanager(models.Model):
+	manager = models.ForeignKey(MyUser, db_index=True)
+	group = models.ForeignKey(Group, db_index=True)
+		
+
 
 
 class Topic(models.Model):
@@ -57,7 +65,7 @@ class Topic(models.Model):
 	#作者
 	writer = models.ForeignKey(MyUser, db_index=True)
 	#文章内容
-	content = RichTextUploadingField(max_length=20000)
+	content = UEditorField(max_length=100000, width=800, upload_settings={"imageMaxSize":30204000})
 	#文章地址
 	url_address = models.CharField(max_length=500, null=True, blank=True)
 	#文章图标
@@ -68,6 +76,25 @@ class Topic(models.Model):
 	cover = models.BooleanField(default=False, db_index=True)
 	#自定义查询语句
 	products = models.ForeignKey(Products, null=True, blank=True, db_index=True)
+
+	savetext = models.BooleanField(default=False, db_index=True)
+
+	#是否为原创
+	original = models.BooleanField(default=True, db_index=False)
+
+	#是否为封面
+	cover = models.BooleanField(default=False, db_index=True)
+
+	#测评广告位
+	guanggao = models.BooleanField(default=False, db_index=True)
+	#积分
+	score = models.BooleanField(default=False, db_index=True)
+	images1 = models.ImageField(upload_to='images/', null=True, blank=True)
+	images2 = models.ImageField(upload_to='images/', null=True, blank=True)
+	images3 = models.ImageField(upload_to='images/', null=True, blank=True)
+	images4 = models.ImageField(upload_to='images/', null=True, blank=True)
+	images5 = models.ImageField(upload_to='images/', null=True, blank=True)
+	images6 = models.ImageField(upload_to='images/', null=True, blank=True)
 
 	#objects = ArticleManager()
 	def __unicode__(self):
@@ -93,6 +120,24 @@ class Topic(models.Model):
 		return self.comment_set.all()
 
 
+	def get_image1_url(self):
+		return "%s%s" %(settings.MEDIA_URL, self.images1)
+
+	def get_image2_url(self):
+		return "%s%s" %(settings.MEDIA_URL, self.images2)
+
+	def get_image3_url(self):
+		return "%s%s" %(settings.MEDIA_URL, self.images3)
+
+	def get_image4_url(self):
+		return "%s%s" %(settings.MEDIA_URL, self.images4)
+
+	def get_image5_url(self):
+		return "%s%s" %(settings.MEDIA_URL, self.images5)
+
+	def get_image6_url(self):
+		return "%s%s" %(settings.MEDIA_URL, self.images6)
+
 
 
 class TopicForm(ModelForm):
@@ -117,6 +162,51 @@ class CollectionTopic(models.Model):
 	user = models.ForeignKey(MyUser, db_index=True)
 	topic = models.ForeignKey(Topic, db_index=True)
 
+
+
+#话题点赞
+class TopicLike(models.Model):
+	id = models.AutoField(primary_key=True, db_index=True)
+	user = models.ForeignKey(MyUser)
+	topic = models.ForeignKey(Topic)
+	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False, null=True)
+
+
+#作者加积分
+class TopicWriteScoreM(models.Model):
+	id = models.AutoField(primary_key=True, db_index=True)
+	user = models.ForeignKey(MyUser)
+	topic = models.ForeignKey(Topic)
+	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False, null=True)
+
+
+
+#评论者与作者同时加分
+class Topicusercomment(models.Model):
+	id = models.AutoField(primary_key=True, db_index=True)
+	user = models.ForeignKey(MyUser)
+	topic = models.ForeignKey(Topic)
+	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False, null=True)
+
+
+#作者回复他人评论时，作者加10分
+class Topicwritereply(models.Model):
+	id = models.AutoField(primary_key=True, db_index=True)
+	user = models.ForeignKey(MyUser)
+	topic = models.ForeignKey(Topic)
+	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False, null=True)
+
+
+#评论获他人回复
+class Topiccommentreply(models.Model):
+	id = models.AutoField(primary_key=True, db_index=True)
+	user1 = models.ForeignKey(MyUser)
+	user2 = models.ForeignKey(MyUser, related_name='otheruser')
+	topic = models.ForeignKey(Topic)
+	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False, null=True)
+
+
+
 #每删除一个话题，话题组的话题数量-1
 @receiver(post_delete, sender=Topic)
 def subtopicount(sender, **kwargs):
@@ -131,3 +221,18 @@ def subtopicount(sender, **kwargs):
 	else:
 		group = Group.objects.get(id=value)
 		cache.set(cachekey,  group.topicount)
+
+
+
+@receiver(post_save, sender=Topic)
+def subtopicount(sender, **kwargs):
+	os.system('echo yes | python /home/shen/Documents/paperproject/mynewspaper/manage.py collectstatic')
+	topic = kwargs.pop("instance")
+	try:
+		topicwritescorem = TopicWriteScoreM.objects.get(topic=topic, user=topic.writer)
+	except:
+		topicwritescorem = None
+	if topicwritescorem:
+		pass
+	else:
+		topicwritescore.delay(topic.writer, topic, TopicWriteScoreM)

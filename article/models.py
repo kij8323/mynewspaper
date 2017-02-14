@@ -13,6 +13,7 @@ import os
 from django.core.cache import cache
 from company.models import Company
 from investment.models import Investment
+from DjangoUeditor.models import UEditorField
 # 文章
 class Article(models.Model):
 	id = models.AutoField(primary_key=True, db_index=True)
@@ -25,9 +26,10 @@ class Article(models.Model):
 	# #文章更新时间
 	updated = models.DateTimeField(auto_now_add=False, auto_now=True, null=True)
 	#文章内容
-	content = RichTextUploadingField(max_length=20000, null=True, blank=True)
+	content = UEditorField(max_length=80000, width=800, upload_settings={"imageMaxSize":30204000})
+
 	#作者
-	writer = models.ForeignKey(MyUser, db_index=True)
+	writer = models.ForeignKey(MyUser, db_index=True, default=2028)
 	#转载
 	fromner = models.TextField(max_length=500, null=True, blank=True)
 	#文章地址
@@ -117,7 +119,7 @@ def categoryofarticle(sender, **kwargs):
     if thisrelationtag: #如果文章已经被分类直接返回
     	return;
     else:	#如果文章未分类则直接分类
-		category = Category.objects.get(id = 7)
+		category = Category.objects.get(id = 9)
 		relation = Relation(article= article, category = category)
 		relation.save()
 		os.system('echo yes | python /home/shen/Documents/paperproject/mynewspaper/manage.py collectstatic')

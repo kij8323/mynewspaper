@@ -1,0 +1,100 @@
+{% extends "base_1.html" %}
+{% block HeadDoc %}
+<link href="/static/css/repassweixin.css" rel="stylesheet">
+<script src="/static/js/loggin.js"></script>
+<!-- javascript不能使用django变量模板 -->
+<!-- 刷新验证码 -->
+<script>
+$(function() {
+  $("#freshcaptcha").click(function() {
+    $.ajax({
+        url: "{% url 'captchaview' %}",
+        type: "get",
+        success: function(data) {
+            $(".captcha").attr("src",data.acptchaimg);
+            $("#id_captcha_0").val(data.captchakey);
+        },
+        error: function(data) { 
+            alert("Got an error dude");
+        }
+    });
+
+  })
+})
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('#id_username').val("{{myuser.username}}")
+  $('#id_password').attr('placeholder','梧桐账户密码')
+}); 
+</script>
+
+
+<!-- 
+<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=2155349390&debug=true" type="text/javascript" charset="utf-8"></script> -->
+
+
+
+
+
+{% endblock %}
+
+
+ {% block content %}
+
+
+
+ <div class="container">
+  <div class="container-loggin">
+
+
+<div class="third-box-third">
+<!-- <div class="third-title"><span>第三方登录</span></div> -->
+<div id='third-icon'><img class="img-circle" src="{{myuser.get_image_url}}"></div>
+<div id='third-username'>{{myuser.username}}</div>
+</div>
+
+
+
+  <form class="form-signin" role="form" method='get' autocomplete="off" action='{{ action_url }}'>
+    {% csrf_token %}
+
+<!--   <img class="headimag" src="/static/images/logotree/logo_7.jpg"> -->
+
+  <div class="form-label">
+
+<div id="usernameok" class="successlist" style="display: block;">首次第三方授权登录需确认账户！</div>
+
+  {% if messages %}
+  <ul class="messages">
+      {% for message in messages %}
+      <li{% if message.tags %} class="{{ message.tags }}" 
+      {% endif %}>{{ message }}</li>
+      {% endfor %}
+  </ul>
+  {% endif %}
+
+  {{form}}
+  </div>
+
+ 
+
+
+  <div class="checkbox">
+  <label>
+  <input type="checkbox" name='checkbox' value="remember-me"> 记住登录状态1个月
+  </label>
+  </div>
+
+
+  <input class='btn btn-lg btn-success btn-block' type='submit' value='登录'/>
+
+  </form>
+
+
+  </div>
+  </div>
+ {% endblock %}
+ 
+

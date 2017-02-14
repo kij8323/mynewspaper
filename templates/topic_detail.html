@@ -215,7 +215,7 @@ $.fn.smartFloat = function() {
                 if (window.XMLHttpRequest) { //如果不是ie6 
                     element.css({ //设置css 
                         position: "fixed", //固定定位,即不再跟随滚动 
-                        top: 0, //距离页面顶部为0 
+                        top: 38, //距离页面顶部为0 
                       
                     }).addClass("shadow"); //加上阴影样式.shadow 
                 } else { //如果是ie6 
@@ -277,13 +277,103 @@ var jiathis_config = {
 }
 </script>
 
+<script>/*回到页面顶端*/
+$(function(){ 
+  $('.barcomment').click(function(){
+  $('html,body').animate({scrollTop:$('.comment-form').offset().top}, 800);}); 
+  $(window).scroll(function() {   
+    if($(window).scrollTop() >= 100){
+      $('.rtotopsctoll').fadeIn(300); 
+    }else{    
+      $('.rtotopsctoll').fadeOut(300);    
+    }  
+  });
+  $('.rtotopsctoll').click(function(){
+  $('html,body').animate({scrollTop: '0px'}, 800);}); 
+
+});
+</script>
 
 
+
+
+
+<script type="text/javascript">
+$(function(){ 
+  $('#dianzan').click(function(){
+    like = parseInt($('#dianzancount').text())
+    topicid = {{topic.id}}
+    $.ajaxSetup({
+    data: {csrfmiddlewaretoken: '{{ csrf_token }}', 
+          topicid: topicid,
+          },
+          });/*$.ajaxSetup({*/
+    $.ajax({
+        url: "{% url 'topicdianzan' %}",
+        type: "post",
+        success: function(data) {
+            $('#dianzancount').html(like + data.topiclikecount)
+            if (data.topiclikecount == 1){
+              $('#dianzan').css({"color":"#67CA87","border":"3px solid #67CA87"});
+              }
+            else{
+              $('#dianzan').css({"color":"#999","border":"3px solid #999"});
+              }
+          },
+          error: function(data) { 
+          /*  alert('Error')*/
+          }
+    });/*$.ajax({*/
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(function(){ 
+  $('#aldianzan').click(function(){
+    like = parseInt($('#dianzancount').text())
+    topicid = {{topic.id}}
+    $.ajaxSetup({
+    data: {csrfmiddlewaretoken: '{{ csrf_token }}', 
+          topicid: topicid,
+          },
+          });/*$.ajaxSetup({*/
+    $.ajax({
+        url: "{% url 'topicdianzan' %}",
+        type: "post",
+        success: function(data) {
+          $('#dianzancount').html(like + data.topiclikecount)
+            if (data.topiclikecount == 1){
+              $('#aldianzan').css({"color":"#67CA87","border":"3px solid #67CA87"});
+              }
+            else{
+              $('#aldianzan').css({"color":"#999","border":"3px solid #999"});
+              }
+          },
+          error: function(data) { 
+       /*     alert('Error')*/
+          }
+    });/*$.ajax({*/
+  });
+});
+</script>
 {% endblock %}
 
 
  {% block content %}
 <div class="container">
+
+<ul id="rightsidebar" class="visible-xs-block">
+<li class="rtotopsctoll ">
+<a href="javascript:void(0)"><em></em></a> 
+</li>
+<li class='barcomment '>
+<a href="javascript:void(0)">评论</a>
+</li>
+</ul>
+
+
 <div class="col-sm-1 hidden-xs">
 <ul id="sidebar">
   <li>
@@ -344,12 +434,11 @@ var jiathis_config = {
 {% if ifhotcomment %}
 <div class="article-author">
                 <a href="{{topic.writer.get_absolute_url}}">
-               <img  class="commentusericon1 hidden-xs" src='{{topic.writer.get_image_url}}'>
+               <img  class="commentusericon1" src='{{topic.writer.get_image_url}}'>
                 </a>
                 <span class="author-name"><a href = "{{topic.writer.get_absolute_url}}">{{topic.writer}}</a></span>
                 <i class="icon icon-line"></i>
                 <span class="article-time">{{topic.timestamp|date:"Y-m-d H:i"}}</span>
-                <span class="article-share">阅读:{{topic.id|Topic_readers}}</span>
                 <span class="article-pl">评论:<span class="article-pl-count">{{topic.id|Topic_comment}}</span></span>
                 {% if host %}
                 <a href="{% url 'renewtopic' topic.id%}"><span class="topic-edite pull-right">编辑/更改</span></a>
@@ -364,6 +453,20 @@ var jiathis_config = {
      <p>{{topic.content|AtWhoUser|safe}}</p>
 </div>
 
+<div class="clearfix"></div>
+
+
+{% if topiclike %}
+<div id="aldianzan">
+  <div class="topiczan">赞</div>
+  <div id="dianzancount">{{topic.id|topic_like_count}}</div>
+</div>
+{% else %}
+<div id="dianzan">
+  <div class="topiczan">赞</div>
+  <div id="dianzancount">{{topic.id|topic_like_count}}</div>
+</div>
+{% endif %}
 
 
               <div class="try-share visible-xs-block">
@@ -392,7 +495,7 @@ var jiathis_config = {
     <div id='hotboadertitle'>热门回复</div>
 {% for item in commentorderbyreaders %}
     <div class="comment">
-      <img  class="commentusericon hidden-xs" src='{{item.user.get_image_url}}'>
+      <img  class="commentusericon" src='{{item.user.get_image_url}}'>
       <div class='rightcomment'>
       <span class="author-name"><a href="{{item.user.get_absolute_url}}">{{item.user}}</a></span>
 
@@ -433,7 +536,7 @@ var jiathis_config = {
 
                   {% for childitem in item.child_comment %}
                   <div class = 'childcomment'>
-                    <img  class="commentusericon hidden-xs" src='{{childitem.user.get_image_url}}'>
+                    <img  class="commentusericon" src='{{childitem.user.get_image_url}}'>
                   <div class = 'rightchildcomment' id = '{{childitem.user}}'>
                   <span class="author-name"><a href="{{childitem.user.get_absolute_url}}">{{childitem.user}}</a></span>
                   <span class="author-time">
@@ -465,6 +568,11 @@ var jiathis_config = {
               </div>
       </div>
       </div>
+            {% if item.user.qianming %}
+      <div class="qianmingline">{{item.user.qianming}}</div>
+      {% else %}
+      <div class="qianmingline-none"></div>
+      {% endif %}
     </div><!-- comment -->
 {% endfor %}
     </div>
@@ -475,7 +583,7 @@ var jiathis_config = {
 <!--                            最新回复                         -->
 {% for item in contacts %}
     <div class="comment">
-      <img  class="commentusericon hidden-xs" src='{{item.user.get_image_url}}'>
+      <img  class="commentusericon" src='{{item.user.get_image_url}}'>
       <div class='rightcomment'>
       <span class="author-name"><a href="{{item.user.get_absolute_url}}">{{item.user}}</a></span>
 
@@ -516,7 +624,7 @@ var jiathis_config = {
 
                   {% for childitem in item.child_comment %}
                   <div class = 'childcomment'>
-                    <img  class="commentusericon hidden-xs" src='{{childitem.user.get_image_url}}'>
+                    <img  class="commentusericon" src='{{childitem.user.get_image_url}}'>
                   <div class = 'rightchildcomment' id = '{{childitem.user}}'>
                   <span class="author-name"><a href="{{childitem.user.get_absolute_url}}">{{childitem.user}}</a></span>
                   <span class="author-time">
@@ -548,6 +656,11 @@ var jiathis_config = {
               </div>
       </div>
       </div>
+            {% if item.user.qianming %}
+      <div class="qianmingline">{{item.user.qianming}}</div>
+      {% else %}
+      <div class="qianmingline-none"></div>
+      {% endif %}
     </div><!-- comment -->
 {% endfor %}
 <!--                            最新回复                         -->
@@ -598,7 +711,7 @@ var jiathis_config = {
         // instance, using default configuration.
        editor = CKEDITOR.replace( 'editor1' , {
         language: 'zh-cn',
-        toolbar: [['Link','Unlink'], ['Image','Flash'], ['-', 'Bold', 'Italic', 'Format'], ['Smiley', ]],
+        toolbar: [['Link','Unlink'], ['-', 'Bold', 'Italic', 'Format'], ['Smiley', ]],
         width: '100%',
     });
     </script>

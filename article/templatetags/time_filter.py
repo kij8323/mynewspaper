@@ -10,12 +10,12 @@ reload(sys)
 sys.setdefaultencoding( "utf-8" )
 from django.core.cache import cache
 from article.models import Article
-from topic.models import Topic, Group
+from topic.models import Topic, Group, TopicLike
 from comment.models import Comment, CommentLike, CommentDisLike
 from notifications.models import Notification
 from company.models import Company
 from investment.models import Investment
-from products.models import Products, Application
+from products.models import Products, Application, Payscore
 COMMENT_PERPAGE_COUNT = 12 #topic页面每页显示多少个评论
 #楼层计算器,topic评论的楼层计算
 @register.filter
@@ -123,6 +123,20 @@ def Topic_comment(value):
         cache.set(cachekey, topic.comment_set.count(), 1209600)
         return cache.get(cachekey)
 
+#判断话题页数
+@register.filter
+def topics_page_count(value): 
+    topic = Topic.objects.get(id = value)
+    cachekey = "topic_comment_noparent_" + str(value)
+    if cache.get(cachekey) != None:
+        cache.get(cachekey)
+    else:
+        topicommentcount =  Comment.objects.filter(topic=topic).filter(parent = None).count()
+        cache.set(cachekey,  topicommentcount)
+        cache.get(cachekey)
+    page = (cache.get(cachekey)-1)/12+1
+    return range(2, page+1)
+
 #缓存文章被收藏次数
 @register.filter
 def Article_collection(value): 
@@ -227,6 +241,61 @@ def products_applyamount_count(value):
         applyamount =  Application.objects.filter(products=products).count()
         cache.set(cachekey,  applyamount)
         return cache.get(cachekey)
+
+#缓存用户话题数
+@register.filter
+def topic_user_count(value): 
+    user = MyUser.objects.get(id = value)
+    # usertopicnum = Topic.objects.filter(writer = user).count()
+    cachekey = "topic_user_count_" + str(user.id)
+    if cache.get(cachekey) != None:
+        return cache.get(cachekey)
+    else:
+        usertopicnum = Topic.objects.filter(writer = user).count()
+        cache.set(cachekey,  usertopicnum)
+        return cache.get(cachekey)
+
+
+
+
+#缓存用户评论数
+@register.filter
+def comment_user_count(value): 
+    user = MyUser.objects.get(id = value)
+    # usertopicnum = Topic.objects.filter(writer = user).count()
+    cachekey = "comment_user_count_" + str(user.id)
+    if cache.get(cachekey) != None:
+        return cache.get(cachekey)
+    else:
+        usercomnum = Comment.objects.filter(user = user).count()
+        cache.set(cachekey,  usercomnum)
+        return cache.get(cachekey)
+
+#缓存产品出价次数
+@register.filter
+def products_payscore_count(value): 
+    products = Products.objects.get(id = value)
+    cachekey = "products_payscore_" + str(value)
+    if cache.get(cachekey) != None:
+        return cache.get(cachekey)
+    else:
+        cache.set(cachekey, Payscore.objects.filter(products = products).count())
+        return cache.get(cachekey)
+
+
+#缓存话题赞次数
+@register.filter
+def topic_like_count(value): 
+    topic = Topic.objects.get(id = value)
+    cachekey = "topic_like_count_" + str(value)
+    if cache.get(cachekey) != None:
+        return cache.get(cachekey)
+    else:
+        cache.set(cachekey, TopicLike.objects.filter(topic = topic).count())
+        return cache.get(cachekey)
+
+
+
 
 #给被@的用户加上链接
 @register.filter

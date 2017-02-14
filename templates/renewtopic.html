@@ -1,14 +1,11 @@
-{% extends "base_1.html" %}
+{% extends "base_4.html" %}
 {% block HeadDoc %}
-{% load staticfiles %}
 <link href="/static/css/newtopic.css" rel="stylesheet">
-<script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
-<script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
 <script>/*验证输入图片*/
 $(document).ready(function(){
   $("form").submit(function(e){
     var input_title = $("#id_title").val()
-    var input_content = CKEDITOR.instances.id_content.getData()
+    var input_content = id_content.getContent()
     if (input_title == "")
     {
     $.messager.popup("标题不能为空！");
@@ -36,55 +33,54 @@ $(document).ready(function(){
 </script>
 
 <script type="text/javascript">
-$(document).ready(function(){
- $("#id_title").val('{{topic.title}}');
+$(function() {
+  $("body").on("click", '#tijiao', function(){
+    $("#savetext").val('')
+    $("form").submit();
+ 
+  })
+})
 
+$(function() {
+  $("body").on("click", '#baocun', function(){
+    $("#savetext").val('True')
+    $("form").submit(); 
+ 
+  })
 })
 </script>
+
 {% endblock %}
 
  {% block content %}
 
 <div class="container">
 <div class="center-warp">
-{% if topic %}
 
-	<div id="erroricon_title" style="text-align: center;">请输入标题</div>
+<ul class="breadcrumbs">
+            <li>编辑测评</li>
+        </ul>
+    <div id="erroricon_title" style="text-align: center;">请输入标题</div>
 
-<form   enctype="multipart/form-data" action="" method="post">
-  {% csrf_token %}
-<p><label for="id_title">标题:</label> <input id="id_title" maxlength="120" name="title" type="text"></p>
-<p><label for="id_content">内容:</label> </p>
-<div class="django-ckeditor-widget" data-field-id="id_content" style="display: inline-block;">
-    <textarea    cols="40" id="id_content" maxlength="5000" name="content" rows="10" data-processed="0"
-    placeholder=""  type="text">{{topic.content|safe}}</textarea>
-    <script>
-        // Replace the <textarea id="editor1"> with a CKEditor
-        // instance, using default configuration.
-       content = CKEDITOR.replace( 'content' , {
-        language: 'zh-cn',
-        filebrowserWindowWidth: 940, 
-        toolbar_Basic: [["Source", "-", "Bold", "Italic"]], 
-        toolbar_Full: [["Styles", "Format", "Bold", "Italic", "Underline", "Strike", "SpellChecker", "Undo", "Redo"], ["Link", "Unlink", "Anchor"], ["Image", "Flash", "Table", "HorizontalRule"], ["TextColor", "BGColor"], ["Smiley", "SpecialChar"], ["Source"]], 
-        filebrowserUploadUrl: "/ckeditor/upload/", 
-        filebrowserBrowseUrl: "/ckeditor/browse/", 
-        skin: "moono", 
-        filebrowserWindowHeight: 725, 
-        toolbar: "Full",
-        width: '100%',
+  {% if messages %}
+  <ul class="messages">
+      {% for message in messages %}
+      <li{% if message.tags %} class="{{ message.tags }}" 
+      {% endif %}>{{ message }}</li>
+      {% endfor %}
+  </ul>
+  {% endif %}
+  
+<form action="" method="post">
+    {% csrf_token %}
+    {{ myform.media }}
+    {{ myform.as_p }}
+<input id="savetext"   name="savetext"  type="text">
 
-    });
-    </script>
-</div>
-  <p></p>
-<input type="submit" value="提交" class="btn btn-lg btn-success btn-block">
+    <input type="button" id='tijiao' value="提交" class='btn  btn-success btn-block pull-left'/>
+    <input type="button" id='baocun' value="保存" class='btn  btn-default btn-block pull-left'/>
 </form>
 
-{% else %}
-<ul class="breadcrumbs">
-            <li>无效的链接，请从上一级链接.<span> &gt; </span></li>
-        </ul>
-{% endif %}
 
 </div><!-- <div class="center-warp"> -->
 </div><!-- class="container" -->

@@ -31,7 +31,7 @@
 	text-align: center;
 }
 
-p:first-of-type
+form p:first-of-type
 {
 	position: relative;
 	width: 100%;
@@ -39,7 +39,7 @@ p:first-of-type
 	border-bottom: 1px solid #f0f0f0;
 }
 
-p:first-of-type
+/*p:first-of-type
 {
 	position: relative;
 	width: 100%;
@@ -55,8 +55,8 @@ p:nth-of-type(2)
 	width: 100%;
 	height: 75px;
 }
-
-label{
+*/
+p:first-of-type label{
 	position: absolute;
 	width: 105px;
 	font-size: 16px;
@@ -67,6 +67,20 @@ label{
 	margin-bottom: 5px;
 	cursor: default;
 }
+
+
+p:nth-of-type(2) label{
+	position: absolute;
+	width: 105px;
+	font-size: 16px;
+	font-weight: 400;
+	display: inline-block;
+	max-width: 100%;
+	margin-bottom: 5px;
+	cursor: default;
+	margin-top: 15px;
+}
+
 
 #id_title{
 	width: 800px;
@@ -80,6 +94,18 @@ label{
 	font-size: 16px;
 	outline: 0;
 }
+
+/*#id_content, #edui1{
+	width: 800px !important;
+}*/
+
+
+#id_content{
+		margin-left: 110px;
+		margin-top: 15px;
+}
+
+
 
 .django-ckeditor-widget{
 	position: relative;
@@ -102,6 +128,28 @@ input[type=submit].btn-block {
 	margin: 0 auto;
 	margin-top: 50px;
 }
+
+
+input[type=button].btn-block {
+	width: 148px;
+/*	border-radius: 0;*/
+	margin: 0 auto;
+	margin-top: 50px;
+	margin-left: 110px;
+}
+
+
+#baocun{
+	margin-left: 25px;
+	color: #4cae4c;
+	border-color: #4cae4c;
+}
+
+#savetext{
+    display: none;
+}
+
+
 
 ul{
 	padding: 0;
@@ -154,7 +202,11 @@ a:hover{
 	color: #337ab7;
 }
 
-
-#cke_71_uiElement, #cke_75_uiElement, #cke_Link_113, #cke_207_uiElement{
+#cke_advanced_145, #cke_71_uiElement, #cke_75_uiElement, #cke_Link_113, #cke_207_uiElement{
 	display: none;
 }
+
+/*.ImagePreviewBox img{
+	width: 100% !important;
+	height: none !important;;
+}*/

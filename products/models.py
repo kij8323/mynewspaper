@@ -11,7 +11,7 @@ from django.core.urlresolvers import reverse
 from ckeditor.fields import RichTextField
 from django.utils import timezone
 from ckeditor_uploader.fields import RichTextUploadingField
-
+from DjangoUeditor.models import UEditorField
 
 
 class Products(models.Model):
@@ -19,11 +19,19 @@ class Products(models.Model):
 	#产品名称
 	title = models.CharField(max_length=120)
 	#产品介绍
-	introduction = RichTextUploadingField(max_length=20000, null=True, blank=True) 
+	introduction = UEditorField(max_length=30000, width=800, upload_settings={"imageMaxSize":30204000}) 
 	#产品价格
 	price = models.CharField(max_length=100, null=True, blank=True)
 	#产品数量
 	amount = models.IntegerField(default=0)
+	#积分竞拍数量
+	scoreamount = models.IntegerField(default=0)
+	#试用数量
+	tryamount = models.IntegerField(default=0)
+	#是否积分竞拍
+	ifscore = models.BooleanField(default=False, db_index=True)
+	#积分当前价
+	scoreing = models.IntegerField(default=0)
 	#是否审核通过
 	verify = models.BooleanField(default=False, db_index=True)
 	#产品状态
@@ -34,6 +42,11 @@ class Products(models.Model):
 	reportnum = models.IntegerField(default=0)
 	#产品图片
 	picture = models.ImageField(upload_to='images/', blank=True, default='images/companylogo.png')
+
+	#产品首页图片
+	picturehome = models.ImageField(upload_to='images/', blank=True, default='images/companylogo.png')
+
+
 
 	#公司上传时间
 	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False, null=True)
@@ -52,11 +65,25 @@ class Products(models.Model):
 	def get_image_url(self):
 		return "%s%s" %(settings.MEDIA_URL, self.picture)
 
+	def get_homeimage_url(self):
+		return "%s%s" %(settings.MEDIA_URL, self.picturehome)
+
+
 	def ret_timesince_sec(self):
 		return (self.timedeadline - timezone.now()).days*24*60*60 + (self.timedeadline - timezone.now()).seconds
 
+	def ret_timesince_day(self):
+		return (self.timedeadline - timezone.now()).days
+
 	def get_absolute_url(self):
 		return reverse('products_detail', kwargs={"products_id": self.id})
+
+	def get_apply_url(self):
+		return reverse('productsapply', kwargs={"products_id": self.id})
+
+	def get_report_url(self):
+		return reverse('productsreport', kwargs={"products_id": self.id})
+
 
 #用户申请
 class Application(models.Model):
@@ -73,3 +100,13 @@ class Application(models.Model):
 
 	def get_useraddr(self):
 	    return self.user.address
+
+
+
+#积分竞拍
+class Payscore(models.Model):
+	id = models.AutoField(primary_key=True, db_index=True)
+	user = models.ForeignKey(MyUser)
+	products = models.ForeignKey(Products)
+	payscore = models.IntegerField(default=0)
+	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False, null=True)

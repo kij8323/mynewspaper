@@ -1,0 +1,99 @@
+#slideContainer ul, #slideContainer li { margin: 0; padding: 0; }
+    ul li { list-style: none; }
+#slideContainer a { color: #000; text-decoration: none; }
+    #slideContainer a:hover { text-decoration: underline; }
+    #slideContainer a img { border: none; }
+#slideContainer .cl:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
+#slideContainer .cl { zoom: 1; }
+
+#slideContainer .frame { margin-bottom: 10px; border: 1px solid #e1e1e1; background: #FFF; }
+#slideContainer .title { padding: 0 26px; height: 32px; font-size: 14px; font-weight: 700; line-height: ; overflow: hidden; }
+
+#slideContainer .block { margin: 10px 10px 0; }
+
+#slideContainer .temp { margin: 1px; }
+
+#slideContainer .slideshow { clear: both; }
+    #slideContainer .slideshow li { position: relative; overflow: hidden; }
+    #slideContainer .slideshow span.title { position: absolute; bottom: 0; left: 0; margin-bottom: 0; width: 100%; height: 32px; line-height: ; font-size: 14px; text-indent: 10px; }
+    #slideContainer .slideshow span.title, #slideContainer .slidebar li { background: rgba(0,0,0,0.3); filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = #30000000,endColorstr = #30000000); color: #FFF; overflow: hidden; }
+#slideContainer .slidebar li { float: left; margin-right: 1px; width: 20px; height: 20px; line-height: 20px; text-align: center; font-size: 10px; cursor: pointer; }
+    #slideContainer .slidebar li.on { background: rgba(255,255,255,0.5); filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = #50FFFFFF,endColorstr = #50FFFFFF); color: #000; font-weight: 700; }
+
+
+#slideContainer ul, #slideContainer li { list-style: none; }
+#slideContainer a:hover { text-decoration: underline; color: #a50001; }
+
+#slideContainer .frame { background: none; border: 0px solid #fff; margin-bottom: 0px; }
+#slideContainer .temp { margin: 0; }
+#slideContainer .slidebar { position: absolute; bottom: 26px; left: 26px; }
+
+#slideContainer .slideshow span.title{ 
+    opacity: 1;
+    -webkit-transition: all .3s ease;
+    transition: all .3s ease;
+    background: -webkit-gradient(linear,0 0%,0 100%,from(rgba(0,0,0,0)),to(#121515));
+    background: -moz-linear-gradient(top,rgba(0,0,0,0),rgba(0,0,0,0),#121515);
+    background: -ms-linear-gradient(top,rgba(0,0,0,0),rgba(0,0,0,0),#121515);
+    background: -o-linear-gradient(top,rgba(0,0,0,0),rgba(0,0,0,0),#121515);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = #90000000,endColorstr = #90000000); color: #FFF; 
+    overflow: hidden;
+    font-size: 22px;
+    font-weight: bold;
+   /* padding-top: 15px;*/ 
+    height: 144px;
+}
+
+
+ #slideContainer .slidebar li { 
+    opacity: 1;
+    background: white; 
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = #90000000,endColorstr = #90000000); color: #FFF; 
+    overflow: hidden; 
+    height: 3px;
+    margin-right: 8px;
+    border-radius: 2px;
+    width: 14px;
+}
+
+#slideContainer .slidebar li.on {width: 28px; background: #999; filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = #90000000,endColorstr = #90000000); color: #5fb760; font-weight: 700; }
+
+#slideContainer .slideshow SPAN.title { text-indent: 0px; }
+#slideContainer .block { margin: 0;position: relative; }
+#slideContainer #frameHlicAe { margin: 0px !important; border: 0px !important; }
+#slideContainer .comiis_wrap960, #slideContainer .comiis_wrapad { margin: 0 auto; width: 100%; }
+#slideContainer .comiis_wrapad { margin-top: 10px; }
+#slideContainer .comiis_wrapad { overflow: hidden; }
+    #slideContainer .comiis_wrapad img { float: left; margin-top: 0px; }
+
+#slideContainer #slidesImgs li { width: 100%; height: 361px; display: none; }
+/* 酷站代码整理 http://www.5icool.org */
+
+.remenshenqing{
+    /*padding: 0px 5px 0px 5px;*/
+    font-size: 13px;
+    background-color: rgb(31,33,27);
+   /* float: left;*/
+   width: 78px;
+    margin-bottom:12px;
+    opacity: 1 !important;
+    line-height: 26px;
+    text-align:center;
+}
+
+
+.gengduo-mark {
+position: absolute;
+bottom: 0px;
+right: 0px;
+display: block;
+color: #fff;
+font-size: 12px;
+text-align: center;
+/*border-radius: 6px;*/
+z-index: 11;
+background-color:#5fb760;
+height: 28px;
+line-height: 28px;
+padding: 0px 8px; 
+}

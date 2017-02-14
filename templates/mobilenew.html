@@ -1,0 +1,285 @@
+{% extends "base_1.html" %}
+{% block HeadDoc %}
+<script src="/static/js/jquery-1.11.3.min.js"></script>
+<link href="/static/css/mobilenew.css" rel="stylesheet">
+<link rel="stylesheet" href="/static/css/loaders.min.css">
+<!-- <link href="/static/css/newtopic.css" rel="stylesheet"> -->
+
+<script>
+$(document).ready(function(){
+  $("form").submit(function(e){
+    var input_title = $("#id_title").val()
+    var input_content = $("#main-content").val()
+    if (input_title == "")
+    {
+      $('#erroricon_title').css("margin-bottom","-34.718px");
+    $('#erroricon_title').fadeIn("slow").fadeOut(3000);
+  
+    return false;
+    }
+    else if(input_content == "")
+    {
+      $('#erroricon_content').css("margin-bottom","-34.718px");
+    $('#erroricon_content').fadeIn("slow").fadeOut(3000);
+
+    return false;
+    }
+    else
+    {
+    showOverlayloading()
+    $("#overlay").fadeTo(200, 0.5);
+    return true;
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+    $(function() {
+        $('.imginput').change(function() {
+            node = $(this)
+
+            var file = this.files[0];
+
+            var r = new FileReader();
+
+            r.readAsDataURL(file);
+          
+            $(r).load(function() {
+             
+                node.next().next('.photo').html('<img src="' + this.result + '" alt="" />');
+             
+                node.next().next('.photo').children('img').imgsizeFunction();
+                node.parent().next('.imguploadshow').css('display','block');
+                node.parent().next('.imguploadshow').children('.imglabel').imgsizeFunction()
+                node.next().next().next('.deletephoto').css('display','block');
+            })
+        })
+    })
+
+</script>
+
+
+
+<script type="text/javascript">
+$(function() {
+  $("body").on("click", '.deletephoto', function(){
+            node = $(this)
+            if ($(".imguploadshow:last .photo").find('img').length == 0){
+                node.prev().prev().prev('input').val('')
+                node.prev('.photo').children('img').remove()
+                nodemove = node.parent('.imguploadshow');
+                nodemove.css('display','none');
+                node.css('display','none')
+                $('#imguploadlist').append(nodemove);
+            }
+            else{
+                node.prev().prev().prev('input').val('')
+                node.prev('.photo').children('img').remove()
+                nodemove = node.parent('.imguploadshow');
+                node.css('display','none')
+                $('#imguploadlist').append(nodemove);
+            }
+            
+         })
+    })   
+
+</script>
+
+
+<script>
+    $.fn.imgsizeFunction = function() { 
+      width = $(this).css('width');
+      x = (parseFloat(width)*1)
+      return  $(this).css('height',x+'px');
+    }
+</script>
+
+<script>
+$(function(){ 
+    $('.imgupload input').imgsizeFunction();
+    $('.imgupload .imglabel').imgsizeFunction();
+    $('.photo').imgsizeFunction();
+    $('.photo img').imgsizeFunction();
+}); 
+</script>
+
+<script>
+$(window).resize(function(){
+    $('.imgupload input').imgsizeFunction();
+    $('.imgupload .imglabel').imgsizeFunction();
+    $('.photo').imgsizeFunction();
+    $('.photo img').imgsizeFunction();
+    showOverlayloading()
+}); 
+</script>
+
+
+
+
+
+
+<script type="text/javascript">
+ 
+ function showOverlayloading() {
+      /* 当前窗口高度 */
+      sliceHeight = $('.slice').css('height')
+      slicWidth = $('.slice').css('width')
+      iHeight = (parseInt(window.screen.height)-parseInt(sliceHeight)-150)/2;
+      iWidth = (parseInt(document.body.scrollWidth)-parseInt(slicWidth))/2;
+      $('.slice').css('top',iHeight);
+      $('.slice').css('left',iWidth);
+      showOverlay()
+}
+
+function showOverlay() {
+    $("#overlay").height(pageHeight());
+    $("#overlay").width(pageWidth());
+
+    // fadeTo第一个参数为速度，第二个为透明度
+    // 多重方式控制透明度，保证兼容性，但也带来修改麻烦的问题
+}
+
+/* 隐藏覆盖层 */
+function hideOverlay() {
+    $("#overlay").fadeOut(200);
+}
+
+/* 当前页面高度 */
+function pageHeight() {
+    return document.body.scrollHeight;
+}
+
+/* 当前页面宽度 */
+function pageWidth() {
+    return document.body.scrollWidth;
+}
+
+</script>
+
+
+<script type="text/javascript">
+$(function() {
+  $("body").on("click", '#tijiao', function(){
+    $("#savetext").val('')
+    $("form").submit();
+ 
+  })
+})
+
+$(function() {
+  $("body").on("click", '#baocun', function(){
+    $("#savetext").val('True')
+    $("form").submit(); 
+ 
+  })
+})
+</script>
+{% endblock %}
+{% block content %}
+
+
+ <div id='overlay'>
+<div class="slice">
+<div data-loader="circle"  >
+</div>
+</div>
+ </div>
+
+
+<div class="container">
+<div class="center-warp">
+{% if group %}
+<ul class="breadcrumbs">
+          <!--   <li><a href="{% url 'group_all' %}">话题组</a><span> &gt; </span></li> -->
+            <li><a href="{{ group.get_absolute_url }}">{{ group.title }}</a><span> &gt; </span></li>
+            <li>提交测评</li>
+        </ul>
+
+
+
+
+        <div class="imguploadtest row">
+
+<form   enctype="multipart/form-data" action="" method="post">
+  {% csrf_token %}
+
+<p>
+    <input id="id_title" maxlength="120" name="title" type="text" placeholder="请输入标题"></p>
+
+<textarea id="main-content" rows="10"  name="content" ></textarea>
+<div class="emoji-bt-fn">
+<span class="glyphicon glyphicon-send"></span>
+<span class="words-number">1000字</span>
+</div>
+
+
+<div class="img-title">最多可上传 6 张图片</div>
+  <div id='imguploadlist'>
+        <div class='imgupload col-xs-4 imguploadshow' id = 'imguploadshow1'>
+        <input class='imginput' name="img" type="file" accept="image/*" />
+        <label class='imglabel'><span class="glyphicon glyphicon-plus"></span></label>
+        <div class="photo"></div>
+        <div  class="deletephoto"><span class="glyphicon glyphicon-remove"></span></div>
+        </div> <!-- <div class='imgupload col-xs-4'> -->
+
+        <div class='imgupload col-xs-4 imguploadshow'>
+        <input class='imginput'  name="img"  type="file" accept="image/*" />
+        <label class='imglabel'><span class="glyphicon glyphicon-plus"></span></label>
+        <div class="photo"></div>
+        <div class="deletephoto"><span class="glyphicon glyphicon-remove"></span></div>
+        </div> <!-- <div class='imgupload col-xs-4'> -->
+
+        <div class='imgupload col-xs-4 imguploadshow'>
+        <input class='imginput'  name="img"  type="file" accept="image/*" />
+        <label class='imglabel'><span class="glyphicon glyphicon-plus"></span></label>
+        <div class="photo"></div>
+        <div class="deletephoto"><span class="glyphicon glyphicon-remove"></span></div>
+        </div> <!-- <div class='imgupload col-xs-4'> -->
+
+
+
+        <div class='imgupload col-xs-4 imguploadshow'>
+        <input class='imginput'  name="img"  type="file" accept="image/*" />
+        <label class='imglabel'><span class="glyphicon glyphicon-plus"></span></label>
+        <div class="photo"></div>
+        <div class="deletephoto"><span class="glyphicon glyphicon-remove"></span></div>
+        </div> <!-- <div class='imgupload col-xs-4'> -->
+
+        <div class='imgupload col-xs-4 imguploadshow'>
+        <input class='imginput'  name="img"  type="file" accept="image/*" />
+        <label class='imglabel'><span class="glyphicon glyphicon-plus"></span></label>
+        <div class="photo"></div>
+        <div class="deletephoto"><span class="glyphicon glyphicon-remove"></span></div>
+        </div> <!-- <div class='imgupload col-xs-4'> -->
+
+
+        <div class='imgupload col-xs-4 imguploadshow'>
+        <input class='imginput'  name="img"  type="file" accept="image/*" />
+        <label class='imglabel'><span class="glyphicon glyphicon-plus"></span></label>
+        <div class="photo"></div>
+        <div class="deletephoto"><span class="glyphicon glyphicon-remove"></span></div>
+        </div> <!-- <div class='imgupload col-xs-4'> -->
+</div>
+<div class="clearfix"></div>
+
+<input id="savetext"   name="savetext"  type="text">
+<button id = "tijiao" class="btn btn-default btn-success uploadbutton">提交</button>
+<button id = "baocun" class="btn btn-default uploadbutton">保存</button>
+    <div id="erroricon_title" style="text-align: center;">请输入标题</div>
+    <div id="erroricon_content" style="text-align: center;">请输入内容</div>
+
+</form>
+        </div><!-- <div class="imguploadtest row"> -->
+
+{% else %}
+<ul class="breadcrumbs">
+            <li>无效的链接，请从上一级链接.<span> &gt; </span></li>
+        </ul>
+{% endif %}
+
+</div><!-- <div class="center-warp"> -->
+</div><!-- class="container" -->
+
+
+  {% endblock %}

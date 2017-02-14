@@ -114,3 +114,91 @@ display: inline-block;
 #freshcaptcha{
 	padding-top: 7px;
 }
+
+
+
+
+
+.third-box {
+position: relative;
+border-top: 1px solid #ccc;
+padding: 36px 0 0;
+text-align: center;
+margin-top: 32px;
+width: 300px;
+margin-left: auto;
+margin-right: auto;
+}
+
+.third-box .third-title {
+position: absolute;
+top: -12px;
+text-align: center;
+width: 100%;
+}
+
+.third-box .third-title span {
+color: #8d8d8d;
+font-size: 14px;
+padding: 0 10px;
+background: #f0f4fb;
+display: inline-block;
+}
+
+
+.weiboshare{
+	background-position: 3px -269px;
+	background-image: url(/static/images/sharebackground.png);
+	display: inline-block;
+	height: 46px;
+	width: 46px;
+	background-color: #f63756;
+	border-bottom: 1px solid #f0f0f0;
+	border-radius: 50%;
+}
+
+.weichatshare{
+	background-position: 3px -416px;
+	background-image: url(/static/images/sharebackground.png);
+	display: inline-block;
+	height: 46px;
+	width: 46px;
+	background-color: #46BC45;
+	border-bottom: 1px solid #f0f0f0;
+	border-radius: 50%;
+}
+
+#third-username{
+	font-size: 16px;
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+
+#third-icon img{
+width: 50px;
+height: 50px;
+}
+
+#third-id{
+	display: none;
+}
+
+
+#directly-login{
+	width:300px;
+	margin-left: auto;
+	margin-right: auto;
+	color: #4cae4c;
+	border-color: #4cae4c;
+}
+
+.third-box-third {
+position: relative;
+padding: 36px 0 0;
+text-align: center;
+margin-top: 32px;
+width: 300px;
+margin-left: auto;
+margin-right: auto;
+}
+

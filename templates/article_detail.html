@@ -311,11 +311,39 @@ $(window).resize(function(){
 </script>
 
 
+<script>/*回到页面顶端*/
+$(function(){ 
+  $('.barcomment').click(function(){
+  $('html,body').animate({scrollTop:$('.comment-form').offset().top}, 800);}); 
+  $(window).scroll(function() {   
+    if($(window).scrollTop() >= 100){
+      $('.rtotopsctoll').fadeIn(300); 
+    }else{    
+      $('.rtotopsctoll').fadeOut(300);    
+    }  
+  });
+  $('.rtotopsctoll').click(function(){
+  $('html,body').animate({scrollTop: '0px'}, 800);}); 
+
+});
+</script>
+
 {% endblock %}
 
 
  {% block content %}
 <div class="container">
+
+<ul id="rightsidebar" class="visible-xs-block">
+<li class="rtotopsctoll img-circle">
+<a href="javascript:void(0)"><em></em></a> 
+</li>
+<li class='barcomment img-circle'>
+<a href="javascript:void(0)">评论</a>
+</li>
+</ul>
+
+
 <div class="col-sm-1 hidden-xs">
 <ul id="sidebar">
   <li>
@@ -381,9 +409,7 @@ $(window).resize(function(){
                 <span class="author-name">{{article.writer}}</span>
                 <i class="icon icon-line"></i>
                 <span class="article-time">{{article.timestamp}}</span>
-                <span class="article-share">阅读:{{article.id|Article_readers}}</span>
                 <span class="article-pl">评论:<span class="article-pl-count">{{article.id|Article_comment}}</span></span>
-                <span class="article-pl">收藏:<span class="article-coll-count">{{article.id|Article_collection}}</span></span>
 <!--                 <span class="article-pl">收藏</span> -->
             </div>
 
@@ -467,7 +493,7 @@ $(window).resize(function(){
         // instance, using default configuration.
        editor = CKEDITOR.replace( 'editor1' , {
         language: 'zh-cn',
-        toolbar: [['Link','Unlink'], ['Image','Flash'], ['-', 'Bold', 'Italic', 'Format'], ['Smiley', ]],
+        toolbar: [['Link','Unlink'], ['-', 'Bold', 'Italic', 'Format'], ['Smiley', ]],
         width: '100%',
     });
     </script>
@@ -501,7 +527,7 @@ $(window).resize(function(){
 
     <div class="comment">
 
-      <span><img  class="img-circle commentusericon hidden-xs" src='{{item.user.get_image_url}}'></span>
+      <span><img  class="img-circle commentusericon" src='{{item.user.get_image_url}}'></span>
       
       <span class="author-name"><a href="{{item.user.get_absolute_url}}">{{item.user}}</a></span>
       
@@ -612,7 +638,7 @@ $(window).resize(function(){
 
 
 {% if moercomment %}
- <button  id="morecomment-btn-block" type="button" class='btn btn-lg btn-default btn-block ' >点击加载更多</button> 
+ <div  id="morecomment-btn-block" class='btn btn-default btn-block' >点击加载更多</div> 
 {% else %}
 {% endif %}  
 

@@ -2,6 +2,7 @@
 {% block HeadDoc %}
 <link href="/static/css/loggin.css" rel="stylesheet">
 <script src="/static/js/loggin.js"></script>
+<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=2155349390" type="text/javascript" charset="utf-8"></script>
 <!-- javascript不能使用django变量模板 -->
 <!-- 刷新验证码 -->
 <script>
@@ -22,6 +23,24 @@ $(function() {
   })
 })
 </script>
+
+
+
+<script type="text/javascript">
+window.onload = function(){
+var ua = navigator.userAgent.toLowerCase();
+var isWeixin = ua.indexOf('micromessenger') != -1;
+if (!isWeixin) {
+  $('.third-box').append('<a class="pull-left" href="{{url}}"><i class="weiboshare"></i></a>')
+  $('.third-box').append('<a class="pull-right" href="{{weixinurl}}"><i class="weichatshare"></i></a>')
+}
+else{
+  $('.third-box').append('<a class="pull-left" href="{{url}}"><i class="weiboshare"></i></a>')
+  $('.third-box').append('<a class="pull-right" href="{{weixinurlgongzhong}}"><i class="weichatshare"></i></a>')
+}
+}
+</script>
+
 {% endblock %}
 
 
@@ -58,9 +77,15 @@ $(function() {
   </div>
 
   <input class='btn btn-lg btn-success btn-block' type='submit' value='{{ submit_btn }}'/>
-  <span><a href="{% url 'loggin' %}">直接登录</a></span>
+  <span> <a href="{% url 'register' %}">免费注册</a></span>
     <span class="pull-right"> <a href="{% url 'repassword' %}">找回密码</a></span>
   </form>
+
+<div class="third-box">
+<div class="third-title"><span>第三方登录</span></div>
+</div>
+
+
   </div>
   </div>
  {% endblock %}

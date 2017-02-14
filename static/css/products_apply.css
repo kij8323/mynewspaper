@@ -15,22 +15,34 @@ body{
 
 .try-title{
 	border-bottom: 1px solid #f0f0f0;
+	padding-left: 30px;
 }
 
-.try-amount-price-apply{
+.try-amount-price-apply{  /*v1*/
 	margin-top: 10px;
 	border-bottom: 1px solid #f0f0f0;
+	padding-bottom: 10px;
 }
 
-.apply-amount{
-	border-left: 1px solid #f0f0f0;
+.apply-amount{ /*v1*/
+/*	border-left: 1px solid #f0f0f0;*/
 }
 
-.apply-amount h4{
+.try-amount-price{   /*v1*/
+	border-right: 1px solid #f0f0f0;
+}
+
+
+.apply-amount h4{   /*v1*/
 	float: right;
-	line-height: 30px;
+	line-height: 21px;
 }
 
+.apply-amount h4 span{  /*v1*/
+	/*font-weight: 700;*/
+	font-size: 20px;
+	color: #449d44;
+}
 .try-amount-price-apply p, .try-amount-price-apply h4{
 	color: #999;
 }
@@ -124,7 +136,7 @@ body{
 
 
 
- .presentationw1 a, .presentationw2 a, .presentationw3 a{
+ .presentationw4 a, .presentationw1 a, .presentationw2 a, .presentationw3 a{
 /*	background-color: #f0f4fb;*/
 	color: #555;
 }
@@ -420,7 +432,8 @@ a{
 margin-bottom: 30px;
 width: 50px;
 float: left;
-margin-right: 38px;
+margin-left: 8px;
+margin-right: 8px;
 position: relative;
 list-style: none;
 }
@@ -487,4 +500,75 @@ margin-top: 5px;
 .try-introduce-block{
 	margin-top:30px;
 	background-color: white;
+}
+
+
+.applink a{
+	color: #337ab7;
+}
+
+
+.applink {
+	margin-bottom: 10px;
+}
+
+
+
+.apply-amount h4 span{
+	/*font-weight: 700;*/
+	font-size: 27px;
+	color: #449d44;
+}
+
+
+
+.score .control {
+display: inline-block;
+vertical-align: middle;
+padding: 0 5px;
+}
+
+.score .control .subtract, .score .control .add {
+display: block;
+float: left;
+width: 28px;
+height: 28px;
+border: 1px solid #e0e0e0;
+background-color: #f1f1f1;
+font-size: 18px;
+text-align: center;
+line-height: 28px;
+color: #969696;
+cursor: pointer;
+}
+
+.score .control .num {
+display: block;
+float: left;
+width: 80px;
+height: 28px;
+border-top: 1px solid #e0e0e0;
+border-bottom: 1px solid #e0e0e0;
+background-color: #fff;
+font-size: 16px;
+text-align: center;
+line-height: 28px;
+}
+
+.score span,  .score .addstep{
+width: 56px;
+/*display: inline-block;*/
+text-align: justify;
+}
+
+.score{
+	padding: 15px 30px;
+}
+
+.try-amount-price-apply h4{ 
+	font-size: 14px;
+}
+
+#myModal2{
+	text-align: center;
 }

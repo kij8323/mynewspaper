@@ -87,7 +87,7 @@ h4 span {
 	width: 60%;
 }*/
 
-#erroricon, #erroriconpassword, #erroriconrepassword, #erroriconwrongpassword,
+#errorphonenumber, #erroricon, #erroriconpassword, #erroriconrepassword, #erroriconwrongpassword,
 #erroriconemail, #erroriconwrongemail, #erroriconprivcycomment, #erroriconpassword6{
 	padding-left: 0px;
 	color: #a94442;
@@ -183,4 +183,41 @@ margin-top: 80px
 
 #iconinputcover h5{
 	margin-bottom: 0px;chrome://settings/
-}chrome://settings/chrome://settings/chrome://settings/chrome://settings/chrome://settings/
+}
+
+.weiboshare{
+	background-position: 3px -269px;
+	background-image: url(/static/images/sharebackground.png);
+	display: inline-block;
+	height: 46px;
+	width: 46px;
+	background-color: #f63756;
+	border-bottom: 1px solid #f0f0f0;
+	border-radius: 50%;
+}
+
+.weichatshare{
+	background-position: 3px -416px;
+	background-image: url(/static/images/sharebackground.png);
+	display: inline-block;
+	height: 46px;
+	width: 46px;
+	background-color: #46BC45;
+	border-bottom: 1px solid #f0f0f0;
+	border-radius: 50%;
+}
+
+
+.thirdshejiao-line{
+overflow:hidden;
+padding-left: 0px;
+}
+
+.thirdshejiao-line li{
+	float: left;
+	list-style:none;
+	padding-right: 15px;
+	width: 25%;
+	height:  46px;
+	line-height:  46px;
+}

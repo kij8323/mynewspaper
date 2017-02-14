@@ -21,9 +21,11 @@ ARTICLE_MAINPAGE_TIMERANGE = 15 #首页显示新闻数量
 ARTICLE_MAINPAGE_COVER_TIMERANGE = 15	#首页封面文章的发表时间范围
 TOPIC_MAINPAGE_COVER_TIMERANGE = 25 #争议话题的发表时间范围
 TOPIC_MAINPAGE_TIMERANGE = 15 #热门话题的时间范围
-ARTICLE_MAINPAGE_HOT_TIMERANGE = 15 #一周新闻排行的时间范围
+ARTICLE_MAINPAGE_HOT_TIMERANGE = 5 #一周新闻排行的时间范围
 COMMENT_MAINPAGE_TIMERANGE = 15 #精彩点评的时间范围
-HOTRY_MAINPAGE_RANGE = 5 #首页显示热门试用
+HOTRY_MAINPAGE_RANGE = 3 #首页显示热门试用
+ARTICLE_MAINPAGE_HOT_TODAY = 3 #48小时热门新闻
+
 
 #搜索页面
 def index_search(request):
@@ -125,23 +127,31 @@ def index_search(request):
 #首页
 def home(request):
 #	coverarticle = Article.objects.all().filter(timestamp__gte=datetime.date.today() - timedelta(days=ARTICLE_MAINPAGE_COVER_TIMERANGE)).filter(cover = True).order_by("-id")[0:3]
-	coverarticle = Article.objects.all().filter(original = True).order_by("-id")[0:3]
+#	coverarticle = Article.objects.all().filter(cover = True).order_by("-id")[0:3]
 	queryset = Article.objects.all().order_by('-id')[0:ARTICLE_MAINPAGE_TIMERANGE]
 	topic = Topic.objects.all().filter(timestamp__gte=datetime.date.today() - timedelta(days=TOPIC_MAINPAGE_TIMERANGE)).order_by("-readers")[0:5]
 	#一个月内，最热文章排序
 	hotnews = Article.objects.all().filter(timestamp__gte=datetime.date.today() - timedelta(days=ARTICLE_MAINPAGE_HOT_TIMERANGE)).order_by("-readers")[0:5]
 	nicecomment = Comment.objects.all().filter(timestamp__gte=datetime.date.today() - timedelta(days=COMMENT_MAINPAGE_TIMERANGE)).order_by("-readers")[0:5]
 	companyshow = Company.objects.all().filter(verify  = True).order_by("-id")[0:5]
-	hotry = Products.objects.filter(status = 1).order_by('-id')[0:HOTRY_MAINPAGE_RANGE]
+	hotry = Products.objects.filter(verify = True).order_by('-id')[0:HOTRY_MAINPAGE_RANGE]
+	coverarticle = Topic.objects.all().filter(cover = True).order_by("-id")[0:3]
+	guanggaotopic = Topic.objects.all().filter(guanggao = True).order_by("id")[0]
+	hotnews48 = Article.objects.all().filter(timestamp__gte=datetime.date.today() - timedelta(days=ARTICLE_MAINPAGE_HOT_TODAY)).order_by("-readers")[0]
+
 	context = {
 	'queryset': queryset,
 	'topicquery' : topic,
 	'hotnews': hotnews,
+	'hotnews48': hotnews48,
+	'hotnewsblock1': hotnews[0:2],
+	'hotnewsblock2': hotnews[2:5],
 	'nicecomment': nicecomment,
 	'coverarticle': coverarticle,
 	'coverarticle0': coverarticle[0],
 	'coverarticle1': coverarticle[1],
 	'coverarticle2': coverarticle[2],
+	'guanggaotopic': guanggaotopic,
 	'companyshow': companyshow,	
 	'hotry':hotry,
 	}
@@ -170,7 +180,7 @@ def morearticlehome(request):
 	if article.count() == homearticlelen:
 		loadcompleted = '已全部加载完成'
 	else:
-		loadcompleted = '点击加载更多'
+		loadcompleted = '加载更多'
 		print request.session['homearticlelen']
 	print loadcompleted
 	data = {
@@ -186,7 +196,7 @@ def articlepagehome(request):
 	homearticle = Article.objects.all().order_by('-id')
 	homearticlelen = int(homearticlelen)
 	print homearticlelen
-	articlequery = homearticle[homearticlelen-1:homearticlelen-1+5]
+	articlequery = homearticle[homearticlelen:homearticlelen+5]
 	context = {
 		"articlequery": articlequery,
 	}
@@ -207,12 +217,50 @@ import json
 from django.utils.encoding import smart_str
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
+import xml.etree.ElementTree as ET
+from django.utils.encoding import smart_str
+import time
 # from auto_reply.views import auto_reply_main # 修改这里
 # from lxml import etree
+def responseMsg(request):  
+    rawData = smart_str(request.body)  
+    xml = ET.fromstring(rawData)  
+    msg = paraseMsgXml(xml)  
+    MsgType = msg.get("MsgType")  
+    if MsgType == "text":  
+        return textMsg(msg)  
+    # elif MsgType == "location":  
+    #     return locationMsg(msg)  
+    else:
+	return textMsg(msg)
 
+def paraseMsgXml(rootElem):  
+    msg = {}  
+    if rootElem.tag == "xml":  
+        for child in rootElem:  
+            msg[child.tag] = smart_str(child.text)  
+    return msg  
+
+
+def textMsg(msg):  
+    ToUserName = msg.get("ToUserName")  
+    FromUserName = msg.get("FromUserName")  
+    timestamp = msg.get("CreateTime")  
+    text = msg.get("MsgType")  
+    Content = msg.get("Content")  
+  
+    replyContent = "接收方帐号："+ToUserName+"\n开发者微信号："+FromUserName+"\nContent："+Content  
+    locationXML = """<xml> 
+            <ToUserName><![CDATA[%s]]></ToUserName> 
+            <FromUserName><![CDATA[%s]]></FromUserName> 
+            <CreateTime>%s</CreateTime> 
+            <MsgType><![CDATA[text]]></MsgType> 
+            <Content><![CDATA[%s]]></Content> 
+            </xml>""" %(FromUserName,ToUserName,str(int(time.time())),replyContent)  
+    return locationXML  
 WEIXIN_TOKEN = 'wutongnews'
 #微信验证
-#@csrf_exempt
+@csrf_exempt
 def weixinyanzheng(request):
     """
     所有的消息都会先进入这个函数进行处理，函数包含两个功能，
@@ -220,6 +268,7 @@ def weixinyanzheng(request):
     微信正常的收发消息是用POST方法。
     """
     if request.method == "GET":
+	print 'weixinget`'
         signature = request.GET.get("signature", None)
         timestamp = request.GET.get("timestamp", None)
         nonce = request.GET.get("nonce", None)
@@ -233,8 +282,20 @@ def weixinyanzheng(request):
             return HttpResponse(echostr)
         else:
             return HttpResponse("weixin  index")
+    elif request.method == "POST":  
+	print 'weixin'
+        response = HttpResponse(responseMsg(request),content_type="application/xml")  
+        return response  
+    else:  
+        response = None  
+        return response  
     # else:
     #     xml_str = smart_str(request.body)
     #     request_xml = etree.fromstring(xml_str)
     #     response_xml = auto_reply_main(request_xml)# 修改这里
     #     return HttpResponse(response_xml)
+
+
+
+
+

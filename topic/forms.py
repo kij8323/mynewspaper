@@ -1,12 +1,12 @@
 #coding=utf-8
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
-from django import forms
-from ckeditor.fields import RichTextField
-from ckeditor.widgets import CKEditorWidget
+from .models import Topic
+from django.forms import ModelForm
 
-class TopicForm(forms.Form):
-    content = forms.CharField(widget=CKEditorWidget())
-    title = forms.CharField(widget=forms.TextInput())
 
+class TopicForm(ModelForm):
+	class Meta:
+		model = Topic
+		fields = ['title', 'content']
    

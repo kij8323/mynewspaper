@@ -6,6 +6,8 @@
 <script src="/static/js/topic_detail.js"></script>
 <script src="/static/js/hammer.js/hammer.js"></script>
 <link rel="stylesheet" type="text/css" href="/static/css/smallscreenhome.css"  media="screen and (max-width: 768px)">
+<link href="/static/css/slideshow.css" rel="stylesheet" />
+<script src="/static/js/slideshow.js" type="text/javascript"></script>
 
 
 <script type="text/javascript">
@@ -19,31 +21,6 @@ $('#carousel-example-generic').carousel('next');
  });
  });
 </script>
-
-
-
-<script>
-$.fn.imgsizeFunction = function() { 
-  width = $(this).css('width');
-  x = (parseFloat(width)*0.56)
-  return  $(this).css('height',x+'px');
-}
-</script>
-
-<script>
-$(function(){ 
-  $('.item, .item  a img').imgsizeFunction();
-  $('.leftimgblock a img').imgsizeFunction();
-}); 
-</script>
-
-<script>
-$(window).resize(function(){
-  $('.item, .item  a img').imgsizeFunction();
-  $('.leftimgblock a img').imgsizeFunction();
-});
-</script>
-
 
 
 <script>/*加载更多*/
@@ -95,13 +72,91 @@ $('.carousel').carousel({
 })
 }); 
 </script>
+
+
+
+<script>
+$.fn.imgsizeFunction = function() { 
+  width = $(this).css('width');
+  x = (parseFloat(width)*0.636)
+  return  $(this).css('height',x+'px');
+}
+</script>
+
+<script>
+$(function(){ 
+/*  $('.item, .item  a img').imgsizeFunction();*/
+$('.hotnewsblock table img').imgsizeFunction();
+  $('.leftimgblock a img').imgsizeFunction();
+}); 
+</script>
+
+<script>
+$(window).resize(function(){
+/*  $('.item, .item  a img').imgsizeFunction();*/
+$('.hotnewsblock table img').imgsizeFunction();
+  $('.leftimgblock a img').imgsizeFunction();
+});
+</script>
+
+<script>
+$.fn.imgsizeFunctionitem = function() { 
+  width = $(this).css('width');
+  x = (parseFloat(width)*0.56)
+  return  $(this).css('height',x+'px');
+}
+</script>
+
+<script>
+$(function(){ 
+$('.item-img, .item-img  a img').imgsizeFunctionitem();
+}); 
+</script>
+
+<script>
+$(window).resize(function(){
+$('.item-img, .item-img  a img').imgsizeFunctionitem();
+});
+</script>
+
+
+<script>/*试用推荐向左向右*/
+$(function(){ 
+  $('.glyphicon-chevron-right-hotryshow').click(function(){
+  $('#carousel-example-generic-hotryshow').carousel('next')
+});
+  $('.glyphicon-chevron-left-hotryshow').click(function(){
+  $('#carousel-example-generic-hotryshow').carousel('prev')
+});
+});
+</script>
+
+<script>
+$.fn.imgsizeFunctionhotryshow = function() { 
+  width = $(this).css('width');
+  x = (parseFloat(width)*1)
+  return  $(this).css('height',x+'px');
+}
+</script>
+
+<script>
+$(window).resize(function(){
+  $('#carousel-example-generic-hotryshow, #carousel-example-generic-hotryshow .item, #carousel-example-generic-hotryshow .item img, #carousel-example-generic-hotryshow .carousel-inner').imgsizeFunctionhotryshow();
+});
+</script>
+
+<script>
+$(function(){ 
+  $('#carousel-example-generic-hotryshow, #carousel-example-generic-hotryshow .item, #carousel-example-generic-hotryshow .item img, #carousel-example-generic-hotryshow .carousel-inner').imgsizeFunctionhotryshow();
+}); 
+</script>
 {% endblock %}
 
  {% block content %}
-    <div class="container">
+    <div class="container home-container">
 
       <div class="row">
-        <div class="col-sm-8  leftcontainer">
+        <div class="col-sm-9  leftcontainer">
 <!--         <div class="row"> -->
 
           <div id="carousel-example-generic" class="carousel slide carousel-fade visible-xs-block" data-ride="carousel">
@@ -113,13 +168,13 @@ $('.carousel').carousel({
                 <div class="carousel-inner" role="listbox">
                   {% for item in coverarticle %}
                   {% if forloop.first %}
-                 <div class="item active">
+                 <div class="item active item-img">
                     {% else %}
-                    <div class="item">
+                    <div class="item item-img">
                     {% endif %}
                     <a href="{{item.get_absolute_url}}"><img src="{{item.get_image_url}}">
                      {% if item.original %}
-                      <span class="original-mark"  >探访</span>
+                      <span class="original-mark"  >首发</span>
                       {% endif %}
                       <div class="carousel-caption">
                         <h3>{{item.title}}</h3>
@@ -140,35 +195,77 @@ $('.carousel').carousel({
               </div><!-- id="carousel-example-generic" class="carousel slide" data-ride="carousel" -->
 
 
-    <div class="col-xs-12 newsblock hidden-xs">
+    <div class="col-xs-12 newsblock-title hidden-xs">
       <div class="col-xs-8 left-cover-img">
-        <a href="{{coverarticle0.get_absolute_url}}"> 
-          <img src="{{coverarticle0.get_image_url}}">
-          <span class="original-mark"  >探访</span>
-          <div class="rightblock"> 
-            <div class="t-h1">{{coverarticle0.title}}</div>
-          </div>
-        </a>
+   <div class="comiis_wrapad" id="slideContainer">
+        <div id="frameHlicAe" class="frame cl">
+            <div class="temp"></div>
+            <div class="block">
+                <div class="cl">
+                    <ul class="slideshow" id="slidesImgs">
+
+                      {% for item in coverarticle %}
+                        <li><a href="{{item.get_absolute_url}}" target="_blank">
+                            <img src="{{item.get_image_url}}" width="100%" height="267" alt="" /></a>
+
+                            <span class="title">
+                              <div class="remenshenqing">测评首发</div>
+                              <div>{{item.title}}</div></span></li>
+                      {% endfor %}
+                    </ul>
+                </div>
+                <div class="slidebar" id="slideBar">
+                    <ul>
+                        <li class="on">1</li>
+                        <li>2</li>
+                        <li>3</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        SlideShow(3000);
+    </script>
       </div>
 
       <div class="col-xs-4 right-cover-img">
-
         <div class="col-xs-12 right-cover-img1">
-        <a href="{{coverarticle1.get_absolute_url}}"> 
-          <img src="{{coverarticle1.get_image_url}}">
-          <span class="original-mark"  >探访</span>
+        <!-- <a href="{{guanggaotopic.get_absolute_url}}">  -->
+          <img src="{{guanggaotopic.get_image_url}}">
+          <span class="gengduo-mark"  ><a href="{% url 'group_detail' 1 %}">查看更多</a></span>
           <div class="rightblock1"> 
-            <div class="t-h2">{{coverarticle1.title}}</div>
+<!--             <div class="t-h2"></div> -->
+             <div class="t-h2-guanggao-back">
+              </div>
+             <div class="t-h2-guanggao">
+              <a href="{{guanggaotopic.get_absolute_url}}">{{guanggaotopic.title}}
+              </a>
+
+<div class="img-circle guanggaousericonline" >
+  <a href="{{guanggaotopic.writer.get_absolute_url}}">
+  <img  class="img-circle guanggaousericon" src='{{guanggaotopic.writer.get_image_url}}' ></a>
+  <a href="{{guanggaotopic.writer.get_absolute_url}}" style="font-size:12px;">
+  {{guanggaotopic.writer}} 
+</a>
+</div>
+
+            </div>
           </div>
-        </a>
+        <!-- </a> -->
         </div>
 
         <div class="col-xs-12 right-cover-img2">
-        <a href="{{coverarticle2.get_absolute_url}}"> 
-          <img src="{{coverarticle2.get_image_url}}">
-          <span class="original-mark"  >探访</span>
+        <a href="{{hotnews48.get_absolute_url}}"> 
+          <img src="{{hotnews48.get_image_url}}">
+         <!--  <span class="original-mark"  >首发</span> -->
           <div class="rightblock1"> 
-            <div class="t-h2">{{coverarticle2.title}}</div>
+            <!-- <div class="t-h2"></div> -->
+             <div class="t-h2-notouming">
+              <div class="remenshenqing">智能硬件</div>
+              {{hotnews48.title}}
+            </div>
           </div>
         </a>
         </div>
@@ -179,26 +276,27 @@ $('.carousel').carousel({
 
 
 {% for item in queryset %}
-
-          <div class="col-xs-12 newsblock" id="{{item.blockid}}">
+          <div class="col-xs-11 newsblock" id="{{item.blockid}}">
           <div class="col-xs-4 leftimgblock">
           <a href="{{item.get_absolute_url}}"><img src="{{item.get_image_url}}" ></a>
-          {% if item.original %}
-          <span class="original-mark"  >探访</span>
-          {% endif %}
+{% if item.original %}
+<span class="original-mark"  >探访</span>
+{% endif %}
 {% if item.deep %}
 <span class="deep-mark" >深度</span>
 {% endif %}
-          </div> 
+         </div> 
           <div class="col-xs-8 rightwordblock">
           <h3><a href="{{item.get_absolute_url}}">{{item.title}}</a></h3>
-          <span><img  class="img-circle usericon hidden-xs" src='{{item.writer.get_image_url}}'></span>
-          <span class="writer"><a href="{{item.writer.get_absolute_url}}">{{item.user}}{{item.writer}}</a></span> 
-          <span class="posttime">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</span> 
-
-<i class="icon-reply hidden-xs"></i><span class="hidden-xs">{{item.id|Article_comment}}  </span>   
-<i class="icon-collection hidden-xs"></i><span class="hidden-xs">{{item.id|Article_collection}} </span> 
           <p class="associatetitle hidden-xs" style='padding-left: 0px;'>{{item.associatetitle}}</p>
+          <div class="usericon-line">
+          <span><img  class="img-circle usericon" src='{{item.writer.get_image_url}}'></span>
+          <span class="writer"><a href="{{item.writer.get_absolute_url}}">{{item.user}}{{item.writer}}</a></span>
+         <span class="posttime">{{item.timestamp|date:"o/m/j"}}</span> 
+          <i class="icon-reply hidden-xs"></i><span class="hidden-xs">{{item.id|Article_comment}}  </span>
+          </div>
+
+
           </div> 
           </div> <!-- newsblock -->
 {% endfor %}
@@ -207,16 +305,16 @@ $('.carousel').carousel({
 <div id="morecomment">
 </div>
 
- <button  id="morecomment-btn-block" type="button" class='btn btn-lg btn-default btn-block btn-success' >点击加载更多</button> 
+ <button  id="morecomment-btn-block" type="button" class='btn btn-lg btn-default btn-block' >加载更多</button> 
 
 
         </div><!-- class="col-sm-8 leftcontainer" -->
       <!-- </div> --><!-- <div class="row">  -->  
 
 
-       <div class="col-sm-4 rightcontainer hidden-xs">
-          <div  style="margin-left: 15px;">
-<!--          <h3 class="bg-primary">争议话题</h3>
+       <div class="col-sm-3  hidden-xs">
+          <div  style="">
+<!--          <h3 class="bg-primary">争议测评</h3>
           <div style="position:relative; margin-bottom:30px;">
 
           <a class = 'disputetopic' href="{{covertopic.get_absolute_url}}">
@@ -230,67 +328,120 @@ $('.carousel').carousel({
           </div>
  -->
 
-<div class='advertisment hidden-xs'>
-  <a href="http://bbs.meizu.cn/thread-6267481-1-1.html?rc=bdpz">
-<img src="/static/media/images/e47e88626006a509df3c23b5eb553265_259_194.jpg" >
-</a>
+<div class='hotryshow'>
+   <div class="shiyongtuijian-line"></div>
+  <div class="shiyongtuijian">试用推荐</div>
+<div id="carousel-example-generic-hotryshow" class="carousel slide" data-ride="carousel">
+
+  <div class="carousel-inner" role="listbox">
+                  {% for item in hotry %}
+                  {% if forloop.first %}
+                 <div class="item active">
+                    {% else %}
+                    <div class="item">
+                    {% endif %}
+                    <a href="{{item.get_absolute_url}}" data-toggle="tooltip" data-placement="top" title="{{item.title}}" ><img src="{{item.get_homeimage_url}}">
+                      <div class="carousel-caption">
+                    </div>
+                    </a>
+                    </div>
+                    {% endfor %}
+  </div>
+  <!-- Controls -->
+  <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left glyphicon-chevron-left-hotryshow" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right glyphicon-chevron-right-hotryshow" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
 </div>
+<a href="{% url 'productsall' %}"><div class="hotryshow-more">查看更多</div></a>
+</div>
+
+<script type="text/javascript">
+  $('#carousel-example-generic-hotryshow').carousel({
+  interval: 200000
+})
+</script>
+
+
+
 
 
 <div class='hotnewsblock'>
-         <div class='head'>近期热文</div>
+        <div class='head'>          <span class='shu-mark'>|</span>热门文章</div>
 
     <table class="table table-hover hotnews">
       <tbody>
-{% for item in hotnews %}
+{% for item in hotnewsblock1 %}
         <tr>
-          {% if forloop.counter > 3 %}
-          <th scope="row" style="color: #9e9e9e;">{{ forloop.counter }}</th>
+          {% if forloop.counter > 2 %}
+          <td>
+            <a href="{{item.get_absolute_url}}">{{item.title}}</a>
+          </td>
           {% else %}
-          <th scope="row" style="color: #ad0007;">{{ forloop.counter }}</th>
+          <td>
+             <a href="{{item.get_absolute_url}}" style="display:block;"><img src="{{item.get_image_url}}" >
+              <div class="t-h2-hottry">
+            {{item.title}}
+            </div>
+             </a>
+
+          </td>
           {% endif %}
-          <td><a href="{{item.get_absolute_url}}">{{item.title}}</a><span class="article-infor hidden-xs">{{item.id|Article_readers}}次阅读</span> </td>        
-	</tr>
+        </tr>
 {% endfor %}
       </tbody>
     </table>
-  </div><!-- class='headblock' -->
-
-<div class='hotryshow'>
-         <div class='head'>
-          最新试用
-        </div> 
-         <div class='hotrymore'>
-          <a href="{% url 'productsall' %} ">更多></a> 
-         </div> 
-    <table class="table table-hover">
+    <table class="table table-hover hotnews2">
       <tbody>
-{% for item in hotry %}
+{% for item in hotnewsblock2 %}
         <tr>
+<th scope="row">
+            <div  class='hotnewsblock123'></div>
+          </th>
           <td>
-            <div class="hotry-pic">
-              <img src="{{item.get_image_url}}">
-            </div>
-            <div class="hotry-content">
-              <a href="{{item.get_absolute_url}}">{{item.title}}</a>
-              <!-- <p>市场价：{{item.price}}</p> -->
-              <p>数量：{{item.amount}}</p>
-          </div>
-      
+             <a href="{{item.get_absolute_url}}" style="display:block;">
+            {{item.title}}
+             </a>
           </td>
         </tr>
 {% endfor %}
       </tbody>
     </table>
+  </div><!-- class='headblock' -->
+
+
+<div class='joinus'>
+<span class="joinus-mark">加入梧桐</span>
+        <div class='joinus-content'>
+
+          <img src="/static/media/images/qrcode_for_gh_5dadb4ff2030_430.jpg" width="129px">
+          <div class='joinus-content-info'>
+            <div class="joinus-content-info-line-1">扫吗订阅微信公众号</div>
+          <div class="joinus-content-info-line-4">
+          <div class="joinus-content-info-line-2">微博：梧桐观点</div>
+          <div class="joinus-content-info-line-3">qq群：581287328</div>
+          </div>
+          </div>
+          <div style="clear:both;"></div>
+        </div>
 </div>
 
+
+
 <div class='hotopicblock'>
-         <div class='head'>热门话题</div>
+         <div class='head'>          <span class='shu-mark'>|</span>热门测评</div>
     <table class="table table-hover hotopic">
       <tbody>
 {% for item in topicquery %}
         <tr>
-          <td><a href="{{item.get_absolute_url}}">{{item.title}}<span>{{item.id|Topic_comment}}条回复</span></a></td>
+          <td><a href="{{item.get_absolute_url}}">{{item.title}}</a>
+            <!-- <span>{{item.id|Topic_comment}}条回复</span> -->
+          <div class="hotopic-reply"><i class="hotopic-icon-reply"></i>{{item.id|Topic_comment}}</div>
+          </td>
         </tr>
 {% endfor %}
       </tbody>
@@ -301,28 +452,42 @@ $('.carousel').carousel({
 
 
 
-<div class='advertisment hidden-xs'>
-  <a href="http://shop.10086.cn/hd/q3/yingx?WT.mc_id=GzWnZBnqOwx4Otu29CVO&UX.aucm=">
-<img src="/static/media/images/yidongguanggao.jpg" >
-</a>
-</div>
 
 
 <div class='nicecommentblock'>
-<div class='head'>精彩点评</div>
+<div class='head'>          <span class='shu-mark'>|</span>精彩点评</div>
     <table class="table table-hover nicecomment">
       <tbody>
 {% for item in nicecomment %}
         <tr>
-          <td>
+<!--           <td>
           <img  class="img-circle usericon hidden-xs" src='{{item.user.get_image_url}}'>
-          </td>
+          </td> -->
           {% if item.article %}
-          <td><a href="{{item.article.get_absolute_url}}">{{item.user}} 评 {{item.article.title}}<br></a><div class='commentline'>{{item.text|safe}}</div></td>
+          <td><a class="nicecommentblock-qust" href="{{item.article.get_absolute_url}}"><!-- {{item.user}} 评  -->{{item.article.title}}<br></a>
+	    <i class="icon_hotcomentjiao"></i>
+            <div class='commentline0'>
+            <div class='commentline'>{{item.text|safe}}</div>
+            <div clss='nicecommentblock-userinfo' style="margin-top:10px;">
+            <img  class="img-circle usericon-nicecomment hidden-xs" src='{{item.user.get_image_url}}'><span class="user-nicecomment"><a href="{{item.user.get_absolute_url}}">{{item.user}}</a></span></div>
+          </div>
+          </td>
            {% elif item.products %}
-          <td><a href="{{item.products.get_absolute_url}}">{{item.user}} 评 {{item.products.title}}<br></a><div class='commentline'>{{item.text|safe}}</div></td>
+          <td><a class="nicecommentblock-qust" href="{{item.products.get_absolute_url}}"><!-- {{item.user}} 评  -->{{item.products.title}}<br></a>
+            <i class="icon_hotcomentjiao"></i>
+            <div class='commentline0'>
+            <div class='commentline'>{{item.text|safe}}</div>
+            <div clss='nicecommentblock-userinfo' style="margin-top:10px;">
+            <img  class="img-circle usericon-nicecomment hidden-xs" src='{{item.user.get_image_url}}'><span class="user-nicecomment"><a href="{{item.user.get_absolute_url}}">{{item.user}}</a></span></div>
+          </div></td>
           {% else %}
-          <td> <a href="{{item.topic.get_absolute_url}}">{{item.user}} 评 {{item.topic.title}}<br></a><div class='commentline'>{{item.text|safe}}</div></td>
+          <td> <a class="nicecommentblock-qust" href="{{item.topic.get_absolute_url}}"><!-- {{item.user}} 评 --> {{item.topic.title}}<br></a>
+            <i class="icon_hotcomentjiao"></i>
+            <div class='commentline0'>
+            <div class='commentline'>{{item.text|safe}}</div>
+            <div clss='nicecommentblock-userinfo' style="margin-top:10px;">
+            <img  class="img-circle usericon-nicecomment hidden-xs" src='{{item.user.get_image_url}}'><span class="user-nicecomment"><a href="{{item.user.get_absolute_url}}">{{item.user}}</a></span></div>
+          </div></td>
           {% endif %}
         </tr>
 {% endfor %}

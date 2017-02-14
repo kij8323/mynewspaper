@@ -16,8 +16,18 @@ urlpatterns = [
     url(r'^home/morearticlehome/$', 'mainpage.views.morearticlehome', name='morearticlehome'),#首页更多文章按钮ajax
     url(r'^home/articlepagehome/$', 'mainpage.views.articlepagehome', name='articlepagehome'),#首页更多文章加载页面
     url(r'^home/index_search/$', 'mainpage.views.index_search', name='index_search'),#搜索页面
-    
 
+
+
+    url(r'^user/(?P<user_id>[0-9]+)/thirdfirstloggin', 'accounts.views.thirdfirstloggin', name='thirdfirstloggin'),
+
+    url(r'^user/weixin/disconnection', 'accounts.views.disweixinconnection', name='disweixinconnection'),#已有帐号者的微信链接
+    url(r'^user/weibo/disconnection', 'accounts.views.disweiboconnection', name='disweiboconnection'),#已有帐号者的微信链接
+    url(r'^user/weibo/connection', 'accounts.views.weiboconnection', name='weiboconnection'),#已有帐号者的微信链接
+    url(r'^user/weixin/connection', 'accounts.views.weixinconnection', name='weixinconnection'),#已有帐号者的微信链接
+    url(r'^user/loggin/weixin', 'accounts.views.logginweixin', name='logginweixin'),#登录wexin
+    url(r'^user/loggin/third', 'accounts.views.logginthird', name='logginthird'),#登录webo
+    url(r'^user/loggin/weibo', 'accounts.views.logginweibo', name='logginweibo'),#登录webo
     url(r'^user/loggin/', 'accounts.views.loggin', name='loggin'),#登录
     url(r'^user/userlogout/', 'accounts.views.userlogout', name='userlogout'),#用户登出，不用
     url(r'^user/register/', 'accounts.views.register', name='register'),#用户注册
@@ -25,6 +35,7 @@ urlpatterns = [
     url(r'^user/repassword/', 'accounts.views.repassword', name='repassword'),#登录
     url(r'^captcha/', include('captcha.urls')),  #验证码设置
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),#富文本框
+    url(r'^ueditor/',include('DjangoUeditor.urls' )),
     url(r'^captchaview/$', 'accounts.views.captchaview', name='captchaview'),#刷新验证码ajax
     url(r'^accountsview/$', 'accounts.views.accountsview', name='accountsview'),#ajax，验证用户名是否已被注册,post
     #用户信息页面
@@ -57,6 +68,9 @@ urlpatterns = [
     url(r'^topic/groupage/$', 'topic.views.groupage', name='groupage'),#话题组页，加载更多话题页面
     url(r'^topic/collectiontopic/$', 'topic.views.collectiontopic', name='collectiontopic'),#收藏话题
     url(r'^topic/renewtopic/(?P<topic_id>[0-9]+)/$', 'topic.views.renewtopic', name='renewtopic'),#编辑话题
+    url(r'^topic/mobilenew/$', 'topic.views.mobilenew', name='mobilenew'),#编辑话题
+    url(r'^topic/dianzan/$', 'topic.views.dianzan', name='topicdianzan'),#编辑话题
+
 
 
     url(r'^articlecomment/$', 'article.views.articlecomment', name='articlecomment'),#文章评论
@@ -65,6 +79,8 @@ urlpatterns = [
     url(r'^category/(?P<category_id>[0-9]+)/$', 'article.views.category_detail', name='category_detail'),#文章分类页
     url(r'^category/morearticleincat/$', 'article.views.morearticleincat', name='morearticleincat'),#文章分类页，更多文章按钮
     url(r'^category/articlepage/$', 'article.views.articlepage', name='articlepage'),#文章分类页，加载更多文章页面
+    url(r'^category/all/$', 'article.views.category_all', name='category_all'),#所有文章页
+
 
     url(r'^article/(?P<article_id>[0-9]+)/$', 'article.views.article_detail', name='article_detail'),#文章页
     url(r'^article/commentpage/(?P<article_id>[0-9]+)/$', 'article.views.commentpage', name='commentpage'),#文章页加载更多评论页面
@@ -92,6 +108,17 @@ urlpatterns = [
     url(r'^investment/built/$', 'investment.views.investmentbuilt', name='investmentbuilt'),#收藏公司
 
    url(r'^products/all/$', 'products.views.productsall', name='productsall'),#试用首页
+    url(r'^products/applying/$', 'products.views.productsapplying', name='productsapplying'),#试用首页
+    url(r'^products/testing/$', 'products.views.productstesting', name='productstesting'),#试用首页
+    url(r'^products/finish/$', 'products.views.productsfinish', name='productsfinish'),
+    url(r'^products/moreproducts/$', 'products.views.moreproducts', name='moreproducts'),
+    url(r'^products/productspage/$', 'products.views.productspage', name='productspage'),
+    url(r'^products/payscore/$', 'products.views.payscore', name='payscore'),
+    url(r'^products/payscorerecord/(?P<products_id>[0-9]+)/$', 'products.views.payscorerecord', name='payscorerecord'),
+    
+
+
+
     url(r'^products/(?P<products_id>[0-9]+)/$', 'products.views.products_detail', name='products_detail'),#试用页
     url(r'^productscomment/$', 'products.views.productscomment', name='productscomment'),#试用评论
     url(r'^products/productscommentcomment/$', 'products.views.productscommentcomment', name='productscommentcomment'),#发表话题评论的评论
@@ -99,5 +126,8 @@ urlpatterns = [
     url(r'^products/commentpage/(?P<products_id>[0-9]+)/$', 'products.views.productscommentpage', name='productscommentpage'),#文章页加载更多评论页面
    url(r'^products/apply/(?P<products_id>[0-9]+)/$', 'products.views.productsapply', name='productsapply'),#文章页加载更多评论页面
     url(r'^products/report/(?P<products_id>[0-9]+)/$', 'products.views.productsreport', name='productsreport'),
+
+    url(r'^products/test123xxxnewapplication/(?P<products_id>[0-9]+)/(?P<app_num>[0-9]+)/(?P<period_num>[0-9]+)/$', 'products.views.newapplication', name='newapplication'),#对id为4的产品，生成4个机器人申请，每100秒一个
+
 #    url(r'^products/address/(?P<products_id>[0-9]+)/$', 'products.views.productsaddress', name='productsaddress'),#文章页加载更多评论页面
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

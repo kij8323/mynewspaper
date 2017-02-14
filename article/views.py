@@ -17,7 +17,7 @@ from itertools import chain
 import datetime
 from datetime import timedelta
 from django.core.cache import cache
-from article.tasks import readersin, add, readersout, instancedelete, instancesave
+from article.tasks import commentzanplus, commentzanminus,  readersin, add, readersout, instancedelete, instancesave
 
 from django.conf import settings
 ARTICLE_DETAIL_RIGHTSIDERANK_TIMERANGE = 100 #article_detail页面右边栏按readers排序文章的时间范围
@@ -139,6 +139,19 @@ def category_detail(request, category_id):
 	}
 	return render(request, 'category_detail.html',  context)
 
+def category_all(request):
+	try:
+		#category = Category.objects.get(pk=category_id)
+		articlequery = Relation.objects.all().order_by('-article_id')[0:5]#显示该类别最新的5篇文章
+		#categoryquery = Category.objects.all
+	except Category.DoesNotExist:
+		raise Http404("Category does not exist")
+	context = {
+		'articlequery': articlequery,
+		'categorytitle': "资讯",
+		# 'categoryquery': categoryquery,
+	}
+	return render(request, 'category_all.html',  context)
 
 #ajax，文章评论
 def articlecomment(request):
@@ -158,7 +171,7 @@ def articlecomment(request):
 				cache.set(cachekey, article.comment_set.count(), settings.CACHE_EXPIRETIME)
 			#返回@用户的列表，并向@的用户发送消息
 			userlist = atwho(text = text, sender = user
-							, targetcomment = None, targetarticle = article, targetproducts = None
+							, targetcomment = c, targetarticle = article, targetproducts = None
 							, targetopic = None)
 			#给被@的用户增加链接
 			for item in userlist:
@@ -170,6 +183,12 @@ def articlecomment(request):
 				test1 = "@<a href='" +'/user/'+str(atwhouser.id)+'/informations/'+"'>"+atwhouser.username+"</a>"+'&nbsp;'
 				text = text.replace('@'+item+' ', test);
 				text = text.replace('@'+item+'&nbsp;', test1);
+			cachekey = "comment_user_count_" + str(user.id)
+			if cache.get(cachekey) != None:
+				cache.incr(cachekey)
+			else:
+				usercomnum = Comment.objects.filter(user = user).count()
+				cache.set(cachekey,  usercomnum)
 			data = {
 			"user": user.username,
 			"text": text,
@@ -213,7 +232,7 @@ def commentcomment(request):
 			#被评论的评论readers+1放到消息队列中
 			readersin.delay(targetcomment)
 			#返回@用户的列表，并向@的用户发送消息
-			userlist = atwho(text = text, sender = user, targetcomment = targetcomment, targetproducts = None
+			userlist = atwho(text = text, sender = user, targetcomment = c, targetproducts = None
 							, targetarticle = article, targetopic = None )
 			#给被@的用户增加链接
 			for item in userlist:
@@ -221,6 +240,12 @@ def commentcomment(request):
 				atwhouser = MyUser.objects.get(username = item)
 				test = "@<a href='" +'/user/'+str(atwhouser.id)+'/informations/'+"'>"+atwhouser.username+"</a>"+' '
 				text = text.replace('@'+item+' ', test);
+			cachekey = "comment_user_count_" + str(user.id)
+			if cache.get(cachekey) != None:
+				cache.incr(cachekey)
+			else:
+				usercomnum = Comment.objects.filter(user = user).count()
+				cache.set(cachekey,  usercomnum)
 			data = {
 			"user": user.username,
 			"text": text,
@@ -322,6 +347,10 @@ def commentlike(request):
 		# comment.readers = comment.readers - 1
 		# comment.save()
 		readersout.delay(comment)
+		if comment.user != user:
+			commentzanminus.delay(user, comment.user, comment)
+		else:
+			pass
 	else:
 		commentlikecount = +1
 		#加上缓存中评论点赞数
@@ -337,6 +366,10 @@ def commentlike(request):
 		c = CommentLike(user=user, comment=comment)
 		#.save()
 		instancesave.delay(c)
+		if comment.user != user:
+			commentzanplus.delay(user, comment.user, comment)
+		else:
+			pass
 	data = {
 	 'commentlikecount': commentlikecount,
 	}
@@ -420,7 +453,7 @@ def morearticleincat(request):
 	if articlequery.count() == articlelen:
 		loadcompleted = '已全部加载完成'
 	else:
-		loadcompleted = '点击加载更多'
+		loadcompleted = '加载更多'
 		#print request.session['articlelen']
 		#print request.session['categorytitle']
 	data = {

@@ -215,7 +215,8 @@ margin: 0 15px 0 0;
 }
 
 .article-content-wrap img{
-	max-width: 100%;
+	max-width: 100%  !important;
+	height: auto !important;
 }
 
 .article-content-wrap p {
@@ -278,7 +279,7 @@ font-size: 16px;
 .comment{
 	position: relative;
 	top: 30px;
-	padding: 20px 0;
+	padding: 20px 0 0 0;
 	border-top: 1px solid #f0f0f0;
 }
 
@@ -622,7 +623,7 @@ margin-top: 5px
 	overflow: hidden;
 	zoom: 1;
 	width: 100%;
-	padding: 5px 10px 20px 10px;
+	padding: 5px 10px 30px 10px;
 }
 
 #hotboader:after{
@@ -707,5 +708,126 @@ a:hover{
 		margin-top: 30px;
 		margin-bottom: 30px;
 }
+
+
+
+
+
+
+#rightsidebar{
+	position: fixed;
+	bottom: 68px;
+	right: 0;
+	list-style-type:none;
+	z-index: 2;
+	text-align: center;
+	filter:alpha(opacity=70); /*IE滤镜，透明度50%*/
+	-moz-opacity:0.7; /*Firefox私有，透明度50%*/
+	opacity:0.7;/*其他，透明度50%*/
+}
+
+.barcomment, .rtotopsctoll{
+	background-color: #67CA87;
+	color: black;
+	width: 39px;
+	height: 39px;
+	margin-bottom: 16px;
+	text-align: center;
+}
+
+
+
+#rightsidebar a{
+	line-height: 39px;
+	color: white;
+	font-weight: 700;
+
+}
+
+
+.rtotopsctoll em {
+	border-left: 2px solid #fff;
+	border-bottom: 2px solid #fff;
+	display: inline-block;
+	margin: 16px 0 0 1px;
+	width: 12px;
+	height: 12px;
+	-webkit-transform: rotate(135deg);
+	transform: rotate(135deg);	
+}
+
+.rtotopsctoll{
+	display:none;
+}
+
+.article-content-wrap table {
+	max-width: 100%;
+}
+
+.qianmingline{
+	max-height: 95px;
+	color: #999;
+	font-size: 12px;
+	border-top: 1px dashed #ccc;
+	padding-top: 3px;
+	/*z-index: 1;*/
+	margin-left: 39px;
+	margin-top: 20px;
+}
+
+.qianmingline-none{
+	height: 20px;
+}
+
+
+
+
+#aldianzan{
+	width: 75px;
+	height: 75px;
+	margin: 15px auto 60px auto;
+	text-align: center;
+	border: 3px solid #67CA87;
+	color: #67CA87;
+	border-radius: 50%;
+	cursor:pointer;
+}
+
+#aldianzan:hover{
+	border: 3px solid #999;
+	color: #999;
+}
+
+#dianzan{
+	width: 75px;
+	height: 75px;
+	margin: 15px auto 60px auto;
+	text-align: center;
+	border: 3px solid #999;
+	color: #999;
+	border-radius: 50%;
+	cursor:pointer;
+
+}
+
+#dianzan:hover{
+	border: 3px solid #67CA87;
+	color: #67CA87;
+}
+
+.topiczan{
+	font-size: 24px;
+	font-weight: bold;
+	height: 24px;
+	line-height: 24px;
+	margin-top: 13px;
+}
+
+#dianzancount{
+	font-weight: bold;
+	height: 24px;
+	line-height: 24px;
+}
+
 
 

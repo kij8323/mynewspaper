@@ -1,0 +1,104 @@
+{% extends "base_1.html" %}
+{% block HeadDoc %}
+<link href="/static/css/loggin.css" rel="stylesheet">
+<script src="/static/js/loggin.js"></script>
+
+<!-- javascript不能使用django变量模板 -->
+<!-- 刷新验证码 -->
+<script>
+$(function() {
+  $("#freshcaptcha").click(function() {
+    $.ajax({
+        url: "{% url 'captchaview' %}",
+        type: "get",
+        success: function(data) {
+            $(".captcha").attr("src",data.acptchaimg);
+            $("#id_captcha_0").val(data.captchakey);
+        },
+        error: function(data) { 
+            alert("Got an error dude");
+        }
+    });
+
+  })
+})
+</script>
+
+
+
+
+
+
+<script type="text/javascript">
+</script>
+
+
+<script type="text/javascript">
+window.onload = function(){
+var ua = navigator.userAgent.toLowerCase();
+var isWeixin = ua.indexOf('micromessenger') != -1;
+if (!isWeixin) {
+  $('.third-box').append('<a class="pull-left" href="{{url}}"><i class="weiboshare"></i></a>')
+  $('.third-box').append('<a class="pull-right" href="{{weixinurl}}"><i class="weichatshare"></i></a>')
+}
+else{
+  $('.third-box').append('<a class="pull-left" href="{{url}}"><i class="weiboshare"></i></a>')
+  $('.third-box').append('<a class="pull-right" href="{{weixinurlgongzhong}}"><i class="weichatshare"></i></a>')
+}
+}
+</script>
+
+
+{% endblock %}
+
+
+ {% block content %}
+
+
+
+ <div class="container">
+  <div class="container-loggin">
+  <form class="form-signin" role="form" method='get' autocomplete="off" action='{{ action_url }}'>
+    {% csrf_token %}
+
+<!--   <img class="headimag" src="/static/images/logotree/logo_7.jpg"> -->
+
+  <div class="form-label">
+
+  {% if messages %}
+  <ul class="messages">
+      {% for message in messages %}
+      <li{% if message.tags %} class="{{ message.tags }}" 
+      {% endif %}>{{ message }}</li>
+      {% endfor %}
+  </ul>
+  {% endif %}
+
+  {{form}}
+
+
+  </div>
+
+  <div class="checkbox">
+  <label>
+  <input type="checkbox" name='checkbox' value="remember-me"> 记住登录状态1个月
+  </label>
+  </div>
+
+  <input class='btn btn-lg btn-success btn-block' type='submit' value='{{ submit_btn }}'/>
+
+  <span> <a href="{% url 'register' %}">免费注册</a></span>
+  <span class="pull-right"> <a href="{% url 'repassword' %}">找回密码</a></span>
+  </form>
+
+
+<div class="third-box">
+<div class="third-title"><span>第三方登录</span></div>
+</div>
+
+
+  </div>
+  </div>
+ {% endblock %}
+ 
+

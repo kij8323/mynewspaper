@@ -49,6 +49,24 @@ $(document).ready(function(){
 });
 </script>
 
+<script>/*修改手机号码*/
+$(document).ready(function(){
+  $("div#phonenumberform form").submit(function(e){
+    var input = $("#phonenumber").val()
+    if (input == "")
+    {
+    $('#errorphonenumber').css("margin-bottom","-34.718px");
+    $('#errorphonenumber').fadeIn("slow").fadeOut(3000);   
+    return false;
+    }
+    else
+    {
+    return true;
+    }
+  });
+});
+</script>
+
 <script>/*验证密码*/
 $(document).ready(function(){
   $("div#passwordform form").submit(function(e){
@@ -105,6 +123,19 @@ $(document).ready(function(){
 });
 </script>
 
+
+<script type="text/javascript">
+window.onload = function(){
+var ua = navigator.userAgent.toLowerCase();
+var isWeixin = ua.indexOf('micromessenger') != -1;
+if (!isWeixin) {
+  $('#weibourl-choise').append('<a href="{{weixinurl}}"><button type="button" class="btn btn-success">获取授权</button></a>')
+}
+else{
+  $('#weibourl-choise').append('<a href="{{weixinurlgongzhong}}"><button type="button" class="btn btn-success">获取授权</button></a>')
+}
+}
+</script>
 {% endblock %}
 
  {% block content %}
@@ -189,6 +220,74 @@ $(document).ready(function(){
   </div>
 </div>
 
+<!-- Modal5 -->
+<div class="modal fade" id="myModal5" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+               <div id="errorphonenumber" style="text-align: center;">请输入新手机号码</div>
+        <h4 class="modal-title" id="myModalLabel">修改手机号码</h4>
+      </div>
+      <div class="modal-body">
+<div id='phonenumberform'>
+<form  action="" method="post" >
+  {% csrf_token %}
+  <!-- <label for="passwordinput">新密码</label> -->
+<input  id='phonenumber' class="form-control" type="text" name="phonenumber" placeholder="手机号码" />
+<button type="submit" class="btn btn-default btn-success">确定</button>
+<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+</form>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- Modal6 -->
+<div class="modal fade" id="myModal6" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+<!--                <div id="errorphonenumber" style="text-align: center;">请输入新手机号码</div> -->
+        <h4 class="modal-title" id="myModalLabel">第三方登录授权设置</h4>
+      </div>
+      <div class="modal-body">
+        <ul class="thirdshejiao-line">
+          <li><i class="weiboshare"></i></li>
+          {% if weiboset %}
+          <li><span style='color: #5fb760;'>已授权</span></li>
+          <li class="hidden-xs"><span style='color: #999;'>帐号:{{weibousername}}</span></li>
+          <li><a href="{% url 'disweiboconnection' %}"><button type="button" class="btn btn-default">取消授权</button></a></li>
+          {% else %}
+          <li><span style='color: #999;'>未授权</span></li>
+          <li class="hidden-xs"><span style='color: #999;'>帐号:{{weibousername}}</span></li>
+          <li><a href="{{weibourl}}"><button type="button" class="btn btn-success">获取授权</button></a></li>
+          {% endif %}
+        </ul>
+        <ul class="thirdshejiao-line">
+          <li><i class="weichatshare"></i></li>
+          {% if weixinset %}
+          <li><span style='color: #5fb760;'>已授权</span></li>
+          <li class="hidden-xs"><span style='color: #999;'>帐号:{{weixinusername}}</span></li>
+          <li><a href="{% url 'disweixinconnection' %}"><button type="button" class="btn btn-default">取消授权</button></a></li>
+          {% else %}
+          <li><span style='color: #999;'>未授权</span></li>
+          <li class="hidden-xs"><span style='color: #999;'>帐号:{{weixinusername}}</span></li>
+          <li id='weibourl-choise'><!-- <a href="{{weixinurlgongzhong}}"><button type="button" class="btn btn-success">获取授权</button></a> --></li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 <!-- Modal4 -->
 <div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
@@ -224,11 +323,36 @@ $(document).ready(function(){
   </div>
 </div>
 
+<!-- Modal7 -->
+<div class="modal fade" id="myModal7" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+<!--         <div id="erroriconemail" style="text-align: center;">请输入邮箱地址</div>
+        <div id="erroriconwrongemail" style="text-align: center;">email地址格式错误</div> -->
+        <h4 class="modal-title" id="myModalLabel">填写新签名</h4>
+      </div>
+      <div class="modal-body">
+<div id='qianmingform'>
+<form  enctype="multipart/form-data" action="" method="post">
+  {% csrf_token %}
+    <!-- <label for="id_email">新邮箱地址</label> -->
+<textarea  id='id_qianming' class="form-control" type="text" name="id_qianming" placeholder="填写新签名">{{userofinfor.qianming}}</textarea>
+<button type="submit" class="btn btn-default btn-success">确定</button>
+<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+</form>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 
  <div class="container">
 <div class="container-user">
-
-
 	<div class="col-xs-2 hidden-xs">
 	<ul class="nav nav-pills nav-stacked leftblock">
      <li class="presentation1" role="presentation"><a href="{% url 'user_detailinformations' userofinfor.id%}"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>{{hostname}}主页</a></li>
@@ -276,6 +400,53 @@ $(document).ready(function(){
 </button>
 {% endif %}
 </div>
+
+<div class="col-xs-12 iconline ">
+<div class="col-xs-6 emailline">
+  <h4>积分: <span class="ng-binding">{{userofinfor.score}}</span></h4>
+</div>
+<!-- {% if host %}
+<button type="button" class="pull-right btn btn-success" data-toggle="modal" data-target="#myModal2">
+ 修改
+</button>
+{% endif %} -->
+</div>
+
+
+
+<div class="col-xs-12 iconline">
+<div class="col-xs-6 emailline">
+  <h4>{{hostname}}签名: <span class="ng-binding"></span></h4>
+</div>
+{% if host %}
+<button type="button" class="pull-right btn btn-success" data-toggle="modal" data-target="#myModal7">
+ 修改
+</button>
+{% endif %}
+</div>
+
+
+  {% if host %}
+<div class="col-xs-12 iconline">
+<div class="col-xs-6 emailline">
+  <h4>手机号码: <span class="ng-binding">{{userofinfor.phonenumber}}</span></h4>
+</div>
+<button type="button" class="pull-right btn btn-success" data-toggle="modal" data-target="#myModal5">
+ 修改
+</button>
+</div>
+{% endif %}
+
+  {% if host %}
+<div class="col-xs-12 iconline">
+<div class="col-xs-6 emailline">
+  <h4>第三方登录授权</h4>
+</div>
+<button type="button" class="pull-right btn btn-success" data-toggle="modal" data-target="#myModal6">
+ 设置
+</button>
+</div>
+{% endif %}
 
 
 <div class="col-xs-12 lastline">

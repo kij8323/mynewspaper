@@ -45,6 +45,153 @@ $(function() {
   })
 })
 </script>
+
+<script>/*回复私信*/
+$(function() {
+ $("body").on("click", '.reprivcy', function(){
+  recipientid = $(this).parent().parent().children(".senderid").attr("id");
+  recipientname = $(this).parent().parent().children(".senderid").text();
+  $('#myModalLabelcomment').text("回复" + recipientname + "的评论")
+  $('#myModal4').modal('show')
+  recipientcata = $(this).parent().prev().children().attr("class");
+  if (recipientcata == 're-article')
+    {
+        articleid = $(this).parent().prev().children().attr("id");
+        preentid = $(this).parent().prev().prev().attr("id");
+        $('#re-cata').text('re-article')
+        $.cookie("preentid", preentid);
+        $.cookie("articleid", articleid);
+      }
+  else if (recipientcata == 're-products')
+    {
+        productsid = $(this).parent().prev().children().attr("id");
+        preentid = $(this).parent().prev().prev().attr("id");
+        $('#re-cata').text('re-products')
+        $.cookie("preentid", preentid);
+        $.cookie("productsid", productsid);
+      }
+  else if (recipientcata == 're-topic')
+    {
+        topicid = $(this).parent().prev().children().attr("id");
+        preentid = $(this).parent().prev().prev().attr("id");
+        targetpreentname = $(this).parent().prev().prev().children().attr("id");
+        targetname = $(this).parent().prev().prev().children().attr("class");
+        $('#re-cata').text('re-topic')
+        $.cookie("preentid", preentid);
+        $.cookie("topicid", topicid);
+        $.cookie("targetpreentname", targetpreentname);
+        $.cookie("targetname", targetname);
+      }
+  })
+})
+</script>
+
+<script type="text/javascript">
+$(function() {
+ $("body").on("click", '.confirmreply', function(){
+    recipientcata = $('#re-cata').text()
+    comment = $('#privcycomment').val()
+      if (comment!=""){
+        if (recipientcata == 're-article'){
+                    $.ajaxSetup({
+                    data: {csrfmiddlewaretoken: '{{ csrf_token }}', 
+                          articleid: $.cookie('articleid'),
+                          preentid: $.cookie('preentid'),
+                          comment: comment,
+                          },
+                          });
+                    $.ajax({
+                          url: "{% url 'commentcomment' %}",
+                          type: "post",
+                          dataType: 'json',
+                          success: function(data) {
+                     	      $('#privcycomment').val('')
+                              $('#myModal4').modal('hide')
+                              $.messager.popup("评论发表成功!");
+                                $(".modal.msg-popup .modal-body").css({
+                                    'color': '#449d44',
+                                    "background-color":"#CCF4D9",
+                                    });
+                            },
+                          error: function(data) { 
+                            alert('请检查网络!')
+                            },
+                      });}
+        if (recipientcata == 're-products'){
+         $.ajaxSetup({
+            data: {csrfmiddlewaretoken: '{{ csrf_token }}', 
+                  productsid: $.cookie('productsid'),
+                  preentid: $.cookie('preentid'),
+                  comment: comment,
+                  },
+                  });
+            $.ajax({
+                  url: "{% url 'productscommentcomment' %}",
+                  type: "post",
+                  dataType: 'json',
+                  success: function(data) {
+                      $('#privcycomment').val('')
+                      $('#myModal4').modal('hide')
+                      $.messager.popup("评论发表成功!");
+                        $(".modal.msg-popup .modal-body").css({
+                            'color': '#449d44',
+                            "background-color":"#CCF4D9",
+                            });
+                    },
+                  error: function(data) { 
+                    alert('请检查网络!')
+                    },
+              });
+        }
+
+        if (recipientcata == 're-topic'){
+          if ($.cookie('targetpreentname')){
+            if ( $.cookie('targetpreentname') != $.cookie("targetname")) 
+              {
+                comment = "@"+$.cookie("targetname")+' ' +comment
+              }
+            }
+         $.ajaxSetup({
+            data: {csrfmiddlewaretoken: '{{ csrf_token }}', 
+                  topicid: $.cookie('topicid'),
+                  preentid: $.cookie('preentid'),
+                  comment: comment,
+                  },
+                  });
+            $.ajax({
+                  url: "{% url 'topcommentcomment' %}",
+                  type: "post",
+                  dataType: 'json',
+                  success: function(data) {
+                      $('#privcycomment').val('')
+                      $('#myModal4').modal('hide')
+                      $.messager.popup("评论发表成功!");
+                        $(".modal.msg-popup .modal-body").css({
+                            'color': '#449d44',
+                            "background-color":"#CCF4D9",
+                            });
+                    },
+                  error: function(data) { 
+                    alert('请检查网络!')
+                    },
+              });
+        }
+
+    }
+    else{
+    $.messager.popup("请输入评论！");
+    $(".modal.msg-popup .modal-body").css({
+        'color': '#a94442',
+        "background-color":"#f2dede",
+        });
+    }
+
+
+
+  })
+})
+</script>
+
 {% endblock %}
 
 
@@ -62,6 +209,43 @@ $(function() {
         <h5>你确认要删除吗</h5>
         <button type="button" class="btn btn-default btn-success myModalbtn confirmdelete" data-dismiss="modal">确定</button>
         <button type="button" class="btn btn-default myModalbtn" data-dismiss="modal">取消</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal4 -->
+<div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <div id="erroriconprivcycomment" style="text-align: center;">请输入内容</div>
+        <h4 class="modal-title" id="myModalLabelcomment">回复的评论</h4>
+        <div id='re-cata'></div>
+<!--         <div id="modealprivcyino"></div> -->
+      </div>
+      <div class="modal-body">
+<div id='privcycommentform'>
+  
+{% if user.is_authenticated %}
+
+  <label for="privcycomment" id="modealprivcyino">内容</label>
+<!-- <input  id='privcycomment' class="form-control" type="text" name="privcycomment" /> -->
+<textarea  id='privcycomment'  class="form-control" type="text" name="privcycomment" ></textarea>
+
+<button type="submit" class="btn btn-default btn-success confirmreply">确定</button>
+<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+
+{% else %}
+<div class="authboard">
+<div class="authboardword">
+<h4>请<a href="{% url 'loggin' %}">登录</a>后给他发信</h4>
+</div>
+</div>
+{% endif %} 
+
+</div>
       </div>
     </div>
   </div>
@@ -94,13 +278,13 @@ $(function() {
     <div class="dashboard">
       {% for item in notifications %}
       <div class = 'commentlist' id='{{item.id}}'>
-      <a href="{{item.sender_object.get_absolute_url}}">{{item.sender_object.username}}</a>
+      <a class = "senderid" id="{{item.sender_object.id}}" href="{{item.sender_object.get_absolute_url}}">{{item.sender_object.username}}</a>
       {% if item.verb == '#' %}
       回复了你的话题:
       {% elif item.verb == '$' %}
-      回复了你的评论:
+      回复了你的评论:<span class="target_comment">{{item.target_object.parent.text|safe}}</span>
       {% else %}
-	@了你: 
+      @了你: 
       {% endif %}
 
       {% if item.read %}
@@ -108,24 +292,50 @@ $(function() {
       <i class="pull-right"><span class="badge">未读</span></i>
       {{ item.setread }}
       {% endif %}
-      <div class='targetcomment'>
+
+
+      {% if item.target_object.topic %}
+          {% if item.target_object.parent %}
+          <div class='targetcomment' id='{{item.target_object.parent.id}}'>
+            <div id='{{item.target_object.parent.user.username}}' class='{{item.target_object.user.username}}'>{{item.text|AtWhoUser|safe}}</div>
+            </div>
+          {% else %}
+            <div class='targetcomment' id='{{item.target_object.id}}'>
+            <div id='{{item.target_object.parent.user.username}}' class='{{item.target_object.user.username}}'>{{item.text|AtWhoUser|safe}}</div>
+            </div>
+          {% endif %}
+      {% else %}
+      <div class='targetcomment' id='{{item.target_object.id}}'>
         {{item.text|AtWhoUser|safe}}
         </div>
-      <div class = 'commentinfo'>
-        {{item.timestamp}}
+      {% endif %}
+
       <span class="comment-article">
         {% if item.target_article %}
-        来自文章：<a href="{{item.target_article.get_absolute_url}}">{{item.target_article.title}}
+        来自文章：<a class="re-article" id="{{item.target_article.id}}" href="{{item.target_article.get_absolute_url}}">{{item.target_article.title}}
         </a>
+
         {% elif item.target_products %}
-        来自试用：<a href="{{item.target_products.get_absolute_url}}">{{item.target_products.title}}
+        来自试用：<a class="re-products" id="{{item.target_products.id}}" href="{{item.target_products.get_absolute_url}}">{{item.target_products.title}}
         </a>     
+          
         {% else %}
-        来自话题：<a href="{{item.target_topic.get_absolute_url}}">{{item.target_topic.title}}
+        来自话题：<a class="re-topic" id="{{item.target_topic.id}}" href="{{item.target_topic.get_absolute_url}}">{{item.target_topic.title}}
         </a>
         {% endif %}
       </span>
+
+      <div class = 'commentinfo'>
+        {{item.timestamp}}
+
       <i class="icon-delete pull-right"></i>
+
+      {% if item.timestamp > timeline %}
+      <a href="javascript:;" class='reprivcy pull-right'>
+        回复
+      </a>
+      {% endif %}
+      
       </div><!-- <div class = 'commentinfo'> -->
       </div><!-- <div class = 'commentlist'> -->
       {% endfor %}
@@ -134,8 +344,8 @@ $(function() {
       <div class="pagination">
           <span class="step-links">
       {% if notifications.has_previous %}
-        <a class='paginator paginator_first' title='上一页' href='?page={{ notifications.previous_page_number }}'><span>上一页</span></a>       
-{% endif %}
+              <a class='paginator paginator_first' title='上一页' href='?page={{ notifications.previous_page_number }}'><span>&lt;</span></a>
+       {% endif %}
        {% for page in notifications.paginator.page_range %}
            {% if page = notifications.number %}
                <a class='paginator_current' title='当前页:{{ page }}'><span>{{ page }}</span></a>
@@ -144,8 +354,8 @@ $(function() {
            {% endif %}
        {% endfor %}
        {% if notifications.has_next %}
-           <a class='paginator paginator_first' title='下一页' href='?page={{ notifications.next_page_number }}'><span>下一页</span></a>
-{% endif %}
+           <a class='paginator paginator_first' title='下一页' href='?page={{ notifications.next_page_number }}'><span>&gt;</span></a>
+       {% endif %}
           </span>
       </div><!-- <div class="pagination"> -->
       </div><!-- <div class='paginationcontain'> -->

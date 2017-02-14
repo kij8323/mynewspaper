@@ -71,6 +71,7 @@ class MyUser(AbstractBaseUser):
 	is_active = models.BooleanField(default=True)
 	is_admin = models.BooleanField(default=False)
 	icon = models.ImageField(upload_to='images/', null=True, blank=True, default='images/78avatarbig.jpg')
+	thirdicon = models.CharField(max_length=2000, null=True, blank=True, default= None)
 	#特殊查询功能
 	objects = MyUserManager()
 	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False, null=True)
@@ -81,10 +82,16 @@ class MyUser(AbstractBaseUser):
 	address = models.CharField(max_length=200, null=True, blank=True)
 
 
+	qianming = models.CharField(max_length=200, null=True, blank=True)
+	score = models.IntegerField(default=0)
+
 	def __unicode__(self):
 	    return self.username
 
 	def get_image_url(self):
+	    if self.thirdicon:
+		return self.thirdicon
+	    else:
 		return "%s%s" %(settings.MEDIA_URL, self.icon)
 
 	def get_full_name(self):
@@ -117,6 +124,21 @@ class MyUser(AbstractBaseUser):
 	# def get_absolute_url(self):
 	# 	return reverse('home')
 
+class WeiboUser(models.Model):
+	weiboid = models.CharField(max_length=2000)
+	weiboname = models.CharField(max_length=2000,null=True, blank=True)
+	user = models.ForeignKey(MyUser, db_index=True)
+	iconaddress = models.CharField(max_length=2000,null=True, blank=True)
+	logpassword = models.CharField(max_length=2000,null=True, blank=True)
+	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False, null=True)
+
+class WeixinUser(models.Model):
+	weixinid = models.CharField(max_length=2000)
+	weixinname = models.CharField(max_length=2000,null=True, blank=True)
+	user = models.ForeignKey(MyUser, db_index=True)
+	iconaddress = models.CharField(max_length=2000,null=True, blank=True)
+	logpassword = models.CharField(max_length=2000,null=True, blank=True)
+	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False, null=True)
 
 #用户信息数据库
 class UserProfile(models.Model):
@@ -153,6 +175,7 @@ class Repassworduser(models.Model):
 	phonenumber = models.CharField(
 	    max_length=255,
 	)
+	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False, null=True)
 
 class MyUserIconForm(ModelForm):
     class Meta:
@@ -164,3 +187,94 @@ class MyUserIconForm(ModelForm):
 #         model = MyUser
 #         fields = ['fakepassword']
 
+
+
+def thidauth2(x, y):
+	try:
+		third1 = WeiboUser.objects.get(user = x)
+		third2 = WeiboUser.objects.get(user = y)
+		return True
+	except:
+		try:
+			third1 = WeixinUser.objects.get(user = x)
+			third2 = WeixinUser.objects.get(user = y)
+			return True
+		except:
+			try:
+				third1 = WeixinUser.objects.get(user = x)
+				third2 = WeiboUser.objects.get(user = y)
+				return True
+			except:
+				try:
+					third1 = WeiboUser.objects.get(user = x)
+					third2 = WeixinUser.objects.get(user = y)
+					return True
+				except:
+					return False
+
+
+
+def thidauth3(x, y, z):
+	try:
+		third1 = WeiboUser.objects.get(user = x)
+		third2 = WeiboUser.objects.get(user = y)
+		third3 = WeiboUser.objects.get(user = z)
+		return True
+	except:
+		try:
+			third1 = WeiboUser.objects.get(user = x)
+			third2 = WeiboUser.objects.get(user = y)
+			third3 = WeixinUser.objects.get(user = z)
+			return True
+		except:
+			try:
+				third1 = WeiboUser.objects.get(user = x)
+				third2 = WeixinUser.objects.get(user = y)
+				third3 = WeiboUser.objects.get(user = z)
+				return True
+			except:
+				try:
+					third1 = WeixinUser.objects.get(user = x)
+					third2 = WeiboUser.objects.get(user = y)
+					third3 = WeiboUser.objects.get(user = z)
+					return True
+				except:
+					try:
+						third1 = WeixinUser.objects.get(user = x)
+						third2 = WeixinUser.objects.get(user = y)
+						third3 = WeiboUser.objects.get(user = z)
+						return True	
+					except:	
+						try:
+							third1 = WeixinUser.objects.get(user = x)
+							third2 = WeiboUser.objects.get(user = y)
+							third3 = WeixinUser.objects.get(user = z)
+							return True	
+						except:	
+							try:
+								third1 = WeiboUser.objects.get(user = x)
+								third2 = WeixinUser.objects.get(user = y)
+								third3 = WeixinUser.objects.get(user = z)
+								return True	
+							except:
+								try:
+									third1 = WeixinUser.objects.get(user = x)
+									third2 = WeixinUser.objects.get(user = y)
+									third3 = WeixinUser.objects.get(user = z)
+									return True		
+								except:															
+									return False
+
+
+
+
+def thidauth1(x):
+	try:
+		third1 = WeiboUser.objects.get(user = x)
+		return True
+	except:
+		try:
+			third1 = WeixinUser.objects.get(user = x)
+			return True
+		except:
+			return False

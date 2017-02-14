@@ -1,0 +1,216 @@
+{% extends "base_1.html" %}
+{% load time_filter %}
+{% block HeadDoc %}
+<link href="/static/css/category_detail.css" rel="stylesheet">
+<script src="/static/js/topic_detail.js"></script>
+
+<script>/*加载更多*/
+$(function() {
+  var cur_page_num = 1;
+ $("body").on("click", '#morecomment-btn-block', function(){
+    var $elements = $('.newsblock');
+    var articlelen = $elements.length;
+    $.ajaxSetup({
+    data: {csrfmiddlewaretoken: '{{ csrf_token }}', 
+           homearticlelen: articlelen,
+          },
+          });
+
+    $.ajax({
+        url: "{% url 'morearticlehome' %}",
+        type: "post",
+        success: function(data) {
+        cur_page_num=cur_page_num+1;         
+        /*alert(cur_page_num);  */         
+        var newnode=document.createElement("div");             
+        newnode.setAttribute("class", "container-fluid grid");            
+        newnode.setAttribute("id","new"+String(cur_page_num));           
+        document.getElementById("morecomment").appendChild(newnode); 
+
+        $('#new'+String(cur_page_num)).load('{% url 'articlepagehome' %}');
+        $('#morecomment-btn-block').html(data.loadcompleted) 
+          },
+          error: function(data) { 
+              alert("Got an error dude");
+          }
+    });
+  })
+})
+</script>
+
+<script>/*去除&nbsp;*/
+$(function(){ 
+    $('.posttime').each(function() {
+      var $this = $(this);
+      $this.html($this.html().replace(/&nbsp;/g, ''));
+    })
+}); 
+</script>
+
+<script>/*板块固定滚动,板块内width要定长*/
+$.fn.smartFloat = function() { 
+    var position = function(element) { 
+        var top = element.position().top; //当前元素对象element距离浏览器上边缘的距离 
+        var pos = element.css("position"); //当前元素距离页面document顶部的距离 
+        $(window).scroll(function() { //侦听滚动时 
+            var scrolls = $(this).scrollTop(); 
+            if (scrolls > top) { //如果滚动到页面超出了当前元素element的相对页面顶部的高度 
+                if (window.XMLHttpRequest) { //如果不是ie6 
+                    element.css({ //设置css 
+                        position: "fixed", //固定定位,即不再跟随滚动 
+                        top: 0, //距离页面顶部为0 
+                      
+                    }).addClass("shadow"); //加上阴影样式.shadow 
+                } else { //如果是ie6 
+                    element.css({ 
+                        top: scrolls  //与页面顶部距离 
+                    });     
+                } 
+            }else { 
+                element.css({ //如果当前元素element未滚动到浏览器上边缘，则使用默认样式 
+                    position: pos, 
+                    top: top 
+                }).removeClass("shadow");//移除阴影样式.shadow 
+            } 
+        }); 
+    }; 
+    return $(this).each(function() { 
+        position($(this));                          
+    }); 
+}; 
+</script>
+
+<script>
+$(function(){ 
+    $("#rightstableblock").smartFloat(); 
+}); 
+</script>
+
+<script>
+$.fn.imgsizeFunction = function() { 
+  width = $(this).css('width');
+  x = (parseFloat(width)*0.74)
+  return  $(this).css('height',x+'px');
+}
+</script>
+
+<script>
+$(function(){ 
+/*  $('.item, .item  a img').imgsizeFunction();*/
+  $('.leftimgblock a img').imgsizeFunction();
+}); 
+</script>
+
+<script>
+$(window).resize(function(){
+/*  $('.item, .item  a img').imgsizeFunction();*/
+  $('.leftimgblock a img').imgsizeFunction();
+});
+</script>
+
+<script>
+$.fn.imgsizeFunctionitem = function() { 
+  width = $(this).css('width');
+  x = (parseFloat(width)*0.56)
+  return  $(this).css('height',x+'px');
+}
+</script>
+
+<script>
+$(function(){ 
+  $('.item, .item  a img').imgsizeFunctionitem();
+/*  $('.leftimgblock a img').imgsizeFunction();*/
+}); 
+</script>
+
+<script>
+$(window).resize(function(){
+  $('.item, .item  a img').imgsizeFunctionitem();
+/*  $('.leftimgblock a img').imgsizeFunction();*/
+});
+</script>
+{% endblock %}
+
+ {% block content %}
+    <div class="container container-home">
+
+      <div class="row">
+        <div class="col-sm-8  leftcontainer">
+        <h4 class="categorytitle">{{categorytitle}}</h4>
+        <!-- <div class="col-sm-8  leftcontainer"> -->
+  <span class="span-mark-author pull-left">相关文章</span>
+
+<div class="col-xs-12 newsblock" style="display:none;">
+</div>
+{% for item in articlequery %}
+
+          <div class="col-xs-12 newsblock" id="{{item.article.blockid}}">
+          <div class="col-xs-4 leftimgblock">
+          <a href="{{item.article.get_absolute_url}}"><img src="{{item.article.get_image_url}}" ></a>
+            {% if item.article.original %}
+            <span class="original-mark"  >探访</span>
+            {% endif %}
+          {% if item.article.deep %}
+            <span class="deep-mark" >深度</span>
+            {% endif %}
+          </div> 
+          <div class="col-xs-8 rightwordblock">
+          <h3><a href="{{item.article.get_absolute_url}}">{{item.article.title}}</a></h3>
+          <span><img  class="img-circle usericon" src='{{item.article.writer.get_image_url}}'></span>
+          <span class="writer"><a href="{{item.article.writer.get_absolute_url}}">{{item.article.user}}{{item.article.writer}}</a></span> 
+          <span class="posttime">{{item.article.timestamp|date:"o/m/j"}}</span>
+
+
+          <p class="associatetitle hidden-xs" style='padding-left: 0px;'>{{item.article.associatetitle}}</p>
+          <div class="icon-reply-line hidden-xs">
+          <i class="icon-reply"></i><span class="">{{item.article.id|Article_comment}}  </span>  </div> 
+          </div> 
+          </div> <!-- newsblock -->
+{% endfor %}
+
+<div id="morecomment">
+</div>
+    <div class='col-xs-12' id='dividedline'>
+    </div>
+
+
+ <button  id="morecomment-btn-block" type="button" class='btn btn-lg btn-default btn-block ' >加载更多</button> 
+
+        </div><!-- class="col-sm-8 leftcontainer" -->
+      <!-- </div> --><!-- <div class="row">  -->  
+
+<div class="col-sm-3 hidden-xs">
+<!-- <div id='rightstableblock'>
+<div id='hotarticle'>
+  <div class="pull-left" >
+  <h4><b>类别</b></h4>
+  <span class="span-mark"></span>
+  </div>
+<div class="rightnewtpic">
+ {% for item in categoryquery %}
+  <div class="rightitle">
+
+          <a href="{{item.get_absolute_url}}">
+ <div class='mod-thumb'>
+  <img src="{{item.get_image_url}}"></div>
+  </a>
+
+ <div class="project-content">
+  <a href="{{item.get_absolute_url}}">
+ {{item.title}}
+ </a>
+ </div> 
+ </div>
+ {% endfor %}
+ </div>
+ </div>
+</div> -->
+</div><!-- class="col-sm-4" -->
+
+
+
+      </div><!-- row -->
+
+    </div> <!-- /container -->
+ {% endblock %}
+ 

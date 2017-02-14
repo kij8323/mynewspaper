@@ -1,0 +1,290 @@
+{% extends "base_1.html" %}
+{% load time_filter %}
+{% block HeadDoc %}
+<link href="/static/css/productsall.css" rel="stylesheet">
+<script src="/static/js/topic_detail.js"></script>
+
+
+<script>/*倒计时*/
+$(function(){ 
+    $('.timer').each(function(){
+      var SysSecond; 
+      var InterValObj; 
+      var a = $(this).children(".products-time").text()
+      var node = $(this)
+      SysSecond = parseInt(a); 
+    /*  alert('x')*/
+     //将时间减去1秒，计算天、时、分、秒 
+     function SetRemainTime() { 
+      if (SysSecond > 0) { 
+       SysSecond = SysSecond - 1; 
+       var second = Math.floor(SysSecond % 60);             // 计算秒     
+       var minite = Math.floor((SysSecond / 60) % 60);      //计算分 
+       var hour = Math.floor((SysSecond / 3600) % 24);      //计算小时 
+       var day = Math.floor((SysSecond / 3600) / 24);        //计算天 
+     
+       node.html('<span class="glyphicon glyphicon-time" aria-hidden="true"></span> 距离申请结束：'+day + "天" + hour + "小时" + minite + "分" + second + "秒"); 
+      } else {//剩余时间小于或等于0的时候，就停止间隔函数 
+       window.clearInterval(InterValObj); 
+       //这里可以添加倒计时时间为0后需要执行的事件 
+      } 
+     } 
+
+     InterValObj = window.setInterval(SetRemainTime, 1000);
+    });
+}); 
+</script>
+
+<script>
+$.fn.imgsizeFunction = function() { 
+  width = $(this).css('width');
+  x = (parseFloat(width)*0.636)
+  return  $(this).css('height',x+'px');
+}
+</script>
+
+<script>
+$(function(){ 
+  $('.products-img a img').imgsizeFunction();
+}); 
+</script>
+
+<script>
+$(window).resize(function(){
+  $('.products-img a img').imgsizeFunction();
+});
+</script>
+
+<style type="text/css">
+#producs-yijieshu{
+  border-bottom: solid 2px #5fb760; 
+}
+
+#producs-yijieshu a{
+  color: #5fb760;
+}
+</style>
+
+<script>
+$(function(){ 
+  width = $(".products-information").css('width');
+  $(".timer").css('width',parseFloat(width)+'px');
+}); 
+</script>
+
+<script>
+$(window).resize(function(){
+  width = $(".products-information").css('width');
+  $(".timer").css('width',parseFloat(width)+'px');
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+$(".products-hover-box").mouseenter(function(){
+      $(this).animate({scrollTop: '60px'}, 200);
+  });
+  $(".products-hover-box").mouseleave(function(){
+      $(this).animate({scrollTop: '0px'}, 200);
+  });
+});
+</script>
+{% endblock %}
+
+ {% block content %}
+<div class="producs-filter">
+  <ul>
+    <li id='producs-quanbu'>
+      <a href="{% url 'productsall'%}">全部</a>
+    </li>
+    <li id='producs-shenqingzhong'>
+      <a href="{% url 'productsapplying'%}">申请中</a>
+    </li>
+    <li id='producs-tiyanzhong'>
+      <a href="{% url 'productstesting'%}">体验中</a>
+    </li>
+    <li id='producs-yijieshu'>
+      <a href="{% url 'productsfinish'%}">已结束</a>
+    </li>
+    <!-- <div style="clear:both;"></div> -->
+  </ul>
+</div>
+
+    <div class="container">
+
+      <div class="row">
+<!-- <div class="shiyongtilteline">
+<span class="shiyongtilte">
+  免费试用
+</span>
+</div> -->
+<!-- <h1>网站正在升级中...</h1> -->
+<!-- <div class="col-sm-12 logoimg">
+<img src="/static/media/images/products_all_img.jpg">
+</div> -->
+
+<!-- <div class="col-sm-12 try-introduce-block">
+<div class="col-sm-3 try-introduce-first">
+  <div class="try-step">1</div>
+  <h4>试用申请</h4>
+  <p>点击申请按钮，即可参加试用活动</p>
+</div>
+<div class="col-sm-3 try-introduce">
+  <div class="try-step">2</div>
+  <h4>名单确认</h4>
+  <p>我们公布申请成功用户名单</p>
+</div>
+<div class="col-sm-3 try-introduce">
+  <div class="try-step">3</div>
+  <h4>开始体验</h4>
+  <p>用户接收我们快递的试用产品后开始体验</p>
+</div>
+<div class="col-sm-3 try-introduce">
+  <div class="try-step">4</div>
+  <h4>评论提交</h4>
+  <p>用户试用后在产品申请试用页面下提交体验评论</p>
+</div>
+</div> -->
+
+<div class="col-sm-12 products-list">
+  
+    {% for item in products %}
+    <div class="col-sm-3">
+      <div class="products-information" >
+        <!-- <div class="periods">
+          第{{ item.periods }}期试用
+        </div> -->
+        <div class="products-img">
+
+          {% if item.status = 1 %}
+          <a href="{{item.get_absolute_url}}">
+            <img src="{{item.get_image_url}}">
+          </a>
+          {% endif %}
+          {% if item.status = 2 %}
+          <a href="{{item.get_apply_url}}">
+            <img src="{{item.get_image_url}}">
+          </a>
+          {% endif %}
+          {% if item.status = 3 %}
+          <a href="{{item.get_report_url}}">
+            <img src="{{item.get_image_url}}">
+          </a>
+          {% endif %}
+
+          {% if item.status = 1 %}
+          <span class="mark apply-mark">申请中</span>
+          {% endif %}
+          {% if item.status = 2 %}
+          <span class="mark experience-mark">体验中</span>
+          {% endif %}
+          {% if item.status = 3 %}
+          <span class="mark end-mark">已结束</span>
+          {% endif %}
+          <div class="timer">
+            <div class="products-time">
+              {{ item.ret_timesince_sec}}
+            </div>          
+          </div>
+<div class="products-hover-box">
+          <div class="products-title">
+
+
+          {% if item.status = 1 %}
+            <a href="{{item.get_absolute_url}}">
+            {{ item.title}}
+            </a>
+          {% endif %}
+          {% if item.status = 2 %}
+            <a href="{{item.get_apply_url}}">
+            {{ item.title}}
+            </a>
+          {% endif %}
+          {% if item.status = 3 %}
+            <a href="{{item.get_report_url}}">
+            {{ item.title}}
+            </a>
+          {% endif %}
+
+
+
+          </div> 
+          <div class="try-info">
+            <!-- <span class="amount">数量：{{item.amount}}</span> -->
+            <span class="applyNums"><span class="applyNums-size">{{item.id|products_applyamount_count}}人</span>申请</span>
+            <!-- <span class="amount">数量：{{item.amount}}</span> -->
+          {% if item.status != 1 %}
+
+            <span class="openprice">测评话题：{{item.reportnum}}</span>
+          {% else %}
+            <!-- <span class="openprice">市场价：{{item.price}}</span> -->
+            <span class="amount">限量：{{item.amount}}</span>
+          {% endif %}
+          </div> 
+
+        {% if item.ifscore %}
+          <div class="score-info">
+            <!-- <span class="amount">数量：{{item.amount}}</span> -->
+            {% if item.status != 1 %}
+            <span class="applyNums">最终价: <span class="applyNums-size">{{item.scoreing}}</span>积分</span>
+             {% else %}            
+            <span class="applyNums">当前价: <span class="applyNums-size">{{item.scoreing}}</span>积分</span>             
+             {% endif %}
+            <span class="amount">积分竞拍数量：{{item.scoreamount}}</span>
+          </div> 
+        {% else %} 
+          <div class="score-info">
+            <!-- <span class="amount">数量：{{item.amount}}</span> -->
+            {% if item.status != 1 %}
+            <span class="applyNums">最终价: <span class="applyNums-size" style="text-decoration: line-through;">0</span>积分</span>
+             {% else %}            
+            <span class="applyNums">当前价: <span class="applyNums-size" style="text-decoration: line-through;">0</span>积分</span>             
+             {% endif %}
+            <span class="amount">不参与积分竞拍</span>
+          </div> 
+        {% endif %}
+
+          <div class="try-info-price">
+            <span class="applyNums">官方价</span>
+            <span class="amount" style="font-family:Arial;"> &yen; {{item.price}}</span>
+          </div> 
+</div><!-- <div class="products-hover-box"> -->
+        </div><!-- <div class="products-img"> -->
+      </div> <!-- <div class="products-information" > -->
+    </div><!-- <div class="col-sm-4"> -->
+    {% endfor %}
+</div>
+
+<div class='paginationcontain'>
+<div class="pagination">
+    <span class="step-links">
+{% if products.has_previous %}
+        <a class='paginator paginator_first' title='上一页'  href='?page={{ products.previous_page_number}}'><span>上一页</span></a>
+ {% endif %}
+  {% if ellipsis_front %}
+<a class='paginator' href='?page=1' title='1'><span>1</span></a>
+ <div class='paginator'><span>...</span></div>
+ {% endif %}
+ {% for page in pagerange %}
+     {% if page = products.number %}
+         <a class='paginator_current' title='当前页:{{ page }}'><span>{{ page }}</span></a>
+     {% else %}
+         <a class='paginator'   href='?page={{ page }}' title='{{ page }}'><span>{{ page }}</span></a>
+     {% endif %}
+ {% endfor %}
+  {% if ellipsis_real %}
+<div class='paginator'><span>...</span></div>
+<a class='paginator' href='?page={{last_page}}' title='{{last_page}}'><span>{{last_page}}</span></a>
+ {% endif %}
+ {% if products.has_next %}
+     <a class='paginator paginator_first' title='下一页' href = '?page={{ products.next_page_number }}' ><span>下一页</span></a>
+ {% endif %}
+    </span>
+</div><!-- <div class="pagination"> -->
+
+      </div><!-- row -->
+
+    </div> <!-- /container -->
+ {% endblock %}
+ 

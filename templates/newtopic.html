@@ -5,7 +5,7 @@
 $(document).ready(function(){
   $("form").submit(function(e){
     var input_title = $("#id_title").val()
-    var input_content = CKEDITOR.instances.id_content.getData()
+    var input_content = id_content.getContent()
     if (input_title == "")
     {
     $.messager.popup("标题不能为空！");
@@ -31,6 +31,26 @@ $(document).ready(function(){
   });
 });
 </script>
+
+<script type="text/javascript">
+$(function() {
+  $("body").on("click", '#tijiao', function(){
+    $("#savetext").val('')
+    $("form").submit();
+ 
+  })
+})
+
+$(function() {
+  $("body").on("click", '#baocun', function(){
+    $("#savetext").val('True')
+    $("form").submit(); 
+ 
+  })
+})
+</script>
+
+
 {% endblock %}
 
  {% block content %}
@@ -39,8 +59,9 @@ $(document).ready(function(){
 <div class="center-warp">
 {% if group %}
 <ul class="breadcrumbs">
+          <!--   <li><a href="{% url 'group_all' %}">话题组</a><span> &gt; </span></li> -->
             <li><a href="{{ group.get_absolute_url }}">{{ group.title }}</a><span> &gt; </span></li>
-            <li>提交话题</li>
+            <li>提交测评</li>
         </ul>
 	<div id="erroricon_title" style="text-align: center;">请输入标题</div>
 
@@ -57,7 +78,12 @@ $(document).ready(function(){
 	{% csrf_token %}
     {{ myform.media }}
     {{ myform.as_p }}
-    <input type="submit"  value="提交" class='btn btn-lg btn-success btn-block'/>
+<input id="savetext"   name="savetext"  type="text">
+
+    <input type="button" id='tijiao' value="提交" class='btn  btn-success btn-block pull-left'/>
+    <input type="button" id='baocun' value="保存" class='btn  btn-default btn-block pull-left'/>
+
+
 </form>
 
 {% else %}
@@ -70,3 +96,4 @@ $(document).ready(function(){
 </div><!-- class="container" -->
  {% endblock %}
  
+
