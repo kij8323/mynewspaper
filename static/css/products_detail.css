@@ -930,12 +930,6 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = #90000000,end
 	/*	text-align: center;
 */}
 
-#applybutton-small, #applyscore-small{
-	width: 80%;
-	font-size: 12px;
-	margin-left: auto;
-	margin-right: auto;
-}
 
 .container_products_detail_small span{
 	color: black;

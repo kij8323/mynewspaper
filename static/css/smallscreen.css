@@ -205,7 +205,11 @@ font-size: 12px !important;
 	text-align: center;
 }
 
-.products-detail-info{
+.products-detail-info, .products-apply-info{
 	padding-left: 0px !important;
 	padding-right: 0px !important;
+}
+.container_products_detail_small .small_try_info .btn{
+	width: 80%  ;
+	font-size: 12px  ;
 }
