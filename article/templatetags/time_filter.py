@@ -78,6 +78,13 @@ def time_chinese_months(value):
 def AnonymousUser(value): 
     return value.replace('AnonymousUser', u'游客');
 
+#删除html标签
+@register.filter
+def delebq(value): 
+    dr = re.compile(r'<[^>]+>',re.S)
+    dd = dr.sub('',value)
+    return dd;
+
 #缓存文章被阅读次数
 @register.filter
 def Article_readers(value): 

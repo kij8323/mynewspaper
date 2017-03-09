@@ -7,7 +7,6 @@
 <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
 <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
 
-
 <script>/*倒计时*/
 $(function(){ 
     $('.timer').each(function(){
@@ -26,13 +25,12 @@ $(function(){
        var hour = Math.floor((SysSecond / 3600) % 24);      //计算小时 
        var day = Math.floor((SysSecond / 3600) / 24);        //计算天 
      
-       node.html('<span class="glyphicon glyphicon-time" aria-hidden="true"></span> 距离申请结束：'+"<i>"+day +"</i>"+ " 天 " + "<i>"+ hour + "</i>"+" 小时 " + "<i>"+ minite + "</i>"+" 分 " + "<i>"+second +"</i>"+ " 秒 "); 
+       node.html('<div class="icon_prodeta_daojishi"></div> 距离申请结束：'+"<i>"+day +"</i>"+ " 天 " + "<i>"+ hour + "</i>"+" 小时 " + "<i>"+ minite + "</i>"+" 分 " + "<i>"+second +"</i>"+ " 秒 "); 
       } else {//剩余时间小于或等于0的时候，就停止间隔函数 
        window.clearInterval(InterValObj); 
        //这里可以添加倒计时时间为0后需要执行的事件 
       } 
      } 
-
      InterValObj = window.setInterval(SetRemainTime, 1000);
     });
 }); 
@@ -47,18 +45,30 @@ $.fn.imgsizeFunction = function() {
 </script>
 
 <script>
+$.fn.imgsizeFunction1 = function() { 
+  width = $(this).css('width');
+  x = (parseFloat(width)*0.636)
+  return  $(this).css('height',x+'px');
+}
+</script>
+
+
+<script>
 $(function(){ 
   $('.products-pic img').imgsizeFunction();
-  $('.hotry-img img').imgsizeFunction();
+  $('.hotnewsblock table img').imgsizeFunction1();
+  $('.small_img_title img').imgsizeFunction1();
 }); 
 </script>
 
 <script>
 $(window).resize(function(){
   $('.products-pic img').imgsizeFunction();
-  $('.hotry-img img').imgsizeFunction();
+  $('.hotnewsblock table img').imgsizeFunction1();
+  $('.small_img_title img').imgsizeFunction1();
 });
 </script>
+
 
 
 
@@ -68,6 +78,11 @@ $(window).resize(function(){
 <script>/*输入联系方式莫太框*/
 $(function() {
  $("body").on("click", '#applybutton', function(){
+      $('#myModal1').modal('toggle')
+  })
+})
+$(function() {
+ $("body").on("click", '#applybutton-small', function(){
       $('#myModal1').modal('toggle')
   })
 })
@@ -98,49 +113,54 @@ $(document).ready(function(){
 });
 </script>
 
-
-<script>
-$.fn.widthsizeFunction = function() { 
-  width = $(this).css('width');
-  windowidth = parseFloat($(window).width())
-  if (windowidth > 768){
-    x = (parseFloat(width)*1)-71;
-  }
-  else {
-    x = (parseFloat(width)*1);
-  }
-  return  $('.group-list-content').css('width',x+'px');
-}
-</script>
-
-<script>
-$.fn.jiangpaisizeFunction = function() { 
-  width = $(this).css('width');
-  x = (parseFloat(width)*1)-76;
-  return  $('.jifen-rank-name').css('width',x+'px');
-}
-</script>
-
-
-<script>
+<script>/*回到页面顶端*/
 $(function(){ 
-  $('.group-list').widthsizeFunction();
-  $('.jifen-rank-content-ul li').jiangpaisizeFunction();
-}); 
+  $('.barcomment').click(function(){
+  $('html,body').animate({scrollTop:$('.comment-form').offset().top}, 800);}); 
+  $(window).scroll(function() {   
+    if($(window).scrollTop() >= 100){
+      $('.rtotopsctoll').fadeIn(300); 
+    }else{    
+      $('.rtotopsctoll').fadeOut(300);    
+    }  
+  });
+  $('.rtotopsctoll').click(function(){
+  $('html,body').animate({scrollTop: '0px'}, 800);}); 
+});
 </script>
 
-<script>
-$(window).resize(function(){
-  $('.group-list').widthsizeFunction();
-  $('.jifen-rank-content-ul li').jiangpaisizeFunction();
-});
+<script type="text/javascript">
+$(document).ready(function(){
+ $('.products-detail-info>p>img').parent('p').css('margin-bottom','0px');
+  });
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.subtract').click(function(){
+    node = $(this).next(".num")
+    score = Number(node.text())
+    payscore = {{payscore}}
+    if (score <= payscore){
+      node.text(score)
+    }
+    else {
+      node.text(score-5)
+    }
+  });
+  $('.add').click(function(){
+    node = $(this).prev(".num")
+    score = Number(node.text())
+    node.text(score+5)
+  });
+  });
 </script>
 
 
 <script>/*出价*/
 $(function() {
  $("body").on("click", '#applyscoreconform', function(){
-    score = Number($('.score .control .num ').text())
+    score = Number($('.applyscoreconformprice').text())
     protit = $('.try-title h4 ').text()
     $.ajaxSetup({
     data: {csrfmiddlewaretoken: '{{ csrf_token }}', 
@@ -185,11 +205,82 @@ $(function() {
 <script>/*输入联系方式莫太框*/
 $(function() {
  $("body").on("click", '#applyscore', function(){
-      score = Number($('.score .control .num ').text())
+      score = Number($('#num-score').text())
       $('.applyscoreconformprice').text(score)
       $('#myModal2').modal('toggle')
   })
 })
+$(function() {
+ $("body").on("click", '#applyscore-small', function(){
+      score = Number($('#num-score-small').text())
+      $('.applyscoreconformprice').text(score)
+      $('#myModal2').modal('toggle')
+  })
+})
+</script>
+
+
+<script>
+$.fn.widthsizeFunction = function() { 
+  width = $(this).css('width');
+  windowidth = parseFloat($(window).width())
+  if (windowidth > 768){
+    x = (parseFloat(width)*1)-71;
+  }
+  else {
+    x = (parseFloat(width)*1);
+  }
+  return  $('.group-list-content').css('width',x+'px');
+}
+</script>
+
+<script>
+$.fn.jiangpaisizeFunction = function() { 
+  width = $(this).css('width');
+  x = (parseFloat(width)*1)-76;
+  return  $('.jifen-rank-name').css('width',x+'px');
+}
+</script>
+
+
+<script>
+$(function(){ 
+  $('.group-list').widthsizeFunction();
+  $('.jifen-rank-content-ul li').jiangpaisizeFunction();
+}); 
+</script>
+
+<script>
+$(window).resize(function(){
+  $('.group-list').widthsizeFunction();
+  $('.jifen-rank-content-ul li').jiangpaisizeFunction();
+});
+</script>
+
+
+
+<script>
+$.fn.imgsizeFunctionimg3 = function() { 
+  width = $(this).css('width');
+  x = (parseFloat(width)*0.636)
+  return  $(this).css('height',x+'px');
+}
+</script>
+
+<script>
+$(function(){ 
+  $('.img3-imagefst3').imgsizeFunctionimg3();
+  $('.img3-imagescd3').imgsizeFunctionimg3();
+  $('.img3-imagethd3').imgsizeFunctionimg3();
+}); 
+</script>
+
+<script>
+$(window).resize(function(){
+  $('.img3-imagefst3').imgsizeFunctionimg3();
+  $('.img3-imagescd3').imgsizeFunctionimg3();
+  $('.img3-imagethd3').imgsizeFunctionimg3();
+});
 </script>
 {% endblock %}
 
@@ -219,10 +310,15 @@ $(function() {
   {% endif %}
 
   {% if user.address %}
-      <input id='addressinput'  class="form-control " type="text" name="addressinput" placeholder="试用产品收货地址" value="{{user.address}}"/>
+      <input id='addressinput'  class="form-control " type="text" name="addressinput" placeholder="试用产品收货地址 此地址在本次产品试用申请期间不可更改" value="{{user.address}}"/>
   {% else %}
-      <input id='addressinput'  class="form-control " type="text" name="addressinput" placeholder="试用产品收货地址" />
+      <input id='addressinput'  class="form-control " type="text" name="addressinput" placeholder="试用产品收货地址 此地址在本次产品试用申请期间不可更改" />
   {% endif %}
+    <textarea class="form-control" cols="40" id="reasoninput" name="reasoninput" placeholder="请输入申请理由，自媒体的同学，请附上自媒体信息，此信息为非公开。" rows="3"></textarea>
+<img src="/static/media/images/qrcode_for_gh_5dadb4ff2030_430.jpg" width="86px">
+<p>扫码或关注微信公众号: wutongguandian 提高申请试用成功率</p>
+<div class="applink"><a href="http://www.wutongnews.com/topic/142/">《关于梧桐试用抽取试用用户的参考依据和用户产生过程》</a></div>  
+
 <button type="submit" class="btn btn-default btn-success">确定</button>
 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
 </form>
@@ -243,10 +339,16 @@ $(function() {
       </div>
       <div class="modal-body">
         <h5>你确认要出价<span class="applyscoreconformprice"></span>积分吗</h5>
-
-<img src="/static/media/images/qrcode_for_gh_5dadb4ff2030_430.jpg" width="86px">
-<p>扫码或关注微信公众号: wutongguandian 提高申请试用成功率</p>
-<div class="applink"><a href="http://www.wutongnews.com/topic/142/">《关于梧桐试用积分获得以及抽取试用用户的参考依据 》</a></div>
+        <div class="scorerule">
+        如何获得积分？
+        </div>
+        <div class="scorerule">
+          第1步. 帐号授权微信或微博第三方登录，授权方法：点击右上方帐号&rarr;第三方登陆授权&rarr;设置；
+        </div>
+        <div class="scorerule">
+          第2步. 在测评区回复带有<i class="score-topic"></i>的帖子.
+        </div>
+	<div class="applink"><a href="http://www.wutongnews.com/topic/142/">《关于梧桐试用积分获得以及抽取试用用户的参考依据 》</a></div>
         <button type="button" class="btn btn-default btn-success myModalbtn confirmdelete" data-dismiss="modal" id="applyscoreconform">确定</button>
         <button type="button" class="btn btn-default myModalbtn" data-dismiss="modal">取消</button>
       </div>
@@ -255,86 +357,210 @@ $(function() {
 </div>
 
 
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-12">
-          <div class='map'>
-            <a href="{% url 'productsall' %}">
-              梧桐试用
-            </a>
-             &gt;
-              {{products.title}}
-          </div>
-      	<div class="try-info col-sm-12">
-      		<div class="products-pic col-sm-6">
-      			<img src="{{products.get_image_url}}">
-      		</div>
-      		<div class="products-info col-sm-6">
-      			<div class="try-title">
-      			<h4>{{products.title}}</h4>
-      			</div>
-      			<div class="try-amount-price-apply col-sm-12">
-	      			<div class="try-amount-price col-sm-6">
+<div class="container_products_detail_small visible-xs-block row">
+  <div class='small_img_title'>
+    <img src="{{products.get_image_url}}">
+            <div class="timer">
+        <div class="icon_prodeta_daojishi"></div> 距离申请结束：
+          <span class="products-time">
+            {{ products.ret_timesince_sec}}
+          </span>          
+        </div>
+  </div>
+<!-- <div class='small_amount'>总数量: {{products.amount}}</div>
+<div class='small_price'>价格: {{products.price}}</div> -->
 
-
-                <p>市场价&nbsp;&nbsp;<span>{{products.price}}</span></p>
-                <p>总限量&nbsp;&nbsp;<span>{{products.amount}}</span></p>
-                <p>积分竞拍数量&nbsp;&nbsp;<span>{{products.scoreamount}}</span></p>
-              </div>
-              <div class="apply-amount col-sm-6">
-                <h4><span>{{products.id|products_applyamount_count}}</span> 人已申请</h4>
-              </div>
-            {% if products.ifscore %}
-              <div class="apply-amount col-sm-6">
-                <h4>当前积分价格 <span>{{payscoretitle}}</span> </h4>
-              </div>
-            {% endif %}
-
-            </div>
-
-		          <div class="timer col-sm-12">
-              <span class="glyphicon glyphicon-time" aria-hidden="true"></span> 距离申请结束：
-		            <div class="products-time">
-		              {{ products.ret_timesince_sec}}
-		            </div>          
-		          </div>
-		          <div class="apply-bottom  col-sm-12">
+        <div class='small_try_info'>
+          
+          <div >总数量: {{products.amount}}</div>
+          <div>试用数量: {{products.tryamount}}</div>
+          <div>申请人数: 
+                    {% if products.applyamountcount > 30 %}
+                    {{products.applyamountcount}}
+                    {% else %}
+                    {{products.id|products_applyamount_count}}
+                    {% endif %} 
+	  </div>
                 {% if products.status = 1 %}
                       {% if user.is_authenticated %}
                         {% if applybutton %}
-                            <button type="button" class="btn btn-success " >已申请</button>
+                            <button type="button" class="btn btn-success" >已申请</button>
                         {% else %}
-                            <button type="button" class="btn btn-success " id='applybutton'>立即申请</button>
+                            <button type="button" class="btn btn-success" id='applybutton-small'>立即申请</button>
                         {% endif %}
                       {% else %}
-                      <button type="button" class="btn btn-success " onclick="window.location.href='{% url 'loggin' %}'" >立即申请</button>
+                      <button type="button" class="btn btn-success" onclick="window.location.href='{% url 'loggin' %}'" >立即申请</button>
                       {% endif %}
                 {% elif products.status = 2 %}
                           <button type="button" class="btn btn-warning " >体验中</button>
                 {% elif products.status = 3 %}
                           <button type="button" class="btn btn-danger " >已结束</button>
                 {% endif %}
+        </div>
+
+        <div class='small_try_info' style="border-left: 1px dashed #ddd;">
+          <div>竞拍数量: {{products.scoreamount}}</div>
+          <div>当前最高价: {{payscoretitle}}积分</div>
+              <div class="score">
+                <span>出价</span>   
+                      <div class="control">
+                          <span class="subtract">-</span>
+                          {% if products.ifscore %}
+                          <span class="num" id="num-score-small">{{payscore}}</span>
+                          {% endif %}
+                          <span class="add">+</span>
+                      </div>
+                <!-- <span class="addstep">幅度 5</span> -->
+              </div>
+                {% if products.status = 1 %}
+                      {% if user.is_authenticated %}
+                      {% if products.ifscore %}
+                            <button type="button" class="btn btn-warning" id='applyscore-small'>立即出价</button>
+                      {% else %}
+                            <button type="button" class="btn btn-warning" >不参与积分拍</button>
+                      {% endif %}
+
+                      {% else %}
+                      <button type="button" class="btn btn-warning" onclick="window.location.href='{% url 'loggin' %}'" >立即出价</button>
+                      {% endif %}
+                {% elif products.status = 2 %}
+                          <button type="button" class="btn btn-warning " >已结束</button>
+                {% elif products.status = 3 %}
+                          <button type="button" class="btn btn-danger " >已结束</button>
+                {% endif %}
+        </div>
+
+  </div>
+</div>
+
+
+   <div class="container  container_products_detail">
+      <div class="row">
+        <div class="col-sm-12">
+
+
+
+          <ul id="rightsidebar">
+<li class="rtotopsctoll ">
+<a href="javascript:void(0)"><em></em></a> 
+</li>
+          </ul>
+
+
+          <div class='map   hidden-xs'>
+            <a href="{% url 'productsall' %}">
+              梧桐试用
+            </a>
+             &gt;
+              {{products.title}}
+          </div>
+
+
+
+      	<div class="try-info col-sm-12 hidden-xs">
+      		<div class="products-pic col-sm-4">
+      			<img src="{{products.get_image_url}}">
+      		</div>
+
+      		<div class="products-info col-sm-4">
+      			<div class="try-title">
+      			<h4>{{products.title}}</h4>
+      			</div>
+      			<div class="try-amount-price-apply ">
+	      			<div class="try-amount-price ">
+	      				<p class="try-amount-price-price">市场价<span>{{products.price}}</span></p>
+	      				<p class="try-amount-price-amount">总数量<span>{{products.amount}}</span></p>
+                <div style="clear:both;"></div> 
+              </div>
+              </div>
+              <div class='try-info-boader'>
+
+              <div class="apply-amount ">
+                <h4><div class="icon_prodeta_xianliang"></div> 试用限量:<span>{{products.tryamount}}份</span></h4>
+              </div>
+	      			<div class="apply-amount ">
+	      				<h4><div class="icon_prodeta_renshu"></div>已申请:<span>{% if products.applyamountcount > 30 %}{{products.applyamountcount}}{% else %}{{products.id|products_applyamount_count}}{% endif %}人</span></h4>
+	      			</div>
+
+		          <div class="timer">
+              <div class="icon_prodeta_daojishi"></div> 距离申请结束：
+		            <span class="products-time">
+		              {{ products.ret_timesince_sec}}
+		            </span>          
 		          </div>
+		          <div class="apply-bottom  col-sm-12">
+
+                {% if products.status = 1 %}
+                      {% if user.is_authenticated %}
+                        {% if applybutton %}
+                            <button type="button" class="btn btn-success" >已申请</button>
+                        {% else %}
+        		                <button type="button" class="btn btn-success" id='applybutton'>立即申请</button>
+                        {% endif %}
+                      {% else %}
+                      <button type="button" class="btn btn-success" onclick="window.location.href='{% url 'loggin' %}'" >立即申请</button>
+                      {% endif %}
+                {% elif products.status = 2 %}
+                          <button type="button" class="btn btn-warning " >体验中</button>
+                {% elif products.status = 3 %}
+                          <button type="button" class="btn btn-danger " >已结束</button>
+                {% endif %}
+
+		          </div>
+               <div style="clear:both;"></div>
+              </div>
 
 
 
-        {% if products.ifscore %}
-              <div class="score col-sm-12">
+
+      		</div><!-- <div class="products-pic col-sm-6"> -->
+
+
+<div class="products-score col-sm-4">
+
+              <div class="try-share"><span class="try-share-word">分享至</span>
+            <a href="http://www.jiathis.com/send/?webid=tsina&url=http://{{sharelink}}&title={{products.title}}&appkey=2155349390" style="display:block;">
+            <i class="weiboshare">
+            </i>
+            </a>
+              <a class="jiathis_button_weixin" style="display:block;">
+               <i class="weichatshare">
+              </i>
+              </a>
+              <a href="http://www.jiathis.com/send/?webid=qzone&url=http://{{sharelink}}&title={{products.title}}" style="display:block;">
+            <i class="qqzoneshare">
+            </i>
+            </a>
+              </div>
+
+<div class="products-score-block">
+             <p><div class="icon_prodeta_xianliang"></div></p><p>积分竞拍数量:<span>{{products.scoreamount}}份</span></p>
+              
+                <p><div class="icon_prodeta_dangqian"></div></p><p>当前最高价:<span>{{payscoretitle}}积分</span> </p>
+
+              <div class="score"><div class="icon_prodeta_chujia"></div>
                 <span>我的出价</span>   
                       <div class="control">
                           <span class="subtract">-</span>
-                          <span class="num">{{payscore}}</span>
+                          {% if products.ifscore %}
+                          <span class="num" id="num-score">{{payscore}}</span>
+                          {% endif %}
                           <span class="add">+</span>
                       </div>
                 <span class="addstep">加价幅度 5 积分</span>
               </div>
-              <div class="apply-bottom  col-sm-12">
+              <div class="apply-bottom">
 
                 {% if products.status = 1 %}
                       {% if user.is_authenticated %}
-                            <button type="button" class="btn btn-success" id='applyscore'>立即出价</button>
+                      {% if products.ifscore %}
+                            <button type="button" class="btn btn-warning" id='applyscore'>立即出价</button>
                       {% else %}
-                      <button type="button" class="btn btn-success" onclick="window.location.href='{% url 'loggin' %}'" >立即出价</button>
+                            <button type="button" class="btn btn-warning" >不参与积分拍</button>
+                      {% endif %}
+
+                      {% else %}
+                      <button type="button" class="btn btn-warning" onclick="window.location.href='{% url 'loggin' %}'" >立即出价</button>
                       {% endif %}
                 {% elif products.status = 2 %}
                           <button type="button" class="btn btn-warning " >已结束</button>
@@ -342,24 +568,11 @@ $(function() {
                           <button type="button" class="btn btn-danger " >已结束</button>
                 {% endif %}
               </div>
-        {% endif %}   
+        
+      </div>    
+</div>
 
-		          <div class="try-share  col-sm-12">
-            <a href="http://www.jiathis.com/send/?webid=tsina&url=http://{{sharelink}}&title={{products.title}}&appkey=2155349390">
-            <i class="weiboshare">
-            </i>
-            </a>
-              <a class="jiathis_button_weixin">
-               <i class="weichatshare">
-              </i>
-              </a>
-              <a href="http://www.jiathis.com/send/?webid=qzone&url=http://{{sharelink}}&title={{products.title}}">
-            <i class="qqzoneshare">
-            </i>
-            </a>
-		          </div>
 
-      		</div><!-- <div class="products-pic col-sm-6"> -->
       	</div><!-- <div class="try-info col-sm-12">
  -->
 
@@ -410,6 +623,19 @@ $(function() {
  {% if item.score %}
 <i class="score-topic"></i>
 {% endif %}
+
+
+
+{% if item.img3 %}
+<div class='img3'>
+<img  class="img3-imagefst3" src='{{item.get_imagefst3_url}}'>
+<img  class="img3-imagescd3" src='{{item.get_imagescd3_url}}'>
+<img  class="img3-imagethd3" src='{{item.get_imagethd3_url}}'>
+</div>
+<div style="clear:both;"></div> 
+{% endif %}
+
+
 
  <div class="group-information">
  <span class='group-informatio-blank'>
@@ -462,40 +688,45 @@ $(function() {
 
 			<div class="col-sm-3">
         <div class="hot-try-company">
-          <div class="hot-try-title">提供方</div>
-        <div class="hotry-list col-xs-12">
-          <div class="hotry-company-img col-xs-5">
+          <div class="hot-try-title-line"></div>
+          <div class="hot-try-compant-title">提供方</div>
+        <div class="hotry-list">
+          <div class="hotry-company-img">
             <img src="{{products.company.get_image_url}}">
           </div>
-          <div class="hotry-company-info col-xs-7">
+          <div class="hotry-company-info">
             <a href="{{products.company.get_absolute_url}}" class="hotry-title">{{products.company.title}}</a>
-            <p>{{products.company.associatetitle}}</p>
+            <p>{{products.company.associatetitle|safe}}</p>
           </div>
         </div>
-         <div style="clear:both;"></div>
         </div>
 
-        <div class="hot-try">
-          <div class="hot-try-title">热门试用</div>
-        {% for item in hotry %}
-        <div class="hotry-list col-xs-12">
-          <div class="hotry-img col-xs-5">
-            <img src="{{item.get_image_url}}">
-          </div>
-          <div class="hotry-info col-xs-7">
-            <a href="{{item.get_absolute_url}}" class="hotry-title">{{item.title}}</a>
-            <div class="hotry-amount">数量：{{item.amount}}</div>
-          </div>
-        </div>
-        {% endfor %}
-        <div style="clear:both;"></div>
-        </div>
-			</div>
+<div class='hotnewsblock'>
+         <div class='head'>          <span class='shu-mark'>|</span>热门试用</div>
+
+    <table class="table table-hover hotnews">
+      <tbody>
+{% for item in hotry %}
+        <tr>
+          <td>
+             <a href="{{item.get_absolute_url}}" style="display:block;"><img src="{{item.get_image_url}}" >
+              <div class="t-h2-hottry">
+		<div class="t-h2-hottry-title">{{item.title}}</div>
+            <div>数量:{{item.amount}}</div>
+            </div>
+             </a>
+
+          </td>
+        </tr>
+{% endfor %}
+      </tbody>
+    </table>
+  </div><!-- class='headblock' -->
+</div>
 
 
 
-
-        </div><!-- <div class="col-sm-12"> -->
+    </div><!-- <div class="col-sm-12"> -->
       </div><!-- row -->
     </div> <!-- /container -->
 

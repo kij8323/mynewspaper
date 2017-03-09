@@ -27,6 +27,15 @@
   <script src="/static/js/home.js"></script>
 
 
+<script>/*百度统计*/
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?5db645b58e7dd5560dea1d8961c752a8";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
 
 
 <script>/*百度推送*/
@@ -197,7 +206,12 @@ $(document).ready(function(){
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
             {% if user.is_authenticated %}
-              <span class="badge inboxcount inboxcountporsiton">{{ user.id|user_unread_count }}</span>
+              {% if user.id|user_unread_count > 0 %}
+              <span class="badge inboxcount inboxcountporsiton" style="background-color:#F13F47;">{{ user.id|user_unread_count }}</span>
+              {% else %}
+              <span class="badge inboxcount inboxcountporsiton" style="background-color:#449d44;">{{ user.id|user_unread_count }}</span>              
+              {% endif %}
+
             {% endif %}
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
@@ -226,7 +240,7 @@ $(document).ready(function(){
 
 
            <li class="subcate hidden-xs"><a href="{% url 'productsall' %}">试用</a></li>
-            <li class="subcate hidden-xs"><a href="{% url 'group_detail' 11 %}">测评</a></li>
+            <li class="subcate hidden-xs"><a href="{% url 'group_detail' 11 %}">社区</a></li>
 
           </ul>
 <div id='index_search'>
@@ -246,16 +260,22 @@ $(document).ready(function(){
 
           <li class="subcate visible-xs-block"><a href="{% url 'productsall' %}">试用</a></li>
 
-          <li class="subcate visible-xs-block"><a href="{% url 'group_detail' 11 %}">测评</a></li>
+          <li class="subcate visible-xs-block"><a href="{% url 'group_detail' 11 %}">社区</a></li>
         {% if user.is_authenticated %}
-        <li class="subcate visible-xs-block"><a href="{% url 'user_detailnotifications' user.id %}">消息<span class="badge inboxcount">{{ user.id|user_unread_count }}</span></a></li>
+        <li class="subcate visible-xs-block"><a href="{% url 'user_detailnotifications' user.id %}">消息
+        {% if user.id|user_unread_count > 0 %}
+        <span class="badge inboxcount" style="background-color:#F13F47;">{{ user.id|user_unread_count }}</span>
+        {% else %}
+        <span class="badge inboxcount" style="background-color:#449d44;">{{ user.id|user_unread_count }}</span>
+        {% endif %}
+	</a></li>
         <li class="subcate visible-xs-block"><a href="{{user.get_absolute_url}}">帐号</a></li>
-        <li class="subcate visible-xs-block"><a href="{% url 'user_userdashboardarticletopic' user.id %}">我的测评</a></li>
+        <li class="subcate visible-xs-block"><a href="{% url 'user_userdashboardarticletopic' user.id %}">我的话题</a></li>
         <li class="subcate visible-xs-block"><a href="{% url 'userlogout' %}">退出</a></li>
         <li class='userinfobutton hidden-xs'><a  href="{{user.get_absolute_url}}"><span><img  class="img-circle baseusericon" src='{{user.get_image_url}}'></span>{{user.username}}</a><span class="dropdown-toggle" data-toggle="dropdown"></span>  <ul class="dropdown-menu hidden-xs" id='userinfobutton-dropdown-menu'  aria-labelledby="dLabel">
                 <li><a href="{% url 'user_detailnotifications' user.id %}">消息<span class="badge inboxcount">{{ user.id|user_unread_count }}</span></a></li>
                 <li><a href="{% url 'user_detailcollections' user.id %}">我的收藏</a></li>
-                <li><a href="{% url 'user_userdashboardarticletopic' user.id %}">我的测评</a></li>
+                <li><a href="{% url 'user_userdashboardarticletopic' user.id %}">我的话题</a></li>
                 <li><a href="{% url 'user_detailcomments' user.id %}">我的评论</a></li>
                 <li><a href="{% url 'user_detailtry' user.id %}">我的试用</a></li>
 		<li><a href="{% url 'userlogout' %}">退出</a></li>

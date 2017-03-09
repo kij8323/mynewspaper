@@ -33,9 +33,6 @@ margin-left: 12px;
 	line-height: 21px;
 }
 
-.try-amount-price-apply p, .try-amount-price-apply h4{
-	color: #999;
-}
 
 
 .try-amount-price span{
@@ -492,7 +489,7 @@ a{
 	opacity:0.7;/*其他，透明度50%*/
 }
 
-.barcomment, .rtotopsctoll{
+.barcomment, .rtotopsctoll, .danmubar{
 	background-color: #67CA87;
 	color: black;
 	width: 39px;
@@ -534,6 +531,7 @@ a{
 
 .applink {
 	margin-bottom: 10px;
+	margin-top: 8px;
 }
 
 
@@ -547,7 +545,7 @@ a{
 
 .apply-amount h4 span{
 	/*font-weight: 700;*/
-	font-size: 18px;
+	font-size: 16px;
 	color: #5fb861;
 }
 
@@ -602,14 +600,11 @@ color: #999;
 margin-top: 14px;
 }
 
-.try-amount-price-apply h4{ 
+.try-amount-price-apply h4, .try-amount-price-apply p{ 
 	font-size: 14px;
+	color: #999;
 }
 
-
-#myModal2{
-	text-align: center;
-}
 
 
 
@@ -656,7 +651,7 @@ margin-top: 14px;
 }
 
 .products-score p span{
-	font-size: 18px;
+	font-size: 16px;
 	color: #5fb861;
 	margin-left: 10px;
 }
@@ -673,8 +668,6 @@ margin-top: 14px;
 
 .products-score-block{
 	margin-top: 83px;
-	padding-left: 24px;
-	border-left: 1px dashed #ddd;
 }
 
 .mianfeishiyonginfo{
@@ -811,12 +804,6 @@ width: 100%;
 padding: 16px 16px 0px 16px;
 line-height: 24px;
 font-size: 14px;
-font-weight: bold;
-text-overflow: -o-ellipsis-lastline;
-overflow: hidden;
-text-overflow: ellipsis;display: -webkit-box;
--webkit-line-clamp: 2;
--webkit-box-orient: vertical;
 opacity: 1;
 -webkit-transition: all .3s ease;
 transition: all .3s ease;
@@ -954,3 +941,68 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = #90000000,end
 	height: 35px;
 	line-height: 35px;
 }
+
+
+.try-info-boader h4, .try-info-boader p{
+		font-size: 14px;
+	color: #999;
+
+
+}
+.try-info-boader{
+	border-right: 1px dashed #ddd;
+	margin-right: 9px;
+/*	margin-top: 12px;*/
+}
+
+
+.t-h2-hottry-title{
+	text-overflow: -o-ellipsis-lastline;
+	overflow: hidden;
+	text-overflow: ellipsis;display: -webkit-box;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
+}
+
+.container_products_detail_small{
+	margin-left: 0px;
+	margin-right: 0px;
+}
+
+
+/*v5*/
+.score-topic{
+	display: inline-block;
+	background-image: url(/static/media/images/icon_coins_score2x.png);
+	width: 20px;
+	height: 20px;
+	background-repeat: no-repeat;
+/*	margin-left: 15px;*/
+	margin-bottom: -6px;
+
+}
+
+
+.applyscoreconformprice{
+	color: #5fb861;
+	font-size: 16px;
+}
+
+.scorerule{
+	line-height: 25px;
+}
+
+
+.danmu{
+	position: fixed;
+	z-index: 1;
+	line-height: 24px;
+	height: 24px;
+	overflow: hidden;
+	max-width: 500px;
+	top : 100px;
+	display: none;
+	font-weight: bold;
+}
+
+

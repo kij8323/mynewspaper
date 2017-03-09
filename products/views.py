@@ -205,6 +205,8 @@ def products_detail(request, products_id):
 		user.address = request.POST.get('addressinput')
 		reason = request.POST.get('reasoninput')
 		user.save()
+		products.applyamountcount+= 1
+		instancesave.delay(products)
 		try:
 			application = Application.objects.get(user=user.id, products=products)
 		except Application.DoesNotExist:
@@ -239,6 +241,9 @@ def products_detail(request, products_id):
 		# applyamount = Application.objects.filter(products=products).count()
 		hotry = Products.objects.filter(status = 1).filter(verify = True).exclude(id = products_id).order_by('-id')[0:5]
 
+		commentdanmu = Comment.objects.filter(products=products).order_by('-timestamp')
+		payscorerecord = Payscore.objects.filter(products = products).order_by('-payscore')
+
 		context = {
 			"products":products,
 			"comment": comment,
@@ -251,6 +256,8 @@ def products_detail(request, products_id):
 			'hotry':hotry,
 			'payscore': payscore+5,
 			'payscoretitle': payscore,
+			'payscorerecord': payscorerecord,
+			'commentdanmu' : commentdanmu,
 		}
 		return render(request, 'products_detail.html',  context)
 
@@ -266,14 +273,15 @@ def payscorerecord(request, products_id):
 		payscore = 0
 	else:
 		payscore = payscore[0].payscore
-	payscorerecord = Payscore.objects.filter(products = products).order_by('-id')
+	payscorerecord = Payscore.objects.filter(products = products).order_by('-payscore')
 
 	if request.method == 'POST' and user.is_authenticated:
 		user.phonenumber = request.POST.get('phonenumberinput')
 		user.address = request.POST.get('addressinput')
 		reason = request.POST.get('reasoninput')
 		user.save()
-
+		products.applyamountcount+= 1
+		instancesave.delay(products)
 		try:
 			application = Application.objects.get(user=user.id, products=products)
 		except Application.DoesNotExist:
@@ -327,7 +335,7 @@ def payscore(request):
 		user = request.user
 		# print type(score)
 		# print type(user.score)
-		if user.score >= score:
+		if user.score >= score and score > products.scoreing:
 			products.scoreing = score
 			products.save()
 			s = Payscore(user=user, products=products, payscore=score)
@@ -379,6 +387,8 @@ def productsapply(request, products_id):
 		user.address = request.POST.get('addressinput')
 		reason = request.POST.get('reasoninput')
 		user.save()
+		products.applyamountcount+= 1
+		instancesave.delay(products)
 		try:
 			application = Application.objects.get(user=user.id, products=products)
 		except Application.DoesNotExist:
@@ -441,6 +451,8 @@ def productsreport(request, products_id):
 		user.address = request.POST.get('addressinput')
 		reason = request.POST.get('reasoninput')
 		user.save()
+		products.applyamountcount+= 1
+		instancesave.delay(products)
 		try:
 			application = Application.objects.get(user=user.id, products=products)
 		except Application.DoesNotExist:
@@ -649,28 +661,11 @@ import random
 import string
 import time
 def newapplication(request, products_id, app_num, period_num):
-	products = Products.objects.get(id = products_id)
 	for newnum in range(0,int(app_num)):
 		try:
-			num = random.randint(5,9)
-			text = string.join(random.sample(['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','1','2','3','4','5','6','7','8','9','0'], num)).replace(" ","")
-			user = MyUser()
-			user.username = text
-			user.set_password(123456) 
-			user.phonenumber = 'I am the Robot'
-			user.address = 'I am the Robot'
-			user.reason = 'I am the Robot'
-			user.save()
-			try:
-				application = Application.objects.get(user=user.id, products=products)
-			except Application.DoesNotExist:
-				news_App = Application(user=user, products=products, reason = user.reason, address = user.address)
-				news_App.save()
-				cachekey = "products_applyamount_" + str(products_id)
-				if cache.get(cachekey) != None:
-					cache.incr(cachekey)
-				else:
-					cache.set(cachekey, Application.objects.filter(products=products).count(), settings.CACHE_EXPIRETIME)
+			products = Products.objects.get(id = products_id)
+			products.applyamountcount+= 1
+			instancesave.delay(products)
 			time.sleep(int(period_num))
 		except:
 			pass

@@ -213,3 +213,53 @@ font-size: 12px !important;
 	width: 80%  ;
 	font-size: 12px  ;
 }
+
+
+.container_products_detail .payscorerecord, .container_products_detail .payscorerecord1{
+	font-size: 10px;
+}
+
+.group_detail_container .group-list-content>a{
+	font-size: 14px;
+}
+
+.group_detail_container .group-information, .group_detail_container .group-information-writer{
+	font-size: 12px;
+	margin-top: 0px;
+}
+
+
+.danmu{
+	max-width: 346px !important;
+}
+
+
+.group_detail_container .img3-imagefst3, .group_detail_container .img3-imagescd3, .group_detail_container .img3-imagethd3{
+	width: 33%;
+	float: left;
+	padding: 3px 2px 0px 0px;
+}
+
+
+
+
+
+
+.group-information>span>a{
+	font-size: 12px;
+}
+
+
+
+.group-information .icon-line{
+	margin-left: 0px;
+	margin-right: 5px;
+}
+
+
+.pagination .paginator, .pagination .paginator_current{
+	width: 20px;
+	height: 20px;
+	line-height: 10px;
+	font-size: 10px;
+}

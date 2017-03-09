@@ -58,6 +58,8 @@ class Products(models.Model):
 
 	company = models.ForeignKey(Company, null=True, blank=True)
 
+	#假申请人数
+	applyamountcount = models.IntegerField(default=0)
 
 	def __unicode__(self):
 	    return self.title
@@ -110,3 +112,5 @@ class Payscore(models.Model):
 	products = models.ForeignKey(Products)
 	payscore = models.IntegerField(default=0)
 	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False, null=True)
+	#是否竞拍成功
+	win = models.BooleanField(default=False)

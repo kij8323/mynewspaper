@@ -10,6 +10,7 @@ $(document).ready(function(){
   $("form").submit(function(e){
     var input_title = $("#id_title").val()
     var input_content = $("#main-content").val()
+    var input_group = $("#id_group").val()
     if (input_title == "")
     {
       $('#erroricon_title').css("margin-bottom","-34.718px");
@@ -17,6 +18,14 @@ $(document).ready(function(){
   
     return false;
     }
+
+    else if(input_group == "")
+    {
+      $('#erroricon_group').css("margin-bottom","-34.718px");
+    $('#erroricon_group').fadeIn("slow").fadeOut(3000);
+    return false;
+    }
+
     else if(input_content == "")
     {
       $('#erroricon_content').css("margin-bottom","-34.718px");
@@ -175,6 +184,16 @@ $(function() {
   })
 })
 </script>
+
+
+
+
+
+<script type="text/javascript">
+$(function() {  
+  $("#id_group option:eq(1)").remove();
+})
+</script>
 {% endblock %}
 {% block content %}
 
@@ -191,9 +210,7 @@ $(function() {
 <div class="center-warp">
 {% if group %}
 <ul class="breadcrumbs">
-          <!--   <li><a href="{% url 'group_all' %}">话题组</a><span> &gt; </span></li> -->
-            <li><a href="{{ group.get_absolute_url }}">{{ group.title }}</a><span> &gt; </span></li>
-            <li>提交测评</li>
+            <li>提交话题</li>
         </ul>
 
 
@@ -206,6 +223,24 @@ $(function() {
 
 <p>
     <input id="id_title" maxlength="120" name="title" type="text" placeholder="请输入标题"></p>
+
+
+<select id="id_group" name="group">
+<option value="" selected="selected">---------</option>
+<option value="11" style="display:none">全部</option>
+<option value="12">瞎聊</option>
+<option value="13">穿戴</option>
+<option value="14">家居</option>
+<option value="15">平板</option>
+<option value="16">手机</option>
+<option value="17">外设</option>
+<option value="18">摄影</option>
+<option value="19">灌水</option>
+<option value="20">其他</option>
+</select>
+
+
+
 
 <textarea id="main-content" rows="10"  name="content" ></textarea>
 <div class="emoji-bt-fn">
@@ -268,6 +303,9 @@ $(function() {
 <button id = "baocun" class="btn btn-default uploadbutton">保存</button>
     <div id="erroricon_title" style="text-align: center;">请输入标题</div>
     <div id="erroricon_content" style="text-align: center;">请输入内容</div>
+    <div id="erroricon_group" style="text-align: center;">请选择分类</div>
+
+
 
 </form>
         </div><!-- <div class="imguploadtest row"> -->

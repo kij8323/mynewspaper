@@ -34,6 +34,10 @@ class Group(models.Model):
 	image = models.ImageField(upload_to='images/', null=True, blank=True)
 	topicount = models.IntegerField(default=0)
 
+	#文章名称
+	glyphicon = models.CharField(max_length=120, default='glyphicon-folder-open')
+
+
 	def __unicode__(self):
 		return self.title
 
@@ -48,8 +52,8 @@ class Group(models.Model):
 		return reverse('group_detail', kwargs={"group_id": self.id})
 
 class Groupmanager(models.Model):
-	manager = models.ForeignKey(MyUser, db_index=True)
-	group = models.ForeignKey(Group, db_index=True)
+	manager = models.ForeignKey(MyUser, default=2028)
+	group = models.ForeignKey(Group)
 		
 
 
@@ -65,7 +69,7 @@ class Topic(models.Model):
 	#作者
 	writer = models.ForeignKey(MyUser, db_index=True)
 	#文章内容
-	content = UEditorField(max_length=100000, width=800, upload_settings={"imageMaxSize":30204000})
+	content = UEditorField(max_length=150000, width=800, upload_settings={"imageMaxSize":30204000})
 	#文章地址
 	url_address = models.CharField(max_length=500, null=True, blank=True)
 	#文章图标
@@ -89,12 +93,29 @@ class Topic(models.Model):
 	guanggao = models.BooleanField(default=False, db_index=True)
 	#积分
 	score = models.BooleanField(default=False, db_index=True)
+
+	#是否在测评页显示3张图
+	img3 = models.BooleanField(default=False, db_index=True)
+	imagefst3 = models.ImageField(upload_to='images/', null=True, blank=True)
+	imagescd3 = models.ImageField(upload_to='images/', null=True, blank=True)
+	imagethd3 = models.ImageField(upload_to='images/', null=True, blank=True)
+
 	images1 = models.ImageField(upload_to='images/', null=True, blank=True)
 	images2 = models.ImageField(upload_to='images/', null=True, blank=True)
 	images3 = models.ImageField(upload_to='images/', null=True, blank=True)
 	images4 = models.ImageField(upload_to='images/', null=True, blank=True)
 	images5 = models.ImageField(upload_to='images/', null=True, blank=True)
 	images6 = models.ImageField(upload_to='images/', null=True, blank=True)
+
+
+	def get_imagefst3_url(self):
+		return "%s%s" %(settings.MEDIA_URL, self.imagefst3)
+
+	def get_imagescd3_url(self):
+		return "%s%s" %(settings.MEDIA_URL, self.imagescd3)
+
+	def get_imagethd3_url(self):
+		return "%s%s" %(settings.MEDIA_URL, self.imagethd3)
 
 	#objects = ArticleManager()
 	def __unicode__(self):
@@ -143,9 +164,10 @@ class Topic(models.Model):
 class TopicForm(ModelForm):
     class Meta:
         model = Topic
-        fields = ['title', 'content']
+        fields = ['title', 'group', 'content']
         labels = {
             'title': _('标题'),
+            'group': _('分类'),
             'content': _('内容'),
         }
 

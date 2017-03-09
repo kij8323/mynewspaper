@@ -86,7 +86,7 @@
 
 
 
-#erroricon_title,#erroricon_content {
+#erroricon_title,#erroricon_content,#erroricon_group {
     padding-left: 0px;
     color: #a94442;
     background-color: #f2dede;
@@ -332,3 +332,18 @@ body{cursor:pointer}
 #savetext{
     display: none;
 }
+
+
+
+#id_group{  /*v1*/
+    border: 1px solid #f0f0f0;
+    background-color: white;
+    padding: 3px;
+    margin-bottom: 15px;
+}
+
+#id_group option[value='11']
+{ /*v1*/
+display: none;
+}
+

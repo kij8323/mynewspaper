@@ -69,7 +69,7 @@ p:first-of-type label{
 }
 
 
-p:nth-of-type(2) label{
+p:nth-of-type(3) label{
 	position: absolute;
 	width: 105px;
 	font-size: 16px;
@@ -80,6 +80,25 @@ p:nth-of-type(2) label{
 	cursor: default;
 	margin-top: 15px;
 }
+
+
+p:nth-of-type(2) label{  /*v1*/
+	/*width: 105px;*/
+	font-size: 16px;
+	font-weight: 400;
+	margin-bottom: 5px;
+	cursor: default;
+	margin-top: 15px;
+}
+
+#id_group{  /*v1*/
+	margin-left: 70px;
+	border: 1px solid #f0f0f0;
+	background-color: white;
+	padding: 3px;
+	border-radius: 5px;
+}
+
 
 
 #id_title{

@@ -209,7 +209,7 @@ $(function(){
                             <img src="{{item.get_image_url}}" width="100%" height="267" alt="" /></a>
 
                             <span class="title">
-                              <div class="remenshenqing">测评首发</div>
+                              <div class="remenshenqing">话题首发</div>
                               <div>{{item.title}}</div></span></li>
                       {% endfor %}
                     </ul>
@@ -234,7 +234,7 @@ $(function(){
         <div class="col-xs-12 right-cover-img1">
         <!-- <a href="{{guanggaotopic.get_absolute_url}}">  -->
           <img src="{{guanggaotopic.get_image_url}}">
-          <span class="gengduo-mark"  ><a href="{% url 'group_detail' 1 %}">查看更多</a></span>
+          <span class="gengduo-mark"  ><a href="{% url 'group_detail' 11 %}">查看更多</a></span>
           <div class="rightblock1"> 
 <!--             <div class="t-h2"></div> -->
              <div class="t-h2-guanggao-back">
@@ -314,7 +314,7 @@ $(function(){
 
        <div class="col-sm-3  hidden-xs">
           <div  style="">
-<!--          <h3 class="bg-primary">争议测评</h3>
+<!--          <h3 class="bg-primary">争议话题</h3>
           <div style="position:relative; margin-bottom:30px;">
 
           <a class = 'disputetopic' href="{{covertopic.get_absolute_url}}">
@@ -433,7 +433,7 @@ $(function(){
 
 
 <div class='hotopicblock'>
-         <div class='head'>          <span class='shu-mark'>|</span>热门测评</div>
+         <div class='head'>          <span class='shu-mark'>|</span>热门话题</div>
     <table class="table table-hover hotopic">
       <tbody>
 {% for item in topicquery %}

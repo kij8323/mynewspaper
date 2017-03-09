@@ -26,13 +26,12 @@ $(function(){
        var hour = Math.floor((SysSecond / 3600) % 24);      //计算小时 
        var day = Math.floor((SysSecond / 3600) / 24);        //计算天 
      
-       node.html('<span class="glyphicon glyphicon-time" aria-hidden="true"></span> 距离申请结束：'+"<i>"+day +"</i>"+ " 天 " + "<i>"+ hour + "</i>"+" 小时 " + "<i>"+ minite + "</i>"+" 分 " + "<i>"+second +"</i>"+ " 秒 "); 
+       node.html('<div class="icon_prodeta_daojishi"></div> 距离申请结束：'+"<i>"+day +"</i>"+ " 天 " + "<i>"+ hour + "</i>"+" 小时 " + "<i>"+ minite + "</i>"+" 分 " + "<i>"+second +"</i>"+ " 秒 "); 
       } else {//剩余时间小于或等于0的时候，就停止间隔函数 
        window.clearInterval(InterValObj); 
        //这里可以添加倒计时时间为0后需要执行的事件 
       } 
      } 
-
      InterValObj = window.setInterval(SetRemainTime, 1000);
     });
 }); 
@@ -47,207 +46,44 @@ $.fn.imgsizeFunction = function() {
 </script>
 
 <script>
+$.fn.imgsizeFunction1 = function() { 
+  width = $(this).css('width');
+  x = (parseFloat(width)*0.636)
+  return  $(this).css('height',x+'px');
+}
+</script>
+
+
+<script>
 $(function(){ 
   $('.products-pic img').imgsizeFunction();
-  $('.hotry-img img').imgsizeFunction();
+  $('.hotnewsblock table img').imgsizeFunction1();
+  $('.small_img_title img').imgsizeFunction1();
 }); 
 </script>
 
 <script>
 $(window).resize(function(){
   $('.products-pic img').imgsizeFunction();
-  $('.hotry-img img').imgsizeFunction();
+  $('.hotnewsblock table img').imgsizeFunction1();
+  $('.small_img_title img').imgsizeFunction1();
 });
 </script>
 
-<script>/*回复文章*/
-$(function() {
-  $("body").on("click", '#btn-block', function(){
-    var comment = editor.getData();
-/*    commnetcount = $('.article-pl-count').text()
-    alert(parseInt(commnetcount)+1)*/
-    if (comment!=""){
-    $.ajaxSetup({
-    data: {csrfmiddlewaretoken: '{{ csrf_token }}', 
-          comment: comment, 
-          productsid: {{products.id}}
-          },
-          });
-    $.ajax({
-        url: "{% url 'productscomment' %}",
-        type: "post",
-        dataType: 'json',
-          success: function(data) {
-            $(".freshcomment").prepend(
-              ' <div class="comment"><span><img class="img-circle commentusericon" src={{user.get_image_url}}></span>&nbsp;&nbsp;<span class="author-name"><a href={{user.get_absolute_url}}>'+data.user+'</a></span>&nbsp&nbsp<span class="author-time">&nbsp刚刚</span><div class="pl-content">'+data.text+'</div><div class="pl-box-btm" id="'+data.user+'"><div class="btn-dp-right pull-right"><i class="icon-dp-positive" style="background-position: -220px -173px;"></i><span class="commentuserlike'+data.commentid+'">0</span><i class="icon-dp-negtive" style="background-position: -270px -171px;"></i><span class="commentuserdislike'+data.commentid+'">0</span></div><div class="btn-dp"><i class="icon-dp"></i>我要点评</div><div class="form-comment-reply" id="'+data.commentid+'"><label for="id_commentext">Commentext:</label><textarea class="form-control" cols="40" id="id_commentext" name="commentext" placeholder="你怎么看？" rows="8"></textarea><button id="btn-block" type="button" class="btn btn-lg btn-success btn-block btn-reply">发表</button></div></div></div>'
-              )
-              commnetcount = $('.article-pl-count').text()
-              $('.article-pl-count').text(parseInt(commnetcount)+1)
-          },
-          error: function(data) { 
-              alert("Got an error dude");
-          } 
-    });
-    $('html,body').animate({scrollTop:$('.freshcomment').offset().top}, 100);
-    /*$('.successlist').fadeIn("slow").fadeOut(3000);*/
-    $.messager.popup("评论发表成功!");
-    $(".modal.msg-popup .modal-body").css({
-        'color': '#449d44',
-        "background-color":"#CCF4D9",
-        });
-    editor.setData('');
-    }
-    else{
-    $.messager.popup("请输入评论！");
-    $(".modal.msg-popup .modal-body").css({
-        'color': '#a94442',
-        "background-color":"#f2dede",
-        });
-    }
-  })
-})
-</script>
-
-
-<script>/*评论回复*/
-$(function() {
- $("body").on("click", '.btn-reply', function(){
-    var comment = $(this).prev(".form-control").val()
-    if (comment!=""){
-    preentid = $(this).parent().attr("id");
-    $.ajaxSetup({
-    data: {csrfmiddlewaretoken: '{{ csrf_token }}', 
-          comment: comment, 
-          productsid: {{products.id}},
-          /*parenttext: parenttext,*/
-          preentid: preentid,
-          },
-          });
-    $.ajax({
-        url: "{% url 'productscommentcomment' %}",
-        type: "post",
-        dataType: 'json',
-          success: function(data) {
-            $(".freshcomment").prepend(
-              ' <div class="comment"><span><img class="img-circle commentusericon" src={{user.get_image_url}}></span>&nbsp;&nbsp;<span class="author-name"><a href={{user.get_absolute_url}}>'+data.user+'</a></span>&nbsp&nbsp<span class="author-time">&nbsp刚刚</span><div class="blockquote">'+"回复@"+data.parentcommentuser+"&nbsp发表的：</br>"+data.parentcommentext+'</div><div class="pl-content">'+data.text+'</div><div class="pl-box-btm" id="'+data.user+'"><div class="btn-dp-right pull-right"><i class="icon-dp-positive" style="background-position: -220px -173px;"></i><span class="commentuserlike'+data.commentid+'">0</span><i class="icon-dp-negtive" style="background-position: -270px -171px;"></i><span class="commentuserdislike'+data.commentid+'">0</span></div><div class="btn-dp"><i class="icon-dp"></i>我要点评</div><div class="form-comment-reply" id="'+data.commentid+'"><label for="id_commentext">Commentext:</label><textarea class="form-control" cols="40" id="id_commentext" name="commentext" placeholder="你怎么看？" rows="8"></textarea><button id="btn-block" type="button" class="btn btn-lg btn-success btn-block btn-reply">发表</button></div></div></div>'
-              )
-              commnetcount = $('.article-pl-count').text()
-              $('.article-pl-count').text(parseInt(commnetcount)+1)
-          },
-          error: function(data) { 
-              alert("Got an error dude");
-          }
-    });
-    $('html,body').animate({scrollTop:$('.freshcomment').offset().top}, 100);
-    /*$('.successlist').fadeIn("slow").fadeOut(3000);*/
-    $.messager.popup("评论发表成功!");
-    $(".modal.msg-popup .modal-body").css({
-        'color': '#449d44',
-        "background-color":"#CCF4D9",
-        });
-    $(this).prev(".form-control").val("")
-    }
-    else{
-    $.messager.popup("请输入评论！");
-    $(".modal.msg-popup .modal-body").css({
-        'color': '#a94442',
-        "background-color":"#f2dede",
-        });
-    }
-  })
-})
-</script>
 
 
 
-<script>/*加载更多*/
-$(function() {
-  var cur_page_num = 1;
- $("body").on("click", '#morecomment-btn-block', function(){
-    var $elements = $('.comment');
-    var commentlen = $elements.length;
-    $.ajaxSetup({
-    data: {csrfmiddlewaretoken: '{{ csrf_token }}', 
-           commentlen: commentlen,
-           productsid: {{products.id}},
-          },
-          });
-    $.ajax({
-        url: "{% url 'productsmorecomment' %}",
-        type: "post",
-        success: function(data) {
-        cur_page_num=cur_page_num+1;          
-        /*alert(cur_page_num); */          
-        var newnode=document.createElement("div");             
-        newnode.setAttribute("class", "container-fluid grid");            
-        newnode.setAttribute("id","new"+String(cur_page_num));           
-        document.getElementById("morecomment").appendChild(newnode);           
-        $('#new'+String(cur_page_num)).load('{% url 'productscommentpage' products.id %}');
-        $('#morecomment-btn-block').html(data.loadcompleted)
-          },
-          error: function(data) { 
-              alert("Got an error dude");
-          }
-    });
-  })
-})
-</script>
 
 
-
-<script>/*点赞*/
-$(function() {
- $("body").on("click", '.icon-dp-positive', function(){
-    var preentid = $(this).parent().next().next().attr("id");
-    like = parseInt($(this).next('.commentuserlike'+preentid).text())
-    $.ajaxSetup({
-    data: {csrfmiddlewaretoken: '{{ csrf_token }}', 
-          commentid: preentid,
-          },
-          });
-    $.ajax({
-        url: "{% url 'commentlike' %}",
-        type: "post",
-        success: function(data) {
-          /*$(this).next().html(data.commentlikecount)*/
-          /*alert(data.commentlikecount)*/
-          $('.commentuserlike'+preentid).html(like + data.commentlikecount)
-          },
-          error: function(data) { 
-            /*alert('Error')*/
-          }
-    });
-  })
-})
-</script>
-
-<script>/*点衰*/
-$(function() {
- $("body").on("click", '.icon-dp-negtive', function(){
-    var preentid = $(this).parent().next().next().attr("id");
-    dislike = parseInt($(this).next('.commentuserdislike'+preentid).text())
-    $.ajaxSetup({
-    data: {csrfmiddlewaretoken: '{{ csrf_token }}', 
-          commentid: preentid,
-          },
-          });
-    $.ajax({
-        url: "{% url 'commentdislike' %}",
-        type: "post",
-        success: function(data) {
-          $('.commentuserdislike'+preentid).html(dislike + data.commentdislikecount)
-          },
-          error: function(data) { 
-            /*alert('Error')*/
-          }
-    });
-  })
-})
-</script>
 
 <script>/*输入联系方式莫太框*/
 $(function() {
  $("body").on("click", '#applybutton', function(){
+      $('#myModal1').modal('toggle')
+  })
+})
+$(function() {
+ $("body").on("click", '#applybutton-small', function(){
       $('#myModal1').modal('toggle')
   })
 })
@@ -278,8 +114,6 @@ $(document).ready(function(){
 });
 </script>
 
-
-
 <script>/*回到页面顶端*/
 $(function(){ 
   $('.barcomment').click(function(){
@@ -293,10 +127,8 @@ $(function(){
   });
   $('.rtotopsctoll').click(function(){
   $('html,body').animate({scrollTop: '0px'}, 800);}); 
-
 });
 </script>
-
 
 <script type="text/javascript">
 $(document).ready(function(){
@@ -304,23 +136,23 @@ $(document).ready(function(){
   });
 </script>
 
-
-
 <script type="text/javascript">
 $(document).ready(function(){
   $('.subtract').click(function(){
-    score = Number($('.score .control .num ').text())
+    node = $(this).next(".num")
+    score = Number(node.text())
     payscore = {{payscore}}
     if (score <= payscore){
-      $('.score .control .num ').text(score)
+      node.text(score)
     }
     else {
-      $('.score .control .num ').text(score-5)
+      node.text(score-5)
     }
   });
   $('.add').click(function(){
-    score = Number($('.score .control .num ').text())
-    $('.score .control .num ').text(score+5)
+    node = $(this).prev(".num")
+    score = Number(node.text())
+    node.text(score+5)
   });
   });
 </script>
@@ -329,7 +161,7 @@ $(document).ready(function(){
 <script>/*出价*/
 $(function() {
  $("body").on("click", '#applyscoreconform', function(){
-    score = Number($('.score .control .num ').text())
+    score = Number($('.applyscoreconformprice').text())
     protit = $('.try-title h4 ').text()
     $.ajaxSetup({
     data: {csrfmiddlewaretoken: '{{ csrf_token }}', 
@@ -374,7 +206,14 @@ $(function() {
 <script>/*输入联系方式莫太框*/
 $(function() {
  $("body").on("click", '#applyscore', function(){
-      score = Number($('.score .control .num ').text())
+      score = Number($('#num-score').text())
+      $('.applyscoreconformprice').text(score)
+      $('#myModal2').modal('toggle')
+  })
+})
+$(function() {
+ $("body").on("click", '#applyscore-small', function(){
+      score = Number($('#num-score-small').text())
       $('.applyscoreconformprice').text(score)
       $('#myModal2').modal('toggle')
   })
@@ -442,9 +281,15 @@ $(function() {
       </div>
       <div class="modal-body">
         <h5>你确认要出价<span class="applyscoreconformprice"></span>积分吗</h5>
-
-<img src="/static/media/images/qrcode_for_gh_5dadb4ff2030_430.jpg" width="86px">
-<p>扫码或关注微信公众号: wutongguandian 提高申请试用成功率</p>
+        <div class="scorerule">
+        如何获得积分？
+        </div>
+        <div class="scorerule">
+          第1步. 帐号授权微信或微博第三方登录，授权方法：点击右上方帐号&rarr;第三方登陆授权&rarr;设置；
+        </div>
+        <div class="scorerule">
+          第2步. 在测评区回复带有<i class="score-topic"></i>的帖子.
+        </div>
 <div class="applink"><a href="http://www.wutongnews.com/topic/142/">《关于梧桐试用积分获得以及抽取试用用户的参考依据 》</a></div>
         <button type="button" class="btn btn-default btn-success myModalbtn confirmdelete" data-dismiss="modal" id="applyscoreconform">确定</button>
         <button type="button" class="btn btn-default myModalbtn" data-dismiss="modal">取消</button>
@@ -453,56 +298,136 @@ $(function() {
   </div>
 </div>
 
-    <div class="container">
+
+<div class="container_products_detail_small visible-xs-block row">
+  <div class='small_img_title'>
+    <img src="{{products.get_image_url}}">
+            <div class="timer">
+        <div class="icon_prodeta_daojishi"></div> 距离申请结束：
+          <span class="products-time">
+            {{ products.ret_timesince_sec}}
+          </span>          
+        </div>
+  </div>
+<!-- <div class='small_amount'>总数量: {{products.amount}}</div>
+<div class='small_price'>价格: {{products.price}}</div> -->
+
+        <div class='small_try_info'>
+          
+          <div >总数量: {{products.amount}}</div>
+          <div>试用数量: {{products.tryamount}}</div>
+          <div>申请人数: 
+                    {% if products.applyamountcount > 30 %}
+                    {{products.applyamountcount}}
+                    {% else %}
+                    {{products.id|products_applyamount_count}}
+                    {% endif %} </div>
+                {% if products.status = 1 %}
+                      {% if user.is_authenticated %}
+                        {% if applybutton %}
+                            <button type="button" class="btn btn-success" >已申请</button>
+                        {% else %}
+                            <button type="button" class="btn btn-success" id='applybutton-small'>立即申请</button>
+                        {% endif %}
+                      {% else %}
+                      <button type="button" class="btn btn-success" onclick="window.location.href='{% url 'loggin' %}'" >立即申请</button>
+                      {% endif %}
+                {% elif products.status = 2 %}
+                          <button type="button" class="btn btn-warning " >体验中</button>
+                {% elif products.status = 3 %}
+                          <button type="button" class="btn btn-danger " >已结束</button>
+                {% endif %}
+        </div>
+
+        <div class='small_try_info' style="border-left: 1px dashed #ddd;">
+          <div>竞拍数量: {{products.scoreamount}}</div>
+          <div>当前最高价: {{payscoretitle}}积分</div>
+              <div class="score">
+                <span>出价</span>   
+                      <div class="control">
+                          <span class="subtract">-</span>
+                          {% if products.ifscore %}
+                          <span class="num" id="num-score-small">{{payscore}}</span>
+                          {% endif %}
+                          <span class="add">+</span>
+                      </div>
+                <!-- <span class="addstep">幅度 5</span> -->
+              </div>
+                {% if products.status = 1 %}
+                      {% if user.is_authenticated %}
+                      {% if products.ifscore %}
+                            <button type="button" class="btn btn-warning" id='applyscore-small'>立即出价</button>
+                      {% else %}
+                            <button type="button" class="btn btn-warning" >不参与积分拍</button>
+                      {% endif %}
+
+                      {% else %}
+                      <button type="button" class="btn btn-warning" onclick="window.location.href='{% url 'loggin' %}'" >立即出价</button>
+                      {% endif %}
+                {% elif products.status = 2 %}
+                          <button type="button" class="btn btn-warning " >已结束</button>
+                {% elif products.status = 3 %}
+                          <button type="button" class="btn btn-danger " >已结束</button>
+                {% endif %}
+        </div>
+
+    
+  </div>
+</div>
+
+
+
+
+   <div class="container  container_products_detail">
       <div class="row">
         <div class="col-sm-12">
 
 
 
           <ul id="rightsidebar">
-          <li class="rtotopsctoll img-circle">
-            <!-- <a href="javascript:void(0)"></a> -->
-           <a href="javascript:void(0)"><em></em></a> 
-          </li>
-          <li class='barcomment img-circle'>
-            <a href="javascript:void(0)">评论</a>
-          </li>
+<li class="rtotopsctoll ">
+<a href="javascript:void(0)"><em></em></a> 
+</li>
           </ul>
 
 
-          <div class='map'>
+          <div class='map   hidden-xs'>
             <a href="{% url 'productsall' %}">
               梧桐试用
             </a>
              &gt;
               {{products.title}}
           </div>
-      	<div class="try-info col-sm-12">
-      		<div class="products-pic col-sm-6">
+
+
+
+      	<div class="try-info col-sm-12 hidden-xs">
+      		<div class="products-pic col-sm-4">
       			<img src="{{products.get_image_url}}">
       		</div>
-      		<div class="products-info col-sm-6">
+
+      		<div class="products-info col-sm-4">
       			<div class="try-title">
       			<h4>{{products.title}}</h4>
       			</div>
-      			<div class="try-amount-price-apply col-sm-12">
-	      			<div class="try-amount-price col-sm-6">
-	      				<p>市场价&nbsp;&nbsp;<span>{{products.price}}</span></p>
-	      				<p>总限量&nbsp;&nbsp;<span>{{products.amount}}</span></p>
-	      			  <p>积分竞拍数量&nbsp;&nbsp;<span>{{products.scoreamount}}</span></p>
+      			<div class="try-amount-price-apply ">
+	      			<div class="try-amount-price ">
+	      				<p class="try-amount-price-price">市场价<span>{{products.price}}</span></p>
+	      				<p class="try-amount-price-amount">总数量<span>{{products.amount}}</span></p>
+                <div style="clear:both;"></div> 
               </div>
-	      			<div class="apply-amount col-sm-6">
-	      				<h4><span>{{products.id|products_applyamount_count}}</span> 人已申请</h4>
-	      			</div>
-            {% if products.ifscore %}
-              <div class="apply-amount col-sm-6">
-                <h4>当前积分价格 <span>{{payscoretitle}}</span> </h4>
               </div>
-            {% endif %}
+              <div class='try-info-boader'>
 
-      			</div>
-		          <div class="timer col-sm-12">
-              <span class="glyphicon glyphicon-time" aria-hidden="true"></span> 距离申请结束：
+              <div class="apply-amount ">
+                <h4><div class="icon_prodeta_xianliang"></div> 试用限量:<span>{{products.tryamount}}份</span></h4>
+              </div>
+	      			<div class="apply-amount ">
+	      				<h4><div class="icon_prodeta_renshu"></div>已申请:<span>{% if products.applyamountcount > 30 %}{{products.applyamountcount}}{% else %}{{products.id|products_applyamount_count}}{% endif %}人</span></h4>
+	      			</div>
+
+		          <div class="timer">
+              <div class="icon_prodeta_daojishi"></div> 距离申请结束：
 		            <span class="products-time">
 		              {{ products.ret_timesince_sec}}
 		            </span>          
@@ -526,25 +451,60 @@ $(function() {
                 {% endif %}
 
 		          </div>
+               <div style="clear:both;"></div>
+              </div>
 
 
-        {% if products.ifscore %}
-              <div class="score col-sm-12">
+
+
+      		</div><!-- <div class="products-pic col-sm-6"> -->
+
+
+<div class="products-score col-sm-4">
+
+              <div class="try-share"><span class="try-share-word">分享至</span>
+            <a href="http://www.jiathis.com/send/?webid=tsina&url=http://{{sharelink}}&title={{products.title}}&appkey=2155349390" style="display:block;">
+            <i class="weiboshare">
+            </i>
+            </a>
+              <a class="jiathis_button_weixin" style="display:block;">
+               <i class="weichatshare">
+              </i>
+              </a>
+              <a href="http://www.jiathis.com/send/?webid=qzone&url=http://{{sharelink}}&title={{products.title}}" style="display:block;">
+            <i class="qqzoneshare">
+            </i>
+            </a>
+              </div>
+
+<div class="products-score-block">
+             <p><div class="icon_prodeta_xianliang"></div></p><p>积分竞拍数量:<span>{{products.scoreamount}}份</span></p>
+              
+                <p><div class="icon_prodeta_dangqian"></div></p><p>当前最高价:<span>{{payscoretitle}}积分</span> </p>
+
+              <div class="score"><div class="icon_prodeta_chujia"></div>
                 <span>我的出价</span>   
                       <div class="control">
                           <span class="subtract">-</span>
-                          <span class="num">{{payscore}}</span>
+                          {% if products.ifscore %}
+                          <span class="num" id="num-score">{{payscore}}</span>
+                          {% endif %}
                           <span class="add">+</span>
                       </div>
                 <span class="addstep">加价幅度 5 积分</span>
               </div>
-              <div class="apply-bottom  col-sm-12">
+              <div class="apply-bottom">
 
                 {% if products.status = 1 %}
                       {% if user.is_authenticated %}
-                            <button type="button" class="btn btn-success" id='applyscore'>立即出价</button>
+                      {% if products.ifscore %}
+                            <button type="button" class="btn btn-warning" id='applyscore'>立即出价</button>
                       {% else %}
-                      <button type="button" class="btn btn-success" onclick="window.location.href='{% url 'loggin' %}'" >立即出价</button>
+                            <button type="button" class="btn btn-warning" >不参与积分拍</button>
+                      {% endif %}
+
+                      {% else %}
+                      <button type="button" class="btn btn-warning" onclick="window.location.href='{% url 'loggin' %}'" >立即出价</button>
                       {% endif %}
                 {% elif products.status = 2 %}
                           <button type="button" class="btn btn-warning " >已结束</button>
@@ -552,24 +512,12 @@ $(function() {
                           <button type="button" class="btn btn-danger " >已结束</button>
                 {% endif %}
               </div>
-        {% endif %}   
+        
+      </div>    
+</div>
 
-		          <div class="try-share  col-sm-12">
-						<a href="http://www.jiathis.com/send/?webid=tsina&url=http://{{sharelink}}&title={{products.title}}&appkey=2155349390">
-						<i class="weiboshare">
-						</i>
-						</a>
-						  <a class="jiathis_button_weixin">
-						   <i class="weichatshare">
-						  </i>
-						  </a>
-					  	<a href="http://www.jiathis.com/send/?webid=qzone&url=http://{{sharelink}}&title={{products.title}}">
-						<i class="qqzoneshare">
-						</i>
-						</a>
-		          </div>
 
-      		</div><!-- <div class="products-pic col-sm-6"> -->
+
       	</div><!-- <div class="try-info col-sm-12">
  -->
 
@@ -589,21 +537,29 @@ $(function() {
 	             </div>
 
 
-	            <div class="products-detail-info">
+              <div class="products-detail-info">
                 {% for item in payscorerecord %}
-                  <div class="payscorerecord col-xs-4">{{item.timestamp}} </div>
+                  <div class="payscorerecord1 col-xs-3 visible-xs-block">
+                  <div>{{item.timestamp|date:"m月j日"}}</div>
+                  <div>{{item.timestamp|time:"H:i" }}</div>
+                </div>
+                  <div class="payscorerecord col-xs-3 hidden-xs">
+                  {{item.timestamp}}
+                </div>
                   <div class="payscorerecord col-xs-4">
-
-                      <a href="{{item.user.get_absolute_url}}">
+                      <a class="hidden-xs" href="{{item.user.get_absolute_url}}">
                           <img  class="img-circle commentusericon" src='{{item.user.get_image_url}}'>
                         </a>
-
                     <a href="{{item.user.get_absolute_url}}">{{item.user}}  </a> </div>
-                  <div class="payscorerecord col-xs-4">出价{{item.payscore}}积分 </div>
-                  
+                  <div class="payscorerecord col-xs-3">出价{{item.payscore}}分 </div>
+                  <div class="payscorerecord2 col-xs-2">
+                    {% if item.win %}
+                    <div class="icon_prodeta_xianliang_win"></div>
+                    {% endif %}
+                  </div>
                 {% endfor %}
                 <div style="clear:both;"></div>
-				      </div>
+              </div>
 
 
 
@@ -612,35 +568,43 @@ $(function() {
 
 			<div class="col-sm-3">
         <div class="hot-try-company">
-          <div class="hot-try-title">提供方</div>
-        <div class="hotry-list col-xs-12">
-          <div class="hotry-company-img col-xs-5">
+          <div class="hot-try-title-line"></div>
+          <div class="hot-try-compant-title">提供方</div>
+        <div class="hotry-list">
+          <div class="hotry-company-img">
             <img src="{{products.company.get_image_url}}">
           </div>
-          <div class="hotry-company-info col-xs-7">
+          <div class="hotry-company-info">
             <a href="{{products.company.get_absolute_url}}" class="hotry-title">{{products.company.title}}</a>
-            <p>{{products.company.associatetitle}}</p>
+            <p>{{products.company.associatetitle|safe}}</p>
           </div>
         </div>
-         <div style="clear:both;"></div>
         </div>
 
-        <div class="hot-try">
-          <div class="hot-try-title">热门试用</div>
-        {% for item in hotry %}
-        <div class="hotry-list col-xs-12">
-          <div class="hotry-img col-xs-5">
-            <img src="{{item.get_image_url}}">
-          </div>
-          <div class="hotry-info col-xs-7">
-            <a href="{{item.get_absolute_url}}" class="hotry-title">{{item.title}}</a>
-            <div class="hotry-amount">数量：{{item.amount}}</div>
-          </div>
-        </div>
-        {% endfor %}
-        <div style="clear:both;"></div>
-        </div>
-			</div>
+<div class='hotnewsblock'>
+         <div class='head'>          <span class='shu-mark'>|</span>热门试用</div>
+
+    <table class="table table-hover hotnews">
+      <tbody>
+{% for item in hotry %}
+        <tr>
+          <td>
+             <a href="{{item.get_absolute_url}}" style="display:block;"><img src="{{item.get_image_url}}" >
+              <div class="t-h2-hottry">
+		<div class="t-h2-hottry-title">{{item.title}}</div>
+            <div>数量:{{item.amount}}</div>
+            </div>
+             </a>
+
+          </td>
+        </tr>
+{% endfor %}
+      </tbody>
+    </table>
+  </div><!-- class='headblock' -->
+</div>
+
+
 
         </div><!-- <div class="col-sm-12"> -->
       </div><!-- row -->

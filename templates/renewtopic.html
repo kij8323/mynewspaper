@@ -6,6 +6,7 @@ $(document).ready(function(){
   $("form").submit(function(e){
     var input_title = $("#id_title").val()
     var input_content = id_content.getContent()
+    var input_group = $("#id_group").val()
     if (input_title == "")
     {
     $.messager.popup("标题不能为空！");
@@ -15,6 +16,17 @@ $(document).ready(function(){
         });
     return false;
     }
+
+    else if(input_group == "")
+    {
+    $.messager.popup("请选择分类！");
+    $(".modal.msg-popup .modal-body").css({
+        'color': '#a94442',
+        "background-color":"#f2dede",
+        });
+    return false;
+    }
+
     else if(input_content == "")
     {
     $.messager.popup("内容不能为空！");
@@ -50,6 +62,13 @@ $(function() {
 })
 </script>
 
+
+
+<script type="text/javascript">
+$(function() {  
+  $("#id_group option:eq(1)").remove();
+})
+</script>
 {% endblock %}
 
  {% block content %}
@@ -58,7 +77,7 @@ $(function() {
 <div class="center-warp">
 
 <ul class="breadcrumbs">
-            <li>编辑测评</li>
+            <li>编辑话题</li>
         </ul>
     <div id="erroricon_title" style="text-align: center;">请输入标题</div>
 

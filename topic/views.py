@@ -28,7 +28,7 @@ from django.core.urlresolvers import reverse
 # from .forms import TopicForm
 GROUP_ALL_GROUP_TIMERANGE = 30#话题组首页显示的话题的时间范围
 TOPIC_DETAIL_HOTCOMMENT_READERSRANGE = 3 #最热回复的门限制
-TOPIC_DETAIL_HOTTOPIC_TIMERAGE = 99#话题页右侧热门话题的时间范围
+TOPIC_DETAIL_HOTTOPIC_TIMERAGE = 5#话题页右侧热门话题的时间范围
 import os
 # Create your views here.
 #话题组首页
@@ -84,7 +84,12 @@ def group_detail(request, group_id):
 	try:
 		group = Group.objects.get(pk=group_id)
 #		groupall = Group.objects.all().order_by("-topicount")
-		topic = group.topic_set.all().order_by("-updated").filter(savetext = False).exclude(pk=142).exclude(pk=171)
+		if int(group_id) == 11:
+			topic = Topic.objects.all().order_by("-updated").filter(savetext = False).exclude(pk=142).exclude(pk=171).exclude(group = 19)
+			topicount = topic.count()
+		else:
+			topic = group.topic_set.all().order_by("-updated").filter(savetext = False).exclude(pk=142).exclude(pk=171)
+			topicount = topic.count()
 		managers = Groupmanager.objects.filter(group = group)
 		topicstickied1 = Topic.objects.get(pk=142)
 		topicstickied2 = Topic.objects.get(pk=171)
@@ -104,19 +109,102 @@ def group_detail(request, group_id):
 			contacts = paginator.page(paginator.num_pages)
 		request.session['group'] = group.title
 		request.session['lastpage'] = request.get_full_path()
-		hottopic = Topic.objects.filter(group=group).filter(timestamp__gte=datetime.date.today() - timedelta(days=TOPIC_DETAIL_HOTTOPIC_TIMERAGE)).exclude(pk=142).exclude(pk=171).order_by('-readers')[0:5]
+
+		pagerange = contacts.paginator.page_range
+		last_page = contacts.paginator.page_range[-1]
+		print last_page
+		if contacts.paginator.page_range[-1] > 8 and contacts.number<=5:
+			pagerange = range(1,8) 
+			ellipsis_front = False
+			ellipsis_real = True
+		elif contacts.paginator.page_range[-1] > 8 and contacts.number+4>contacts.paginator.page_range[-1] and contacts.number>5:
+			pagerange = range(contacts.paginator.page_range[-1]-6, contacts.paginator.page_range[-1]+1)
+			ellipsis_front = True
+			ellipsis_real = False
+		elif contacts.paginator.page_range[-1] > 8 and contacts.number+4<=contacts.paginator.page_range[-1] and contacts.number>5:
+			pagerange = range(contacts.number-3, contacts.number+4)
+			ellipsis_front = True
+			ellipsis_real = True
+		else:
+			ellipsis_front = False
+			ellipsis_real = False
+
+		if int(group_id) == 11:
+			hottopic = Topic.objects.filter(timestamp__gte=datetime.date.today() - timedelta(days=TOPIC_DETAIL_HOTTOPIC_TIMERAGE)).exclude(pk=142).exclude(pk=171).order_by('-readers')[0:5]
+		else:
+			hottopic = Topic.objects.filter(group=group).filter(timestamp__gte=datetime.date.today() - timedelta(days=TOPIC_DETAIL_HOTTOPIC_TIMERAGE)).exclude(pk=142).exclude(pk=171).order_by('-readers')[0:5]
+
 		scorerank=MyUser.objects.exclude(pk=53).exclude(pk=519).order_by('-score')[0:5]
+		groupall = Group.objects.all()
 		context = {
+			'groupall': groupall,
+			'hottopic': hottopic,
+			'group': group,
+			'topic': contacts,
+			'pagerange': pagerange,
+			'ellipsis_front': ellipsis_front,
+			'ellipsis_real': ellipsis_real,
+			'last_page': last_page,
+			'managers': managers,
+			'topicstickied': topicstickied,
+			'scorerank':scorerank,
+			'topicount':topicount,
+			}
+	except Group.DoesNotExist:
+		raise Http404("Does not exist")
+	return render(request, 'group_detail.html',  context)
+
+def group_score(request, group_id):
+	try:
+		group = Group.objects.get(pk=group_id)
+#		groupall = Group.objects.all().order_by("-topicount")
+		if int(group_id) == 11:
+			topic = Topic.objects.all().order_by("-updated").filter(savetext = False).filter(score = True).exclude(pk=142).exclude(pk=171).exclude(group = 19)
+			topicount = topic.count()
+		else:
+			topic = group.topic_set.all().order_by("-updated").filter(savetext = False).filter(score = True).exclude(pk=142).exclude(pk=171)
+			topicount = topic.count()
+
+		managers = Groupmanager.objects.filter(group = group)
+		topicstickied1 = Topic.objects.get(pk=142)
+		topicstickied2 = Topic.objects.get(pk=171)
+		topicstickied = [topicstickied1, topicstickied2]
+		# 分页
+		paginator = Paginator(topic, 16)
+		page = request.GET.get('page')
+		if page and int(page)>1:
+			topicstickied = None
+		try:
+			contacts = paginator.page(page)
+		except PageNotAnInteger:
+		# If page is not an integer, deliver first page.
+			contacts = paginator.page(1)
+		except EmptyPage:
+		# If page is out of range (e.g. 9999), deliver last page of results.
+			contacts = paginator.page(paginator.num_pages)
+		request.session['group'] = group.title
+		request.session['lastpage'] = request.get_full_path()
+                if int(group_id) == 11:
+                        hottopic = Topic.objects.filter(timestamp__gte=datetime.date.today() - timedelta(days=TOPIC_DETAIL_HOTTOPIC_TIMERAGE)).exclude(pk=142).exclude(pk=171).order_by('-readers')[0:5]
+                else:
+                        hottopic = Topic.objects.filter(group=group).filter(timestamp__gte=datetime.date.today() - timedelta(days=TOPIC_DETAIL_HOTTOPIC_TIMERAGE)).exclude(pk=142).exclude(pk=171).order_by('-readers')[0:5]
+
+
+		scorerank=MyUser.objects.exclude(pk=53).exclude(pk=519).order_by('-score')[0:5]
+		groupall = Group.objects.all()
+		context = {
+			'groupall': groupall,
 			'hottopic': hottopic,
 			'group': group,
 			'topic': contacts,
 			'managers': managers,
 			'topicstickied': topicstickied,
 			'scorerank':scorerank,
+			'topicount':topicount,
 			}
 	except Group.DoesNotExist:
 		raise Http404("Does not exist")
-	return render(request, 'group_detail.html',  context)
+	return render(request, 'group_score.html',  context)
 
 
 # @cache_page(60 * 15)
@@ -132,6 +220,25 @@ def topic_detail(request, topic_id):
 			host = False
 	except Topic.DoesNotExist:
 		raise Http404("Does not exist")
+
+	action_url = reverse("topic_detail", kwargs={"topic_id": topic_id})
+	if request.method == 'POST' and request.POST.get('privcycomment', False):
+		text = request.POST.get('privcycomment')
+		try:
+			# c = Comment(user=user, is_privcycomment=True, text=text)
+			notify.send(sender=request.user, target_object=None, recipient = topic.writer, verb="_@_", text=text)
+			cachekey = "user_unread_count" + str(topic.writer.id)
+			if cache.get(cachekey) != None:
+				cache.incr(cachekey)
+			else:
+				unread = Notification.objects.filter(recipient = topic.writer).filter(read = False).count()
+				cache.set(cachekey,  unread, settings.CACHE_EXPIRETIME)	
+		except:
+			traceback.print_exc()
+		return redirect(action_url)
+	writertopic = Topic.objects.filter(writer=topic.writer).exclude(id = topic_id).order_by('-readers')[0:5]
+
+
 	#count = Comment.objects.filter(topic=topic).count()
 	# 按时间顺序排序
 	comment = Comment.objects.filter(topic=topic).filter(parent=None).order_by('timestamp')
@@ -140,7 +247,6 @@ def topic_detail(request, topic_id):
 	#最新话题
 	#newtopic = Topic.objects.filter(group=topic.group).order_by('-timestamp')[0:3]
 	#最热话题
-	hottopic = Topic.objects.filter(group=topic.group).filter(timestamp__gte=datetime.date.today() - timedelta(days=TOPIC_DETAIL_HOTTOPIC_TIMERAGE)).order_by('-readers')[0:5]
 	#当前读者对象
 	user = request.user
 	#读者是否收藏该文章
@@ -187,6 +293,10 @@ def topic_detail(request, topic_id):
 		topiclike = True
 	except:
 		topiclike = False
+
+	# 弹幕
+	commentdanmu = Comment.objects.filter(topic=topic).order_by('-readers')
+
 	context = {
 		'topic':topic,
 		'user':user,
@@ -197,7 +307,7 @@ def topic_detail(request, topic_id):
 		#"count": count,
 		#"newtopic": newtopic,
 		"group": topic.group,
-		"hottopic": hottopic,
+		"writertopic": writertopic,
 		"commentorderbyreaders":commentorderbyreaders,#热门回复
 		"ifhotcomment": ifhotcomment,
 		'page': page,
@@ -205,6 +315,7 @@ def topic_detail(request, topic_id):
 		'collection': collection,
 		'host': host,
 		'topiclike': topiclike,
+		'commentdanmu': commentdanmu,
 	}
 	#print "topic_detail"
 	return render(request, 'topic_detail.html',  context)
@@ -212,12 +323,12 @@ def topic_detail(request, topic_id):
 #生成新的话题页
 @login_required(login_url='/user/loggin/')
 def newtopic(request):
-	grouptitle = request.session.get('group', False)
-	group = Group.objects.get(title = grouptitle)
 	# group = False
 	if request.method == 'POST':
 		content = request.POST.get('content')
 		title = request.POST.get('title')
+		grouptitle = request.POST.get('group')
+		group = Group.objects.get(id = grouptitle)
 		new_topic = Topic()
 		new_topic.content = content
 		if request.POST.get('savetext') == "True":
@@ -249,7 +360,7 @@ def newtopic(request):
 		print  request.user
 		context = {
 			'myform': TopicForm,
-			'group': group,
+			'group': 'x',
 			}
 	return render(request, 'newtopic.html',  context)
 
@@ -323,8 +434,11 @@ def renewtopic(request, topic_id):
 	if request.method == 'POST':
 		content = request.POST.get('content')
 		title = request.POST.get('title')
+		grouptitle = request.POST.get('group')
+		group = Group.objects.get(id = grouptitle)
 		topic.content = content
 		topic.title = title
+		topic.group = group
 		if request.POST.get('savetext') == "True":
 			topic.savetext = True
 		else:
@@ -576,12 +690,12 @@ def collectiontopic(request):
 
 @login_required(login_url='/user/loggin/')
 def mobilenew(request):
-	grouptitle = request.session.get('group', False)
-	group = Group.objects.get(title = grouptitle)
 	if request.method == 'POST':
 		content = request.POST.get('content')
 		title = request.POST.get('title')
 		image = request.FILES.getlist('img')
+		grouptitle = request.POST.get('group')
+		group = Group.objects.get(id = grouptitle)
 		new_topic = Topic()
 		new_topic.content = content
 		new_topic.title = title
@@ -650,6 +764,6 @@ def mobilenew(request):
 						, targetarticle = None, targetopic = new_topic)
 		return redirect(reverse("topic_detail", kwargs={"topic_id": new_topic.id}))
 	context = {
-		'group': group,
+		'group': 'x',
 		}
 	return render(request, 'mobilenew.html',  context)

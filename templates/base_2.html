@@ -10,7 +10,7 @@
     <meta name="author" content="">
     <link rel="icon" href="/static/images/Abstract Tree.jpg">
 
-    <title>梧桐观点-专注于智能硬件的发展</title>
+    <title>梧桐观点-有趣的智能硬件社区</title>
 
     <!-- Bootstrap core CSS -->
     <link href="/static/bootstrap-3.3.4-dist/css/bootstrap.min.css" rel="stylesheet">
@@ -40,6 +40,19 @@
     s.parentNode.insertBefore(bp, s);
 })();
 </script>
+
+<script>/*百度统计*/
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?5db645b58e7dd5560dea1d8961c752a8";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
 
 <!-- 显示咨询栏下拉菜单 -->
 
@@ -221,7 +234,7 @@ $(document).ready(function(){
 
 
            <li class="subcate hidden-xs"><a href="{% url 'productsall' %}">试用</a></li>
-            <li class="subcate hidden-xs"><a href="{% url 'group_detail' 11 %}">测评</a></li>
+            <li class="subcate hidden-xs"><a href="{% url 'group_detail' 11 %}">社区</a></li>
 
           </ul>
 <div id='index_search'>
@@ -242,17 +255,17 @@ $(document).ready(function(){
           <li class="subcate visible-xs-block"><a href="{% url 'home' %}">资讯</a></li>
           <li class="subcate visible-xs-block"><a href="{% url 'productsall' %}">试用</a></li>
 
-          <li class="subcate visible-xs-block"><a href="{% url 'group_detail' 11 %}">测评</a></li>
+          <li class="subcate visible-xs-block"><a href="{% url 'group_detail' 11 %}">社区</a></li>
         {% if user.is_authenticated %}
         <li class="subcate visible-xs-block"><a href="{% url 'user_detailnotifications' user.id %}">消息<span class="badge inboxcount">{{ user.id|user_unread_count }}</span></a></li>
         <li class="subcate visible-xs-block"><a href="{{user.get_absolute_url}}">帐号</a></li>
-        <li class="subcate visible-xs-block"><a href="{% url 'user_userdashboardarticletopic' user.id %}">我的测评</a></li>
+        <li class="subcate visible-xs-block"><a href="{% url 'user_userdashboardarticletopic' user.id %}">我的话题</a></li>
 	<li class="subcate visible-xs-block"><a href="{% url 'userlogout' %}">退出</a></li>	
 
         <li class='userinfobutton hidden-xs'><a  href="{{user.get_absolute_url}}"><span><img  class="img-circle baseusericon" src='{{user.get_image_url}}'></span>{{user.username}}</a><span class="dropdown-toggle" data-toggle="dropdown"></span>  <ul class="dropdown-menu hidden-xs" id='userinfobutton-dropdown-menu' aria-labelledby="dLabel">
                 <li><a href="{% url 'user_detailnotifications' user.id %}">消息<span class="badge inboxcount">{{ user.id|user_unread_count }}</span></a></li>
                 <li><a href="{% url 'user_detailcollections' user.id %}">我的收藏</a></li>
-                <li><a href="{% url 'user_userdashboardarticletopic' user.id %}">我的测评</a></li>
+                <li><a href="{% url 'user_userdashboardarticletopic' user.id %}">我的话题</a></li>
                 <li><a href="{% url 'user_detailcomments' user.id %}">我的评论</a></li>
                 <li><a href="{% url 'user_detailtry' user.id %}">我的试用</a></li>
                 <li><a href="{% url 'userlogout' %}">退出</a></li>

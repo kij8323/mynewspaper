@@ -9,7 +9,7 @@ class GroupAdmin(admin.ModelAdmin):
     list_display = ('id', 'title','timestamp')
 
 class TopicAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title','timestamp', 'readers', 'savetext', 'cover')
+    list_display = ('id', 'title','timestamp', 'readers', 'savetext', 'cover', 'guanggao', 'score', 'group')
 
 class CollectionTopicAdmin(admin.ModelAdmin):
     list_display = ('id', 'user','topic')

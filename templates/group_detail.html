@@ -140,6 +140,32 @@ $(function(){
 
 });
 </script>
+
+
+
+<script>
+$.fn.imgsizeFunctionimg3 = function() { 
+  width = $(this).css('width');
+  x = (parseFloat(width)*0.636)
+  return  $(this).css('height',x+'px');
+}
+</script>
+
+<script>
+$(function(){ 
+  $('.img3-imagefst3').imgsizeFunctionimg3();
+  $('.img3-imagescd3').imgsizeFunctionimg3();
+  $('.img3-imagethd3').imgsizeFunctionimg3();
+}); 
+</script>
+
+<script>
+$(window).resize(function(){
+  $('.img3-imagefst3').imgsizeFunctionimg3();
+  $('.img3-imagescd3').imgsizeFunctionimg3();
+  $('.img3-imagethd3').imgsizeFunctionimg3();
+});
+</script>
 {% endblock %}
 
 
@@ -151,7 +177,7 @@ $(function(){
  <a href="javascript:void(0)"><em></em></a> 
 </li>
 <li class='barcomment1 visible-xs-block'>
-  <a href="{% url 'mobilenew' %}">发新测评</a>
+  <a href="{% url 'mobilenew' %}">发新话题</a>
 </li>
 </ul>
 
@@ -159,10 +185,9 @@ $(function(){
 
 <div class="container    group_detail_container">
 
-
 <div class="col-sm-9">
 
- <div class="group-associatetitle">
+ <div class="group-associatetitle hidden-xs">
  <div class="group-associatetitle-title">
  {{group.associatetitle}}
  </div>
@@ -177,7 +202,7 @@ $(function(){
 <div class="cepingcount-block">
 <div class="cepingcount-line"></div>
 <div class="cepingcount">
-  测评：{{group.id|group_topic_count}}
+{{group.title}}：{{topicount}}
 </div>
 <div class="cepingcount-line"></div>
 <div style="clear:both;"></div> 
@@ -185,48 +210,97 @@ $(function(){
   </div><!-- <div class="group-associatetitle"> -->
 
 
-<div class="jifen-rank-title-block-heng visible-xs-block">
-  <div class="jifenrank-line-heng"></div>
- <div class="jifen-rank-title-heng">积分排行</div>
-<div class="jifenrank-line-heng"></div>
-<div style="clear:both;"></div>
-</div> 
-<div class="jifen-rank-title-asso-heng visible-xs-block">参与有<i class="score-topic-rank"></i>标志的帖子就能涨积分</div>
-<div class="jifen-rank-heng visible-xs-block">
-  <ul class="jifen-rank-content-ul-heng">
-    {% for item in scorerank %}
-    <li>
-	<a href="{{item.get_absolute_url}}">
-      <img class="img-circle-heng" src="{{item.get_image_url}}">
-      </a>
-	 <div class="rankjiangpai-heng">
-      <div class="rankjiangpaicount-heng">{{forloop.counter}}</div>
-    </div>
-      
-      <div class="jifen-rank-name-heng">{{ item.username }}</div>
-      <div class='score-topic-rank-score-heng'>
-      <i class="score-topic-rank"></i>{{ item.score }}
-      </div>
-    </li>
-    {% endfor %}
-    <div style="clear:both;"></div> 
-    </ul>
+
+
+<div class="cate-list-block hidden-xs">
+{% for item in groupall %}
+  <div class="cate-spec">
+{% if item.get_absolute_url  == group.get_absolute_url %}
+  <a class="cate-link" href="{{item.get_absolute_url}}" style="color: #67CA87;">
+  {% else %}
+  <a class="cate-link" href="{{item.get_absolute_url}}">
+{% endif %}
+  <span class="glyphicon {{item.glyphicon}}" aria-hidden="true"></span>
+    <div class="cate-spec-name">{{item.title}}</div>
+  </a>
+  </div>
+{% endfor %}
+  <div style="clear:both;"></div> 
 </div>
 
 
-
-
-
+<div class="cate-list-block-mobile  visible-xs-block">
+  <div class="cate-spec">
+  <a class="cate-link" href="{% url 'group_detail' 11 %}">
+  <span class="glyphicon glyphicon-folder-open" aria-hidden="true" style="background-color: #67CA87;"></span>
+    <div class="cate-spec-name">全部</div>
+  </a>
+  </div>
+  <div class="cate-spec">
+  <a class="cate-link" href="{% url 'group_detail' 12 %}">
+  <span class="glyphicon glyphicon-bullhorn" aria-hidden="true" style="background-color: #CC3333;"></span>
+    <div class="cate-spec-name">瞎聊</div>
+  </a>
+  </div>
+  <div class="cate-spec">
+  <a class="cate-link" href="{% url 'group_detail' 13 %}">
+  <span class="glyphicon glyphicon-headphones" aria-hidden="true" style="background-color: #FF6600;"></span>
+    <div class="cate-spec-name">穿戴</div>
+  </a>
+  </div>
+  <div class="cate-spec">
+  <a class="cate-link" href="{% url 'group_detail' 14 %}">
+  <span class="glyphicon glyphicon-lamp" aria-hidden="true" style="background-color: #FFCC33;"></span>
+    <div class="cate-spec-name">家居</div>
+  </a>
+  </div>
+  <div class="cate-spec">
+  <a class="cate-link" href="{% url 'group_detail' 15 %}">
+  <span class="glyphicon glyphicon-blackboard" aria-hidden="true" style="background-color: #FFCC99;"></span>
+    <div class="cate-spec-name">平板</div>
+  </a>
+  </div>
+  <div class="cate-spec">
+  <a class="cate-link" href="{% url 'group_detail' 16 %}">
+  <span class="glyphicon glyphicon-phone" aria-hidden="true" style="background-color: #003300;"></span>
+    <div class="cate-spec-name">手机</div>
+  </a>
+  </div>
+  <div class="cate-spec">
+  <a class="cate-link" href="{% url 'group_detail' 17 %}">
+  <span class="glyphicon glyphicon-facetime-video" aria-hidden="true" style="background-color: #3399CC;"></span>
+    <div class="cate-spec-name">外设</div>
+  </a>
+  </div>
+  <div class="cate-spec">
+  <a class="cate-link" href="{% url 'group_detail' 18 %}">
+  <span class="glyphicon glyphicon-film" aria-hidden="true" style="background-color: #666699;"></span>
+    <div class="cate-spec-name">影音</div>
+  </a>
+  </div>
+  <div class="cate-spec">
+  <a class="cate-link" href="{% url 'group_detail' 19 %}">
+  <span class="glyphicon glyphicon-filter" aria-hidden="true" style="background-color: #999966;"></span>
+    <div class="cate-spec-name">灌水</div>
+  </a>
+  </div>
+  <div class="cate-spec">
+  <a class="cate-link" href="{% url 'group_detail' 20 %}">
+  <span class="glyphicon glyphicon-option-horizontal" aria-hidden="true" style="background-color: #990066;"></span>
+    <div class="cate-spec-name">其他</div>
+  </a>
+  </div>
+  <div style="clear:both;"></div> 
+</div>
 
  <div class="group-list-block">
 
 <div class="menu">
   <ul class="nav nav-pills rightblock">
-      <li class="presentationw1" role="presentation"><a href="">全部测评</a></li>
-<!--       <li class="presentationw2" role="presentation"><a href="">涨积分</a></li>
-      <li class="presentationw3" role="presentation"><a href="">精华</a></li> -->
-    </ul>
-       </div>
+      <li class="presentationw1" role="presentation"><a href="javascript:void(0);">{{group.title}}话题</a></li>
+      <li class="presentationw2" role="presentation"><a href="{% url 'group_score' group.id %}"><i class="score-topic-score"></i>涨积分</a></li>
+    </ul>   
+    </div>
 {% for item in topicstickied %}
  <div class="group-list">
 <div class="group-list-usericon   hidden-xs">  
@@ -279,10 +353,10 @@ $(function(){
 <!--  <span class='group-informatio-blank'>
 回复数:{{item.id|Topic_comment}}
 </span> -->
-<i class="icon icon-line"></i>
 
 {%  if item.id|Topic_comment %}
  <span class='group-informatio-blank hidden-xs'>
+<i class="icon icon-line"></i>
 {{item.lastcommentime.user}}回复于
 </span>
 
@@ -334,6 +408,17 @@ $(function(){
 <i class="score-topic"></i>
 {% endif %}
 
+
+
+{% if item.img3 %}
+<div class='img3'>
+<img  class="img3-imagefst3" src='{{item.get_imagefst3_url}}'>
+<img  class="img3-imagescd3" src='{{item.get_imagescd3_url}}'>
+<img  class="img3-imagethd3" src='{{item.get_imagethd3_url}}'>
+</div>
+<div style="clear:both;"></div> 
+{% endif %}
+
  <div class="group-information">
  <span class='group-informatio-blank'>
 <!--  	<a href="{{item.writer.get_absolute_url}}">
@@ -352,9 +437,12 @@ $(function(){
 <!--  <span class='group-informatio-blank'>
 回复数:{{item.id|Topic_comment}}
 </span> -->
-<i class="icon icon-line"></i>
 
 {%  if item.id|Topic_comment %}
+
+<i class="icon icon-line  hidden-xs"></i>
+
+
  <span class='group-informatio-blank hidden-xs'>
 {{item.lastcommentime.user}}回复于
 </span>
@@ -363,6 +451,12 @@ $(function(){
 {{item.lastcommentime.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month|time_blank_n}}前
 </span>
 {% endif %}
+
+
+
+<i class="icon icon-line "></i>
+<span><span class="hidden-xs">来自：</span><a href="{{item.group.get_absolute_url}}">{{item.group.title}}</a>
+</span>
 
 
 
@@ -383,20 +477,64 @@ $(function(){
 <div class="pagination">
     <span class="step-links">
 {% if topic.has_previous %}
-         <a class='paginator paginator_first' title='上一页' href='?page={{ topic.previous_page_number }}'><span>上一页</span></a>
-{% endif %}
- {% for page in topic.paginator.page_range %}
+        <a class='paginator paginator_first' title='上一页' href='?page={{ topic.previous_page_number }}'><span>上一页</span></a>
+ {% endif %}
+
+ 
+ {% if ellipsis_front %}
+<a class='paginator' href='?page=1' title='1'><span>1</span></a>
+ <div class='paginator'><span>...</span></div>
+ {% endif %}
+ {% for page in pagerange %}
      {% if page = topic.number %}
          <a class='paginator_current' title='当前页:{{ page }}'><span>{{ page }}</span></a>
      {% else %}
          <a class='paginator' href='?page={{ page }}' title='{{ page }}'><span>{{ page }}</span></a>
      {% endif %}
  {% endfor %}
+ {% if ellipsis_real %}
+<div class='paginator'><span>...</span></div>
+<a class='paginator' href='?page={{last_page}}' title='{{last_page}}'><span>{{last_page}}</span></a>
+ {% endif %}
+
+
+
  {% if topic.has_next %}
-     <a class='paginator paginator_first' title='下一页' href='?page={{ topic.next_page_number }}'><span>下一页</span></a>
-{% endif %}
+    <a class='paginator paginator_first' title='下一页' href='?page={{ topic.next_page_number }}'><span>下一页</span></a>
+ {% endif %}
     </span>
 </div><!-- <div class="pagination"> -->
+</div>
+
+
+<div class="jifen-rank-smaill visible-xs-block">
+<div class="jifen-rank-title-block-heng">
+  <div class="jifenrank-line-heng"></div>
+ <div class="jifen-rank-title-heng">积分排行</div>
+<div class="jifenrank-line-heng"></div>
+<div style="clear:both;"></div>
+</div>
+<div class="jifen-rank-title-asso-heng">参与有<i class="score-topic-rank"></i>标志的帖子就能涨积分</div>
+<div class="jifen-rank-heng">
+  <ul class="jifen-rank-content-ul-heng">
+    {% for item in scorerank %}
+    <li>
+        <a href="{{item.get_absolute_url}}">
+      <img class="img-circle-heng" src="{{item.get_image_url}}">
+      </a>
+         <div class="rankjiangpai-heng">
+      <div class="rankjiangpaicount-heng">{{forloop.counter}}</div>
+    </div>
+
+      <div class="jifen-rank-name-heng">{{ item.username }}</div>
+      <div class='score-topic-rank-score-heng'>
+      <i class="score-topic-rank"></i>{{ item.score }}
+      </div>
+    </li>
+    {% endfor %}
+    <div style="clear:both;"></div>
+    </ul>
+</div>
 </div>
 
 
@@ -413,9 +551,9 @@ $(function(){
       </div>
       <div class="per-grou-info-block">
         <ul>
-          <li><div><a href="{% url 'user_userdashboardarticletopic' user.id %}">测评</a></div>{{user.id|topic_user_count}}</li>
+          <li><div><a href="{% url 'user_userdashboardarticletopic' user.id %}">话题</a></div>{{user.id|topic_user_count}}</li>
           <li class="midd-li"><div>积分</div>{{user.score}}</li>
-          <!-- <li>3<div>测评</div></li> -->
+          <!-- <li>3<div>话题</div></li> -->
         </ul>
       </div>
     </div>
@@ -428,9 +566,9 @@ $(function(){
       </div>
       <div class="per-grou-info-block">
         <ul>
-          <li><div>测评</div>0</li>
+          <li><div>话题</div>0</li>
           <li class="midd-li"><div>积分</div>0</li>
-          <!-- <li>3<div>测评</div></li> -->
+          <!-- <li>3<div>话题</div></li> -->
         </ul>    
       </div>
     </div>
@@ -438,7 +576,7 @@ $(function(){
     {% endif %}
     <div style="clear:both;"></div>
     <div class="newtopicuser">
-    <a  href="{% url 'newtopic' %}" class='btn btn-lg btn-success btn-block' ><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> 发表新测评</a>
+    <a  href="{% url 'newtopic' %}" class='btn btn-lg btn-success btn-block' ><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> 发表新话题</a>
     </div>
   </div>
 
@@ -486,7 +624,7 @@ $(function(){
 
 <div id='hotarticle'>
   <div class="pull-left" >
-  <h4><b>热门测评</b></h4>
+  <h4><b>热门话题</b></h4>
   <span class="span-mark"></span>
   </div>
 <div class="rightnewtpic">

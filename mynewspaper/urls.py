@@ -59,6 +59,8 @@ urlpatterns = [
     url(r'^group/index/$', 'topic.views.group_index', name='group_index'),#不用
     url(r'^group/all/$', 'topic.views.group_all', name='group_all'),#话题组首页
     url(r'^group/(?P<group_id>[0-9]+)/$', 'topic.views.group_detail', name='group_detail'),#话题组页
+    url(r'^group/(?P<group_id>[0-9]+)/score/$', 'topic.views.group_score', name='group_score'),#话题组页
+
     url(r'^topic/(?P<topic_id>[0-9]+)/$', 'topic.views.topic_detail', name='topic_detail'),#话题页
     url(r'^topic/newtopic/$', 'topic.views.newtopic', name='newtopic'),#新建话题页
     url(r'^topic/topicomment/$', 'topic.views.topicomment', name='topicomment'),#发表话题评论页ajax

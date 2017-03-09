@@ -231,7 +231,11 @@ $(function(){
                     </div>
                       <div class="mianfeishiyonginfo04">
                       <span class="mianfeishiyonginfo02">
-                        {{products0.id|products_applyamount_count}}
+                    {% if products0.applyamountcount > 30 %}
+                    {{products0.applyamountcount}}
+                    {% else %}
+                    {{products0.id|products_applyamount_count}}
+                    {% endif %} 
                         </span>
                       <span class="mianfeishiyonginfo03">人</span>
                       </div>
@@ -326,7 +330,11 @@ $(function(){
                     </div>
                       <div class="mianfeishiyonginfo04">
                       <span class="mianfeishiyonginfo02">
-                        {{products1.id|products_applyamount_count}}
+                    {% if products1.applyamountcount > 30 %}
+                    {{products1.applyamountcount}}
+                    {% else %}
+                    {{products1.id|products_applyamount_count}}
+                    {% endif %} 
                         </span>
                       <span class="mianfeishiyonginfo03">人</span>
                       </div>
@@ -422,7 +430,11 @@ $(function(){
                     </div>
                       <div class="mianfeishiyonginfo04">
                       <span class="mianfeishiyonginfo02">
-                        {{products2.id|products_applyamount_count}}
+                    {% if products2.applyamountcount > 30 %}
+                    {{products2.applyamountcount}}
+                    {% else %}
+                    {{products2.id|products_applyamount_count}}
+                    {% endif %} 
                         </span>
                       <span class="mianfeishiyonginfo03">人</span>
                       </div>
@@ -638,7 +650,7 @@ $(function(){
           </div> 
           <div class="try-info">
             <!-- <span class="amount">数量：{{item.amount}}</span> -->
-            <span class="applyNums"><span class="applyNums-size">{{item.id|products_applyamount_count}}人</span>申请</span>
+            <span class="applyNums"><span class="applyNums-size">{% if item.applyamountcount > 30 %}{{item.applyamountcount}}{% else %}{{item.id|products_applyamount_count}}{% endif %}人</span>申请</span>
             <!-- <span class="amount">数量：{{item.amount}}</span> -->
           {% if item.status != 1 %}
             <span class="openprice">测评话题：{{item.reportnum}}</span>

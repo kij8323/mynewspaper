@@ -136,7 +136,7 @@ def home(request):
 	companyshow = Company.objects.all().filter(verify  = True).order_by("-id")[0:5]
 	hotry = Products.objects.filter(verify = True).order_by('-id')[0:HOTRY_MAINPAGE_RANGE]
 	coverarticle = Topic.objects.all().filter(cover = True).order_by("-id")[0:3]
-	guanggaotopic = Topic.objects.all().filter(guanggao = True).order_by("id")[0]
+	guanggaotopic = Topic.objects.all().filter(guanggao = True).order_by("-id")[0]
 	hotnews48 = Article.objects.all().filter(timestamp__gte=datetime.date.today() - timedelta(days=ARTICLE_MAINPAGE_HOT_TODAY)).order_by("-readers")[0]
 
 	context = {

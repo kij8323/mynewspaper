@@ -6,6 +6,8 @@
 <script src="/static/js/topic_detail.js"></script>
 <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
 <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+<script src="/static/js/jquerypage.js"></script>
+
 
 <script>/*回复文章*/
 $(function() {
@@ -237,11 +239,6 @@ $.fn.smartFloat = function() {
 }; 
 </script>
 
-<script>
-$(function(){ 
-    $("#hotarticle").smartFloat(); 
-}); 
-</script>
 
 <script type="text/javascript">
 var jiathis_config = {
@@ -358,18 +355,105 @@ $(function(){
   });
 });
 </script>
+
+
+
+<script>
+$.fn.imgsizeFunction = function() { 
+  width = $(this).css('width');
+  x = (parseFloat(width)*1)
+  return  $(this).css('height',x+'px');
+}
+</script>
+
+<script>
+$(function(){ 
+  $('.per-info-icon').imgsizeFunction();
+}); 
+</script>
+
+<script>
+$(window).resize(function(){
+  $('.per-info-icon').imgsizeFunction();
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $("div#privcycommentform form").submit(function(e){
+    var input = $("#privcycomment").val()
+    if (input == "")
+    {
+      $('#erroriconprivcycomment').css("margin-bottom","-34.718px");
+    $('#erroriconprivcycomment').fadeIn("slow").fadeOut(3000);
+    return false;
+    }
+    else
+    {
+    return true;
+    }
+  });
+});
+</script>
 {% endblock %}
 
 
  {% block content %}
-<div class="container">
 
-<ul id="rightsidebar" class="visible-xs-block">
+<!-- Modal4 -->
+<div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <div id="erroriconprivcycomment" style="text-align: center;">请输入内容</div>
+        <h4 class="modal-title" id="myModalLabel">发送私信给：{{topic.writer.username}}</h4>
+      </div>
+      <div class="modal-body">
+<div id='privcycommentform'>
+  
+{% if user.is_authenticated %}
+<form  action="" method="post">
+  {% csrf_token %}
+  <label for="privcycomment">内容:</label>
+<!-- <input  id='privcycomment' class="form-control" type="text" name="privcycomment" /> -->
+<textarea  id='privcycomment'  class="form-control" type="text" name="privcycomment" ></textarea>
+<button type="submit" class="btn btn-default btn-success">确定</button>
+<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+</form>
+{% else %}
+<div class="authboard">
+<div class="authboardword">
+<h4>请<a href="{% url 'loggin' %}">登录</a>后给他发信</h4>
+</div>
+</div>
+{% endif %} 
+
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="container">
+{% for item in commentdanmu %}
+<div class='danmu'>
+{{item.user}} : {{ item.text|delebq }}
+</div>
+{% endfor %}
+
+
+<ul id="rightsidebar" >
 <li class="rtotopsctoll ">
 <a href="javascript:void(0)"><em></em></a> 
 </li>
-<li class='barcomment '>
+<li class='barcomment visible-xs-block'>
 <a href="javascript:void(0)">评论</a>
+</li>
+<li class='danmubar'>
+<a href="javascript:void(0)">弹</a>
 </li>
 </ul>
 
@@ -424,6 +508,7 @@ $(function(){
 <div class="col-sm-8">
 
   <ul class="breadcrumbs">
+            <li><a href="{% url 'group_detail' 11 %}">全部</a><span> &gt; </span></li>
             <li><a href="{{ group.get_absolute_url }}">{{ group.title }}</a></li>
         </ul>
 
@@ -732,44 +817,50 @@ $(function(){
 <div class="col-sm-3 hidden-xs">
 
 <div id='rightstableblock'>
-<!-- <div id='hotarticle'>
-  <div class="pull-left" >
-  <h4><b>{{group.title}}最新话题</b></h4>
-  <span class="span-mark"></span>
+  <div class="per-info">
+    <img  class="per-info-icon img-circle" src='{{topic.writer.get_image_url}}'>
+    <div class="per-grou-info">
+      <div class="per-grou-info-username">
+        <a href="{{topic.writer.get_absolute_url}}">{{topic.writer.username}}</a>
+      </div>
+      <div class="per-grou-info-block">
+        <ul>
+          <li><div><a href="{% url 'user_userdashboardarticletopic' topic.writer.id %}">话题</a></div>{{topic.writer.id|topic_user_count}}</li>
+          <li class="midd-li"><div>积分</div>{{topic.writer.score}}</li>
+          <!-- <li>3<div>话题</div></li> -->
+        </ul>
+      </div>
+    </div>
+    <div style="clear:both;"></div>
+    <div class="per-info-qianming">
+      {% if topic.writer.qianming %}
+      {{topic.writer.qianming}}
+      {% else %}
+      这货还没有签名...
+      {% endif %}
+
+    </div>
+    <div class="newtopicuser">
+    <button type="button" class="btn btn-success btn-messages newtopicuser" data-toggle="modal" data-target="#myModal4">
+    <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> 给作者发私信
+    </button>
+    </div>
   </div>
-<div class="rightnewtpic">
-{% for item in newtopic %}
-<div class="rightitle">
-<a href="{{item.get_absolute_url}}">
-{{item.title}}
-</a>
-<span class='grayword'>
-({{item.comment_set.count}}回复)
-</span>
-</div>
-{% endfor %}
-</div>
-</div> -->
-<div class='advertisment1'>
-  <a href="http://www.underarmour.cn/">
-<img src="/static/media/images/ce7172a563ccffdad81cc76c48a10735.jpg" >
-</a>
-</div>
+
+
 
 <div id='hotarticle'>
   <div class="pull-left" >
-  <h4><b>{{group.title}}热门话题</b></h4>
+  <h4><b>作者其他话题</b></h4>
   <span class="span-mark"></span>
   </div>
 <div class="rightnewtpic">
-{% for item in hottopic %}
+{% for item in writertopic %}
 <div class="rightitle">
 <a href="{{item.get_absolute_url}}">
 {{item.title}}
 </a>
-<span class='grayword'>
-({{item.id|Topic_comment}}回复)
-</span>
+<div class="hotopic-reply"><i class="hotopic-icon-reply"></i>{{item.id|Topic_comment}}</div>
 </div>
 {% endfor %}
 </div><!-- <div class="rightnewtpic"> -->

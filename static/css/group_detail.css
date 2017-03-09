@@ -465,7 +465,7 @@ a:hover{
 
 
 .icon-line{
-	background-image: url(/static/media/images/sharebackground.png);
+	background-image: url(/static/images/sharebackground.png);
 	background-position: -145px -1px;
 	display: inline-block;
 	height: 20px;
@@ -514,17 +514,11 @@ a:hover{
  .presentationw1 a{
  	font-size: 16px;
  	color: #67CA87;
- 	padding-left: 0px !important;
- 	padding-right: 0px !important;
  }
 
 .presentationw2 a, .presentationw3 a{
-/*	background-color: #f0f4fb;*/
 	color: rgb(31,33,27);
 	font-size: 16px;
- 	padding-left: 0px !important;
- 	padding-right: 0px !important;
- 	margin-left: 50px;
 }
 
 .menu .rightblock a:hover{
@@ -830,6 +824,127 @@ float: left;
 
 .rtotopsctoll1{
 	display:none;
+}
+
+.jifen-rank-smaill{
+	background-color: rgb(246, 251, 246); 
+	padding-top: 30px;
+	margin-top: 15px;
+}
+
+
+
+.score-topic-score{
+	display: inline-block;
+	background-image: url(/static/media/images/icon_coins_score2x.png);
+	width: 20px;
+	height: 20px;
+	background-repeat: no-repeat;
+	/*margin-left: 15px;*/
+	margin-bottom: -6px;
+
+}
+
+
+
+.img3-imagefst3, .img3-imagescd3, .img3-imagethd3{
+	width: 33%;
+	float: left;
+	padding: 6px 6px 0px 0px;
+}
+
+
+
+
+
+
+
+
+
+.cate-list-block{
+background-color: #fafafa;
+/*padding-top: 20px;
+padding-bottom: 20px;*/
+padding: 30px 5px 30px 5px;
+margin-bottom: 25px;
+border-radius: 5px;
+}
+
+
+.cate-list-block .cate-spec{
+	float: left;
+	text-align: center;
+	width: 10%;
+/*	color: #999;*/
+}
+
+.cate-list-block .glyphicon{
+	font-size: 35px;
+}
+
+.cate-list-block .cate-spec-name{
+font-size: 16px;
+font-weight: bold;
+margin-top: 15px;
+}
+
+.cate-list-block .cate-link:hover{
+	color: #67CA87;
+}
+
+.cate-list-block .cate-spec>a{
+	color: #999;
+}
+
+
+
+
+
+
+
+
+
+
+.cate-list-block-mobile{
+background-color: #fafafa;
+/*padding-top: 20px;
+padding-bottom: 20px;*/
+padding: 10px 5px 30px 5px;
+margin-bottom: 25px;
+border-radius: 5px;
+}
+
+
+.cate-list-block-mobile .cate-spec{
+	float: left;
+	text-align: center;
+	/*width: 10%;*/
+	width: 20%;
+	padding-top: 23px; 
+/*	color: #999;*/
+}
+
+.cate-list-block-mobile .glyphicon{
+	font-size: 23px;
+	padding: 10px;
+	border-radius: 50%;
+	/*border: 1px solid #999;*/
+	color: white;
+}
+
+.cate-list-block-mobile .cate-spec-name{
+font-size: 11px;
+font-weight: bold;
+margin-top: 10px;
+
+}
+
+.cate-list-block-mobile .cate-link:hover{
+	color: #67CA87;
+}
+
+.cate-list-block-mobile .cate-spec>a{
+	color: #999;
 }
 
 

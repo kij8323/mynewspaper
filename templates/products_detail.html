@@ -7,69 +7,7 @@
 <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
 <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
 
-
-<script>/*倒计时*/
-$(function(){ 
-    $('.timer').each(function(){
-      var SysSecond; 
-      var InterValObj; 
-      var a = $(this).children(".products-time").text()
-      var node = $(this)
-      SysSecond = parseInt(a); 
-    /*  alert('x')*/
-     //将时间减去1秒，计算天、时、分、秒 
-     function SetRemainTime() { 
-      if (SysSecond > 0) { 
-       SysSecond = SysSecond - 1; 
-       var second = Math.floor(SysSecond % 60);             // 计算秒     
-       var minite = Math.floor((SysSecond / 60) % 60);      //计算分 
-       var hour = Math.floor((SysSecond / 3600) % 24);      //计算小时 
-       var day = Math.floor((SysSecond / 3600) / 24);        //计算天 
-     
-       node.html('<div class="icon_prodeta_daojishi"></div> 距离申请结束：'+"<i>"+day +"</i>"+ " 天 " + "<i>"+ hour + "</i>"+" 小时 " + "<i>"+ minite + "</i>"+" 分 " + "<i>"+second +"</i>"+ " 秒 "); 
-      } else {//剩余时间小于或等于0的时候，就停止间隔函数 
-       window.clearInterval(InterValObj); 
-       //这里可以添加倒计时时间为0后需要执行的事件 
-      } 
-     } 
-
-     InterValObj = window.setInterval(SetRemainTime, 1000);
-    });
-}); 
-</script>
-
-<script>
-$.fn.imgsizeFunction = function() { 
-  width = $(this).css('width');
-  x = (parseFloat(width)*0.68)
-  return  $(this).css('height',x+'px');
-}
-</script>
-
-<script>
-$.fn.imgsizeFunction1 = function() { 
-  width = $(this).css('width');
-  x = (parseFloat(width)*0.636)
-  return  $(this).css('height',x+'px');
-}
-</script>
-
-
-<script>
-$(function(){ 
-  $('.products-pic img').imgsizeFunction();
-  $('.hotnewsblock table img').imgsizeFunction1();
-  $('.small_img_title img').imgsizeFunction1();
-}); 
-</script>
-
-<script>
-$(window).resize(function(){
-  $('.products-pic img').imgsizeFunction();
-  $('.hotnewsblock table img').imgsizeFunction1();
-  $('.small_img_title img').imgsizeFunction1();
-});
-</script>
+<script src="/static/js/jquerypage.js"></script>
 
 <script>/*回复文章*/
 $(function() {
@@ -120,6 +58,7 @@ $(function() {
 </script>
 
 
+
 <script>/*评论回复*/
 $(function() {
  $("body").on("click", '.btn-reply', function(){
@@ -168,6 +107,7 @@ $(function() {
   })
 })
 </script>
+
 
 
 
@@ -256,6 +196,76 @@ $(function() {
 })
 </script>
 
+
+
+<script>/*倒计时*/
+$(function(){ 
+    $('.timer').each(function(){
+      var SysSecond; 
+      var InterValObj; 
+      var a = $(this).children(".products-time").text()
+      var node = $(this)
+      SysSecond = parseInt(a); 
+    /*  alert('x')*/
+     //将时间减去1秒，计算天、时、分、秒 
+     function SetRemainTime() { 
+      if (SysSecond > 0) { 
+       SysSecond = SysSecond - 1; 
+       var second = Math.floor(SysSecond % 60);             // 计算秒     
+       var minite = Math.floor((SysSecond / 60) % 60);      //计算分 
+       var hour = Math.floor((SysSecond / 3600) % 24);      //计算小时 
+       var day = Math.floor((SysSecond / 3600) / 24);        //计算天 
+     
+       node.html('<div class="icon_prodeta_daojishi"></div> 距离申请结束：'+"<i>"+day +"</i>"+ " 天 " + "<i>"+ hour + "</i>"+" 小时 " + "<i>"+ minite + "</i>"+" 分 " + "<i>"+second +"</i>"+ " 秒 "); 
+      } else {//剩余时间小于或等于0的时候，就停止间隔函数 
+       window.clearInterval(InterValObj); 
+       //这里可以添加倒计时时间为0后需要执行的事件 
+      } 
+     } 
+     InterValObj = window.setInterval(SetRemainTime, 1000);
+    });
+}); 
+</script>
+
+<script>
+$.fn.imgsizeFunction = function() { 
+  width = $(this).css('width');
+  x = (parseFloat(width)*0.68)
+  return  $(this).css('height',x+'px');
+}
+</script>
+
+<script>
+$.fn.imgsizeFunction1 = function() { 
+  width = $(this).css('width');
+  x = (parseFloat(width)*0.636)
+  return  $(this).css('height',x+'px');
+}
+</script>
+
+
+<script>
+$(function(){ 
+  $('.products-pic img').imgsizeFunction();
+  $('.hotnewsblock table img').imgsizeFunction1();
+  $('.small_img_title img').imgsizeFunction1();
+}); 
+</script>
+
+<script>
+$(window).resize(function(){
+  $('.products-pic img').imgsizeFunction();
+  $('.hotnewsblock table img').imgsizeFunction1();
+  $('.small_img_title img').imgsizeFunction1();
+});
+</script>
+
+
+
+
+
+
+
 <script>/*输入联系方式莫太框*/
 $(function() {
  $("body").on("click", '#applybutton', function(){
@@ -307,7 +317,6 @@ $(function(){
   });
   $('.rtotopsctoll').click(function(){
   $('html,body').animate({scrollTop: '0px'}, 800);}); 
-
 });
 </script>
 
@@ -458,8 +467,16 @@ $(function() {
       </div>
       <div class="modal-body">
         <h5>你确认要出价<span class="applyscoreconformprice"></span>积分吗</h5>
-<img src="/static/media/images/qrcode_for_gh_5dadb4ff2030_430.jpg" width="86px">
-<p>扫码或关注微信公众号: wutongguandian 提高申请试用成功率</p>
+
+        <div class="scorerule">
+        如何获得积分？
+        </div>
+        <div class="scorerule">
+          第1步. 帐号授权微信或微博第三方登录，授权方法：点击右上方帐号&rarr;第三方登陆授权&rarr;设置；
+        </div>
+        <div class="scorerule">
+          第2步. 在测评区回复带有<i class="score-topic"></i>的帖子.
+        </div>
 <div class="applink"><a href="http://www.wutongnews.com/topic/142/">《关于梧桐试用积分获得以及抽取试用用户的参考依据 》</a></div>
         <button type="button" class="btn btn-default btn-success myModalbtn confirmdelete" data-dismiss="modal" id="applyscoreconform">确定</button>
         <button type="button" class="btn btn-default myModalbtn" data-dismiss="modal">取消</button>
@@ -470,7 +487,7 @@ $(function() {
 
 
 
-<div class="container_products_detail_small visible-xs-block">
+<div class="container_products_detail_small visible-xs-block row">
   <div class='small_img_title'>
     <img src="{{products.get_image_url}}">
             <div class="timer">
@@ -487,7 +504,13 @@ $(function() {
           
           <div >总数量: {{products.amount}}</div>
           <div>试用数量: {{products.tryamount}}</div>
-          <div>申请人数: {{products.id|products_applyamount_count}}</div>
+          <div>申请人数: 
+                    {% if products.applyamountcount > 30 %}
+                    {{products.applyamountcount}}
+                    {% else %}
+                    {{products.id|products_applyamount_count}}
+                    {% endif %} 
+	</div>
                 {% if products.status = 1 %}
                       {% if user.is_authenticated %}
                         {% if applybutton %}
@@ -544,10 +567,20 @@ $(function() {
 
 
     <div class="container  container_products_detail">
+
+{% for item in commentdanmu %}
+<div class='danmu'>
+{{item.user}} : {{ item.text|delebq }}
+</div>
+{% endfor %}
+{% for item in payscorerecord %}
+<div class='danmu'>
+{{item.user}}出价{{item.payscore}}分
+</div>
+{% endfor %}
+
       <div class="row">
         <div class="col-sm-12">
-
-
 
           <ul id="rightsidebar">
 <li class="rtotopsctoll ">
@@ -555,6 +588,9 @@ $(function() {
 </li>
 <li class='barcomment '>
 <a href="javascript:void(0)">评论</a>
+</li>
+<li class='danmubar'>
+<a href="javascript:void(0)">弹</a>
 </li>
           </ul>
 
@@ -571,7 +607,6 @@ $(function() {
       			<img src="{{products.get_image_url}}">
       		</div>
 
-<!-- v1------------------------------- -->
       		<div class="products-info col-sm-4">
       			<div class="try-title">
       			<h4>{{products.title}}</h4>
@@ -580,18 +615,18 @@ $(function() {
 	      			<div class="try-amount-price ">
 	      				<p class="try-amount-price-price">市场价<span>{{products.price}}</span></p>
 	      				<p class="try-amount-price-amount">总数量<span>{{products.amount}}</span></p>
-	      			  <!-- <p>积分竞拍数量<span>{{products.scoreamount}}</span></p> -->
                 <div style="clear:both;"></div> 
               </div>
+		</div>
 
+	<div class='try-info-boader'>
               <div class="apply-amount ">
                 <h4><div class="icon_prodeta_xianliang"></div> 试用限量:<span>{{products.tryamount}}份</span></h4>
               </div>
 	      			<div class="apply-amount ">
-	      				<h4><div class="icon_prodeta_renshu"></div>已申请:<span>{{products.id|products_applyamount_count}}人</span></h4>
+	      				<h4><div class="icon_prodeta_renshu"></div>已申请:<span>{% if products.applyamountcount > 30 %}{{products.applyamountcount}}{% else %}{{products.id|products_applyamount_count}}{% endif %}人</span></h4>
 	      			</div>
 
-      			</div>
 		          <div class="timer">
               <div class="icon_prodeta_daojishi"></div> 距离申请结束：
 		            <span class="products-time">
@@ -617,7 +652,8 @@ $(function() {
                 {% endif %}
 
 		          </div>
-
+		<div style="clear:both;"></div>
+		</div>
 
 
 
@@ -669,7 +705,7 @@ $(function() {
                       {% endif %}
 
                       {% else %}
-                      <button type="button" class="btn btn-success" onclick="window.location.href='{% url 'loggin' %}'" >立即出价</button>
+                      <button type="button" class="btn btn-warning" onclick="window.location.href='{% url 'loggin' %}'" >立即出价</button>
                       {% endif %}
                 {% elif products.status = 2 %}
                           <button type="button" class="btn btn-warning " >已结束</button>
@@ -726,7 +762,7 @@ $(function() {
           <td>
              <a href="{{item.get_absolute_url}}" style="display:block;"><img src="{{item.get_image_url}}" >
               <div class="t-h2-hottry">
-            {{item.title}}
+		<div class="t-h2-hottry-title">{{item.title}}</div>
             <div>数量:{{item.amount}}</div>
             </div>
              </a>
