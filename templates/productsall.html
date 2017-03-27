@@ -3,38 +3,28 @@
 {% block HeadDoc %}
 <link href="/static/css/productsall.css" rel="stylesheet">
 <script src="/static/js/topic_detail.js"></script>
-<script src="/static/js/jquery-1.11.3.min.js"></script>
-<script> var $jq1113 = jQuery.noConflict(true);  </script>
- <script src="/static/js/jquery-1.4.1.min.js" type="text/javascript" charset="utf-8"></script>
-
-<script src="/static/js/jquery.featureCarousel.js"></script>
-<link href="/static/css/featureCarousel.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="/static/css/smallscreenproductsall.css"  media="screen and (max-width: 768px)">
+<link rel="stylesheet" href="/static/css/loaders.min.css">
 
-<script type="text/javascript">
-    $(document).ready(function() {
-        $("#featureCarousel").featureCarousel({
-        });
 
-    });
-</script>
+
 
 
 <script>/*加载更多*/
-$jq1113(function() {
+$(function() {
   var cur_page_num = 1;
- $jq1113("body").on("click", '#morecomment-btn-block', function(){
-    var $jq1113elements = $jq1113('.products-information');
-    var productslen = $jq1113elements.length;
+ $("body").on("click", '#morecomment-btn-block', function(){
+    var $elements = $('.products-information');
+    var productslen = $elements.length;
     /*alert(productslen)*/
-    $jq1113.ajaxSetup({
+    $.ajaxSetup({
     data: {csrfmiddlewaretoken: '{{ csrf_token }}', 
            productslen: productslen,
           /* categorytitle: '{{categorytitle}}',*/
           },
           });
 
-    $jq1113.ajax({
+    $.ajax({
         url: "{% url 'moreproducts' %}",
         type: "post",
         success: function(data) {
@@ -44,9 +34,9 @@ $jq1113(function() {
         newnode.setAttribute("id","new"+String(cur_page_num));           
         document.getElementById("morecomment").appendChild(newnode); 
 
-        $jq1113('#new'+String(cur_page_num)).load('{% url 'productspage' %}');
+        $('#new'+String(cur_page_num)).load('{% url 'productspage' %}');
 
-        $jq1113('#morecomment-btn-block').html(data.loadcompleted) 
+        $('#morecomment-btn-block').html(data.loadcompleted) 
           },
           error: function(data) { 
               alert("Got an error dude");
@@ -56,59 +46,29 @@ $jq1113(function() {
 })
 </script>
 
-<script>/*倒计时*/
-$jq1113(function(){ 
-    /*alert('ok')*/
-    $jq1113('.timer').each(function(){
-      var SysSecond; 
-      var InterValObj; 
-      var a = $jq1113(this).children(".products-time").text()
-      var node = $jq1113(this)
-      SysSecond = parseInt(a); 
-    /*  alert('x')*/
-     //将时间减去1秒，计算天、时、分、秒 
-     function SetRemainTime() { 
-      if (SysSecond > 0) { 
-       SysSecond = SysSecond - 1; 
-       var second = Math.floor(SysSecond % 60);             // 计算秒     
-       var minite = Math.floor((SysSecond / 60) % 60);      //计算分 
-       var hour = Math.floor((SysSecond / 3600) % 24);      //计算小时 
-       var day = Math.floor((SysSecond / 3600) / 24);        //计算天 
-     
-       node.html('<span class="glyphicon glyphicon-time" aria-hidden="true"></span> 距离申请结束：'+day + "天" + hour + "小时" + minite + "分" + second + "秒"); 
-      } else {//剩余时间小于或等于0的时候，就停止间隔函数 
-       window.clearInterval(InterValObj); 
-       //这里可以添加倒计时时间为0后需要执行的事件 
-      } 
-     } 
-
-     InterValObj = window.setInterval(SetRemainTime, 1000);
-    });
-}); 
-</script>
 
 <script>
-$jq1113.fn.imgsizeFunction = function() { 
-  width = $jq1113(this).css('width');
+$.fn.imgsizeFunction = function() { 
+  width = $(this).css('width');
   x = (parseFloat(width)*0.636)
-  return  $jq1113(this).css('height',x+'px');
+  return  $(this).css('height',x+'px');
 }
 </script>
 
 <script>
-$jq1113(function(){ 
-  $jq1113('.products-img a img').imgsizeFunction();
+$(function(){ 
+  $('.products-img a img').imgsizeFunction();
 }); 
 </script>
 
 <script>
-$jq1113(window).resize(function(){
-  $jq1113('.products-img a img').imgsizeFunction();
+$(window).resize(function(){
+  $('.products-img a img').imgsizeFunction();
 });
 </script>
 
 <script>
-$jq1113(window).resize(function(){
+$(window).resize(function(){
 });
 </script>
 
@@ -126,18 +86,18 @@ $jq1113(window).resize(function(){
 
 
 <script>
-$jq1113(function(){ 
-  width = $jq1113(".products-information").css('width');
-  $jq1113(".timer-line").css('width',parseFloat(width)-6+'px');
-  $jq1113(".timer").css('width',parseFloat(width)-6+'px');
+$(function(){ 
+  width = $(".products-information").css('width');
+  $(".timer-line").css('width',parseFloat(width)-6+'px');
+  $(".timer").css('width',parseFloat(width)-6+'px');
 }); 
 </script>
 
 <script>
-$jq1113(window).resize(function(){
-  width = $jq1113(".products-information").css('width');
-  $jq1113(".timer-line").css('width',parseFloat(width)-6+'px');
-  $jq1113(".timer").css('width',parseFloat(width)-6+'px');
+$(window).resize(function(){
+  width = $(".products-information").css('width');
+  $(".timer-line").css('width',parseFloat(width)-6+'px');
+  $(".timer").css('width',parseFloat(width)-6+'px');
 });
 </script>
 
@@ -145,25 +105,25 @@ $jq1113(window).resize(function(){
 
 
 <script type="text/javascript">
-$jq1113(document).ready(function(){
-$jq1113(".bannerinfo").mouseenter(function(){
-      /*$jq1113('.bannerinfo').scrollTop(105);*/
-      $jq1113('.bannerinfo').animate({scrollTop: '150px'}, 200);
+$(document).ready(function(){
+$(".bannerinfo").mouseenter(function(){
+      /*$('.bannerinfo').scrollTop(105);*/
+      $('.bannerinfo').animate({scrollTop: '150px'}, 200);
   });
-  $jq1113(".bannerinfo").mouseleave(function(){
-      $jq1113('.bannerinfo').animate({scrollTop: '0px'}, 200);
+  $(".bannerinfo").mouseleave(function(){
+      $('.bannerinfo').animate({scrollTop: '0px'}, 200);
   });
 });
 </script>
 
 
 <script type="text/javascript">
-$jq1113(document).ready(function(){
-$jq1113(".products-hover-box").mouseenter(function(){
-      $jq1113(this).animate({scrollTop: '60px'}, 200);
+$(document).ready(function(){
+$(".products-hover-box").mouseenter(function(){
+      $(this).animate({scrollTop: '60px'}, 200);
   });
-  $jq1113(".products-hover-box").mouseleave(function(){
-      $jq1113(this).animate({scrollTop: '0px'}, 200);
+  $(".products-hover-box").mouseleave(function(){
+      $(this).animate({scrollTop: '0px'}, 200);
   });
 });
 </script>
@@ -187,6 +147,46 @@ $(function(){
 });
 </script>
 
+<script type="text/javascript">
+window.onload=function(){ 
+    $("#overlay").fadeTo(200, 0.5);
+    $('#productsallpage').load('{% url 'productsallpage' %}');
+} 
+</script>
+
+<script>/*daka*/
+$(function() {
+ $("body").on("click", '.daka', function(){
+
+    $.ajaxSetup({
+    data: {csrfmiddlewaretoken: '{{ csrf_token }}', 
+          userid: {{user.id}},
+          },
+          });
+    $.ajax({
+        url: "{% url 'daka' %}",
+        type: "post",
+        success: function(data) {
+          if (data.mess == "succ"){
+              $.messager.popup("打卡成功!");
+              $(".modal.msg-popup .modal-body").css({
+                  'color': '#449d44',
+                  "background-color":"#CCF4D9",
+                  });}
+          else if (data.mess == "err"){
+                $.messager.popup("重复打卡！");
+                $(".modal.msg-popup .modal-body").css({
+                    'color': '#a94442',
+                    "background-color":"#f2dede",
+                    });}
+          },
+          error: function(data) { 
+            /*alert('Error')*/
+          }
+    });
+  })
+})
+</script>
 {% endblock %}
 
  {% block content %}
@@ -194,323 +194,13 @@ $(function(){
 
 <ul id="rightsidebar">
 <li class="rtotopsctoll">
-  <!-- <a href="javascript:void(0)"></a> -->
  <a href="javascript:void(0)"><em></em></a> 
 </li>
-<!-- <li class='barcomment img-circle'>
-  <a href="javascript:void(0)">评论</a>
-</li> -->
+<li class="daka">
+  <a href="javascript:void(0)">打卡</a> 
+</li>
 </ul>
 
-<div class='demotitlexx hidden-xs'>
-<div class="container">
-  <div class='demotitle'>热门试用</div>
-
-       <div id="featureCarousel">
-            <div class="feature" id='featurexx'>
-                <a href="{{products0.get_absolute_url}}"><img alt="Image Caption" src="{{products0.get_image_url}}"></a>
-
-
-                <div class="tuijiantuceng" style="display: none !important;">
-                </div><!-- <div class="tuijiantuceng"> -->
-
-
-                <div class='bannerinfo'>
-<div class="remenshenqing">热门申请</div>
-<a href="{{products0.get_absolute_url}}">
-<div class="featureCarouselword">{{products0.title}}</div>
-</a>
-                  <div class="mianfeishiyong">免费试用</div>
-                  <div class="mianfeishiyonginfo-first">
-                    <div class="mianfeishiyonginfo0">
-                      <div class="mianfeishiyonginfo00">
-                      </div>
-                      <div class="mianfeishiyonginfo01">
-                        已申请
-                      </div>
-                    </div>
-                      <div class="mianfeishiyonginfo04">
-                      <span class="mianfeishiyonginfo02">
-                    {% if products0.applyamountcount > 30 %}
-                    {{products0.applyamountcount}}
-                    {% else %}
-                    {{products0.id|products_applyamount_count}}
-                    {% endif %} 
-                        </span>
-                      <span class="mianfeishiyonginfo03">人</span>
-                      </div>
-                  </div>
-
-                      <div class="shiyongfenge">
-                      </div>
-                  <div class="mianfeishiyonginfo">
-                    <div class="mianfeishiyonginfo0">
-                      <div class="mianfeishiyonginfo30">
-                      </div>
-                      <div class="mianfeishiyonginfo01">
-                        限量
-                      </div>
-                    </div>
-                      <div class="mianfeishiyonginfo04">
-                      <span class="mianfeishiyonginfo02">
-                        {{products0.amount}}
-                        </span>
-                      </div>
-                  </div>
-
-                      <div class="shiyongfenge">
-                      </div>
-                  <div class="mianfeishiyonginfo">
-                    <div class="mianfeishiyonginfo0">
-                      <div class="mianfeishiyonginfo10">
-                      </div>
-                      <div class="mianfeishiyonginfo01">
-                        当前价
-                      </div>
-                    </div>
-                      <div class="mianfeishiyonginfo04">
-                  {% if products0.ifscore %}
-                      <span class="mianfeishiyonginfo02">
-                        {{products0.scoreing}}
-                        </span>
-                      <span class="mianfeishiyonginfo03">积分</span>
-                  {% else %}
-                      <span class="mianfeishiyonginfo02">
-                        </span>
-                        <span class="mianfeishiyonginfo03">不参与积分竞拍</span>
-                      <span class="mianfeishiyonginfo03"></span>
-                  {% endif %}
-                      </div>
-                  </div>
-                      <div class="shiyongfenge">
-                      </div>
-                  <div class="mianfeishiyonginfo">
-                    <div class="mianfeishiyonginfo0">
-                      <div class="mianfeishiyonginfo20">
-                      </div>
-                      <div class="mianfeishiyonginfo01">
-                        剩余时间
-                      </div>
-                    </div>
-                      <div class="mianfeishiyonginfo04">
-                        {% if products0.ret_timesince_day >= 0 %}
-                      <span class="mianfeishiyonginfo02">
-                        {{ products0.ret_timesince_day}}
-                        </span>
-                      <span class="mianfeishiyonginfo03">天</span>
-                      {% else %}
-                      <span class="mianfeishiyonginfo03">已结束</span>
-                      {% endif %}
-                      </div>
-                  </div>
-                    <p> </p>
-                </div>
-            </div>
-
-
-            <div class="feature">
-                <a href="{{products1.get_absolute_url}}"><img alt="Image Caption" src="{{products1.get_image_url}}"></a>
-
-                <div class="tuijiantuceng" style="display: none !important;">
-                </div><!-- <div class="tuijiantuceng"> -->
-
-                <div class='bannerinfo'>
-<div class="remenshenqing">热门申请</div>
-<a href="{{products1.get_absolute_url}}">
-<div class="featureCarouselword">{{products1.title}}</div>
-</a>
-                  <div class="mianfeishiyong">免费试用</div>
-                  <div class="mianfeishiyonginfo-first">
-                    <div class="mianfeishiyonginfo0">
-                      <div class="mianfeishiyonginfo00">
-                      </div>
-                      <div class="mianfeishiyonginfo01">
-                        已申请
-                      </div>
-                    </div>
-                      <div class="mianfeishiyonginfo04">
-                      <span class="mianfeishiyonginfo02">
-                    {% if products1.applyamountcount > 30 %}
-                    {{products1.applyamountcount}}
-                    {% else %}
-                    {{products1.id|products_applyamount_count}}
-                    {% endif %} 
-                        </span>
-                      <span class="mianfeishiyonginfo03">人</span>
-                      </div>
-                  </div>
-
-                      <div class="shiyongfenge">
-                      </div>
-                  <div class="mianfeishiyonginfo">
-                    <div class="mianfeishiyonginfo0">
-                      <div class="mianfeishiyonginfo30">
-                      </div>
-                      <div class="mianfeishiyonginfo01">
-                        限量
-                      </div>
-                    </div>
-                      <div class="mianfeishiyonginfo04">
-                      <span class="mianfeishiyonginfo02">
-                        {{products1.amount}}
-                        </span>
-                      </div>
-                  </div>
-
-                      <div class="shiyongfenge">
-                      </div>
-                  <div class="mianfeishiyonginfo">
-                    <div class="mianfeishiyonginfo0">
-                      <div class="mianfeishiyonginfo10">
-                      </div>
-                      <div class="mianfeishiyonginfo01">
-                        当前价
-                      </div>
-                    </div>
-                      <div class="mianfeishiyonginfo04">
-                  {% if products1.ifscore %}
-                      <span class="mianfeishiyonginfo02">
-                        {{products1.scoreing}}
-                        </span>
-                      <span class="mianfeishiyonginfo03">积分</span>
-                  {% else %}
-                      <span class="mianfeishiyonginfo02">
-                        </span>
-                        <span class="mianfeishiyonginfo03">不参与积分竞拍</span>
-                      <span class="mianfeishiyonginfo03"></span>
-                  {% endif %}
-                      </div>
-                  </div>
-                      <div class="shiyongfenge">
-                      </div>
-                  <div class="mianfeishiyonginfo">
-                    <div class="mianfeishiyonginfo0">
-                      <div class="mianfeishiyonginfo20">
-                      </div>
-                      <div class="mianfeishiyonginfo01">
-                        剩余时间
-                      </div>
-                    </div>
-                      <div class="mianfeishiyonginfo04">
-                        {% if products1.ret_timesince_day >= 0 %}
-                      <span class="mianfeishiyonginfo02">
-                        {{ products1.ret_timesince_day}}
-                        </span>
-                      <span class="mianfeishiyonginfo03">天</span>
-                      {% else %}
-                      <span class="mianfeishiyonginfo03">已结束</span>
-                      {% endif %}
-                      </div>
-                  </div>
-                    <p>
-                    </p>
-                </div>
-            </div>
-            <div class="feature">
-                <a href="{{products2.get_absolute_url}}"><img alt="Image Caption" src="{{products2.get_image_url}}"></a>
-
-
-                <div class="tuijiantuceng" style="display: none !important;">
-                </div><!-- <div class="tuijiantuceng"> -->
-
-
-                <div class='bannerinfo'>
-<div class="remenshenqing">热门申请</div>
-<a href="{{products2.get_absolute_url}}">
-<div class="featureCarouselword">{{products2.title}}</div>
-</a>
-                  <div class="mianfeishiyong">免费试用</div>
-                  <div class="mianfeishiyonginfo-first">
-                    <div class="mianfeishiyonginfo0">
-                      <div class="mianfeishiyonginfo00">
-                      </div>
-                      <div class="mianfeishiyonginfo01">
-                        已申请
-                      </div>
-                    </div>
-                      <div class="mianfeishiyonginfo04">
-                      <span class="mianfeishiyonginfo02">
-                    {% if products2.applyamountcount > 30 %}
-                    {{products2.applyamountcount}}
-                    {% else %}
-                    {{products2.id|products_applyamount_count}}
-                    {% endif %} 
-                        </span>
-                      <span class="mianfeishiyonginfo03">人</span>
-                      </div>
-                  </div>
-
-                      <div class="shiyongfenge">
-                      </div>
-                  <div class="mianfeishiyonginfo">
-                    <div class="mianfeishiyonginfo0">
-                      <div class="mianfeishiyonginfo30">
-                      </div>
-                      <div class="mianfeishiyonginfo01">
-                        限量
-                      </div>
-                    </div>
-                      <div class="mianfeishiyonginfo04">
-                      <span class="mianfeishiyonginfo02">
-                        {{products2.amount}}
-                        </span>
-                      </div>
-                  </div>
-
-                      <div class="shiyongfenge">
-                      </div>
-                  <div class="mianfeishiyonginfo">
-                    <div class="mianfeishiyonginfo0">
-                      <div class="mianfeishiyonginfo10">
-                      </div>
-                      <div class="mianfeishiyonginfo01">
-                        当前价
-                      </div>
-                    </div>
-                      <div class="mianfeishiyonginfo04">
-
-                  {% if products2.ifscore %}
-                      <span class="mianfeishiyonginfo02">
-                        {{products2.scoreing}}
-                        </span>
-                      <span class="mianfeishiyonginfo03">积分</span>
-                  {% else %}
-                      <span class="mianfeishiyonginfo02">
-                        </span>
-                        <span class="mianfeishiyonginfo03">不参与积分竞拍</span>
-                      <span class="mianfeishiyonginfo03"></span>
-                  {% endif %}
-
-                      </div>
-                  </div>
-                      <div class="shiyongfenge">
-                      </div>
-                  <div class="mianfeishiyonginfo">
-                    <div class="mianfeishiyonginfo0">
-                      <div class="mianfeishiyonginfo20">
-                      </div>
-                      <div class="mianfeishiyonginfo01">
-                        剩余时间
-                      </div>
-                    </div>
-                      <div class="mianfeishiyonginfo04">
-                        {% if products2.ret_timesince_day >= 0 %}
-                      <span class="mianfeishiyonginfo02">
-                        {{ products2.ret_timesince_day}}
-                        </span>
-                      <span class="mianfeishiyonginfo03">天</span>
-                      {% else %}
-                      <span class="mianfeishiyonginfo03">已结束</span>
-                      {% endif %}
-                      </div>
-                  </div>
-                    <p>
-                    </p>
-                </div>
-            </div>
-        </div><!-- <div id="featureCarousel"> -->
-        </div><!-- <div class="container"> -->
-</div><!--  <div class='demotitlexxt'></div> -->
 
 
 <div class="try-introduce-block-outline container  hidden-xs">
@@ -524,7 +214,7 @@ $(function(){
   <div class="try-step" style="background-image: url(/static/media/images/shiyongstep1.png); "></div>
   <div class="try-step2">
   <h4>试用申请</h4>
-  <p>点击申请按钮，即可参加试用活动</p>
+  <p>用户申请试用</p>
   </div>
   <div class="try-step3">
   </div>
@@ -542,7 +232,7 @@ $(function(){
   <div class="try-step" style="background-image: url(/static/media/images/shiyongstep3.png);"></div>
     <div class="try-step2">
   <h4>开始体验</h4>
-  <p>用户接收我们快递的试用产品后开始体验</p>
+  <p>用户开始体验试用产品</p>
   </div>
     <div class="try-step3">
   </div>
@@ -551,7 +241,7 @@ $(function(){
   <div class="try-step" style="background-image: url(/static/media/images/shiyongstep4.png);"></div>
   <div class="try-step4">
   <h4>评论提交</h4>
-  <p>用户试用后在产品申请试用页面下提交体验评论</p>
+  <p>用户在社区提交试用测评</p>
   </div>
 
 </div>
@@ -578,132 +268,14 @@ $(function(){
 </div>
 
     <div class="container">
-
-      <div class="row">
-
-<div class="col-sm-12 products-list">
-  
-    {% for item in products %}
-    <div class="col-sm-3">
-      <div class="products-information" >
-
-
-        <div class="products-img">
-
-
-          {% if item.status = 1 %}
-          <a href="{{item.get_absolute_url}}">
-            <img src="{{item.get_image_url}}">
-          </a>
-          {% endif %}
-          {% if item.status = 2 %}
-          <a href="{{item.get_apply_url}}">
-            <img src="{{item.get_image_url}}">
-          </a>
-          {% endif %}
-          {% if item.status = 3 %}
-          <a href="{{item.get_report_url}}">
-            <img src="{{item.get_image_url}}">
-          </a>
-          {% endif %}
-
-          {% if item.status = 1 %}
-          <span class="mark apply-mark">申请中</span>
-          {% endif %}
-          {% if item.status = 2 %}
-          <span class="mark experience-mark">体验中</span>
-          {% endif %}
-          {% if item.status = 3 %}
-          <span class="mark end-mark">已结束</span>
-          {% endif %}
-
-          {% if item.ret_timesince_sec >= 0 %}
-          <div class="timer-line">
-          </div>
-          <div class="timer">
-            <div class="products-time">
-              {{ item.ret_timesince_sec}}
-            </div>          
-          </div>
-          {% else %}
-          {% endif %}
-
-<div class="products-hover-box">
-          <div class="products-title">
-
-          {% if item.status = 1 %}
-            <a href="{{item.get_absolute_url}}">
-            {{ item.title}}
-            </a>
-          {% endif %}
-          {% if item.status = 2 %}
-            <a href="{{item.get_apply_url}}">
-            {{ item.title}}
-            </a>
-          {% endif %}
-          {% if item.status = 3 %}
-            <a href="{{item.get_report_url}}">
-            {{ item.title}}
-            </a>
-          {% endif %}
-
-          </div> 
-          <div class="try-info">
-            <!-- <span class="amount">数量：{{item.amount}}</span> -->
-            <span class="applyNums"><span class="applyNums-size">{% if item.applyamountcount > 30 %}{{item.applyamountcount}}{% else %}{{item.id|products_applyamount_count}}{% endif %}人</span>申请</span>
-            <!-- <span class="amount">数量：{{item.amount}}</span> -->
-          {% if item.status != 1 %}
-            <span class="openprice">测评话题：{{item.reportnum}}</span>
-          {% else %}
-            <!-- <span class="openprice">市场价：{{item.price}}</span> -->
-            <span class="amount">限量：{{item.amount}}</span>
-          {% endif %}
-          </div> 
-
-
-        {% if item.ifscore %}
-          <div class="score-info">
-            <!-- <span class="amount">数量：{{item.amount}}</span> -->
-            {% if item.status != 1 %}
-            <span class="applyNums">最终价: <span class="applyNums-size">{{item.scoreing}}</span>积分</span>
-             {% else %}            
-            <span class="applyNums">当前价: <span class="applyNums-size">{{item.scoreing}}</span>积分</span>             
-             {% endif %}
-            <span class="amount">积分竞拍数量：{{item.scoreamount}}</span>
-          </div> 
-        {% else %} 
-          <div class="score-info">
-            <!-- <span class="amount">数量：{{item.amount}}</span> -->
-            {% if item.status != 1 %}
-            <span class="applyNums">最终价: <span class="applyNums-size" style="text-decoration: line-through;">0</span>积分</span>
-             {% else %}            
-            <span class="applyNums">当前价: <span class="applyNums-size" style="text-decoration: line-through;">0</span>积分</span>             
-             {% endif %}
-            <span class="amount">不参与积分竞拍</span>
-          </div> 
-        {% endif %}
-
-          <div class="try-info-price">
-            <span class="applyNums">官方价</span>
-            <span class="amount" style="font-family:Arial;"> &yen; {{item.price}}</span>
-          </div> 
-</div><!-- <div class="products-hover-box"> -->
-
-
-        </div><!-- <div class="products-img"> -->
-      </div> <!-- <div class="products-information" > -->
-    </div><!-- <div class="col-sm-4"> -->
-    {% endfor %}
-<div id="morecomment">
-</div>
-<div class="clearfix"></div>
-<div id="btn-div-block">
- <button  id="morecomment-btn-block" type="button" class='btn btn-lg btn-default btn-block' >加载更多</button> 
+<div id="productsallpage">
+ <div id='overlay'>
+<div class="slice">
+<div data-loader="circle"  >
 </div>
 </div>
-
-
-      </div><!-- row -->
+ </div>
+</div>
 
     </div> <!-- /container -->
  {% endblock %}

@@ -3,7 +3,7 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render, redirect
 from django.http import Http404
-from .models import  Topiccommentreply,   Topicwritereply, Topicusercomment, Group, Topic, TopicForm, CollectionTopic, Groupmanager, TopicLike
+from .models import Daka,  Topiccommentreply,   Topicwritereply, Topicusercomment, Group, Topic, TopicForm, CollectionTopic, Groupmanager, TopicLike
 from django.contrib import messages
 from article.form import CommentForm
 from comment.models import Comment
@@ -22,9 +22,10 @@ from django.contrib.auth.decorators import login_required
 import datetime
 from datetime import timedelta
 from django.conf import settings
-from article.tasks import topiccommentreplyplus,  topicwritereplyplus, topiccommentplus, readersin, add, instancesave, topiczanplus, topiczanminus, instancedelete
+from article.tasks import dakascore, topiccommentreplyplus,  topicwritereplyplus, topiccommentplus, readersin, add, instancesave, topiczanplus, topiczanminus, instancedelete
 from django.core.cache import cache
 from django.core.urlresolvers import reverse
+import time
 # from .forms import TopicForm
 GROUP_ALL_GROUP_TIMERANGE = 30#话题组首页显示的话题的时间范围
 TOPIC_DETAIL_HOTCOMMENT_READERSRANGE = 3 #最热回复的门限制
@@ -33,14 +34,74 @@ import os
 # Create your views here.
 #话题组首页
 def group_all(request):
-	group = Group.objects.all().order_by("-topicount")
-	#最近一个按热度排序; timestamp__gte=datetime.date.today(): 时间大于今天
-	topic = Topic.objects.all().filter(timestamp__gte=datetime.date.today() - timedelta(days=GROUP_ALL_GROUP_TIMERANGE)).order_by("-readers")[0:10]
-	context = {
-		'group': group,
-		'topic': topic,
-		}
-	return render(request, 'group_all.html',  context)
+        try:
+		page = request.GET.get('page')
+		request.session['groupallpage'] = page
+                hottopic = Topic.objects.filter(timestamp__gte=datetime.date.today() - timedelta(days=TOPIC_DETAIL_HOTTOPIC_TIMERAGE)).exclude(pk=142).exclude(pk=171).order_by('-readers')[0:5]
+                scorerank=MyUser.objects.exclude(pk=53).exclude(pk=519).order_by('-score')[0:5]
+                groupall = Group.objects.all().exclude(id=11)
+		request.session['lastpage'] = request.get_full_path()
+                context = {
+                        'groupall': groupall,
+                        'hottopic': hottopic,
+                        'scorerank':scorerank,
+                        }
+        except Group.DoesNotExist:
+                raise Http404("Does not exist")
+        return render(request, 'group_all.html',  context)
+
+def groupallpage(request):
+
+    topic = Topic.objects.all().order_by("-updated").filter(savetext = False).exclude(group=11).exclude(group = 19)
+    topicount = topic.count()
+    topicstickied = Topic.objects.all().filter(group = 11)
+    # 分页
+    paginator = Paginator(topic, 16)
+    page = request.session['groupallpage']
+    if page and int(page)>1:
+            topicstickied = None
+    try:
+            contacts = paginator.page(page)
+    except PageNotAnInteger:
+    # If page is not an integer, deliver first page.
+            contacts = paginator.page(1)
+    except EmptyPage:
+    # If page is out of range (e.g. 9999), deliver last page of results.
+            contacts = paginator.page(paginator.num_pages)
+
+
+    pagerange = contacts.paginator.page_range
+    last_page = contacts.paginator.page_range[-1]
+    if contacts.paginator.page_range[-1] > 8 and contacts.number<=5:
+            pagerange = range(1,8)
+            ellipsis_front = False
+            ellipsis_real = True
+    elif contacts.paginator.page_range[-1] > 8 and contacts.number+4>contacts.paginator.page_range[-1] and contacts.number>5:
+            pagerange = range(contacts.paginator.page_range[-1]-6, contacts.paginator.page_range[-1]+1)
+            ellipsis_front = True
+            ellipsis_real = False
+    elif contacts.paginator.page_range[-1] > 8 and contacts.number+4<=contacts.paginator.page_range[-1] and contacts.number>5:
+            pagerange = range(contacts.number-3, contacts.number+4)
+            ellipsis_front = True
+            ellipsis_real = True
+    else:
+            ellipsis_front = False
+            ellipsis_real = False
+
+    context = {
+            'topic': contacts,
+            'pagerange': pagerange,
+            'ellipsis_front': ellipsis_front,
+            'ellipsis_real': ellipsis_real,
+            'last_page': last_page,
+            'topicstickied': topicstickied,
+            'topicount':topicount,
+            }
+
+    return render(request, 'groupallpage.html',  context)
+
+
+
 
 #更多话题按钮
 def moretopic(request):
@@ -82,93 +143,159 @@ def group_index(request):
 #话题组首页
 def group_detail(request, group_id):
 	try:
+		request.session['groupdetailid'] = group_id
 		group = Group.objects.get(pk=group_id)
 #		groupall = Group.objects.all().order_by("-topicount")
-		if int(group_id) == 11:
-			topic = Topic.objects.all().order_by("-updated").filter(savetext = False).exclude(pk=142).exclude(pk=171).exclude(group = 19)
-			topicount = topic.count()
-		else:
-			topic = group.topic_set.all().order_by("-updated").filter(savetext = False).exclude(pk=142).exclude(pk=171)
-			topicount = topic.count()
 		managers = Groupmanager.objects.filter(group = group)
-		topicstickied1 = Topic.objects.get(pk=142)
-		topicstickied2 = Topic.objects.get(pk=171)
-		topicstickied = [topicstickied1, topicstickied2]
-		# 分页
-		paginator = Paginator(topic, 16)
-		page = request.GET.get('page')
-		if page and int(page)>1:
-			topicstickied = None
-		try:
-			contacts = paginator.page(page)
-		except PageNotAnInteger:
-		# If page is not an integer, deliver first page.
-			contacts = paginator.page(1)
-		except EmptyPage:
-		# If page is out of range (e.g. 9999), deliver last page of results.
-			contacts = paginator.page(paginator.num_pages)
 		request.session['group'] = group.title
 		request.session['lastpage'] = request.get_full_path()
+		page = request.GET.get('page')
+		request.session['groupdetailpage'] = page
 
-		pagerange = contacts.paginator.page_range
-		last_page = contacts.paginator.page_range[-1]
-		print last_page
-		if contacts.paginator.page_range[-1] > 8 and contacts.number<=5:
-			pagerange = range(1,8) 
-			ellipsis_front = False
-			ellipsis_real = True
-		elif contacts.paginator.page_range[-1] > 8 and contacts.number+4>contacts.paginator.page_range[-1] and contacts.number>5:
-			pagerange = range(contacts.paginator.page_range[-1]-6, contacts.paginator.page_range[-1]+1)
-			ellipsis_front = True
-			ellipsis_real = False
-		elif contacts.paginator.page_range[-1] > 8 and contacts.number+4<=contacts.paginator.page_range[-1] and contacts.number>5:
-			pagerange = range(contacts.number-3, contacts.number+4)
-			ellipsis_front = True
-			ellipsis_real = True
-		else:
-			ellipsis_front = False
-			ellipsis_real = False
-
-		if int(group_id) == 11:
-			hottopic = Topic.objects.filter(timestamp__gte=datetime.date.today() - timedelta(days=TOPIC_DETAIL_HOTTOPIC_TIMERAGE)).exclude(pk=142).exclude(pk=171).order_by('-readers')[0:5]
-		else:
-			hottopic = Topic.objects.filter(group=group).filter(timestamp__gte=datetime.date.today() - timedelta(days=TOPIC_DETAIL_HOTTOPIC_TIMERAGE)).exclude(pk=142).exclude(pk=171).order_by('-readers')[0:5]
+		hottopic = Topic.objects.filter(group=group).filter(timestamp__gte=datetime.date.today() - timedelta(days=TOPIC_DETAIL_HOTTOPIC_TIMERAGE)).exclude(pk=142).exclude(pk=171).order_by('-readers')[0:5]
 
 		scorerank=MyUser.objects.exclude(pk=53).exclude(pk=519).order_by('-score')[0:5]
-		groupall = Group.objects.all()
+		groupall = Group.objects.all().exclude(id=11)
 		context = {
 			'groupall': groupall,
 			'hottopic': hottopic,
 			'group': group,
-			'topic': contacts,
-			'pagerange': pagerange,
-			'ellipsis_front': ellipsis_front,
-			'ellipsis_real': ellipsis_real,
-			'last_page': last_page,
 			'managers': managers,
-			'topicstickied': topicstickied,
 			'scorerank':scorerank,
-			'topicount':topicount,
 			}
 	except Group.DoesNotExist:
 		raise Http404("Does not exist")
 	return render(request, 'group_detail.html',  context)
 
+
+def groupdetailpage(request):
+    try:
+    	group_id = request.session['groupdetailid']
+        group = Group.objects.get(pk=group_id)
+#               groupall = Group.objects.all().order_by("-topicount")
+        topic = group.topic_set.all().order_by("-updated").filter(savetext = False).exclude(group=11)
+        topicount = topic.count()
+        managers = Groupmanager.objects.filter(group = group)
+        topicstickied = Topic.objects.all().filter(group = 11)
+        # 分页
+        paginator = Paginator(topic, 16)
+        page = request.session['groupdetailpage']
+        if page and int(page)>1:
+                topicstickied = None
+        try:
+                contacts = paginator.page(page)
+        except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+                contacts = paginator.page(1)
+        except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+                contacts = paginator.page(paginator.num_pages)
+        request.session['group'] = group.title
+        pagerange = contacts.paginator.page_range
+        last_page = contacts.paginator.page_range[-1]
+        if contacts.paginator.page_range[-1] > 8 and contacts.number<=5:
+                pagerange = range(1,8)
+                ellipsis_front = False
+                ellipsis_real = True
+        elif contacts.paginator.page_range[-1] > 8 and contacts.number+4>contacts.paginator.page_range[-1] and contacts.number>5:
+                pagerange = range(contacts.paginator.page_range[-1]-6, contacts.paginator.page_range[-1]+1)
+                ellipsis_front = True
+                ellipsis_real = False
+        elif contacts.paginator.page_range[-1] > 8 and contacts.number+4<=contacts.paginator.page_range[-1] and contacts.number>5:
+                pagerange = range(contacts.number-3, contacts.number+4)
+                ellipsis_front = True
+                ellipsis_real = True
+        else:
+                ellipsis_front = False
+                ellipsis_real = False
+        context = {
+                'group': group,
+                'topic': contacts,
+                'pagerange': pagerange,
+                'ellipsis_front': ellipsis_front,
+                'ellipsis_real': ellipsis_real,
+                'last_page': last_page,
+                'topicstickied': topicstickied,
+                'topicount':topicount,
+                }
+    except Group.DoesNotExist:
+            raise Http404("Does not exist")
+    return render(request, 'groupdetailpage.html',  context)
+
+
+
+def groupall_score(request):
+        try:
+
+
+                topic = Topic.objects.all().order_by("-updated").filter(savetext = False).filter(score = True).exclude(group=11).exclude(group = 19)
+                topicount = topic.count()
+		topicstickied = Topic.objects.all().filter(group = 11)
+                # 分页
+                paginator = Paginator(topic, 16)
+                page = request.GET.get('page')
+                if page and int(page)>1:
+                        topicstickied = None
+                try:
+                        contacts = paginator.page(page)
+                except PageNotAnInteger:
+                # If page is not an integer, deliver first page.
+                        contacts = paginator.page(1)
+                except EmptyPage:
+                # If page is out of range (e.g. 9999), deliver last page of results.
+                        contacts = paginator.page(paginator.num_pages)
+
+                request.session['lastpage'] = request.get_full_path()
+
+                hottopic = Topic.objects.filter(timestamp__gte=datetime.date.today() - timedelta(days=TOPIC_DETAIL_HOTTOPIC_TIMERAGE)).exclude(pk=142).exclude(pk=171).order_by('-readers')[0:5]
+                scorerank=MyUser.objects.exclude(pk=53).exclude(pk=519).order_by('-score')[0:5]
+                groupall = Group.objects.all().exclude(id=11)
+                context = {
+                        'groupall': groupall,
+                        'hottopic': hottopic,
+                        'topic': contacts,
+                        'topicstickied': topicstickied,
+                        'scorerank':scorerank,
+                        'topicount':topicount,
+                        }
+        except Group.DoesNotExist:
+                raise Http404("Does not exist")
+        return render(request, 'groupall_score.html',  context)
+
+
+@login_required(login_url='/user/loggin/')
+def daka(request):
+	if request.is_ajax():
+		userid = request.POST.get('userid')
+		user = MyUser.objects.get(id = userid)
+		try:
+			Daka.objects.get(user = user, date = datetime.date.today())
+			info = "err"
+			userdate = ""
+		except:
+			daka = Daka(user = user, date = datetime.date.today())
+			daka.save()
+			userdate = Daka.objects.filter(user = user).count()
+			dakascore.delay(user)
+			info = "succ"
+	data = {
+		"mess": info,
+		"dakatime": time.strftime('%Y年%m月%d日 %H时%M分',time.localtime(time.time())),
+		"userdate": userdate,
+	}
+	json_data = json.dumps(data)
+	return HttpResponse(json_data, content_type='application/json')
+
+
 def group_score(request, group_id):
 	try:
 		group = Group.objects.get(pk=group_id)
 #		groupall = Group.objects.all().order_by("-topicount")
-		if int(group_id) == 11:
-			topic = Topic.objects.all().order_by("-updated").filter(savetext = False).filter(score = True).exclude(pk=142).exclude(pk=171).exclude(group = 19)
-			topicount = topic.count()
-		else:
-			topic = group.topic_set.all().order_by("-updated").filter(savetext = False).filter(score = True).exclude(pk=142).exclude(pk=171)
-			topicount = topic.count()
+		topic = group.topic_set.all().order_by("-updated").filter(savetext = False).filter(score = True).exclude(group=11)
+		topicount = topic.count()
 
 		managers = Groupmanager.objects.filter(group = group)
-		topicstickied1 = Topic.objects.get(pk=142)
-		topicstickied2 = Topic.objects.get(pk=171)
-		topicstickied = [topicstickied1, topicstickied2]
+		topicstickied = Topic.objects.all().filter(group = 11)
 		# 分页
 		paginator = Paginator(topic, 16)
 		page = request.GET.get('page')
@@ -184,14 +311,11 @@ def group_score(request, group_id):
 			contacts = paginator.page(paginator.num_pages)
 		request.session['group'] = group.title
 		request.session['lastpage'] = request.get_full_path()
-                if int(group_id) == 11:
-                        hottopic = Topic.objects.filter(timestamp__gte=datetime.date.today() - timedelta(days=TOPIC_DETAIL_HOTTOPIC_TIMERAGE)).exclude(pk=142).exclude(pk=171).order_by('-readers')[0:5]
-                else:
-                        hottopic = Topic.objects.filter(group=group).filter(timestamp__gte=datetime.date.today() - timedelta(days=TOPIC_DETAIL_HOTTOPIC_TIMERAGE)).exclude(pk=142).exclude(pk=171).order_by('-readers')[0:5]
+                hottopic = Topic.objects.filter(group=group).filter(timestamp__gte=datetime.date.today() - timedelta(days=TOPIC_DETAIL_HOTTOPIC_TIMERAGE)).exclude(pk=142).exclude(pk=171).order_by('-readers')[0:5]
 
 
 		scorerank=MyUser.objects.exclude(pk=53).exclude(pk=519).order_by('-score')[0:5]
-		groupall = Group.objects.all()
+		groupall = Group.objects.all().exclude(id=11)
 		context = {
 			'groupall': groupall,
 			'hottopic': hottopic,
@@ -212,6 +336,7 @@ def group_score(request, group_id):
 def topic_detail(request, topic_id):
 	try:
 		topic = Topic.objects.get(pk=topic_id)
+		request.session['topicdetailid'] = topic_id
 		user = topic.writer
 		sender = request.user
 		if user == sender:
@@ -251,7 +376,6 @@ def topic_detail(request, topic_id):
 	user = request.user
 	#读者是否收藏该文章
 	collection = CollectionTopic.objects.filter(topic=topic, user=user.id)
-	print type(collection)
 	if collection: 
 		collection = '已收藏'
 	else:
@@ -259,6 +383,7 @@ def topic_detail(request, topic_id):
 	# 分页
 	paginator = Paginator(comment, 12)
 	page = request.GET.get('page')
+	request.session['topiccommentpage'] = page
 	try:
 		contacts = paginator.page(page)
 	except PageNotAnInteger:
@@ -269,7 +394,10 @@ def topic_detail(request, topic_id):
 		contacts = paginator.page(paginator.num_pages)
 	# topic.readers += 1
 	# topic.save()
-	readersin.delay(topic)
+	if host:
+		pass
+	else:
+		readersin.delay(topic)
 	#缓存的readers 增加1
 	cachekey = "topic_readers_" + str(topic_id)
 	if cache.get(cachekey) != None:
@@ -295,7 +423,6 @@ def topic_detail(request, topic_id):
 		topiclike = False
 
 	# 弹幕
-	commentdanmu = Comment.objects.filter(topic=topic).order_by('-readers')
 
 	context = {
 		'topic':topic,
@@ -315,10 +442,75 @@ def topic_detail(request, topic_id):
 		'collection': collection,
 		'host': host,
 		'topiclike': topiclike,
-		'commentdanmu': commentdanmu,
 	}
 	#print "topic_detail"
 	return render(request, 'topic_detail.html',  context)
+
+
+def topicdetailpage(request):
+	topic_id = request.session['topicdetailid']
+	try:
+		topic = Topic.objects.get(pk=topic_id)
+	except Topic.DoesNotExist:
+		raise Http404("Does not exist")
+
+	context = {
+		'topic':topic,
+	}
+	return render(request, 'topicdetailpage.html',  context)
+
+
+
+def topiccommentpage(request):
+	topic_id = request.session['topicdetailid']
+	try:
+		topic = Topic.objects.get(pk=topic_id)
+	except Topic.DoesNotExist:
+		raise Http404("Does not exist")
+	comment = Comment.objects.filter(topic=topic).filter(parent=None).order_by('timestamp')
+	# 前三个回复是最热回复;  readers__gt=3 = readers 大于3
+	commentorderbyreaders = Comment.objects.filter(topic=topic).filter(parent=None).filter(readers__gt=TOPIC_DETAIL_HOTCOMMENT_READERSRANGE).order_by('-readers')[0:3]
+	#最新话题
+	# 分页
+	paginator = Paginator(comment, 12)
+	page =  request.session['topiccommentpage']
+	pagen = 1
+	print 'topiccommentpage'
+	try:
+		contacts = paginator.page(page)
+		pagen = page
+	except PageNotAnInteger:
+	# If page is not an integer, deliver first page.
+		contacts = paginator.page(1)
+		pagen = 1
+	except EmptyPage:
+	# If page is out of range (e.g. 9999), deliver last page of results.
+		contacts = paginator.page(paginator.num_pages)
+		pagen = paginator.num_pages
+
+	#如果页数大于1则不显示最热回复
+	ifhotcomment = True;
+	if page:
+		page = int(page)
+		if page > 1:
+			ifhotcomment = None;
+	else:
+		page = 1;
+	context = {
+		"comment": comment,
+		'contacts': contacts,
+		"commentorderbyreaders":commentorderbyreaders,#热门回复
+		"ifhotcomment": ifhotcomment,
+		'page': page,
+		'pagen': pagen,
+		"form": CommentForm,
+	}
+	return render(request, 'topiccommentpage.html',  context)
+
+
+
+
+
 
 #生成新的话题页
 @login_required(login_url='/user/loggin/')

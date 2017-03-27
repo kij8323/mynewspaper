@@ -8,7 +8,7 @@
 <link rel="stylesheet" type="text/css" href="/static/css/smallscreenhome.css"  media="screen and (max-width: 768px)">
 <link href="/static/css/slideshow.css" rel="stylesheet" />
 <script src="/static/js/slideshow.js" type="text/javascript"></script>
-
+<link rel="stylesheet" href="/static/css/loaders.min.css">
 
 <script type="text/javascript">
 $(function() {
@@ -150,9 +150,82 @@ $(function(){
   $('#carousel-example-generic-hotryshow, #carousel-example-generic-hotryshow .item, #carousel-example-generic-hotryshow .item img, #carousel-example-generic-hotryshow .carousel-inner').imgsizeFunctionhotryshow();
 }); 
 </script>
+
+
+<script type="text/javascript">
+window.onload=function(){ 
+    $("#overlay").fadeTo(200, 0.5);
+    $('#homepage').load('{% url 'homepage' %}');
+} 
+</script>
+
+
+
+<script>/*回到页面顶端*/
+$(function(){ 
+  $('.barcomment').click(function(){
+  $('html,body').animate({scrollTop:$('.comment-form').offset().top}, 800);}); 
+  $(window).scroll(function() {   
+    if($(window).scrollTop() >= 100){
+      $('.rtotopsctoll').fadeIn(300); 
+    }else{    
+      $('.rtotopsctoll').fadeOut(300);    
+    }  
+  });
+  $('.rtotopsctoll').click(function(){
+  $('html,body').animate({scrollTop: '0px'}, 800);}); 
+
+});
+</script>
+
+<script>/*daka*/
+$(function() {
+ $("body").on("click", '.daka', function(){
+
+    $.ajaxSetup({
+    data: {csrfmiddlewaretoken: '{{ csrf_token }}', 
+          userid: {{user.id}},
+          },
+          });
+    $.ajax({
+        url: "{% url 'daka' %}",
+        type: "post",
+        success: function(data) {
+          if (data.mess == "succ"){
+              $.messager.popup("打卡成功!");
+              $(".modal.msg-popup .modal-body").css({
+                  'color': '#449d44',
+                  "background-color":"#CCF4D9",
+                  });}
+          else if (data.mess == "err"){
+                $.messager.popup("重复打卡！");
+                $(".modal.msg-popup .modal-body").css({
+                    'color': '#a94442',
+                    "background-color":"#f2dede",
+                    });}
+          },
+          error: function(data) { 
+            /*alert('Error')*/
+          }
+    });
+  })
+})
+</script>
+
 {% endblock %}
 
  {% block content %}
+<ul id="rightsidebar">
+<li class="rtotopsctoll">
+ <a href="javascript:void(0)"><em></em></a> 
+</li>
+<li class="daka">
+  <a href="javascript:void(0)">打卡</a> 
+</li>
+</ul>
+
+
+
     <div class="container home-container">
 
       <div class="row">
@@ -232,22 +305,22 @@ $(function(){
 
       <div class="col-xs-4 right-cover-img">
         <div class="col-xs-12 right-cover-img1">
-        <!-- <a href="{{guanggaotopic.get_absolute_url}}">  -->
-          <img src="{{guanggaotopic.get_image_url}}">
-          <span class="gengduo-mark"  ><a href="{% url 'group_detail' 11 %}">查看更多</a></span>
+        <!-- <a href="{{guanggaotopic1.get_absolute_url}}">  -->
+          <img src="{{guanggaotopic1.get_image_url}}">
+          <span class="gengduo-mark"  ><a href="{% url 'group_all'  %}">查看更多</a></span>
           <div class="rightblock1"> 
 <!--             <div class="t-h2"></div> -->
              <div class="t-h2-guanggao-back">
               </div>
              <div class="t-h2-guanggao">
-              <a href="{{guanggaotopic.get_absolute_url}}">{{guanggaotopic.title}}
+              <a href="{{guanggaotopic1.get_absolute_url}}">{{guanggaotopic1.title}}
               </a>
 
 <div class="img-circle guanggaousericonline" >
-  <a href="{{guanggaotopic.writer.get_absolute_url}}">
-  <img  class="img-circle guanggaousericon" src='{{guanggaotopic.writer.get_image_url}}' ></a>
-  <a href="{{guanggaotopic.writer.get_absolute_url}}" style="font-size:12px;">
-  {{guanggaotopic.writer}} 
+  <a href="{{guanggaotopic1.writer.get_absolute_url}}">
+  <img  class="img-circle guanggaousericon" src='{{guanggaotopic1.writer.get_image_url}}' ></a>
+  <a href="{{guanggaotopic1.writer.get_absolute_url}}" style="font-size:12px;">
+  {{guanggaotopic1.writer}} 
 </a>
 </div>
 
@@ -257,14 +330,14 @@ $(function(){
         </div>
 
         <div class="col-xs-12 right-cover-img2">
-        <a href="{{hotnews48.get_absolute_url}}"> 
-          <img src="{{hotnews48.get_image_url}}">
+        <a href="{{guanggaotopic2.get_absolute_url}}"> 
+          <img src="{{guanggaotopic2.get_image_url}}">
          <!--  <span class="original-mark"  >首发</span> -->
           <div class="rightblock1"> 
             <!-- <div class="t-h2"></div> -->
              <div class="t-h2-notouming">
-              <div class="remenshenqing">智能硬件</div>
-              {{hotnews48.title}}
+              <div class="remenshenqing">{{guanggaotopic2.group.title}}</div>
+              {{guanggaotopic2.title}}
             </div>
           </div>
         </a>
@@ -274,38 +347,14 @@ $(function(){
     </div><!-- <div class="col-xs-12 newsblock"> -->
 
 
-
-{% for item in queryset %}
-          <div class="col-xs-11 newsblock" id="{{item.blockid}}">
-          <div class="col-xs-4 leftimgblock">
-          <a href="{{item.get_absolute_url}}"><img src="{{item.get_image_url}}" ></a>
-{% if item.original %}
-<span class="original-mark"  >探访</span>
-{% endif %}
-{% if item.deep %}
-<span class="deep-mark" >深度</span>
-{% endif %}
-         </div> 
-          <div class="col-xs-8 rightwordblock">
-          <h3><a href="{{item.get_absolute_url}}">{{item.title}}</a></h3>
-          <p class="associatetitle hidden-xs" style='padding-left: 0px;'>{{item.associatetitle}}</p>
-          <div class="usericon-line">
-          <span><img  class="img-circle usericon" src='{{item.writer.get_image_url}}'></span>
-          <span class="writer"><a href="{{item.writer.get_absolute_url}}">{{item.user}}{{item.writer}}</a></span>
-         <span class="posttime">{{item.timestamp|date:"o/m/j"}}</span> 
-          <i class="icon-reply hidden-xs"></i><span class="hidden-xs">{{item.id|Article_comment}}  </span>
-          </div>
-
-
-          </div> 
-          </div> <!-- newsblock -->
-{% endfor %}
-
-
-<div id="morecomment">
+<div id="homepage">
+ <div id='overlay'>
+<div class="slice">
+<div data-loader="circle"  >
 </div>
-
- <button  id="morecomment-btn-block" type="button" class='btn btn-lg btn-default btn-block' >加载更多</button> 
+</div>
+ </div>
+</div>
 
 
         </div><!-- class="col-sm-8 leftcontainer" -->
@@ -370,12 +419,42 @@ $(function(){
 
 
 
+
+<div class='shequpro'>
+           <div class='head'>          
+            <span class='shu-mark'>|</span>社区频道
+          </div>
+<div class="cate-list-block">
+  <div class="cate-spec">
+  <a class="cate-link" href="/group/all/" >
+  <span class="glyphicon glyphicon-leaf" aria-hidden="true"></span>
+    <span class="cate-spec-name">全部</span>
+  </a>
+  </div>
+
+{% for item in groupall %}
+  <div class="cate-spec">
+{% if item.get_absolute_url  == group.get_absolute_url %}
+  <a class="cate-link" href="{{item.get_absolute_url}}" style="color: #67CA87;">
+  {% else %}
+  <a class="cate-link" href="{{item.get_absolute_url}}">
+{% endif %}
+  <span class="glyphicon {{item.glyphicon}}" aria-hidden="true"></span>
+   <span class="cate-spec-name">{{item.title}}</span>
+  </a>
+  </div>
+{% endfor %}
+  <div style="clear:both;"></div>
+</div>
+</div>
+
+
 <div class='hotnewsblock'>
-        <div class='head'>          <span class='shu-mark'>|</span>热门文章</div>
+        <div class='head'>          <span class='shu-mark'>|</span>热门话题</div>
 
     <table class="table table-hover hotnews">
       <tbody>
-{% for item in hotnewsblock1 %}
+{% for item in topicquery1 %}
         <tr>
           {% if forloop.counter > 2 %}
           <td>
@@ -383,7 +462,7 @@ $(function(){
           </td>
           {% else %}
           <td>
-             <a href="{{item.get_absolute_url}}" style="display:block;"><img src="{{item.get_image_url}}" >
+             <a href="{{item.get_absolute_url}}" style="display:block;"><img src="{{item.get_imagefst3_url}}" >
               <div class="t-h2-hottry">
             {{item.title}}
             </div>
@@ -397,7 +476,7 @@ $(function(){
     </table>
     <table class="table table-hover hotnews2">
       <tbody>
-{% for item in hotnewsblock2 %}
+{% for item in topicquery2 %}
         <tr>
 <th scope="row">
             <div  class='hotnewsblock123'></div>
@@ -432,21 +511,6 @@ $(function(){
 
 
 
-<div class='hotopicblock'>
-         <div class='head'>          <span class='shu-mark'>|</span>热门话题</div>
-    <table class="table table-hover hotopic">
-      <tbody>
-{% for item in topicquery %}
-        <tr>
-          <td><a href="{{item.get_absolute_url}}">{{item.title}}</a>
-            <!-- <span>{{item.id|Topic_comment}}条回复</span> -->
-          <div class="hotopic-reply"><i class="hotopic-icon-reply"></i>{{item.id|Topic_comment}}</div>
-          </td>
-        </tr>
-{% endfor %}
-      </tbody>
-    </table>
-</div>
 
  
 
@@ -483,7 +547,7 @@ $(function(){
           {% else %}
           <td> <a class="nicecommentblock-qust" href="{{item.topic.get_absolute_url}}"><!-- {{item.user}} 评 --> {{item.topic.title}}<br></a>
             <i class="icon_hotcomentjiao"></i>
-            <div class='commentline0'>
+            <div class='commentline0'  onmouseover="this.style.cursor='pointer'" onclick="document.location='{{item.get_absolute_url}}'">
             <div class='commentline'>{{item.text|safe}}</div>
             <div clss='nicecommentblock-userinfo' style="margin-top:10px;">
             <img  class="img-circle usericon-nicecomment hidden-xs" src='{{item.user.get_image_url}}'><span class="user-nicecomment"><a href="{{item.user.get_absolute_url}}">{{item.user}}</a></span></div>

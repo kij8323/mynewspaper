@@ -4,7 +4,7 @@
 
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Products, Application, Payscore
+from .models import Products, Application, Payscore, Payscorerec
 from notifications.atwho import atwho
 # Create your views here.
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -20,9 +20,12 @@ from article.form import CommentForm
 from django.shortcuts import render, HttpResponseRedirect, redirect
 from django.core.urlresolvers import reverse
 from topic.models import Topic
+from article.tasks import prodapplscore, payscrerec
+
+
 
 def productsall(request):
-	products = Products.objects.filter(verify = True).order_by('-id')[0:16]
+	products = Products.objects.filter(verify = True).order_by('-id')
 	context = {
 		"products": products,
 		"products0":products[0],
@@ -30,6 +33,14 @@ def productsall(request):
 		"products2":products[2],
 	}
 	return render(request, 'productsall.html',  context)
+
+def productsallpage(request):
+        products = Products.objects.filter(verify = True).order_by('-id')[0:16]
+        context = {
+                "products": products,
+        }
+        return render(request, 'productsallpage.html',  context)
+
 
 #分类文章页，加载更多文章按钮
 def moreproducts(request):
@@ -217,6 +228,7 @@ def products_detail(request, products_id):
 				cache.incr(cachekey)
 			else:
 				cache.set(cachekey, Application.objects.filter(products=products).count(), settings.CACHE_EXPIRETIME)
+			prodapplscore.delay(request.user)
 		return redirect(reverse("products_detail", kwargs={"products_id": products_id}))
 	else:
 		try:
@@ -241,8 +253,7 @@ def products_detail(request, products_id):
 		# applyamount = Application.objects.filter(products=products).count()
 		hotry = Products.objects.filter(status = 1).filter(verify = True).exclude(id = products_id).order_by('-id')[0:5]
 
-		commentdanmu = Comment.objects.filter(products=products).order_by('-timestamp')
-		payscorerecord = Payscore.objects.filter(products = products).order_by('-payscore')
+		payscorerecord = Payscore.objects.filter(products = products).order_by('id')
 
 		context = {
 			"products":products,
@@ -257,7 +268,6 @@ def products_detail(request, products_id):
 			'payscore': payscore+5,
 			'payscoretitle': payscore,
 			'payscorerecord': payscorerecord,
-			'commentdanmu' : commentdanmu,
 		}
 		return render(request, 'products_detail.html',  context)
 
@@ -292,6 +302,7 @@ def payscorerecord(request, products_id):
 				cache.incr(cachekey)
 			else:
 				cache.set(cachekey, Application.objects.filter(products=products).count(), settings.CACHE_EXPIRETIME)
+			prodapplscore.delay(request.user)
 		return redirect(reverse("products_detail", kwargs={"products_id": products_id}))
 	else:
 		try:
@@ -336,6 +347,7 @@ def payscore(request):
 		# print type(score)
 		# print type(user.score)
 		if user.score >= score and score > products.scoreing:
+			payscrerec.delay(Payscore, user, products, score, Payscorerec)
 			products.scoreing = score
 			products.save()
 			s = Payscore(user=user, products=products, payscore=score)
@@ -346,7 +358,6 @@ def payscore(request):
 				cache.incr(cachekey)
 			else:
 				cache.set(cachekey, Payscore.objects.filter(products = products).count(), settings.CACHE_EXPIRETIME)
-
 		else:
 			ifpay = False
 		data = {
@@ -399,6 +410,7 @@ def productsapply(request, products_id):
 				cache.incr(cachekey)
 			else:
 				cache.set(cachekey, Application.objects.filter(products=products).count(), settings.CACHE_EXPIRETIME)
+			prodapplscore.delay(request.user)
 		return redirect(reverse("products_detail", kwargs={"products_id": products_id}))
 	else:
 		try:
@@ -470,6 +482,7 @@ def productsreport(request, products_id):
 		# 	cache.incr(cachekey)
 		# else:
 		# 	cache.set(cachekey, Application.objects.filter(products=products).count(), settings.CACHE_EXPIRETIME)
+			prodapplscore.delay(request.user)
 		return redirect(reverse("products_detail", kwargs={"products_id": products_id}))
 	else:
 		try:
@@ -605,6 +618,7 @@ def productscommentcomment(request):
 			"parentcommentext": c.parent.text,
 			"parentcommentuser": str(c.parent.user),
 			"commentid":c.id,
+			"parentcommentusericon": str(c.parent.user.get_image_url()),
 			}
 			json_data = json.dumps(data)
 			return HttpResponse(json_data, content_type='application/json')

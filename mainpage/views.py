@@ -16,6 +16,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from company.models import Company
 from investment.models import Investment
 from products.models import Products, Application
+from updatenew.models import Updatenew
 # Create your views here.
 ARTICLE_MAINPAGE_TIMERANGE = 15 #首页显示新闻数量
 ARTICLE_MAINPAGE_COVER_TIMERANGE = 15	#首页封面文章的发表时间范围
@@ -110,7 +111,7 @@ def index_search(request):
 			else:
 				firmshow = False
 		context = {
-			'articlequery' : contacts,
+#			'articlequery' : contacts,
 			'search_word' : q,
 			'firmshow' : firmshow,
 			'test4' : test4,
@@ -128,35 +129,45 @@ def index_search(request):
 def home(request):
 #	coverarticle = Article.objects.all().filter(timestamp__gte=datetime.date.today() - timedelta(days=ARTICLE_MAINPAGE_COVER_TIMERANGE)).filter(cover = True).order_by("-id")[0:3]
 #	coverarticle = Article.objects.all().filter(cover = True).order_by("-id")[0:3]
-	queryset = Article.objects.all().order_by('-id')[0:ARTICLE_MAINPAGE_TIMERANGE]
 	topic = Topic.objects.all().filter(timestamp__gte=datetime.date.today() - timedelta(days=TOPIC_MAINPAGE_TIMERANGE)).order_by("-readers")[0:5]
 	#一个月内，最热文章排序
-	hotnews = Article.objects.all().filter(timestamp__gte=datetime.date.today() - timedelta(days=ARTICLE_MAINPAGE_HOT_TIMERANGE)).order_by("-readers")[0:5]
+#	hotnews = Article.objects.all().filter(timestamp__gte=datetime.date.today() - timedelta(days=ARTICLE_MAINPAGE_HOT_TIMERANGE)).order_by("-readers")[0:5]
 	nicecomment = Comment.objects.all().filter(timestamp__gte=datetime.date.today() - timedelta(days=COMMENT_MAINPAGE_TIMERANGE)).order_by("-readers")[0:5]
-	companyshow = Company.objects.all().filter(verify  = True).order_by("-id")[0:5]
 	hotry = Products.objects.filter(verify = True).order_by('-id')[0:HOTRY_MAINPAGE_RANGE]
 	coverarticle = Topic.objects.all().filter(cover = True).order_by("-id")[0:3]
-	guanggaotopic = Topic.objects.all().filter(guanggao = True).order_by("-id")[0]
-	hotnews48 = Article.objects.all().filter(timestamp__gte=datetime.date.today() - timedelta(days=ARTICLE_MAINPAGE_HOT_TODAY)).order_by("-readers")[0]
-
+	guanggaotopic = Topic.objects.all().filter(guanggao = True).order_by("-id")[0:2]
+#	hotnews48 = Article.objects.all().filter(timestamp__gte=datetime.date.today() - timedelta(days=ARTICLE_MAINPAGE_HOT_TODAY)).order_by("-readers")[0]
+	groupall = Group.objects.all().exclude(id=11)
 	context = {
-	'queryset': queryset,
-	'topicquery' : topic,
-	'hotnews': hotnews,
-	'hotnews48': hotnews48,
-	'hotnewsblock1': hotnews[0:2],
-	'hotnewsblock2': hotnews[2:5],
+	'topicquery1' : topic[0:2],
+	'topicquery2' : topic[2:5],
+#	'hotnews': hotnews,
+#	'hotnews48': hotnews48,
+#	'hotnewsblock1': hotnews[0:2],
+#	'hotnewsblock2': hotnews[2:5],
 	'nicecomment': nicecomment,
 	'coverarticle': coverarticle,
-	'coverarticle0': coverarticle[0],
-	'coverarticle1': coverarticle[1],
-	'coverarticle2': coverarticle[2],
-	'guanggaotopic': guanggaotopic,
-	'companyshow': companyshow,	
+#	'coverarticle0': coverarticle[0],
+#	'coverarticle1': coverarticle[1],
+#	'coverarticle2': coverarticle[2],
+#	'guanggaotopic': guanggaotopic,
+	'guanggaotopic1': guanggaotopic[0],
+	'guanggaotopic2': guanggaotopic[1],
 	'hotry':hotry,
+	'groupall': groupall,
 	}
 	return render(request, 'home.html', context)
 	#return render(request, 'home.html')
+
+def homepage(request):
+	queryset = Updatenew.objects.all().order_by('-id')[0:ARTICLE_MAINPAGE_TIMERANGE]
+
+#	queryset = Article.objects.all().order_by('-id')[0:ARTICLE_MAINPAGE_TIMERANGE]
+	context = {
+	'queryset': queryset,
+	}
+	return render(request, 'homepage.html', context)
+
 
 #关于我们页
 def aboutus(request):
@@ -175,7 +186,9 @@ def morearticlehome(request):
 	if request.is_ajax():
 		request.session['homearticlelen'] = request.POST.get('homearticlelen')
 		homearticlelen = int(request.session['homearticlelen'])
-		article = Article.objects.all().order_by('-id')
+		article = Updatenew.objects.all().order_by('-id')
+
+#		article = Article.objects.all().order_by('-id')
 		print request.session['homearticlelen']
 	if article.count() == homearticlelen:
 		loadcompleted = '已全部加载完成'
@@ -193,9 +206,10 @@ def morearticlehome(request):
 def articlepagehome(request):
 	if request.session.get('homearticlelen', False):
 		homearticlelen = request.session['homearticlelen']
-	homearticle = Article.objects.all().order_by('-id')
+#	homearticle = Article.objects.all().order_by('-id')
+	homearticle = Updatenew.objects.all().order_by('-id')
+
 	homearticlelen = int(homearticlelen)
-	print homearticlelen
 	articlequery = homearticle[homearticlelen:homearticlelen+5]
 	context = {
 		"articlequery": articlequery,

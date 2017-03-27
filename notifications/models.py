@@ -42,11 +42,23 @@ class Notification(models.Model):
 		cachekey = "user_unread_count" + str(self.recipient.id)
 		if cache.get(cachekey) != None:
 			cache.decr(cachekey)
-			return ''
+			pass
 		else:
 			unread = Notification.objects.filter(recipient = self.recipient).filter(read = False).count()
 			cache.set(cachekey,  unread, settings.CACHE_EXPIRETIME)
-			return ''
+			pass
+		if self.verb == '_@_':
+			cachekey = "user_privcyunread_count" + str(self.recipient.id)
+			if cache.get(cachekey) != None:
+				cache.decr(cachekey)
+				pass
+			else:
+				unread = Notification.objects.filter(recipient = self.recipient).filter(read = False).filter(verb = '_@_').count()
+				cache.set(cachekey,  unread, settings.CACHE_EXPIRETIME)
+				pass
+		else:
+			pass
+		return ''
 
 
 	def __unicode__(self):

@@ -12,6 +12,9 @@ from ckeditor.fields import RichTextField
 from django.utils import timezone
 from ckeditor_uploader.fields import RichTextUploadingField
 from DjangoUeditor.models import UEditorField
+from article.tasks import instancedelete, instancesave
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 
 
 class Products(models.Model):
@@ -46,6 +49,9 @@ class Products(models.Model):
 	#产品首页图片
 	picturehome = models.ImageField(upload_to='images/', blank=True, default='images/companylogo.png')
 
+	#pc端产品页展示
+	picturedetail = models.ImageField(upload_to='images/', blank=True, default='images/companylogo.png')
+
 
 
 	#公司上传时间
@@ -70,6 +76,9 @@ class Products(models.Model):
 	def get_homeimage_url(self):
 		return "%s%s" %(settings.MEDIA_URL, self.picturehome)
 
+	def get_detailimage_url(self):
+		return "%s%s" %(settings.MEDIA_URL, self.picturedetail)
+
 
 	def ret_timesince_sec(self):
 		return (self.timedeadline - timezone.now()).days*24*60*60 + (self.timedeadline - timezone.now()).seconds
@@ -85,6 +94,10 @@ class Products(models.Model):
 
 	def get_report_url(self):
 		return reverse('productsreport', kwargs={"products_id": self.id})
+
+	def get_payscore_url(self):
+		return reverse('payscorerecord', kwargs={"products_id": self.id})
+
 
 
 #用户申请
@@ -114,3 +127,29 @@ class Payscore(models.Model):
 	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False, null=True)
 	#是否竞拍成功
 	win = models.BooleanField(default=False)
+	def __unicode__(self):
+	    return self.products.title
+
+
+#积分计算
+class Payscorerec(models.Model):
+	id = models.AutoField(primary_key=True, db_index=True)
+	user = models.ForeignKey(MyUser)
+	products = models.ForeignKey(Products)
+	payscore = models.IntegerField(default=0)
+	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False, null=True)
+
+
+
+@receiver(post_save, sender=Products)
+def ppayscorerec(sender, **kwargs):
+	products = kwargs.pop("instance")
+	if products.status == 2:
+		payscorerec = Payscorerec.objects.filter(products=products)
+		for item in payscorerec:
+			item.user.score = item.user.score + item.payscore
+			instancesave.delay(item.user)
+			instancedelete.delay(item)
+	else:
+		pass;
+

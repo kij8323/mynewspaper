@@ -1,0 +1,321 @@
+{% extends "base_1.html" %}
+{% block HeadDoc %}
+{% load staticfiles %}
+{% load time_filter %}
+<link href="/static/css/topic_detail.css" rel="stylesheet">
+<!-- <script src="/static/js/topic_detail.js"></script> -->
+<script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+<script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+<script src="/static/js/topic_detail.js"></script>
+<link rel="stylesheet" href="/static/css/loaders.min.css">
+
+
+<script>/*评论回复*/
+$(function() {
+ $("body").on("click", '.btn-reply', function(){
+    var comment = $(this).prev(".form-control").val()
+    if (comment!=""){
+    preentid = $(this).parent().attr("id");
+    $.ajaxSetup({
+    data: {csrfmiddlewaretoken: '{{ csrf_token }}', 
+          comment: comment, 
+          topicid: {{comment.topic.id}},
+          /*parenttext: parenttext,*/
+          preentid: preentid,
+          },
+          });
+    $.ajax({
+        url: "{% url 'topcommentcomment' %}",
+        type: "post",
+        dataType: 'json',
+          success: function(data) {
+            $('.freshchildcomment'+preentid).append(
+              ' <div class="childcomment"><img class="commentusericon" src={{user.get_image_url}}><div class="rightchildcomment" id="'+data.user+'"><span class="author-name"><a href={{user.get_absolute_url}}>'+data.user+'</a></span><span class="author-time"> 0&nbsp;分钟前 :</span><div class="pl-content">'+data.text+'</div><div class="btn-dp-child"><i class="icon-childcomment"></i>回复</div><span class="btn-dp-right pull-right" id="'+data.commentid+'"><i class="icon-dp-positive" style="background-position: -220px -173px;"></i><span class="commentuserlike'+data.commentid+'">0</span><i class="icon-dp-negtive" style="background-position: -270px -171px;"></i><span class="commentuserdislike'+data.commentid+'">0</span></span></div></div>'
+              )
+              commnetcount = $('.article-pl-count').text()
+              $('.article-pl-count').text(parseInt(commnetcount)+1)
+          },
+          error: function(data) { 
+              alert("Got an error dude");
+          }
+    });
+    /*$('html,body').animate({scrollTop:$('#btn-block').offset().top}, 100);*/
+    $.messager.popup("评论发表成功!");
+    $(".modal.msg-popup .modal-body").css({
+        'color': '#449d44',
+        "background-color":"#CCF4D9",
+        });
+    $(this).prev(".form-control").val("")
+    }
+    else{
+    $.messager.popup("请输入评论！");
+    $(".modal.msg-popup .modal-body").css({
+        'color': '#a94442',
+        "background-color":"#f2dede",
+        });
+  }
+  })
+})
+</script>
+
+
+
+
+<script>/*点赞*/
+$(function() {
+ $("body").on("click", '.icon-dp-positive', function(){
+    var preentid = $(this).parent().attr("id");
+    like = parseInt($(this).next('.commentuserlike'+preentid).text())
+    $.ajaxSetup({
+    data: {csrfmiddlewaretoken: '{{ csrf_token }}', 
+          commentid: preentid,
+          },
+          });
+    $.ajax({
+        url: "{% url 'commentlike' %}",
+        type: "post",
+        success: function(data) {
+        
+          /*$(this).next().html(data.commentlikecount)*/
+          /*alert(data.commentlikecount)*/
+          $('.commentuserlike'+preentid).html(like + data.commentlikecount)
+          },
+          error: function(data) { 
+            /*alert('Error')*/
+          }
+    });
+  })
+})
+</script>
+
+<script>/*点衰*/
+$(function() {
+ $("body").on("click", '.icon-dp-negtive', function(){
+    var preentid = $(this).parent().attr("id");
+    dislike = parseInt($(this).next('.commentuserdislike'+preentid).text())
+    $.ajaxSetup({
+    data: {csrfmiddlewaretoken: '{{ csrf_token }}', 
+          commentid: preentid,
+          },
+          });
+    $.ajax({
+        url: "{% url 'commentdislike' %}",
+        type: "post",
+        success: function(data) {
+          $('.commentuserdislike'+preentid).html(dislike + data.commentdislikecount)
+          },
+          error: function(data) { 
+            /*alert('Error')*/
+          }
+    });
+  })
+})
+</script>
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+$(function(){ 
+  $('#dianzan').click(function(){
+    like = parseInt($('#dianzancount').text())
+    topicid = {{comment.topic.id}}
+    $.ajaxSetup({
+    data: {csrfmiddlewaretoken: '{{ csrf_token }}', 
+          topicid: topicid,
+          },
+          });/*$.ajaxSetup({*/
+    $.ajax({
+        url: "{% url 'topicdianzan' %}",
+        type: "post",
+        success: function(data) {
+            $('#dianzancount').html(like + data.topiclikecount)
+            if (data.topiclikecount == 1){
+              $('#dianzan').css({"color":"#67CA87","border":"3px solid #67CA87"});
+              }
+            else{
+              $('#dianzan').css({"color":"#999","border":"3px solid #999"});
+              }
+          },
+          error: function(data) { 
+          /*  alert('Error')*/
+          }
+    });/*$.ajax({*/
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(function(){ 
+  $('#aldianzan').click(function(){
+    like = parseInt($('#dianzancount').text())
+    topicid = {{comment.topic.id}}
+    $.ajaxSetup({
+    data: {csrfmiddlewaretoken: '{{ csrf_token }}', 
+          topicid: topicid,
+          },
+          });/*$.ajaxSetup({*/
+    $.ajax({
+        url: "{% url 'topicdianzan' %}",
+        type: "post",
+        success: function(data) {
+          $('#dianzancount').html(like + data.topiclikecount)
+            if (data.topiclikecount == 1){
+              $('#aldianzan').css({"color":"#67CA87","border":"3px solid #67CA87"});
+              }
+            else{
+              $('#aldianzan').css({"color":"#999","border":"3px solid #999"});
+              }
+          },
+          error: function(data) { 
+       /*     alert('Error')*/
+          }
+    });/*$.ajax({*/
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $(".form-comment-reply").css({
+        'display': 'block',
+        });
+  });
+</script>
+
+
+<style type="text/css">
+.group-title{
+  font-size: 16px;
+  color: #444;
+}
+.img-topic{
+width: 30%;
+}
+</style>
+
+<script>
+$.fn.imgsizeFunctionimg3 = function() { 
+  width = $(this).css('width');
+  x = (parseFloat(width)*0.636)
+  return  $(this).css('height',x+'px');
+}
+</script>
+
+
+<script>
+$(function(){ 
+  $('.img-topic').imgsizeFunctionimg3();
+}); 
+</script>
+
+<script>
+$(window).resize(function(){
+  $('.img-topic').imgsizeFunctionimg3();
+});
+</script>
+
+{% endblock %}
+
+
+
+ {% block content %}
+ <div class="container">
+  <div class="col-sm-8">
+    <div>
+    <a class = "group-title" href="{{comment.topic.get_absolute_url}}">
+    话题：{{comment.topic.title}}
+    </a>
+  </div>
+
+  {% if comment.topic.img3 %}
+    <img  class="img-topic" src='{{comment.topic.get_imagefst3_url}}'>
+  {% endif %}
+
+
+    <div class="comment" style="border-bottom:1px solid #f0f0f0">
+      <img  class="commentusericon " src='{{comment.user.get_image_url}}'>
+      <div class='rightcomment'>
+      <span class="author-name"><a href="{{comment.user.get_absolute_url}}">{{comment.user}}</a></span>
+
+      <span class="author-time">
+      {{comment.timestamp}}
+      </span>
+
+      
+
+      <div class="pl-content">{{comment.text|AtWhoUser|safe}}</div>
+
+      <div class="pl-box-btm" id = '{{comment.user}}'>
+
+                <div class="btn-dp-right pull-right" id="{{comment.id}}">
+                <i class="icon-dp-positive"></i>
+                <span class='commentuserlike{{comment.id}}'>{{comment.id|comment_like_count}}</span>
+                <i class="icon-dp-negtive"></i>
+                <span class='commentuserdislike{{comment.id}}'>{{comment.id|comment_dislike_count}}</span>
+                </div>
+
+             <!--    <span class="btn-dp-reply">
+                <i class="icon-dp"></i>
+                回复
+                </span> -->
+
+              <span class="btn-dp">
+                <i class="icon-dp-checkbox"></i>
+                {% if comment.child_commentcount %}
+                {{comment.child_commentcount}}条点评
+                {% else %}
+                添加点评
+                {% endif %}
+                </span>
+                <div class="form-comment-reply" id="{{comment.id}}">
+
+                  {% for childitem in comment.child_comment %}
+                  <div class = 'childcomment'>
+                    <img  class="commentusericon " src='{{childitem.user.get_image_url}}'>
+                  <div class = 'rightchildcomment' id = '{{childitem.user}}'>
+                  <span class="author-name"><a href="{{childitem.user.get_absolute_url}}">{{childitem.user}}</a></span>
+                  <span class="author-time">
+                  {{childitem.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前 :
+                   </span>
+                  <div class="pl-content">{{childitem.text|AtWhoUser|safe}}</div>
+                  <div class="btn-dp-child">
+                    <i class="icon-childcomment"></i>回复
+                    </div>
+
+            <span class="btn-dp-right pull-right" id="{{childitem.id}}">
+                <i class="icon-dp-positive"></i>
+                <span class='commentuserlike{{childitem.id}}'>{{childitem.id|comment_like_count}}</span>
+                
+                <i class="icon-dp-negtive"></i>
+                <span class='commentuserdislike{{childitem.id}}'>{{childitem.id|comment_dislike_count}}</span>
+                </span>
+
+
+                 
+                  </div><!-- rightchilditem -->
+                  </div>
+                  {% endfor %}
+                  
+                  <div class="freshchildcomment{{comment.id}}" style='margin-top : 1em;'>
+                  </div>
+                    {{form}}
+                <button  id="btn-block" type="button" class='btn  btn-success btn-block btn-reply' >发表</button>
+              </div>
+      </div>
+      </div>
+            {% if comment.user.qianming %}
+      <div class="qianmingline">{{comment.user.qianming}}</div>
+      {% else %}
+      <div class="qianmingline-none"></div>
+      {% endif %}
+    </div><!-- comment -->
+  </div>
+</div>
+   {% endblock %}

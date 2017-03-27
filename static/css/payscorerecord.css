@@ -1036,3 +1036,12 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = #90000000,end
 }
 
 
+
+
+.whatscore{
+	line-height: 34px;
+}
+
+.whatscore-small{
+	color: #337ab7;
+}

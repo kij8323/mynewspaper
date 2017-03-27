@@ -1,0 +1,40 @@
+{% block HeadDoc %}
+{% load staticfiles %}
+{% load time_filter %}
+<link href="/static/css/topic_detail.css" rel="stylesheet">
+<script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+<script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+<script src="/static/js/jquerypage.js"></script>
+
+
+
+<script>
+$.fn.contentimgsizeFunction = function() { 
+  return  $(this).css('height','100%');
+}
+</script>
+
+<script>
+$(function(){ 
+  $('.article-content-wrap img').contentimgsizeFunction();
+}); 
+</script>
+
+<script>
+$(window).resize(function(){
+  $('.article-content-wrap img').contentimgsizeFunction();
+});
+</script>
+
+{% endblock %}
+
+
+ {% block content %}
+
+<div class="article-content-wrap">
+     <p>{{topic.content|AtWhoUser|safe}}</p>
+</div>
+
+
+ {% endblock %}
+ 

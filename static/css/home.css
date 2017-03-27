@@ -217,8 +217,7 @@ a:hover/*, .rightblock a:visited, .rightblock a:hover, .rightblock a:active*/{
 	font-size: 14px;
 	color: #999;
 	line-height: 24px;
-	margin-bottom: 0px;
-	margin-top: 12px;
+	margin: 0;
 }
 
 .associatetitle{
@@ -244,18 +243,6 @@ a:hover/*, .rightblock a:visited, .rightblock a:hover, .rightblock a:active*/{
 
 /*v1*/
 .newsblock:hover{
-transition-property: box-shadow;
--webkit-transition-property: box-shadow;
--moz-transition-property: box-shadow;
--o-transition-property: all;
-transition-duration: .5s;
--webkit-transition-duration: .5s;
--moz-transition-duration: .5s;
--o-transition-duration: .5s;
--webkit-box-shadow: 0 -1px 16px rgba(0,0,0,0.16);
--moz-box-shadow: 0 -1px 16px rgba(0,0,0,0.16);
--o-box-shadow: 0 -1px 16px rgba(0,0,0,0.16);
-box-shadow: 0 -1px 16px rgba(0,0,0,0.16);
 	}
 
 .leftimgblock{
@@ -269,7 +256,6 @@ box-shadow: 0 -1px 16px rgba(0,0,0,0.16);
 
 /*v1*/
 .posttime{
-	margin-right: 22px;
 }
 
 .associatetitle {
@@ -278,7 +264,7 @@ box-shadow: 0 -1px 16px rgba(0,0,0,0.16);
 
 /*v1*/
 .writer {
-	margin-right: 22px;
+	margin-right: 5px;
 }
 
 
@@ -286,7 +272,6 @@ box-shadow: 0 -1px 16px rgba(0,0,0,0.16);
 .usericon{
 	width: 25px;
 	height: 25px;
-	margin-right: 10px;
 	margin-bottom: 3px;
 }
 
@@ -337,12 +322,12 @@ box-shadow: 0 -1px 16px rgba(0,0,0,0.16);
 
 /*v1*/
 .writer a{
-	color: #8a8a8a;
+	color: #333;
 }
 
 /*v1*/
 .head{
-	font-size: 24px;
+	font-size: 21px;
 	margin-bottom: 0px;
 	color: #999;
 	vertical-align:middle;
@@ -462,7 +447,7 @@ box-shadow: 0 -1px 16px rgba(0,0,0,0.16);
 
 
 /*v1*/
- .nicecommentblock, .hotopicblock, .hotnewsblock, .programshow{
+ .nicecommentblock, .hotopicblock, .hotnewsblock, .programshow, .shequpro{
 	background-color: #fafafa;
 	padding: 26px 15px 20px 15px; 
 	margin-bottom: 20px;
@@ -1055,10 +1040,7 @@ margin-right: 5px;
 	height: 361px;
 	padding-top: 44px;
 	margin-bottom: 30px;
-	background: -webkit-linear-gradient(#84d0c8, #84d0c1); /* Safari 5.1 - 6.0 */
-	background: -o-linear-gradient(#84d0c8, #84d0c1); /* Opera 11.1 - 12.0 */
-	background: -moz-linear-gradient(#84d0c8, #84d0c1); /* Firefox 3.6 - 15 */
-	background: linear-gradient(#84d0c8, #84d0c1); /* 标准的语法 */
+	background-color: #84d0c8;
 	}
 
 
@@ -1078,16 +1060,16 @@ margin-right: 5px;
 
 
 .hotryshow-more{
-	width: 78px;
-	height: 28px;
-	line-height: 24px;
+	width: 93px;
+	height: 32px;
+	line-height: 28px;
 	margin-left: auto;
 	margin-right: auto;
-	margin-top: 30px;
+	margin-top: 26px;
 	border: solid 2px white;
 	text-align: center;
 	color: white;
-	font-size: 12px;
+	font-size: 14px;
 	font-weight: bold;
 }
 
@@ -1116,7 +1098,7 @@ margin-right: 5px;
 	font-weight: bold;
 	color: white;
 	text-align: center;
-	margin: -15px auto 27px auto;
+	margin: -15px auto 18px auto;
 	width: 39%;
 	background-color: #84d0c8;
 }
@@ -1228,9 +1210,9 @@ width: 90px;
 
 
 .hotopic-reply{
-	margin-top: 15px;
 	font-size: 14px;
 	color: #999;
+	margin-left: 5px;
 }
 
 .hotopic-icon-reply{
@@ -1287,4 +1269,200 @@ width: 90px;
 
 #carousel-example-generic .carousel-caption{
 	bottom: 10px;
+}
+
+
+
+
+
+.cate-list-block{
+
+}
+
+
+.cate-list-block .cate-spec{
+	float: left;
+	text-align: center;
+	width: 33.3%;
+	padding-top: 10px; /*v6*/
+	line-height: 26px;
+}
+
+.cate-list-block .glyphicon{
+	font-size: 16px;
+	line-height: 26px;
+}
+
+.cate-list-block .cate-spec-name{
+font-size: 16px;
+margin-left: 3px;
+line-height: 26px;
+}
+
+.cate-list-block .cate-link:hover{
+	color: #67CA87;
+}
+
+.cate-list-block .cate-spec>a{
+	color: #444;
+}
+
+
+
+#overlay {
+    background: white;
+    filter: alpha(opacity=50); /* IE的透明度 */
+    opacity: 0.5;  /* 透明度 */
+    display: none;
+    /*position: absolute;*/
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 100; /* 此处的图层要大于页面 */
+    text-align: center;
+    float: left;
+}
+
+
+.slice {
+
+ /*   position: fixed;*/
+  width: 14em;
+  height: 6em;
+  /*margin: .5em;*/
+  padding: 2em;
+  text-align: center;
+   margin-left: auto;
+  margin-right: auto;
+}
+.slice > div {
+  margin: 1em auto;
+}
+.slice > div:nth-child(2) {
+  font-family: cursive;
+  position: absolute;
+  bottom: 0;
+  left: 3em;
+  color: #fff;
+}
+
+
+
+
+
+
+
+#rightsidebar{
+	position: fixed;
+	bottom: 68px;
+	right: 0;
+	list-style-type:none;
+	z-index: 2;
+	text-align: center;
+	filter:alpha(opacity=70); /*IE滤镜，透明度50%*/
+	-moz-opacity:0.7; /*Firefox私有，透明度50%*/
+	opacity:0.7;/*其他，透明度50%*/
+}
+
+.barcomment, .rtotopsctoll, .daka{
+	background-color: #67CA87;
+	color: black;
+	width: 39px;
+	height: 39px;
+	margin-bottom: 16px;
+	text-align: center;
+}
+
+
+
+#rightsidebar a{
+	line-height: 39px;
+	color: white;
+	font-weight: 700;
+
+}
+
+
+.rtotopsctoll em {
+	border-left: 2px solid #fff;
+	border-bottom: 2px solid #fff;
+	display: inline-block;
+	margin: 16px 0 0 1px;
+	width: 12px;
+	height: 12px;
+	-webkit-transform: rotate(135deg);
+	transform: rotate(135deg);	
+}
+
+.rtotopsctoll{
+	display:none;
+}
+
+
+
+
+
+.nomline{
+	color: #999;
+/*	margin-left: 5px;*/
+}
+
+
+.img3-imagefst3, .img3-imagescd3, .img3-imagethd3{
+	width: 33%;
+	float: left;
+	padding: 6px 6px 0px 0px;
+}
+
+.img1-imagefst3, .img1-imagescd3, .img1-imagethd3{
+	width: 33%;
+	float: left;
+	padding: 6px 6px 0px 0px;
+}
+
+.img1-imagefst1{
+	width: 100%;
+	float: left;
+	padding: 6px 6px 0px 0px;
+}
+
+.img3{
+/*	margin-left: 30px;*/
+}
+
+.topic-title a{
+	margin-left: 27px;
+	text-overflow: -o-ellipsis-lastline;
+	overflow: hidden;
+	text-overflow: ellipsis;display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+}
+
+.score-topic{
+	display: inline-block;
+	background-image: url(/static/media/images/icon_coins_score2x.png);
+	width: 20px;
+	height: 20px;
+	background-repeat: no-repeat;
+	margin-left: 5px;
+	margin-bottom: -6px;
+
+}
+
+.posttime-vis{
+	color: #999;
+	margin-left: 27px;
+	margin-top: 6px;
+}
+
+.comment-block{
+	padding: 10px;
+	background-color: #f1f1f1;
+	margin-left: 27px;
+}
+
+.comment-block p{
+	color: #333;
 }

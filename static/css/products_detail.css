@@ -202,9 +202,7 @@ margin-top: 80px
 .btn-block{
 	margin-bottom: 30px;
 	margin-top: 20px;
-	height: 48px;
-	border-radius: 0px;
-	width: 148px;
+	width: 100px;
 }
 
 
@@ -238,9 +236,9 @@ color: #333;
 }
 
 .blockquote{
-	border-left-width: 2px;
+	border-left: 4px solid #f0f0f1;
 	background-color: #fafafa;
-	margin: 15px 0 18px;
+	margin: 15px 35px 18px;
 	padding: 20px 30px;
 }
 
@@ -300,7 +298,6 @@ color: #333;
 }
 
 #morecomment-btn-block{
-	/*width: 100%;*/
 	color: #bbb;
 	border: 1px solid #f0f0f0;
 	/*outline:none;*/
@@ -1006,3 +1003,10 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = #90000000,end
 }
 
 
+.whatscore{
+	line-height: 34px;
+}
+
+.whatscore-small{
+	color: #337ab7;
+}

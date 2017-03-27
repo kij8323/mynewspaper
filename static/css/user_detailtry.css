@@ -256,14 +256,14 @@ margin-top: 80px
 
 .mark {
 position: absolute;
-top: 0rem;
-left: 0rem;
+top: 10px;
+left: 15px;
 display: block;
-padding: 0.1rem 0.5rem;
+padding: 2px 5px;
 color: #fff;
-font-size: 1.3rem;
+font-size: 12px;
 text-align: center;
-border-radius: 0.2rem;
+border-radius: 0px 20px 20px 0px;
 z-index: 11;
 }
 

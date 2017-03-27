@@ -21,14 +21,27 @@ $.fn.imgsizeFunction = function() {
 <script>
 $(function(){ 
 $('.hotnewsblock table img').imgsizeFunction();
-  $('.leftimgblock a img').imgsizeFunction();
+ $('.img3-imagefst3').imgsizeFunction();
+  $('.img3-imagescd3').imgsizeFunction();
+  $('.img3-imagethd3').imgsizeFunction();
+  $('.img1-imagefst1').imgsizeFunction();
+  $('.img1-imagefst3').imgsizeFunction();
+  $('.img1-imagescd3').imgsizeFunction();
+  $('.img1-imagethd3').imgsizeFunction();
+
 }); 
 </script>
 
 <script>
 $(window).resize(function(){
 $('.hotnewsblock table img').imgsizeFunction();
-  $('.leftimgblock a img').imgsizeFunction();
+ $('.img3-imagefst3').imgsizeFunction();
+  $('.img3-imagescd3').imgsizeFunction();
+  $('.img3-imagethd3').imgsizeFunction();
+  $('.img1-imagefst1').imgsizeFunction();
+  $('.img1-imagefst3').imgsizeFunction();
+  $('.img1-imagescd3').imgsizeFunction();
+  $('.img1-imagethd3').imgsizeFunction();
 });
 </script>
 
@@ -58,25 +71,175 @@ $(window).resize(function(){
 {% endblock %}
 {% for item in articlequery %}
 
-           <div class="col-xs-11 newsblock" id="{{item.blockid}}">
-          <div class="col-xs-4 leftimgblock">
-          <a href="{{item.get_absolute_url}}"><img src="{{item.get_image_url}}" ></a>
-{% if item.original %}
-<span class="original-mark"  >探访</span>
+{% if item.topic and  item.score = False %}
+    <div class="col-xs-11 newsblock" id="{{item.id}}">
+    <div class="rightwordblock">
+
+    <div class="usericon-line">
+    <span><img  class="img-circle usericon" src='{{item.topic.writer.get_image_url}}'></span>
+    <span class="writer"><a href="{{item.topic.writer.get_absolute_url}}">{{item.topic.writer}}</a></span>
+    <span class="nomline">发布了话题:</span>
+    <span class="hidden-xs"><a href="{{item.topic.get_absolute_url}}">{{item.topic.title}}</a></span>
+
+
+    <span class="posttime pull-right hidden-xs">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</span>
+    </div>
+
+   <!--  <h3><a href="{{item.topic.get_absolute_url}}">{{item.topic.title}}</a></h3> -->
+
+    <div class="topic-title visible-xs-block"><a href="{{item.topic.get_absolute_url}}">{{item.topic.title}}</a></div>
+
+    <div class="posttime-vis visible-xs-block">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</div>
+</div> 
+</div> <!-- newsblock -->
+
+{% elif item.topic and  item.score = True %}
+    <div class="col-xs-11 newsblock" id="{{item.id}}">
+    <div class="rightwordblock">
+
+    <div class="usericon-line">
+    <span><img  class="img-circle usericon" src='{{item.topic.writer.get_image_url}}'></span>
+    <span class="writer"><a href="{{item.topic.writer.get_absolute_url}}">{{item.topic.writer}}</a></span>
+    <span class="nomline">的话题</span>
+    <span class="hidden-xs"><a href="{{item.topic.get_absolute_url}}">{{item.topic.title}}</a></span>
+    <span class="nomline">被加了金币</span><i class="score-topic"></i>
+
+    <span class="posttime pull-right hidden-xs">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</span>
+    </div>
+
+    <div class="topic-title visible-xs-block"><a href="{{item.topic.get_absolute_url}}">{{item.topic.title}}</a></div>
+
+    <div class="posttime-vis visible-xs-block">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</div>
+
+{% if item.topic.img1 %}
+<div class='img3 visible-xs-block'>
+<img  class="img1-imagefst1" src='{{item.topic.get_imagefst3_url}}'>
+</div>
+
+<div class='img3 hidden-xs'>
+<img  class="img1-imagefst3" src='{{item.topic.get_imagefst3_url}}'>
+<img  class="img1-imagescd3" src='{{item.topic.get_imagescd3_url}}'>
+<img  class="img1-imagethd3" src='{{item.topic.get_imagethd3_url}}'>
+</div>
+<div style="clear:both;"></div> 
+{% elif item.topic.img3 %}
+
+
+<div class='img3'>
+<img  class="img3-imagefst3" src='{{item.topic.get_imagefst3_url}}'>
+<img  class="img3-imagescd3" src='{{item.topic.get_imagescd3_url}}'>
+<img  class="img3-imagethd3" src='{{item.topic.get_imagethd3_url}}'>
+</div>
+<div style="clear:both;"></div> 
 {% endif %}
-{% if item.deep %}
-<span class="deep-mark" >深度</span>
+
+</div> 
+</div> <!-- newsblock -->
+
+{% elif item.payscore %}
+    <div class="col-xs-11 newsblock" id="{{item.id}}">
+    <div class="rightwordblock">
+
+    <div class="usericon-line">
+    <span><img  class="img-circle usericon" src='{{item.payscore.user.get_image_url}}'></span>
+    <span class="writer"><a href="{{item.payscore.user.get_absolute_url}}">{{item.payscore.user}}</a></span>
+    <span class="nomline">参与了</span>
+    <span class="hidden-xs"><a href="{{item.payscore.products.get_absolute_url}}">{{item.payscore.products.title}}</a></span>
+    <span class="nomline">积分拍 出价</span>
+    <span><a href="{{item.payscore.products.get_payscore_url}}">{{item.payscore.payscore}}</a></span>
+    <span class="nomline">积分</span>
+    <i class="score-topic"></i>
+
+    <span class="posttime pull-right hidden-xs">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</span>
+    </div>
+
+   <!--  <h3><a href="{{item.topic.get_absolute_url}}">{{item.topic.title}}</a></h3> -->
+
+    <div class="topic-title visible-xs-block"><a href="{{item.payscore.products.get_absolute_url}}">{{item.payscore.products.title}}</a></div>
+    <div class="posttime-vis visible-xs-block">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</div>
+
+    <div class='img3'>
+    <img  class="img3-imagefst3" src='{{item.payscore.products.get_image_url}}'>
+    </div>
+    <div style="clear:both;"></div> 
+
+</div> 
+</div> <!-- newsblock -->
+
+
+{% elif item.comment.topic %}
+    <div class="col-xs-11 newsblock" id="{{item.id}}">
+    <div class="rightwordblock">
+
+    <div class="usericon-line">
+    <span><img  class="img-circle usericon" src='{{item.comment.user.get_image_url}}'></span>
+    <span class="writer"><a href="{{item.comment.user.get_absolute_url}}">{{item.comment.user}}</a></span>
+    <span class="nomline">评论了话题</span>
+    <span class="hidden-xs"><a href="{{item.comment.topic.get_absolute_url}}">{{item.comment.topic.title}}</a></span>
+    
+
+    <span class="posttime pull-right hidden-xs">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</span>
+    </div>
+
+    <div class="topic-title visible-xs-block"><a href="{{item.comment.topic.get_absolute_url}}">{{item.comment.topic.title}}</a></div>
+
+    <i class="icon_hotcomentjiao" style="margin-left: 27px;"></i>
+    <div class='comment-block'  onmouseover="this.style.cursor='pointer'" onclick="document.location='{{item.comment.get_absolute_url}}'">{{item.comment.text|AtWhoUser|safe}}</div>
+
+    <div class="posttime-vis visible-xs-block">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</div>
+</div> 
+</div> <!-- newsblock -->
+
+{% elif item.comment.products %}
+    <div class="col-xs-11 newsblock" id="{{item.id}}">
+    <div class="rightwordblock">
+
+    <div class="usericon-line">
+    <span><img  class="img-circle usericon" src='{{item.comment.user.get_image_url}}'></span>
+    <span class="writer"><a href="{{item.comment.user.get_absolute_url}}">{{item.comment.user}}</a></span>
+    <span class="nomline">评论了试用产品</span>
+    <span class="hidden-xs"><a href="{{item.comment.products.get_absolute_url}}">{{item.comment.products.title}}</a></span>
+    
+
+    <span class="posttime pull-right hidden-xs">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</span>
+    </div>
+
+    <div class="topic-title visible-xs-block"><a href="{{item.comment.products.get_absolute_url}}">{{item.comment.products.title}}</a></div>
+
+    <i class="icon_hotcomentjiao" style="margin-left: 27px;"></i>
+    <div class='comment-block'>{{item.comment.text|AtWhoUser|safe}}</div>
+
+    <div class="posttime-vis visible-xs-block">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</div>
+</div> 
+</div> <!-- newsblock -->
+
+
+
+
+{% elif item.products %}
+    <div class="col-xs-11 newsblock" id="{{item.id}}">
+    <div class="rightwordblock">
+
+    <div class="usericon-line">
+    <span class="nomline" style="color:#5fb760">新一期试用</span>
+    <span class="hidden-xs"><a href="{{item.products.get_absolute_url}}">{{item.products.title}}</a></span>
+    <span class="nomline">已上线</span>
+    <span class="posttime pull-right hidden-xs">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</span>
+    </div>
+
+   <!--  <h3><a href="{{item.topic.get_absolute_url}}">{{item.topic.title}}</a></h3> -->
+
+    <div class="topic-title visible-xs-block"><a href="{{item.products.get_absolute_url}}">{{item.products.title}}</a></div>
+    <div class="posttime-vis visible-xs-block">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</div>
+
+    <div class='img3'>
+    <img  class="img3-imagefst3" src='{{item.products.get_image_url}}'>
+    </div>
+    <div style="clear:both;"></div> 
+
+</div> 
+</div> <!-- newsblock -->
 {% endif %}
-          </div> 
-          <div class="col-xs-8 rightwordblock">
-          <h3><a href="{{item.get_absolute_url}}">{{item.title}}</a></h3>
-          <p class="associatetitle hidden-xs" style='padding-left: 0px;'>{{item.associatetitle}}</p>
-          <div class="usericon-line">
-          <span><img  class="img-circle usericon" src='{{item.writer.get_image_url}}'></span>
-          <span class="writer"><a href="{{item.writer.get_absolute_url}}">{{item.user}}{{item.writer}}</a></span>
-          <span class="posttime">{{item.timestamp|date:"o/m/j"}}</span> 
-          <i class="icon-reply hidden-xs"></i><span class="hidden-xs">{{item.id|Article_comment}}  </span>
-          </div>
-          </div> 
-          </div> <!-- newsblock -->
+
+
 {% endfor %}

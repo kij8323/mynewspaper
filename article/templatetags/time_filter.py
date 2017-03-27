@@ -237,6 +237,23 @@ def user_unread_count(value):
         cache.set(cachekey,  unread)
         return cache.get(cachekey)
 
+#缓存用户私有未读消息数
+@register.filter
+def user_privcyunread_count(value): 
+    user = MyUser.objects.get(id = value)
+    cachekey = "user_privcyunread_count" + str(user.id)
+    if cache.get(cachekey) != None:
+        if cache.get(cachekey) < 0:
+            cache.set(cachekey, 0)
+        return cache.get(cachekey)
+    else:
+        unread = Notification.objects.filter(recipient = user).filter(read = False).filter(verb = '_@_').count()
+        cache.set(cachekey,  unread)
+        return cache.get(cachekey)
+
+
+
+
 #缓存试用申请人数
 @register.filter
 def products_applyamount_count(value): 

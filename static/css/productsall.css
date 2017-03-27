@@ -109,7 +109,6 @@ margin-right: auto;
 opacity: 0.5;  */
 bottom: 138px;
 position: absolute;
-font-weight: bold;
 text-overflow: -o-ellipsis-lastline;
 overflow: hidden;
 text-overflow: ellipsis;display: -webkit-box;
@@ -358,8 +357,8 @@ box-shadow: 0 -1px 30px rgba(0,0,0,0.28);
 
 
 .try-introduce-block-outline{
-	margin-top: 108px;
-	margin-bottom: 40px;
+	margin-top: 43px;
+	margin-bottom: 15px;
 
 }
 
@@ -399,10 +398,6 @@ background-color: white;
 color: rgb(31,33,27);
 font-size: 24px;
 text-align: center;
-background-image: url(/static/media/images/icon_shiyongliuchengbiaoti.png2x.png); 
-/*background-size:30px 20px;*/
-background-position: 20px 4px;
-background-repeat: no-repeat;
 }
 
 
@@ -424,7 +419,7 @@ background-repeat: no-repeat;
 	opacity:0.7;/*其他，透明度50%*/
 }
 
-.barcomment, .rtotopsctoll{
+.barcomment, .rtotopsctoll, .daka{
 	background-color: #67CA87;
 	color: black;
 	width: 39px;
@@ -490,3 +485,45 @@ background-color: rgb(72,130,74) !important;
 .bannerinfo a{
 	color: white;
 }
+
+
+
+
+#overlay {
+    background: white;
+    filter: alpha(opacity=50); /* IE的透明度 */
+    opacity: 0.5;  /* 透明度 */
+    display: none;
+    /*position: absolute;*/
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 100; /* 此处的图层要大于页面 */
+    text-align: center;
+    float: left;
+}
+
+
+.slice {
+
+ /*   position: fixed;*/
+  width: 14em;
+  height: 6em;
+  /*margin: .5em;*/
+  padding: 2em;
+  text-align: center;
+   margin-left: auto;
+  margin-right: auto;
+}
+.slice > div {
+  margin: 1em auto;
+}
+.slice > div:nth-child(2) {
+  font-family: cursive;
+  position: absolute;
+  bottom: 0;
+  left: 3em;
+  color: #fff;
+}
+

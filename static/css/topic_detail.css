@@ -140,16 +140,16 @@ ul{
 	}
 
 .commentusericon{
-	width: 25px;
-	height: 25px;
+	width: 32px;
+	height: 32px;
 	border-radius: 3px;
 	background-color: #eee;
 	float: left;
-	margin: 4px 1em 0 0;
+	margin: 4px 8px 0 0;
 }
 .commentusericon1{
-	width: 25px;
-	height: 25px;
+	width: 32px;
+	height: 32px;
 	border-radius: 3px;
 	background-color: #eee;
 	margin-right: 5px;
@@ -193,7 +193,7 @@ color: #333;
 }
 
 .article-time {
-margin: 0 15px 0 10px;
+margin: 0 15px 0 15px;
 }
 
 .article-share {
@@ -211,10 +211,10 @@ margin: 0 15px 0 0;
 .article-content-wrap{
 	line-height: 30px;
 	margin-top: 25px;
-	margin-bottom: 40px;
+	margin-bottom: 0px;
 }
 
-.article-content-wrap img{
+.article-content-wrap img, .article-content-wrap video{
 	max-width: 100%  !important;
 	height: auto !important;
 }
@@ -240,8 +240,8 @@ font-size: 16px;
 }
 
 .author-info{
-	margin-top: 30px;
-	margin-bottom: 30px;
+	margin-top: 15px;
+	margin-bottom: 15px;
 	font-size: 14px;
 }
 
@@ -270,9 +270,7 @@ font-size: 16px;
 .btn-block{
 	margin-bottom: 30px;
 	margin-top: 20px;
-	height: 48px;
-	border-radius: 0px;
-	width: 148px;
+	width: 100px;
 }
 
 
@@ -469,7 +467,8 @@ color: #A19F9F;
 .pl-content{
 /*	margin-top: 15px;
 	margin-bottom: 15px;*/
-
+	margin-top: 8px;   /*v2*/
+	margin-bottom: 8px;   /*v2*/
 }
 
 .author-time{
@@ -509,15 +508,12 @@ h4 b{
 	position: relative;
 	float: left;
 	margin-left: -1px;
-	line-height: 27px;
 	color: #333;
 	background-color: #f5f5f5;
 	margin-right: 10px;
 	border-radius: 0;
-	height: 36px;
-	width: 36px;
 	border: none;
-	padding: 6px 0;
+	padding: 3px 9px; 
 	/*border-radius: 10px;*/
 	/*background: rgba(0,0,0,.2);*/
 }
@@ -526,15 +522,12 @@ h4 b{
 	position: relative;
 	float: left;
 	margin-left: -1px;
-	line-height: 27px;
 	color: #fff;
 	background-color:  #67CA87;
 	margin-right: 10px;
 	border-radius: 0;
-	height: 36px;
-	width: 36px;
 	border: none;
-	padding: 6px 0;
+	padding: 3px 9px; 
 	/*border-radius: 10px;*/
 	/*background: #67CA87;*/
 }
@@ -596,6 +589,7 @@ margin-top: 5px
 	zoom: 1;
 	width: 100%;
 	padding: 5px 10px 30px 10px;
+	border-radius: 5px;  
 }
 
 #hotboader:after{
@@ -773,7 +767,7 @@ a:hover{
 #dianzan{
 	width: 75px;
 	height: 75px;
-	margin: 15px auto 60px auto;
+	margin: 0px auto 60px auto;
 	text-align: center;
 	border: 3px solid #999;
 	color: #999;
@@ -819,6 +813,7 @@ a:hover{
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: -37px;
+	border: 1px solid #ddd;
 }
 
 .per-grou-info{
@@ -976,4 +971,54 @@ height: 200px;
 	font-weight: bold;
 }
 
+.icon-reply {
+background-position: -67px -1px;
+display: inline-block;
+background-image: url(/static/images/sharebackground.png);
+width: 20px;
+height: 20px;
+background-repeat: no-repeat;
+vertical-align: text-bottom;
+margin-right: 3px;
+margin-left: 0px;
+}
+
+
+
+.overlay {
+    background: white;
+    filter: alpha(opacity=50); /* IE的透明度 */
+    opacity: 0.5;  /* 透明度 */
+    display: none;
+    /*position: absolute;*/
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 100; /* 此处的图层要大于页面 */
+    text-align: center;
+}
+
+
+.slice {
+
+ /*   position: fixed;*/
+  width: 14em;
+  height: 6em;
+  /*margin: .5em;*/
+  padding: 2em;
+  text-align: center;
+   margin-left: auto;
+  margin-right: auto;
+}
+.slice > div {
+  margin: 1em auto;
+}
+.slice > div:nth-child(2) {
+  font-family: cursive;
+  position: absolute;
+  bottom: 0;
+  left: 3em;
+  color: #fff;
+}
 

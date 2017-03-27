@@ -3,7 +3,7 @@ from django.contrib import admin
 
 # Register your models here.
 
-from .models import Topiccommentreply,  Topicwritereply, Topicusercomment, TopicWriteScoreM, TopicLike, Group, Topic, CollectionTopic, Groupmanager
+from .models import Daka, Topiccommentreply,  Topicwritereply, Topicusercomment, TopicWriteScoreM, TopicLike, Group, Topic, CollectionTopic, Groupmanager
 
 class GroupAdmin(admin.ModelAdmin):
     list_display = ('id', 'title','timestamp')
@@ -33,6 +33,8 @@ class TopicwritereplyAdmin(admin.ModelAdmin):
 class TopiccommentreplyAdmin(admin.ModelAdmin):
     list_display = ('id', 'user1','topic', 'timestamp', 'user2')
 
+class DakaAdmin(admin.ModelAdmin):
+    list_display = ('id', 'user', 'date', 'timestamp')
 
 
 admin.site.register(Group, GroupAdmin)
@@ -45,3 +47,4 @@ admin.site.register(TopicWriteScoreM, TopicWriteScoreMAdmin)
 admin.site.register(Topicusercomment, TopicusercommentAdmin)
 admin.site.register(Topicwritereply, TopicwritereplyAdmin)
 admin.site.register(Topiccommentreply, TopiccommentreplyAdmin)
+admin.site.register(Daka, DakaAdmin)

@@ -340,7 +340,7 @@ $(function() {
         </div>
 
         <div class='small_try_info' style="border-left: 1px dashed #ddd;">
-          <div>竞拍数量: {{products.scoreamount}}</div>
+          <div>竞拍数量: {{products.scoreamount}}<a class="whatscore-small" href="/topic/142/">(积分?)</a></div>
           <div>当前最高价: {{payscoretitle}}积分</div>
               <div class="score">
                 <span>出价</span>   
@@ -403,7 +403,11 @@ $(function() {
 
       	<div class="try-info col-sm-12 hidden-xs">
       		<div class="products-pic col-sm-4">
-      			<img src="{{products.get_image_url}}">
+            {% if products.get_detailimage_url == '/static/media/images/companylogo.png' %}
+              <img src="{{products.get_image_url}}">
+            {% else %}
+              <img src="{{products.get_detailimage_url}}">
+            {% endif %}
       		</div>
 
       		<div class="products-info col-sm-4">
@@ -511,6 +515,7 @@ $(function() {
                 {% elif products.status = 3 %}
                           <button type="button" class="btn btn-danger " >已结束</button>
                 {% endif %}
+                <a class="pull-right whatscore" href="/topic/142/">什么是积分？</a>
               </div>
         
       </div>    
@@ -567,6 +572,7 @@ $(function() {
 			</div><!-- <div class='products-detail col-sm-9'> -->
 
 			<div class="col-sm-3">
+        {% if products.company %}
         <div class="hot-try-company">
           <div class="hot-try-title-line"></div>
           <div class="hot-try-compant-title">提供方</div>
@@ -580,6 +586,7 @@ $(function() {
           </div>
         </div>
         </div>
+        {% endif %}
 
 <div class='hotnewsblock'>
          <div class='head'>          <span class='shu-mark'>|</span>热门试用</div>

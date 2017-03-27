@@ -595,6 +595,15 @@ def userdashboardinformations(request, user_id):
 				else:
 					unread = Notification.objects.filter(recipient = user).filter(read = False).count()
 					cache.set(cachekey,  unread, settings.CACHE_EXPIRETIME)	
+
+				cachekey = "user_privcyunread_count" + str(user.id)
+				if cache.get(cachekey) != None:
+					cache.incr(cachekey)
+				else:
+					unread = Notification.objects.filter(recipient = user).filter(read = False).filter(verb = '_@_').count()
+					cache.set(cachekey,  unread, settings.CACHE_EXPIRETIME)	
+
+
 			except:
 				traceback.print_exc()
 			return redirect(action_url)
@@ -832,6 +841,14 @@ def privcynotifications(request, user_id):
 				else:
 					unread = Notification.objects.filter(recipient = targetuser).filter(read = False).count()
 					cache.set(cachekey,  unread, settings.CACHE_EXPIRETIME)	
+				cachekey = "user_privcyunread_count" + str(targetuser.id)
+				if cache.get(cachekey) != None:
+					cache.incr(cachekey)
+				else:
+					unread = Notification.objects.filter(recipient = user).filter(read = False).filter(verb = '_@_').count()
+					cache.set(cachekey,  unread, settings.CACHE_EXPIRETIME)	
+
+
 			except:
 				traceback.print_exc()
 			return redirect(request.get_full_path())

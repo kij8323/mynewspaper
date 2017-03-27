@@ -4,7 +4,7 @@
 {% block HeadDoc %}
 <link href="/static/css/group_detail.css" rel="stylesheet">
 <script src="/static/js/topic_detail.js"></script>
-
+<link rel="stylesheet" href="/static/css/loaders.min.css">
 
 <script>/*板块固定滚动,板块内width要定长*/
 $.fn.smartFloat = function() { 
@@ -156,6 +156,10 @@ $(function(){
   $('.img3-imagefst3').imgsizeFunctionimg3();
   $('.img3-imagescd3').imgsizeFunctionimg3();
   $('.img3-imagethd3').imgsizeFunctionimg3();
+  $('.img1-imagefst1').imgsizeFunctionimg3();
+  $('.img1-imagefst3').imgsizeFunctionimg3();
+  $('.img1-imagescd3').imgsizeFunctionimg3();
+  $('.img1-imagethd3').imgsizeFunctionimg3();
 }); 
 </script>
 
@@ -164,75 +168,103 @@ $(window).resize(function(){
   $('.img3-imagefst3').imgsizeFunctionimg3();
   $('.img3-imagescd3').imgsizeFunctionimg3();
   $('.img3-imagethd3').imgsizeFunctionimg3();
+  $('.img1-imagefst1').imgsizeFunctionimg3();
+  $('.img1-imagefst3').imgsizeFunctionimg3();
+  $('.img1-imagescd3').imgsizeFunctionimg3();
+  $('.img1-imagethd3').imgsizeFunctionimg3();
 });
+</script>
+
+
+<script type="text/javascript">
+window.onload=function(){ 
+    $("#overlay").fadeTo(200, 0.5);
+
+    $('#groupdetailpage').load('{% url 'groupdetailpage' %}');
+} 
+</script>
+
+<script>/*daka*/
+$(function() {
+ $("body").on("click", '.daka', function(){
+
+    $.ajaxSetup({
+    data: {csrfmiddlewaretoken: '{{ csrf_token }}', 
+          userid: {{user.id}},
+          },
+          });
+    $.ajax({
+        url: "{% url 'daka' %}",
+        type: "post",
+        success: function(data) {
+          if (data.mess == "succ"){
+              $.messager.popup("打卡成功!");
+              $(".modal.msg-popup .modal-body").css({
+                  'color': '#449d44',
+                  "background-color":"#CCF4D9",
+                  });}
+          else if (data.mess == "err"){
+                $.messager.popup("重复打卡！");
+                $(".modal.msg-popup .modal-body").css({
+                    'color': '#a94442',
+                    "background-color":"#f2dede",
+                    });}
+          },
+          error: function(data) { 
+            /*alert('Error')*/
+          }
+    });
+  })
+})
+</script>
+
+<script>/*daka*/
+$(function() {
+ $("body").on("click", '.daka1', function(){
+    $.ajaxSetup({
+    data: {csrfmiddlewaretoken: '{{ csrf_token }}', 
+          userid: {{user.id}},
+          },
+          });
+    $.ajax({
+        url: "{% url 'daka' %}",
+        type: "post",
+        success: function(data) {
+          if (data.mess == "succ"){
+              $.messager.popup(data.dakatime+" 打卡成功!"+"<br/>"+"这是您的第"+data.userdate+"天打卡");
+              $(".modal.msg-popup .modal-body").css({
+                  'color': '#449d44',
+                  "background-color":"#CCF4D9",
+                  });}
+          else if (data.mess == "err"){
+                $.messager.popup(" 重复打卡！");
+                $(".modal.msg-popup .modal-body").css({
+                    'color': '#a94442',
+                    "background-color":"#f2dede",
+                    });}
+          },
+          error: function(data) { 
+            /*alert('Error')*/
+          }
+    });
+  })
+})
 </script>
 {% endblock %}
 
 
  {% block content %}
-
-<ul id="rightsidebar1">
-<li class="rtotopsctoll1">
-  <!-- <a href="javascript:void(0)"></a> -->
- <a href="javascript:void(0)"><em></em></a> 
-</li>
-<li class='barcomment1 visible-xs-block'>
-  <a href="{% url 'mobilenew' %}">发新话题</a>
-</li>
-</ul>
-
-
-
-<div class="container    group_detail_container">
-
-<div class="col-sm-9">
-
- <div class="group-associatetitle hidden-xs">
- <div class="group-associatetitle-title">
- {{group.associatetitle}}
+ <div class="group-associatetitle-mobile  visible-xs-block">
+  <div class="group-associatetitle-title-mobile">
+	 {{group.associatetitle}}
  </div>
-
-   <div class="group-founder">组长：{% for item in managers %}<a href="{{item.manager.get_absolute_url}}" style="margin-right:15px;">{{item.manager.username}}</a>
-  {% endfor %}
-
-
-
-</div><!-- <div class="group-founder"> -->
-
-<div class="cepingcount-block">
-<div class="cepingcount-line"></div>
-<div class="cepingcount">
-{{group.title}}：{{topicount}}
-</div>
-<div class="cepingcount-line"></div>
-<div style="clear:both;"></div> 
-</div>
-  </div><!-- <div class="group-associatetitle"> -->
-
-
-
-
-<div class="cate-list-block hidden-xs">
-{% for item in groupall %}
-  <div class="cate-spec">
-{% if item.get_absolute_url  == group.get_absolute_url %}
-  <a class="cate-link" href="{{item.get_absolute_url}}" style="color: #67CA87;">
-  {% else %}
-  <a class="cate-link" href="{{item.get_absolute_url}}">
-{% endif %}
-  <span class="glyphicon {{item.glyphicon}}" aria-hidden="true"></span>
-    <div class="cate-spec-name">{{item.title}}</div>
-  </a>
-  </div>
-{% endfor %}
-  <div style="clear:both;"></div> 
 </div>
 
 
 <div class="cate-list-block-mobile  visible-xs-block">
   <div class="cate-spec">
-  <a class="cate-link" href="{% url 'group_detail' 11 %}">
-  <span class="glyphicon glyphicon-folder-open" aria-hidden="true" style="background-color: #67CA87;"></span>
+  <a class="cate-link" href="{% url 'group_all'  %}">
+  <span class="glyphicon glyphicon-leaf" aria-hidden="true" style="background-color: #67CA87;"></span>
     <div class="cate-spec-name">全部</div>
   </a>
   </div>
@@ -266,7 +298,7 @@ $(window).resize(function(){
     <div class="cate-spec-name">手机</div>
   </a>
   </div>
-  <div class="cate-spec">
+ <div class="cate-spec">
   <a class="cate-link" href="{% url 'group_detail' 17 %}">
   <span class="glyphicon glyphicon-facetime-video" aria-hidden="true" style="background-color: #3399CC;"></span>
     <div class="cate-spec-name">外设</div>
@@ -290,220 +322,92 @@ $(window).resize(function(){
     <div class="cate-spec-name">其他</div>
   </a>
   </div>
+
+<div class="cate-spec">
+  <a class="cate-link" href="{% url 'group_detail' 21 %}">
+  <span class="glyphicon glyphicon-camera" aria-hidden="true" style="background-color: #EE82EE;" ></span>
+    <div class="cate-spec-name">摄影</div>
+  </a>
+  </div>
+<div class="cate-spec">
+  <a class="cate-link" href="{% url 'group_detail' 22 %}">
+  <span class="glyphicon glyphicon-question-sign" aria-hidden="true" style="background-color: #008080;"></span>
+    <div class="cate-spec-name">问答</div>
+  </a>
+  </div>
+
+  <div style="clear:both;"></div>
+</div>
+
+
+
+<ul id="rightsidebar1">
+<li class="rtotopsctoll1">
+  <!-- <a href="javascript:void(0)"></a> -->
+ <a href="javascript:void(0)"><em></em></a> 
+</li>
+<li class='barcomment1 visible-xs-block'>
+  <a href="{% url 'mobilenew' %}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+</li>
+<li class="daka visible-xs-block">
+  <a href="javascript:void(0)">打卡</a> 
+</li>
+</ul>
+
+
+
+<div class="container    group_detail_container">
+
+<div class="col-sm-9">
+
+ <div class="group-associatetitle hidden-xs">
+ <div class="group-associatetitle-title">
+ {{group.associatetitle}}
+ </div>
+
+   <div class="group-founder">组长：{% for item in managers %}<a href="{{item.manager.get_absolute_url}}" style="margin-right:15px;">{{item.manager.username}}</a>
+  {% endfor %}
+
+
+
+</div><!-- <div class="group-founder"> -->
+
+  </div><!-- <div class="group-associatetitle"> -->
+
+
+
+
+<div class="cate-list-block hidden-xs">
+  <div class="cate-spec">
+  <a class="cate-link" href="/group/all/" >
+  <span class="glyphicon glyphicon-leaf" aria-hidden="true"></span>
+    <div class="cate-spec-name">全部</div>
+  </a>
+  </div>
+{% for item in groupall %}
+  <div class="cate-spec">
+{% if item.get_absolute_url  == group.get_absolute_url %}
+  <a class="cate-link" href="{{item.get_absolute_url}}" style="color: #67CA87;">
+  {% else %}
+  <a class="cate-link" href="{{item.get_absolute_url}}">
+{% endif %}
+  <span class="glyphicon {{item.glyphicon}}" aria-hidden="true"></span>
+    <div class="cate-spec-name">{{item.title}}</div>
+  </a>
+  </div>
+{% endfor %}
   <div style="clear:both;"></div> 
 </div>
 
- <div class="group-list-block">
-
-<div class="menu">
-  <ul class="nav nav-pills rightblock">
-      <li class="presentationw1" role="presentation"><a href="javascript:void(0);">{{group.title}}话题</a></li>
-      <li class="presentationw2" role="presentation"><a href="{% url 'group_score' group.id %}"><i class="score-topic-score"></i>涨积分</a></li>
-    </ul>   
-    </div>
-{% for item in topicstickied %}
- <div class="group-list">
-<div class="group-list-usericon   hidden-xs">  
-  <a href="{{item.writer.get_absolute_url}}">
- <img  class="commentusericon" src='{{item.writer.get_image_url}}'>
-  </a>
-</div>
 
 
-<div class="group-list-content">
- <a href="{{item.get_absolute_url}}">
- {{item.title}}
- </a>
-
- <span class='topic-page'>
-{% if item.id|topics_page_count %}
-[ {% for pageitem in item.id|topics_page_count %}  
-<a href="{{item.get_absolute_url}}?page={{ pageitem }}">
-{{ pageitem }}
-</a>
-{% endfor %} ]
-{% endif %}
-</span>
-
-<span class='zhiding'>置</span>
-
- {% if item.cover %}
-<span class="jiajing">精</span>
-{% endif %}
-
- {% if item.score %}
-<i class="score-topic"></i>
-{% endif %}
-
- <div class="group-information">
- <span class='group-informatio-blank'>
-<!--   <a href="{{item.writer.get_absolute_url}}">
- <img  class="commentusericon" src='{{item.writer.get_image_url}}'>
-  </a> -->
- <a class="group-information-writer" href="{{item.writer.get_absolute_url}}">
-{{item.writer}}
- </a>
- </span>
-发布于
- <span class='group-informatio-blank'>
-
- {{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month|time_blank_n}}前
-
-</span>
-<!--  <span class='group-informatio-blank'>
-回复数:{{item.id|Topic_comment}}
-</span> -->
-
-{%  if item.id|Topic_comment %}
- <span class='group-informatio-blank hidden-xs'>
-<i class="icon icon-line"></i>
-{{item.lastcommentime.user}}回复于
-</span>
-
- <span class='group-informatio-blank hidden-xs'>
-{{item.lastcommentime.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month|time_blank_n}}前
-</span>
-{% endif %}
-
-<span class='topic-reply pull-right'>
-<i class="icon-reply"></i><span>{{item.id|Topic_comment}}</span> 
-</span>  
-
-</div>
-</div><!-- <div class="group-list-content"> -->
-<div style="clear:both;"></div> 
-</div>
- {% endfor %}
-
-
- {% for item in topic %}
- <div class="group-list">
-<div class="group-list-usericon hidden-xs">  
-  <a href="{{item.writer.get_absolute_url}}">
- <img  class="commentusericon" src='{{item.writer.get_image_url}}'>
-  </a>
-</div>
-
-
-<div class="group-list-content">
- <a href="{{item.get_absolute_url}}">
- {{item.title}}
- </a>
-
- <span class='topic-page'>
-{% if item.id|topics_page_count %}
-[ {% for pageitem in item.id|topics_page_count %}  
-<a href="{{item.get_absolute_url}}?page={{ pageitem }}">
-{{ pageitem }}
-</a>
-{% endfor %} ]
-{% endif %}
-</span>
- 
- {% if item.cover %}
-<span class="jiajing">精</span>
-{% endif %}
-
- {% if item.score %}
-<i class="score-topic"></i>
-{% endif %}
-
-
-
-{% if item.img3 %}
-<div class='img3'>
-<img  class="img3-imagefst3" src='{{item.get_imagefst3_url}}'>
-<img  class="img3-imagescd3" src='{{item.get_imagescd3_url}}'>
-<img  class="img3-imagethd3" src='{{item.get_imagethd3_url}}'>
-</div>
-<div style="clear:both;"></div> 
-{% endif %}
-
- <div class="group-information">
- <span class='group-informatio-blank'>
-<!--  	<a href="{{item.writer.get_absolute_url}}">
- <img  class="commentusericon" src='{{item.writer.get_image_url}}'>
-  </a> -->
- <a class="group-information-writer" href="{{item.writer.get_absolute_url}}">
-{{item.writer}}
- </a>
- </span>发布于
-
- <span class='group-informatio-blank'>
-
- {{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month|time_blank_n}}前
-
-</span>
-<!--  <span class='group-informatio-blank'>
-回复数:{{item.id|Topic_comment}}
-</span> -->
-
-{%  if item.id|Topic_comment %}
-
-<i class="icon icon-line  hidden-xs"></i>
-
-
- <span class='group-informatio-blank hidden-xs'>
-{{item.lastcommentime.user}}回复于
-</span>
-
- <span class='group-informatio-blank hidden-xs'>
-{{item.lastcommentime.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month|time_blank_n}}前
-</span>
-{% endif %}
-
-
-
-<i class="icon icon-line "></i>
-<span><span class="hidden-xs">来自：</span><a href="{{item.group.get_absolute_url}}">{{item.group.title}}</a>
-</span>
-
-
-
-<span class='topic-reply pull-right'>
-<i class="icon-reply"></i><span>{{item.id|Topic_comment}}</span> 
-</span> 
-
-
-
+<div id="groupdetailpage">
+ <div id='overlay'>
+<div class="slice">
+<div data-loader="circle"  >
 </div>
 </div>
-<div style="clear:both;"></div> 
-</div>
- {% endfor %}
- </div> <!-- <div class="group-list-block"> -->
-
-<div class='paginationcontain'>
-<div class="pagination">
-    <span class="step-links">
-{% if topic.has_previous %}
-        <a class='paginator paginator_first' title='上一页' href='?page={{ topic.previous_page_number }}'><span>上一页</span></a>
- {% endif %}
-
- 
- {% if ellipsis_front %}
-<a class='paginator' href='?page=1' title='1'><span>1</span></a>
- <div class='paginator'><span>...</span></div>
- {% endif %}
- {% for page in pagerange %}
-     {% if page = topic.number %}
-         <a class='paginator_current' title='当前页:{{ page }}'><span>{{ page }}</span></a>
-     {% else %}
-         <a class='paginator' href='?page={{ page }}' title='{{ page }}'><span>{{ page }}</span></a>
-     {% endif %}
- {% endfor %}
- {% if ellipsis_real %}
-<div class='paginator'><span>...</span></div>
-<a class='paginator' href='?page={{last_page}}' title='{{last_page}}'><span>{{last_page}}</span></a>
- {% endif %}
-
-
-
- {% if topic.has_next %}
-    <a class='paginator paginator_first' title='下一页' href='?page={{ topic.next_page_number }}'><span>下一页</span></a>
- {% endif %}
-    </span>
-</div><!-- <div class="pagination"> -->
+ </div>
 </div>
 
 
@@ -576,7 +480,10 @@ $(window).resize(function(){
     {% endif %}
     <div style="clear:both;"></div>
     <div class="newtopicuser">
-    <a  href="{% url 'newtopic' %}" class='btn btn-lg btn-success btn-block' ><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> 发表新话题</a>
+    <a  href="{% url 'newtopic' %}" class='btn btn-success btn-block' ><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> 发表新话题</a>
+    </div>
+    <div class="dakabtn">
+    <a  href="javascript:void(0)" class='btn btn-warning btn-block daka1' ><span  class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> 打卡</a>
     </div>
   </div>
 

@@ -59,39 +59,31 @@ body{
 	/*margin-top: 30px;*/
 }
 
+
 .paginator{
 	position: relative;
 	float: left;
 	margin-left: -1px;
-	line-height: 27px;
 	color: #333;
 	background-color: #f5f5f5;
 	margin-right: 10px;
 	border-radius: 0;
-	height: 36px;
-	width: 36px;
+	padding: 3px 9px; /*v6*/
 	border: none;
-	padding: 6px 0;
-	/*border-radius: 10px;*/
-	/*background: rgba(0,0,0,.2);*/
 }
 
 .paginator_current{
 	position: relative;
 	float: left;
 	margin-left: -1px;
-	line-height: 27px;
 	color: #fff;
 	background-color:  #67CA87;
 	margin-right: 10px;
 	border-radius: 0;
-	height: 36px;
-	width: 36px;
 	border: none;
-	padding: 6px 0;
-	/*border-radius: 10px;*/
-	/*background: #67CA87;*/
+	padding: 3px 9px;  /*v6*/
 }
+
 
 .commentlist{
 	padding: 25px 0;

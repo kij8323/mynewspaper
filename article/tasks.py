@@ -183,3 +183,65 @@ def topiccommentreplyplus(x, y, z, a, b):
     except:
         pass
     return 'score success!'
+
+
+
+
+
+
+
+#申请试用加积分
+@task
+def prodapplscore(x):
+    try:
+        if thidauth1(x):
+            x.score = x.score + 30
+            x.save()
+            return 'success'
+        else:
+            pass
+    except:
+        pass
+    return 'fail'
+
+
+#打卡加积分
+@task
+def dakascore(x):
+    try:
+        if thidauth1(x):
+            x.score = x.score + 15
+            x.save()
+            return 'success'
+        else:
+            pass
+    except:
+        pass
+    return 'fail'
+
+
+#积分竞拍减积分
+@task
+def payscrerec(a,b,c,d,e):
+    try:
+        userpay = a.objects.filter(user=b, products=c).order_by('-payscore')
+        if userpay.count() != 0:
+            b.score = b.score+userpay[0].payscore-d
+            b.save()
+        else:
+            b.score = b.score-d
+            b.save()
+
+        try:
+            userecpay = e.objects.get(user=b, products=c)
+            userecpay.payscore = d
+            userecpay.save()
+        except:
+            p = e(user=b, products=c, payscore=d)
+            p.save()
+        return 'success'
+    except:
+        pass
+    return 'fail'
+
+

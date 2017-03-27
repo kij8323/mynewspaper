@@ -3,11 +3,10 @@
 {% load staticfiles %}
 {% load time_filter %}
 <link href="/static/css/topic_detail.css" rel="stylesheet">
-<script src="/static/js/topic_detail.js"></script>
 <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
 <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
 <script src="/static/js/jquerypage.js"></script>
-
+<link rel="stylesheet" href="/static/css/loaders.min.css">
 
 <script>/*回复文章*/
 $(function() {
@@ -26,7 +25,7 @@ $(function() {
         dataType: 'json',
           success: function(data) {
             $(".freshcomment").append(
-              ' <div class="comment"><span class="author-name"><img  class="img-circle commentusericon" src={{user.get_image_url}}><div class="rightcomment">'+data.user+'</span><span class="author-time">&nbsp刚刚</span><div class="pl-content">'+data.text+'</div><div class="pl-box-btm" id="'+data.user+'"><div class="btn-dp-right pull-right" id="'+data.commentid+'"><i class="icon-dp-positive" style="background-position: -220px -173px;"></i><span class="commentuserlike'+data.commentid+'">0</span><i class="icon-dp-negtive" style="background-position: -270px -171px;"></i><span class="commentuserdislike'+data.commentid+'">0</span></div><span class="btn-dp" style="color: rgb(187, 187, 187);"><i class="icon-dp-checkbox" style="background-position: -28px -22px;"></i> 添加点评</span><div class="form-comment-reply" id="'+data.commentid+'"><div class="freshchildcomment'+data.commentid+'" style="margin-top : 1em;"></div><label for="id_commentext">Commentext:</label><textarea class="form-control" cols="40" id="id_commentext" name="commentext" placeholder="" rows="8"></textarea><button id="btn-block" type="button" class="btn btn-lg btn-success btn-block btn-reply">发表</button></div></div></div></div>'
+              ' <div class="comment"><span class="author-name"><img  class="img-circle commentusericon" src={{user.get_image_url}}><div class="rightcomment">'+data.user+'</span><span class="author-time">&nbsp刚刚</span><div class="pl-content">'+data.text+'</div><div class="pl-box-btm" id="'+data.user+'"><div class="btn-dp-right pull-right" id="'+data.commentid+'"><i class="icon-dp-positive" style="background-position: -220px -173px;"></i><span class="commentuserlike'+data.commentid+'">0</span><i class="icon-dp-negtive" style="background-position: -270px -171px;"></i><span class="commentuserdislike'+data.commentid+'">0</span></div><span class="btn-dp" style="color: rgb(187, 187, 187);"><i class="icon-dp-checkbox" style="background-position: -28px -22px;"></i> 添加点评</span><div class="form-comment-reply" id="'+data.commentid+'"><div class="freshchildcomment'+data.commentid+'" style="margin-top : 1em;"></div><label for="id_commentext">Commentext:</label><textarea class="form-control" cols="40" id="id_commentext" name="commentext" placeholder="" rows="8"></textarea><button id="btn-block" type="button" class="btn  btn-success btn-block btn-reply">发表</button></div></div></div></div>'
               )
               commnetcount = $('.article-pl-count').text()
               $('.article-pl-count').text(parseInt(commnetcount)+1)
@@ -35,7 +34,7 @@ $(function() {
               return 0;
           } 
     });
-    $('html,body').animate({scrollTop:$('.freshcomment').offset().top}, 100);
+    $('html,body').animate({scrollTop:$('.freshcomment').offset().top-($(window).height()/2)+100}, 100);
     $.messager.popup("评论发表成功!");
     $(".modal.msg-popup .modal-body").css({
         'color': '#449d44',
@@ -74,7 +73,7 @@ $(function() {
         dataType: 'json',
           success: function(data) {
             $('.freshchildcomment'+preentid).append(
-              ' <div class="childcomment"><img class="commentusericon" src={{user.get_image_url}}><div class="rightchildcomment" id="'+data.user+'"><span class="author-name"><a href={{user.get_absolute_url}}>'+data.user+'</a></span><span class="author-time"> 0&nbsp;分钟前 :</span><div class="pl-content">'+data.text+'</div><div class="btn-dp-child"><i class="icon-childcomment"></i>回复</div><span class="btn-dp-right pull-right" id="'+data.commentid+'"><i class="icon-dp-positive" style="background-position: -220px -173px;"></i><span class="commentuserlike'+data.commentid+'">0</span><i class="icon-dp-negtive" style="background-position: -270px -171px;"></i><span class="commentuserdislike'+data.commentid+'">0</span></span></div></div>'
+              ' <div class="childcomment"><img class="commentusericon" src={{user.get_image_url}}><div class="rightchildcomment" id="'+data.user+'"><span class="author-name"><a href={{user.get_absolute_url}}>'+data.user+'</a></span><span class="author-time"> 0&nbsp;分钟前</span><div class="pl-content">'+data.text+'</div><div class="btn-dp-child"><i class="icon-childcomment"></i>回复</div><span class="btn-dp-right pull-right" id="'+data.commentid+'"><i class="icon-dp-positive" style="background-position: -220px -173px;"></i><span class="commentuserlike'+data.commentid+'">0</span><i class="icon-dp-negtive" style="background-position: -270px -171px;"></i><span class="commentuserdislike'+data.commentid+'">0</span></span></div></div>'
               )
               commnetcount = $('.article-pl-count').text()
               $('.article-pl-count').text(parseInt(commnetcount)+1)
@@ -396,6 +395,20 @@ $(document).ready(function(){
   });
 });
 </script>
+
+
+<script type="text/javascript">
+window.onload=function(){ 
+    $(".overlay").fadeTo(200, 0.5);
+    $('#topiccommentpage').load('{% url 'topiccommentpage' %}', 
+      function(){
+        $(".overlay").fadeTo(200, 0.5);
+        $('#topicdetailpage').load('{% url 'topicdetailpage' %}');
+        $.getScript("http://v3.jiathis.com/code/jia.js"); 
+      });
+} 
+</script>
+
 {% endblock %}
 
 
@@ -438,11 +451,6 @@ $(document).ready(function(){
 
 
 <div class="container">
-{% for item in commentdanmu %}
-<div class='danmu'>
-{{item.user}} : {{ item.text|delebq }}
-</div>
-{% endfor %}
 
 
 <ul id="rightsidebar" >
@@ -451,9 +459,6 @@ $(document).ready(function(){
 </li>
 <li class='barcomment visible-xs-block'>
 <a href="javascript:void(0)">评论</a>
-</li>
-<li class='danmubar'>
-<a href="javascript:void(0)">弹</a>
 </li>
 </ul>
 
@@ -508,7 +513,7 @@ $(document).ready(function(){
 <div class="col-sm-8">
 
   <ul class="breadcrumbs">
-            <li><a href="{% url 'group_detail' 11 %}">全部</a><span> &gt; </span></li>
+            <li><a href="{% url 'group_all'  %}">全部</a><span> &gt; </span></li>
             <li><a href="{{ group.get_absolute_url }}">{{ group.title }}</a></li>
         </ul>
 
@@ -522,9 +527,8 @@ $(document).ready(function(){
                <img  class="commentusericon1" src='{{topic.writer.get_image_url}}'>
                 </a>
                 <span class="author-name"><a href = "{{topic.writer.get_absolute_url}}">{{topic.writer}}</a></span>
-                <i class="icon icon-line"></i>
-                <span class="article-time">{{topic.timestamp|date:"Y-m-d H:i"}}</span>
-                <span class="article-pl">评论:<span class="article-pl-count">{{topic.id|Topic_comment}}</span></span>
+                <span class="article-time">{{topic.timestamp|date:"Y-m-d"}}</span>
+                <span class="article-pl"><i class="icon-reply"></i><span class="article-pl-count">{{topic.id|Topic_comment}}</span></span>
                 {% if host %}
                 <a href="{% url 'renewtopic' topic.id%}"><span class="topic-edite pull-right">编辑/更改</span></a>
                 {% endif %}
@@ -534,8 +538,13 @@ $(document).ready(function(){
 <div class="article-img-box">
 </div>
 
-<div class="article-content-wrap">
-     <p>{{topic.content|AtWhoUser|safe}}</p>
+<div id="topicdetailpage">
+ <div class='overlay'>
+<div class="slice">
+<div data-loader="circle"  >
+</div>
+</div>
+ </div>
 </div>
 
 <div class="clearfix"></div>
@@ -575,214 +584,30 @@ $(document).ready(function(){
 
 
 <!--                             热门回复                         -->
-{% if ifhotcomment and commentorderbyreaders %}
-<div id='hotboader'>
-    <div id='hotboadertitle'>热门回复</div>
-{% for item in commentorderbyreaders %}
-    <div class="comment">
-      <img  class="commentusericon" src='{{item.user.get_image_url}}'>
-      <div class='rightcomment'>
-      <span class="author-name"><a href="{{item.user.get_absolute_url}}">{{item.user}}</a></span>
-
-      <span class="author-time">
-      {{item.timestamp}}
-      </span>
-
-      
-
-      <div class="pl-content">{{item.text|AtWhoUser|safe}}</div>
-
-
-
-
-      <div class="pl-box-btm" id = '{{item.user}}'>
-
-                <div class="btn-dp-right pull-right" id="{{item.id}}">
-                <i class="icon-dp-positive"></i>
-                <span class='commentuserlike{{item.id}}'>{{item.id|comment_like_count}}</span>
-                <i class="icon-dp-negtive"></i>
-                <span class='commentuserdislike{{item.id}}'>{{item.id|comment_dislike_count}}</span>
-                </div>
-
-             <!--    <span class="btn-dp-reply">
-                <i class="icon-dp"></i>
-                回复
-                </span> -->
-
-              <span class="btn-dp">
-                <i class="icon-dp-checkbox"></i>
-                {% if item.child_commentcount %}
-                {{item.child_commentcount}}条点评
-                {% else %}
-                添加点评
-                {% endif %}
-                </span>
-                <div class="form-comment-reply" id="{{item.id}}">
-
-                  {% for childitem in item.child_comment %}
-                  <div class = 'childcomment'>
-                    <img  class="commentusericon" src='{{childitem.user.get_image_url}}'>
-                  <div class = 'rightchildcomment' id = '{{childitem.user}}'>
-                  <span class="author-name"><a href="{{childitem.user.get_absolute_url}}">{{childitem.user}}</a></span>
-                  <span class="author-time">
-                  {{childitem.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前 :
-                   </span>
-                  <div class="pl-content">{{childitem.text|AtWhoUser|safe}}</div>
-                  <div class="btn-dp-child">
-                    <i class="icon-childcomment"></i>回复
-                    </div>
-
-            <span class="btn-dp-right pull-right" id="{{childitem.id}}">
-                <i class="icon-dp-positive"></i>
-                <span class='commentuserlike{{childitem.id}}'>{{childitem.id|comment_like_count}}</span>
-                
-                <i class="icon-dp-negtive"></i>
-                <span class='commentuserdislike{{childitem.id}}'>{{childitem.id|comment_dislike_count}}</span>
-                </span>
-
-
-                 
-                  </div><!-- rightchildcomment -->
-                  </div>
-                  {% endfor %}
-                  
-                  <div class="freshchildcomment{{item.id}}" style='margin-top : 1em;'>
-                  </div>
-                    {{form}}
-                <button  id="btn-block" type="button" class='btn btn-lg btn-success btn-block btn-reply'>发表</button>
-              </div>
-      </div>
-      </div>
-            {% if item.user.qianming %}
-      <div class="qianmingline">{{item.user.qianming}}</div>
-      {% else %}
-      <div class="qianmingline-none"></div>
-      {% endif %}
-    </div><!-- comment -->
-{% endfor %}
-    </div>
-{% endif %}
 <!--                             热门回复                         -->
 
 
 <!--                            最新回复                         -->
-{% for item in contacts %}
-    <div class="comment">
-      <img  class="commentusericon" src='{{item.user.get_image_url}}'>
-      <div class='rightcomment'>
-      <span class="author-name"><a href="{{item.user.get_absolute_url}}">{{item.user}}</a></span>
-
-      <span class="author-time">
-      {{item.timestamp}}
-      </span>
-
-      <span class="author-floor pull-right">
-      {{forloop.counter|pageaculate:page}}楼
-      </span>
-
-      <div class="pl-content">{{item.text|AtWhoUser|safe}}</div>
-
-      <div class="pl-box-btm" id = '{{item.user}}'>
-
-                <div class="btn-dp-right pull-right" id="{{item.id}}">
-                <i class="icon-dp-positive"></i>
-                <span class='commentuserlike{{item.id}}'>{{item.id|comment_like_count}}</span>
-                
-                <i class="icon-dp-negtive"></i>
-                <span class='commentuserdislike{{item.id}}'>{{item.id|comment_dislike_count}}</span>
-                </div>
-
-               <!--  <span class="btn-dp-reply">
-                <i class="icon-dp"></i>
-                回复
-                </span> -->
-
-              <span class="btn-dp">
-                <i class="icon-dp-checkbox"></i>
-                {% if item.child_commentcount %}
-                {{item.child_commentcount}}条点评
-                {% else %}
-                添加点评
-                {% endif %}
-                </span>
-                <div class="form-comment-reply" id="{{item.id}}">
-
-                  {% for childitem in item.child_comment %}
-                  <div class = 'childcomment'>
-                    <img  class="commentusericon" src='{{childitem.user.get_image_url}}'>
-                  <div class = 'rightchildcomment' id = '{{childitem.user}}'>
-                  <span class="author-name"><a href="{{childitem.user.get_absolute_url}}">{{childitem.user}}</a></span>
-                  <span class="author-time">
-                  {{childitem.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前 :
-                   </span>
-                  <div class="pl-content">{{childitem.text|AtWhoUser|safe}}</div>
-                  <div class="btn-dp-child">
-                    <i class="icon-childcomment"></i>回复
-                    </div>
-
-            <span class="btn-dp-right pull-right" id="{{childitem.id}}">
-                <i class="icon-dp-positive"></i>
-                <span class='commentuserlike{{childitem.id}}'>{{childitem.id|comment_like_count}}</span>
-                
-                <i class="icon-dp-negtive"></i>
-                <span class='commentuserdislike{{childitem.id}}'>{{childitem.id|comment_dislike_count}}</span>
-                </span>
-
-
-                 
-                  </div><!-- rightchildcomment -->
-                  </div>
-                  {% endfor %}
-                  
-                  <div class="freshchildcomment{{item.id}}" style='margin-top : 1em;'>
-                  </div>
-                    {{form}}
-                <button  id="btn-block" type="button" class='btn btn-lg btn-success btn-block btn-reply' >发表</button>
-              </div>
-      </div>
-      </div>
-            {% if item.user.qianming %}
-      <div class="qianmingline">{{item.user.qianming}}</div>
-      {% else %}
-      <div class="qianmingline-none"></div>
-      {% endif %}
-    </div><!-- comment -->
-{% endfor %}
 <!--                            最新回复                         -->
 
-
-<div class="freshcomment">
+<div id="topiccommentpage">
+ <div class='overlay'>
+<div class="slice">
+<div data-loader="circle"  >
+</div>
+</div>
+ </div>
 </div>
 
-<div class='paginationcontain'>
-<div class="pagination">
-    <span class="step-links">
-{% if contacts.has_previous %}
-         <a class='paginator paginator_first' title='上一页' href='?page={{ contacts.previous_page_number }}'><span>上一页</span></a>
-{% endif %}
- {% for page in contacts.paginator.page_range %}
-     {% if page = contacts.number %}
-         <a class='paginator_current' title='当前页:{{ page }}'><span>{{ page }}</span></a>
-     {% else %}
-         <a class='paginator' href='?page={{ page }}' title='{{ page }}'><span>{{ page }}</span></a>
-     {% endif %}
- {% endfor %}
- {% if contacts.has_next %}
-     <a class='paginator paginator_first' title='下一页' href='?page={{ contacts.next_page_number }}'><span>下一页</span></a>
-{% endif %}
-    </span>
-</div><!-- <div class="pagination"> -->
-</div>
 
 
 
 <div class="comment-form">
-     <span class="span-mark-author">发表评论</span>
       <div class="author-info">
       {% if user.is_authenticated %}
-        {{user}}:
+      <img  class="commentusericon1" src='{{user.get_image_url}}'>
       {% else %}
-      游客:
+      <img  class="commentusericon1" src="/static/media/images/78avatarbig.jpg">
       {% endif %} 
       </div>
 <!--         <form class="form-comment" role="form" method='POST' autocomplete="off" action='{{ action_url }}'> -->
@@ -798,6 +623,7 @@ $(document).ready(function(){
         language: 'zh-cn',
         toolbar: [['Link','Unlink'], ['-', 'Bold', 'Italic', 'Format'], ['Smiley', ]],
         width: '100%',
+        uiColor: '#ffffff',
     });
     </script>
 {% else %}
@@ -808,7 +634,7 @@ $(document).ready(function(){
 </div>
 {% endif %} 
 
-      <button  id="btn-block" type="button" class='btn btn-lg btn-success btn-block replayscrollposition' >发表</button>
+      <button  id="btn-block" type="button" class='btn  btn-success btn-block replayscrollposition' >发表</button>
     </div>
     </div><!-- class="comment-form" -->
      </div><!-- <div id="topic"> -->
@@ -869,6 +695,5 @@ $(document).ready(function(){
 </div><!-- <div id='rightstableblock'> -->
 </div><!-- <div class="col-sm-3"> -->
 </div><!-- <div class="container"> -->
-  <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
  {% endblock %}
  

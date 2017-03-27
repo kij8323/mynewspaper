@@ -399,7 +399,7 @@ $(window).resize(function(){
         </div>
 
         <div class='small_try_info' style="border-left: 1px dashed #ddd;">
-          <div>竞拍数量: {{products.scoreamount}}</div>
+          <div>竞拍数量: {{products.scoreamount}}<a class="whatscore-small" href="/topic/142/">(积分?)</a></div>
           <div>当前最高价: {{payscoretitle}}积分</div>
               <div class="score">
                 <span>出价</span>   
@@ -459,7 +459,12 @@ $(window).resize(function(){
 
       	<div class="try-info col-sm-12 hidden-xs">
       		<div class="products-pic col-sm-4">
-      			<img src="{{products.get_image_url}}">
+
+            {% if products.get_detailimage_url == '/static/media/images/companylogo.png' %}
+              <img src="{{products.get_image_url}}">
+            {% else %}
+              <img src="{{products.get_detailimage_url}}">
+            {% endif %}
       		</div>
 
       		<div class="products-info col-sm-4">
@@ -567,6 +572,7 @@ $(window).resize(function(){
                 {% elif products.status = 3 %}
                           <button type="button" class="btn btn-danger " >已结束</button>
                 {% endif %}
+                <a class="pull-right whatscore" href="/topic/142/">什么是积分?</a>
               </div>
         
       </div>    
@@ -616,9 +622,6 @@ $(window).resize(function(){
 {% endif %}
 </span>
  
- {% if item.cover %}
-<span class="jiajing">精</span>
-{% endif %}
 
  {% if item.score %}
 <i class="score-topic"></i>
@@ -645,7 +648,7 @@ $(window).resize(function(){
  <a class="group-information-writer" href="{{item.writer.get_absolute_url}}">
 {{item.writer}}
  </a>
- </span>发布于
+ </span>
 
  <span class='group-informatio-blank'>
 
@@ -655,9 +658,9 @@ $(window).resize(function(){
 <!--  <span class='group-informatio-blank'>
 回复数:{{item.id|Topic_comment}}
 </span> -->
-<i class="icon icon-line"></i>
 
 {%  if item.id|Topic_comment %}
+<i class="icon icon-line hidden-xs"></i>
  <span class='group-informatio-blank hidden-xs'>
 {{item.lastcommentime.user}}回复于
 </span>
@@ -667,7 +670,9 @@ $(window).resize(function(){
 </span>
 {% endif %}
 
-
+<i class="icon icon-line "></i>
+<span><span class="hidden-xs">来自：</span><a href="{{item.group.get_absolute_url}}">{{item.group.title}}</a>
+</span>
 
 <span class='topic-reply pull-right'>
 <i class="icon-reply"></i><span>{{item.id|Topic_comment}}</span> 
@@ -687,6 +692,7 @@ $(window).resize(function(){
 			</div><!-- <div class='products-detail col-sm-9'> -->
 
 			<div class="col-sm-3">
+        {% if products.company %}
         <div class="hot-try-company">
           <div class="hot-try-title-line"></div>
           <div class="hot-try-compant-title">提供方</div>
@@ -700,6 +706,7 @@ $(window).resize(function(){
           </div>
         </div>
         </div>
+        {% endif %}
 
 <div class='hotnewsblock'>
          <div class='head'>          <span class='shu-mark'>|</span>热门试用</div>

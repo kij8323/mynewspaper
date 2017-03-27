@@ -17,6 +17,8 @@ urlpatterns = [
     url(r'^home/articlepagehome/$', 'mainpage.views.articlepagehome', name='articlepagehome'),#首页更多文章加载页面
     url(r'^home/index_search/$', 'mainpage.views.index_search', name='index_search'),#搜索页面
 
+    url(r'^homepage/$', 'mainpage.views.homepage', name='homepage'),#首页加载
+
 
 
     url(r'^user/(?P<user_id>[0-9]+)/thirdfirstloggin', 'accounts.views.thirdfirstloggin', name='thirdfirstloggin'),
@@ -60,6 +62,14 @@ urlpatterns = [
     url(r'^group/all/$', 'topic.views.group_all', name='group_all'),#话题组首页
     url(r'^group/(?P<group_id>[0-9]+)/$', 'topic.views.group_detail', name='group_detail'),#话题组页
     url(r'^group/(?P<group_id>[0-9]+)/score/$', 'topic.views.group_score', name='group_score'),#话题组页
+    url(r'^groupall/score/$', 'topic.views.groupall_score', name='groupall_score'),#
+    url(r'^groupallpage/$', 'topic.views.groupallpage', name='groupallpage'),#加载话题组页
+    url(r'^groupdetailpage/$', 'topic.views.groupdetailpage', name='groupdetailpage'),#加载话题组页
+
+
+    url(r'^topiccommentpage/$', 'topic.views.topiccommentpage', name='topiccommentpage'),#加载话题评论
+
+    url(r'^topicdetailpage/$', 'topic.views.topicdetailpage', name='topicdetailpage'),#话题页
 
     url(r'^topic/(?P<topic_id>[0-9]+)/$', 'topic.views.topic_detail', name='topic_detail'),#话题页
     url(r'^topic/newtopic/$', 'topic.views.newtopic', name='newtopic'),#新建话题页
@@ -72,6 +82,7 @@ urlpatterns = [
     url(r'^topic/renewtopic/(?P<topic_id>[0-9]+)/$', 'topic.views.renewtopic', name='renewtopic'),#编辑话题
     url(r'^topic/mobilenew/$', 'topic.views.mobilenew', name='mobilenew'),#编辑话题
     url(r'^topic/dianzan/$', 'topic.views.dianzan', name='topicdianzan'),#编辑话题
+    url(r'^topic/daka/$', 'topic.views.daka', name='daka'),#编辑话题
 
 
 
@@ -109,6 +120,8 @@ urlpatterns = [
     url(r'^topic/collectioninvestment/$', 'investment.views.collectioninvestment', name='collectioninvestment'),#收藏公司
     url(r'^investment/built/$', 'investment.views.investmentbuilt', name='investmentbuilt'),#收藏公司
 
+    url(r'^productsallpage/$', 'products.views.productsallpage', name='productsallpage'),#试用首页加载
+
    url(r'^products/all/$', 'products.views.productsall', name='productsall'),#试用首页
     url(r'^products/applying/$', 'products.views.productsapplying', name='productsapplying'),#试用首页
     url(r'^products/testing/$', 'products.views.productstesting', name='productstesting'),#试用首页
@@ -130,6 +143,9 @@ urlpatterns = [
     url(r'^products/report/(?P<products_id>[0-9]+)/$', 'products.views.productsreport', name='productsreport'),
 
     url(r'^products/test123xxxnewapplication/(?P<products_id>[0-9]+)/(?P<app_num>[0-9]+)/(?P<period_num>[0-9]+)/$', 'products.views.newapplication', name='newapplication'),#对id为4的产品，生成4个机器人申请，每100秒一个
+
+    url(r'^comment/(?P<comment_id>[0-9]+)/$', 'comment.views.commentdetail', name='commentdetail'),#个人信息
+
 
 #    url(r'^products/address/(?P<products_id>[0-9]+)/$', 'products.views.productsaddress', name='productsaddress'),#文章页加载更多评论页面
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

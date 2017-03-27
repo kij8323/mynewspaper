@@ -6,6 +6,8 @@ from topic.models import Topic
 from products.models import Products
 from ckeditor.fields import RichTextField
 from django.forms import ModelForm
+from django.core.urlresolvers import reverse
+
 # Create your models here.
 class Comment(models.Model):
 	id = models.AutoField(primary_key=True, db_index=True)
@@ -62,6 +64,11 @@ class Comment(models.Model):
 
 	def child_commentcount(self):
  		return Comment.objects.filter(parent=self).count()
+
+	def get_absolute_url(self):
+		return reverse('commentdetail', kwargs={"comment_id": self.id})
+
+
 
 #text = RichTextField(max_length=5000, null=True, blank=True)
 

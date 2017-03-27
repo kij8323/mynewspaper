@@ -1,0 +1,656 @@
+{% extends "base_1.html" %}
+{% load ckeditor_filter %}
+{% load time_filter %}
+{% block HeadDoc %}
+<link href="/static/css/group_detail.css" rel="stylesheet">
+<script src="/static/js/topic_detail.js"></script>
+<link href="/static/css/group_score.css" rel="stylesheet">
+
+<script>/*板块固定滚动,板块内width要定长*/
+$.fn.smartFloat = function() { 
+    var position = function(element) { 
+        var top = element.position().top; //当前元素对象element距离浏览器上边缘的距离 
+        var pos = element.css("position"); //当前元素距离页面document顶部的距离 
+        $(window).scroll(function() { //侦听滚动时 
+            var scrolls = $(this).scrollTop(); 
+            if (scrolls > top) { //如果滚动到页面超出了当前元素element的相对页面顶部的高度 
+                if (window.XMLHttpRequest) { //如果不是ie6 
+                    element.css({ //设置css 
+                        position: "fixed", //固定定位,即不再跟随滚动 
+                        top: 0, //距离页面顶部为0 
+                      
+                    }).addClass("shadow"); //加上阴影样式.shadow 
+                } else { //如果是ie6 
+                    element.css({ 
+                        top: scrolls  //与页面顶部距离 
+                    });     
+                } 
+            }else { 
+                element.css({ //如果当前元素element未滚动到浏览器上边缘，则使用默认样式 
+                    position: pos, 
+                    top: top 
+                }).removeClass("shadow");//移除阴影样式.shadow 
+            } 
+        }); 
+    }; 
+    return $(this).each(function() { 
+        position($(this));                          
+    }); 
+}; 
+</script>
+
+<script>
+$(function(){ 
+    $("#rightstableblock").smartFloat(); 
+}); 
+</script>
+
+<script>/*去除&nbsp;*/
+$(function(){ 
+    $('.group-informatio-blank').each(function() {
+      var $this = $(this);
+      $this.html($this.html().replace(/&nbsp;/g, ''));
+    })
+}); 
+</script>
+
+
+<script>
+$.fn.widthsizeFunction = function() { 
+  width = $(this).css('width');
+  windowidth = parseFloat($(window).width())
+  if (windowidth > 768){
+    x = (parseFloat(width)*1)-71;
+  }
+  else {
+    x = (parseFloat(width)*1);
+  }
+  return  $('.group-list-content').css('width',x+'px');
+}
+</script>
+
+<script>
+$.fn.jiangpaisizeFunction = function() { 
+  width = $(this).css('width');
+  x = (parseFloat(width)*1)-76;
+  return  $('.jifen-rank-name').css('width',x+'px');
+}
+</script>
+
+
+<script>
+$(function(){ 
+  $('.group-list').widthsizeFunction();
+  $('.jifen-rank-content-ul li').jiangpaisizeFunction();
+}); 
+</script>
+
+<script>
+$(window).resize(function(){
+  $('.group-list').widthsizeFunction();
+  $('.jifen-rank-content-ul li').jiangpaisizeFunction();
+});
+</script>
+
+
+<script>
+$.fn.imgsizeFunction = function() { 
+  width = $(this).css('width');
+  x = (parseFloat(width)*1)
+  return  $(this).css('height',x+'px');
+}
+</script>
+
+<script>
+$.fn.imgsizebeijingFunction = function() { 
+  width = $(this).css('width');
+  x = (parseFloat(width)*0.267)
+  return  $(this).css('height',x+'px');
+}
+</script>
+
+<script>
+$(function(){ 
+  $('.per-info-icon').imgsizeFunction();
+  $('.img-circle-heng').imgsizeFunction();
+}); 
+</script>
+
+<script>
+$(window).resize(function(){
+  $('.per-info-icon').imgsizeFunction();
+  $('.img-circle-heng').imgsizeFunction();
+});
+</script>
+
+
+<script>/*回到页面顶端*/
+$(function(){ 
+  $('.barcomment1').click(function(){
+  $('html,body').animate({scrollTop:$('.comment-form').offset().top}, 800);}); 
+  $(window).scroll(function() {   
+    if($(window).scrollTop() >= 100){
+      $('.rtotopsctoll1').fadeIn(300); 
+    }else{    
+      $('.rtotopsctoll1').fadeOut(300);    
+    }  
+  });
+  $('.rtotopsctoll1').click(function(){
+  $('html,body').animate({scrollTop: '0px'}, 800);}); 
+});
+</script>
+
+
+<script>/*daka*/
+$(function() {
+ $("body").on("click", '.daka1', function(){
+    $.ajaxSetup({
+    data: {csrfmiddlewaretoken: '{{ csrf_token }}', 
+          userid: {{user.id}},
+          },
+          });
+    $.ajax({
+        url: "{% url 'daka' %}",
+        type: "post",
+        success: function(data) {
+          if (data.mess == "succ"){
+              $.messager.popup(data.dakatime+" 打卡成功!"+"<br/>"+"这是您的第"+data.userdate+"天打卡");
+              $(".modal.msg-popup .modal-body").css({
+                  'color': '#449d44',
+                  "background-color":"#CCF4D9",
+                  });}
+          else if (data.mess == "err"){
+                $.messager.popup(" 重复打卡！");
+                $(".modal.msg-popup .modal-body").css({
+                    'color': '#a94442',
+                    "background-color":"#f2dede",
+                    });}
+          },
+          error: function(data) { 
+            /*alert('Error')*/
+          }
+    });
+  })
+})
+</script>
+
+{% endblock %}
+
+
+ {% block content %}
+ <div class="group-associatetitle-mobile visible-xs-block">
+  <div class="group-associatetitle-title-mobile">
+	全部话题都在这里 
+</div>
+</div>
+
+
+<div class="cate-list-block-mobile  visible-xs-block">
+  <div class="cate-spec">
+  <a class="cate-link" href="{% url 'group_all'  %}">
+  <span class="glyphicon glyphicon-leaf" aria-hidden="true" style="background-color: #67CA87;"></span>
+    <div class="cate-spec-name">全部</div>
+  </a>
+  </div>
+  <div class="cate-spec">
+  <a class="cate-link" href="{% url 'group_detail' 12 %}">
+  <span class="glyphicon glyphicon-bullhorn" aria-hidden="true" style="background-color: #CC3333;"></span>
+    <div class="cate-spec-name">瞎聊</div>
+  </a>
+  </div>
+  <div class="cate-spec">
+  <a class="cate-link" href="{% url 'group_detail' 13 %}">
+  <span class="glyphicon glyphicon-headphones" aria-hidden="true" style="background-color: #FF6600;"></span>
+    <div class="cate-spec-name">穿戴</div>
+  </a>
+  </div>
+  <div class="cate-spec">
+  <a class="cate-link" href="{% url 'group_detail' 14 %}">
+  <span class="glyphicon glyphicon-lamp" aria-hidden="true" style="background-color: #FFCC33;"></span>
+    <div class="cate-spec-name">家居</div>
+  </a>
+  </div>
+  <div class="cate-spec">
+  <a class="cate-link" href="{% url 'group_detail' 15 %}">
+  <span class="glyphicon glyphicon-blackboard" aria-hidden="true" style="background-color: #FFCC99;"></span>
+    <div class="cate-spec-name">平板</div>
+  </a>
+  </div>
+  <div class="cate-spec">
+  <a class="cate-link" href="{% url 'group_detail' 16 %}">
+  <span class="glyphicon glyphicon-phone" aria-hidden="true" style="background-color: #003300;"></span>
+    <div class="cate-spec-name">手机</div>
+  </a>
+  </div>
+ <div class="cate-spec">
+  <a class="cate-link" href="{% url 'group_detail' 17 %}">
+  <span class="glyphicon glyphicon-facetime-video" aria-hidden="true" style="background-color: #3399CC;"></span>
+    <div class="cate-spec-name">外设</div>
+  </a>
+  </div>
+  <div class="cate-spec">
+  <a class="cate-link" href="{% url 'group_detail' 18 %}">
+  <span class="glyphicon glyphicon-film" aria-hidden="true" style="background-color: #666699;"></span>
+    <div class="cate-spec-name">影音</div>
+  </a>
+  </div>
+  <div class="cate-spec">
+  <a class="cate-link" href="{% url 'group_detail' 19 %}">
+  <span class="glyphicon glyphicon-filter" aria-hidden="true" style="background-color: #999966;"></span>
+    <div class="cate-spec-name">灌水</div>
+  </a>
+  </div>
+  <div class="cate-spec">
+  <a class="cate-link" href="{% url 'group_detail' 20 %}">
+  <span class="glyphicon glyphicon-option-horizontal" aria-hidden="true" style="background-color: #990066;"></span>
+    <div class="cate-spec-name">其他</div>
+  </a>
+  </div>
+
+<div class="cate-spec">
+  <a class="cate-link" href="{% url 'group_detail' 21 %}">
+  <span class="glyphicon glyphicon-camera" aria-hidden="true" style="background-color: #EE82EE;" ></span>
+    <div class="cate-spec-name">摄影</div>
+  </a>
+  </div>
+<div class="cate-spec">
+  <a class="cate-link" href="{% url 'group_detail' 22 %}">
+  <span class="glyphicon glyphicon-question-sign" aria-hidden="true" style="background-color: #008080;"></span>
+    <div class="cate-spec-name">问答</div>
+  </a>
+  </div>
+
+  <div style="clear:both;"></div>
+</div>
+
+
+
+
+<ul id="rightsidebar1">
+<li class="rtotopsctoll1">
+  <!-- <a href="javascript:void(0)"></a> -->
+ <a href="javascript:void(0)"><em></em></a> 
+</li>
+<li class='barcomment1 visible-xs-block'>
+  <a href="{% url 'mobilenew' %}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+</li>
+</ul>
+
+
+
+<div class="container    group_detail_container">
+
+
+<div class="col-sm-9">
+
+ <div class="group-associatetitle hidden-xs">
+ <div class="group-associatetitle-title">
+全部话题都在这里
+ </div>
+
+<div class="group-founder">组长：
+  <a href="/user/519/informations/" style="margin-right:15px;">梧桐试用管理员</a>
+  <a href="/user/2028/informations/" style="margin-right:15px;">爱春风爱萌恩</a>
+</div>
+
+  </div><!-- <div class="group-associatetitle"> -->
+
+
+
+
+
+<div class="cate-list-block  hidden-xs">
+  <div class="cate-spec">
+  <a class="cate-link" href="/group/all/" style="color: #67CA87;">
+  <span class="glyphicon glyphicon-leaf" aria-hidden="true"></span>
+    <div class="cate-spec-name">全部</div>
+  </a>
+  </div>
+{% for item in groupall %}
+  <div class="cate-spec">
+{% if item.get_absolute_url  == group.get_absolute_url %}
+  <a class="cate-link" href="{{item.get_absolute_url}}" style="color: #67CA87;">
+  {% else %}
+  <a class="cate-link" href="{{item.get_absolute_url}}">
+{% endif %}
+  <span class="glyphicon {{item.glyphicon}}" aria-hidden="true"></span>
+    <div class="cate-spec-name">{{item.title}}</div>
+  </a>
+  </div>
+{% endfor %}
+  <div style="clear:both;"></div> 
+</div>
+  
+
+
+ <div class="group-list-block">
+
+<div class="menu">
+  <ul class="nav nav-pills rightblock">
+
+
+      <li class="presentationw1" role="presentation"><a href="{% url 'group_all'  %}">全部话题</a></li>
+      <li class="presentationw2" role="presentation"><a href="javascript:void(0);"><i class="score-topic-score"></i>涨积分 ({{topicount}})</a></li>
+    </ul>
+       </div>
+{% for item in topicstickied %}
+ <div class="group-list">
+<div class="group-list-usericon   hidden-xs">  
+  <a href="{{item.writer.get_absolute_url}}">
+ <img  class="commentusericon" src='{{item.writer.get_image_url}}'>
+  </a>
+</div>
+
+
+<div class="group-list-content">
+ <a href="{{item.get_absolute_url}}">
+ {{item.title}}
+ </a>
+
+ <span class='topic-page'>
+{% if item.id|topics_page_count %}
+[ {% for pageitem in item.id|topics_page_count %}  
+<a href="{{item.get_absolute_url}}?page={{ pageitem }}">
+{{ pageitem }}
+</a>
+{% endfor %} ]
+{% endif %}
+</span>
+
+<span class='zhiding'>置</span>
+
+
+ {% if item.score %}
+<i class="score-topic"></i>
+{% endif %}
+
+ <div class="group-information">
+ <span class='group-informatio-blank'>
+<!--   <a href="{{item.writer.get_absolute_url}}">
+ <img  class="commentusericon" src='{{item.writer.get_image_url}}'>
+  </a> -->
+ <a class="group-information-writer" href="{{item.writer.get_absolute_url}}">
+{{item.writer}}
+ </a>
+ </span>
+
+ <span class='group-informatio-blank'>
+
+ {{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month|time_blank_n}}前
+
+</span>
+<!--  <span class='group-informatio-blank'>
+回复数:{{item.id|Topic_comment}}
+</span> -->
+<i class="icon icon-line hidden-xs"></i>
+
+{%  if item.id|Topic_comment %}
+ <span class='group-informatio-blank hidden-xs'>
+{{item.lastcommentime.user}}回复于
+</span>
+
+ <span class='group-informatio-blank hidden-xs'>
+{{item.lastcommentime.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month|time_blank_n}}前
+</span>
+{% endif %}
+
+<span class='topic-reply pull-right'>
+<i class="icon-reply"></i><span>{{item.id|Topic_comment}}</span> 
+</span>  
+
+</div>
+</div><!-- <div class="group-list-content"> -->
+<div style="clear:both;"></div> 
+</div>
+ {% endfor %}
+
+
+ {% for item in topic %}
+ <div class="group-list">
+<div class="group-list-usericon hidden-xs">  
+  <a href="{{item.writer.get_absolute_url}}">
+ <img  class="commentusericon" src='{{item.writer.get_image_url}}'>
+  </a>
+</div>
+
+
+<div class="group-list-content">
+ <a href="{{item.get_absolute_url}}">
+ {{item.title}}
+ </a>
+
+ <span class='topic-page'>
+{% if item.id|topics_page_count %}
+[ {% for pageitem in item.id|topics_page_count %}  
+<a href="{{item.get_absolute_url}}?page={{ pageitem }}">
+{{ pageitem }}
+</a>
+{% endfor %} ]
+{% endif %}
+</span>
+ 
+
+ {% if item.score %}
+<i class="score-topic"></i>
+{% endif %}
+
+ <div class="group-information">
+ <span class='group-informatio-blank'>
+<!--  	<a href="{{item.writer.get_absolute_url}}">
+ <img  class="commentusericon" src='{{item.writer.get_image_url}}'>
+  </a> -->
+ <a class="group-information-writer" href="{{item.writer.get_absolute_url}}">
+{{item.writer}}
+ </a>
+ </span>
+
+ <span class='group-informatio-blank'>
+
+ {{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month|time_blank_n}}前
+
+</span>
+<!--  <span class='group-informatio-blank'>
+回复数:{{item.id|Topic_comment}}
+</span> -->
+
+{%  if item.id|Topic_comment %}
+<i class="icon icon-line  hidden-xs"></i>
+
+
+ <span class='group-informatio-blank hidden-xs'>
+{{item.lastcommentime.user}}回复于
+</span>
+
+ <span class='group-informatio-blank hidden-xs'>
+{{item.lastcommentime.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month|time_blank_n}}前
+</span>
+{% endif %}
+
+
+
+<i class="icon icon-line "></i>
+<span><span class="hidden-xs">来自：</span><a href="{{item.group.get_absolute_url}}">{{item.group.title}}</a>
+</span>
+
+<span class='topic-reply pull-right'>
+<i class="icon-reply"></i><span>{{item.id|Topic_comment}}</span> 
+</span> 
+
+
+
+</div>
+</div>
+<div style="clear:both;"></div> 
+</div>
+ {% endfor %}
+ </div> <!-- <div class="group-list-block"> -->
+
+<div class='paginationcontain'>
+<div class="pagination">
+    <span class="step-links">
+{% if topic.has_previous %}
+         <a class='paginator paginator_first' title='上一页' href='?page={{ topic.previous_page_number }}'><span>上一页</span></a>
+{% endif %}
+ {% for page in topic.paginator.page_range %}
+     {% if page = topic.number %}
+         <a class='paginator_current' title='当前页:{{ page }}'><span>{{ page }}</span></a>
+     {% else %}
+         <a class='paginator' href='?page={{ page }}' title='{{ page }}'><span>{{ page }}</span></a>
+     {% endif %}
+ {% endfor %}
+ {% if topic.has_next %}
+     <a class='paginator paginator_first' title='下一页' href='?page={{ topic.next_page_number }}'><span>下一页</span></a>
+{% endif %}
+    </span>
+</div><!-- <div class="pagination"> -->
+</div>
+
+
+
+
+<div class="jifen-rank-smaill visible-xs-block">
+<div class="jifen-rank-title-block-heng">
+  <div class="jifenrank-line-heng"></div>
+ <div class="jifen-rank-title-heng">积分排行</div>
+<div class="jifenrank-line-heng"></div>
+<div style="clear:both;"></div>
+</div>
+<div class="jifen-rank-title-asso-heng">参与有<i class="score-topic-rank"></i>标志的帖子就能涨积分</div>
+<div class="jifen-rank-heng">
+  <ul class="jifen-rank-content-ul-heng">
+    {% for item in scorerank %}
+    <li>
+        <a href="{{item.get_absolute_url}}">
+      <img class="img-circle-heng" src="{{item.get_image_url}}">
+      </a>
+         <div class="rankjiangpai-heng">
+      <div class="rankjiangpaicount-heng">{{forloop.counter}}</div>
+    </div>
+
+      <div class="jifen-rank-name-heng">{{ item.username }}</div>
+      <div class='score-topic-rank-score-heng'>
+      <i class="score-topic-rank"></i>{{ item.score }}
+      </div>
+    </li>
+    {% endfor %}
+    <div style="clear:both;"></div>
+    </ul>
+</div>
+</div>
+
+</div><!-- class="col-sm-8" -->
+
+<div class="col-sm-3 hidden-xs">
+
+  <div class="per-info">
+    {% if user.is_authenticated %}
+    <img  class="per-info-icon img-circle" src='{{user.get_image_url}}'>
+    <div class="per-grou-info">
+      <div class="per-grou-info-username">
+        <a href="{{user.get_absolute_url}}">{{user.username}}</a>
+      </div>
+      <div class="per-grou-info-block">
+        <ul>
+          <li><div><a href="{% url 'user_userdashboardarticletopic' user.id %}">话题</a></div>{{user.id|topic_user_count}}</li>
+          <li class="midd-li"><div>积分</div>{{user.score}}</li>
+          <!-- <li>3<div>话题</div></li> -->
+        </ul>
+      </div>
+    </div>
+<!--     <img  class="per-info-icon img-circle" src='/static/images/78avatarbig.jpg'> -->
+    {% else %}
+    <img  class="per-info-icon img-circle" src='/static/media/images/78avatarbig.jpg'>
+    <div class="per-grou-info">
+      <div class="per-grou-info-username">
+        游客
+      </div>
+      <div class="per-grou-info-block">
+        <ul>
+          <li><div>话题</div>0</li>
+          <li class="midd-li"><div>积分</div>0</li>
+          <!-- <li>3<div>话题</div></li> -->
+        </ul>    
+      </div>
+    </div>
+
+    {% endif %}
+    <div style="clear:both;"></div>
+    <div class="newtopicuser">
+    <a  href="{% url 'newtopic' %}" class='btn btn-success btn-block' ><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> 发表新话题</a>
+    </div>
+
+    <div class="dakabtn">
+    <a  href="javascript:void(0)" class='btn btn-warning btn-block daka1' ><span  class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> 打卡</a>
+    </div>
+  </div>
+
+
+<div id='cepingcount-block'>
+   <div class="jifen-rank-title-block">
+  <div class="jifenrank-line"></div>
+ <div class="jifen-rank-title"><div class="jifenpaihangking"></div>积分排行</div>
+<div class="jifenrank-line"></div>
+<div style="clear:both;"></div> 
+<div class="jifen-rank-title-asso">参与有<i class="score-topic-rank"></i>标志的帖子就能涨积分</div>
+</div>
+<div class="jifen-rank-content">
+  <ul class="jifen-rank-content-ul">
+    {% for item in scorerank %}
+    <li>
+<!--       <div class="rankjiangpai"><div class="rankjiangpaicount">{{forloop.counter}}</div></div> -->
+      <div class="jifen-img-circle">
+        <a href="{{item.get_absolute_url}}">
+      <img class="img-circle" src="{{item.get_image_url}}">
+      </a>
+      <!-- <span class="rankjiangpaicount">1</span> -->
+      <!-- <span class="rankjiangpaicount">1</span> -->
+      </div>
+      <div class="rankjiangpai"><div class="rankjiangpaicount">{{forloop.counter}}</div></div>
+      <div class="jifen-rank-name">
+        <div>
+          <a href="{{item.get_absolute_url}}">
+        {{ item.username }}
+          </a>
+        </div>
+        <div ><i class="score-topic-rank"></i>
+          <span class="score-topic-rank-score">{{ item.score }}分</span>
+        </div>
+      </div>
+      <div style="clear:both;"></div> 
+    </li>
+    {% endfor %}
+   <!--  <div style="clear:both;"></div>  -->
+  </ul>
+</div>
+</div>
+
+
+
+<div id='hotarticle'>
+  <div class="pull-left" >
+  <h4><b>热门话题</b></h4>
+  <span class="span-mark"></span>
+  </div>
+<div class="rightnewtpic">
+{% for item in hottopic %}
+<div class="rightitle">
+<a href="{{item.get_absolute_url}}">
+{{item.title}}
+</a>
+<!-- <span class='grayword'>
+({{item.id|Topic_comment}}回复)
+</span> -->
+<div class="hotopic-reply"><i class="hotopic-icon-reply"></i>{{item.id|Topic_comment}}</div>
+
+</div>
+{% endfor %}
+
+</div><!-- <div class="rightnewtpic"> -->
+</div>
+
+</div><!-- class="col-sm-4" -->
+
+</div><!-- class="container" -->
+ {% endblock %}
+ 
+

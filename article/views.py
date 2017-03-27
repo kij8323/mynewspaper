@@ -252,6 +252,7 @@ def commentcomment(request):
 			"parentcommentext": c.parent.text,
 			"parentcommentuser": str(c.parent.user),
 			"commentid":c.id,
+			"parentcommentusericon": str(c.parent.user.get_image_url()),
 			}
 			json_data = json.dumps(data)
 			return HttpResponse(json_data, content_type='application/json')

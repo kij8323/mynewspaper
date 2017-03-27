@@ -26,7 +26,7 @@ $(function() {
         dataType: 'json',
           success: function(data) {
             $(".freshcomment").prepend(
-              ' <div class="comment"><span><img class="img-circle commentusericon" src={{user.get_image_url}}></span>&nbsp;&nbsp;<span class="author-name"><a href={{user.get_absolute_url}}>'+data.user+'</a></span>&nbsp&nbsp<span class="author-time">&nbsp刚刚</span><div class="pl-content">'+data.text+'</div><div class="pl-box-btm" id="'+data.user+'"><div class="btn-dp-right pull-right"><i class="icon-dp-positive" style="background-position: -220px -173px;"></i><span class="commentuserlike'+data.commentid+'">0</span><i class="icon-dp-negtive" style="background-position: -270px -171px;"></i><span class="commentuserdislike'+data.commentid+'">0</span></div><div class="btn-dp"><i class="icon-dp"></i>我要点评</div><div class="form-comment-reply" id="'+data.commentid+'"><label for="id_commentext">Commentext:</label><textarea class="form-control" cols="40" id="id_commentext" name="commentext" placeholder="你怎么看？" rows="8"></textarea><button id="btn-block" type="button" class="btn btn-lg btn-success btn-block btn-reply">发表</button></div></div></div>'
+              ' <div class="comment"><span><img class="img-circle commentusericon" src={{user.get_image_url}}></span>&nbsp;&nbsp;<span class="author-name"><a href={{user.get_absolute_url}}>'+data.user+'</a></span>&nbsp&nbsp<span class="author-time">&nbsp刚刚</span><div class="pl-content">'+data.text+'</div><div class="pl-box-btm" id="'+data.user+'"><div class="btn-dp-right pull-right"><i class="icon-dp-positive" style="background-position: -220px -173px;"></i><span class="commentuserlike'+data.commentid+'">0</span><i class="icon-dp-negtive" style="background-position: -270px -171px;"></i><span class="commentuserdislike'+data.commentid+'">0</span></div><div class="btn-dp"><i class="icon-dp"></i>我要点评</div><div class="form-comment-reply" id="'+data.commentid+'"><label for="id_commentext">Commentext:</label><textarea class="form-control" cols="40" id="id_commentext" name="commentext" placeholder="你怎么看？" rows="8"></textarea><button id="btn-block" type="button" class="btn  btn-success btn-block btn-reply">发表</button></div></div></div>'
               )
               commnetcount = $('.article-pl-count').text()
               $('.article-pl-count').text(parseInt(commnetcount)+1)
@@ -76,7 +76,7 @@ $(function() {
         dataType: 'json',
           success: function(data) {
             $(".freshcomment").prepend(
-              ' <div class="comment"><span><img class="img-circle commentusericon" src={{user.get_image_url}}></span>&nbsp;&nbsp;<span class="author-name"><a href={{user.get_absolute_url}}>'+data.user+'</a></span>&nbsp&nbsp<span class="author-time">&nbsp刚刚</span><div class="blockquote">'+"回复@"+data.parentcommentuser+"&nbsp发表的：</br>"+data.parentcommentext+'</div><div class="pl-content">'+data.text+'</div><div class="pl-box-btm" id="'+data.user+'"><div class="btn-dp-right pull-right"><i class="icon-dp-positive" style="background-position: -220px -173px;"></i><span class="commentuserlike'+data.commentid+'">0</span><i class="icon-dp-negtive" style="background-position: -270px -171px;"></i><span class="commentuserdislike'+data.commentid+'">0</span></div><div class="btn-dp"><i class="icon-dp"></i>我要点评</div><div class="form-comment-reply" id="'+data.commentid+'"><label for="id_commentext">Commentext:</label><textarea class="form-control" cols="40" id="id_commentext" name="commentext" placeholder="你怎么看？" rows="8"></textarea><button id="btn-block" type="button" class="btn btn-lg btn-success btn-block btn-reply">发表</button></div></div></div>'
+              ' <div class="comment"><span><img class="img-circle commentusericon" src={{user.get_image_url}}></span>&nbsp;&nbsp;<span class="author-name"><a href={{user.get_absolute_url}}>'+data.user+'</a></span>&nbsp&nbsp<span class="author-time">&nbsp刚刚</span><div class="blockquote"><img class="img-circle commentusericon" src="'+data.parentcommentusericon+'">'+" "+data.parentcommentuser+"</br><div class='pl-content'>"+data.parentcommentext+'</div></div><div class="pl-content">'+data.text+'</div><div class="pl-box-btm" id="'+data.user+'"><div class="btn-dp-right pull-right"><i class="icon-dp-positive" style="background-position: -220px -173px;"></i><span class="commentuserlike'+data.commentid+'">0</span><i class="icon-dp-negtive" style="background-position: -270px -171px;"></i><span class="commentuserdislike'+data.commentid+'">0</span></div><div class="btn-dp"><i class="icon-dp"></i>我要点评</div><div class="form-comment-reply" id="'+data.commentid+'"><label for="id_commentext">Commentext:</label><textarea class="form-control" cols="40" id="id_commentext" name="commentext" placeholder="你怎么看？" rows="8"></textarea><button id="btn-block" type="button" class="btn  btn-success btn-block btn-reply">发表</button></div></div></div>'
               )
               commnetcount = $('.article-pl-count').text()
               $('.article-pl-count').text(parseInt(commnetcount)+1)
@@ -335,10 +335,10 @@ $(function(){
 <div class="container">
 
 <ul id="rightsidebar" class="visible-xs-block">
-<li class="rtotopsctoll img-circle">
+<li class="rtotopsctoll ">
 <a href="javascript:void(0)"><em></em></a> 
 </li>
-<li class='barcomment img-circle'>
+<li class='barcomment '>
 <a href="javascript:void(0)">评论</a>
 </li>
 </ul>
@@ -474,12 +474,11 @@ $(function(){
 
 
 <div class="comment-form">
-     <span class="span-mark-author">发表评论</span>
       <div class="author-info">
       {% if user.is_authenticated %}
-        {{user}}:
+        <img  class="img-circle commentusericon" src='{{user.get_image_url}}'>
       {% else %}
-      游客:
+      <img  class="img-circle commentusericon" src="/static/media/images/78avatarbig.jpg">
       {% endif %} 
       </div>
 <!--         <form class="form-comment" role="form" method='POST' autocomplete="off" action='{{ action_url }}'> -->
@@ -495,6 +494,7 @@ $(function(){
         language: 'zh-cn',
         toolbar: [['Link','Unlink'], ['-', 'Bold', 'Italic', 'Format'], ['Smiley', ]],
         width: '100%',
+        uiColor: '#ffffff',
     });
     </script>
 {% else %}
@@ -506,7 +506,7 @@ $(function(){
 {% endif %} 
 
 
-      <button  id="btn-block" type="button" class='btn btn-lg btn-success btn-block' >发表</button>
+      <button  id="btn-block" type="button" class='btn  btn-success btn-block' >发表</button>
 
     </div>
 
@@ -537,7 +537,10 @@ $(function(){
       </span>
 
       {% if item.is_child %}
-      <div class="blockquote">回复@<a href="{{item.parent.user.get_absolute_url}}">{{item.parent.user}}</a>发表的：</br>{{item.parent.text|AtWhoUser|safe}}</div>
+            <div class="blockquote"><img class="img-circle commentusericon" src="{{item.parent.user.get_image_url}}"><a href="{{item.parent.user.get_absolute_url}}"> {{item.parent.user}}</a> 
+              &nbsp&nbsp<span class="author-time">{{item.parent.timestamp}}
+                 </span>
+               </br><div class="pl-content">{{item.parent.text|AtWhoUser|safe}}</div></div>
       {% endif %}
 
       <div class="pl-content">{{item.text|AtWhoUser|safe}}</div>
@@ -557,7 +560,7 @@ $(function(){
                 <div class="form-comment-reply" id="{{item.id}}">
                     {{form}}
 
-                <button  id="btn-block" type="button" class='btn btn-lg btn-success btn-block btn-reply' >发表</button> 
+                <button  id="btn-block" type="button" class='btn  btn-success btn-block btn-reply' >发表</button> 
               </div>
       </div>
     </div>
@@ -573,7 +576,9 @@ $(function(){
 
 
 <!--                            最新回复                         -->
+{% if comment %}
  <span class="span-mark-hotcomment">最新回复</span>
+ {% endif %}
  <div class="freshcomment">
 </div>
 {% for item in comment %}
@@ -590,7 +595,10 @@ $(function(){
       </span>
 
       {% if item.is_child %}
-      <div class="blockquote">回复<a href="{{item.parent.user.get_absolute_url}}">{{item.parent.user}}</a>发表的：</br>{{item.parent.text|AtWhoUser|safe}}</div>
+            <div class="blockquote"><img class="img-circle commentusericon" src="{{item.parent.user.get_image_url}}"><a href="{{item.parent.user.get_absolute_url}}"> {{item.parent.user}}</a> 
+              &nbsp&nbsp<span class="author-time">{{item.parent.timestamp}}
+                 </span>
+               </br><div class="pl-content">{{item.parent.text|AtWhoUser|safe}}</div></div>
       {% endif %}
 
       <div class="pl-content">{{item.text|AtWhoUser|safe}}</div>
@@ -614,7 +622,7 @@ $(function(){
                 <div class="form-comment-reply" id="{{item.id}}">
                     {{form}}
 
-                <button  id="btn-block" type="button" class='btn btn-lg btn-success btn-block btn-reply' >发表</button> 
+                <button  id="btn-block" type="button" class='btn  btn-success btn-block btn-reply' >发表</button> 
               </div>
       </div>
     </div>

@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Products, Application, Payscore
+from .models import Products, Application, Payscore, Payscorerec
 
 class ProductsAdmin(admin.ModelAdmin):
 	list_display = ('id', 'title', 'amount', 'status', 'verify', 'timestamp')
@@ -20,9 +20,16 @@ class PayscoreAdmin(admin.ModelAdmin):
 		model = Payscore
 
 
+class PayscorerecAdmin(admin.ModelAdmin):
+	list_display = ('id', 'products', 'user', 'payscore', 'timestamp')
+	class Meta:
+		model = Payscorerec
+
 
 admin.site.register(Products, ProductsAdmin)
 
 admin.site.register(Application, ApplicationAdmin)
 
 admin.site.register(Payscore, PayscoreAdmin)
+
+admin.site.register(Payscorerec, PayscorerecAdmin)

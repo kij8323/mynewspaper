@@ -69,7 +69,7 @@ class Topic(models.Model):
 	#作者
 	writer = models.ForeignKey(MyUser, db_index=True)
 	#文章内容
-	content = UEditorField(max_length=150000, width=800, upload_settings={"imageMaxSize":30204000})
+	content = UEditorField(max_length=150000, width=800, upload_settings={"imageMaxSize":1500000})
 	#文章地址
 	url_address = models.CharField(max_length=500, null=True, blank=True)
 	#文章图标
@@ -94,6 +94,9 @@ class Topic(models.Model):
 	#积分
 	score = models.BooleanField(default=False, db_index=True)
 
+
+	#是否在测评页显示1张图
+	img1 = models.BooleanField(default=False, db_index=True)
 	#是否在测评页显示3张图
 	img3 = models.BooleanField(default=False, db_index=True)
 	imagefst3 = models.ImageField(upload_to='images/', null=True, blank=True)
@@ -243,6 +246,15 @@ def subtopicount(sender, **kwargs):
 	else:
 		group = Group.objects.get(id=value)
 		cache.set(cachekey,  group.topicount)
+
+
+
+#打卡
+class Daka(models.Model):
+	id = models.AutoField(primary_key=True, db_index=True)
+	user = models.ForeignKey(MyUser)
+	date = models.CharField(max_length=500)
+	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False, null=True)
 
 
 

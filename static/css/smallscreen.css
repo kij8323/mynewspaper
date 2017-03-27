@@ -23,7 +23,6 @@
 }
 
 .rightwordblock{
-	padding-left: 12% !important;
 }
 
 
@@ -60,12 +59,9 @@ h1{
 }
 
 .paginator, .paginator_current{
-	margin-top: 9px !important;
 }
 
 .newsblock{
-	padding-left: 15px !important;
-	padding-right: 15px !important;
 }
 
 .content-1{
@@ -161,9 +157,6 @@ font-size: 12px !important;
 
 
 .newsblock .usericon{
-	width: 14px !important;
-	height: 14px !important;
-	margin-right: 0px !important;
 }
 
 .newsblock .associatetitle{
@@ -190,7 +183,6 @@ font-size: 12px !important;
 
 
 .home-container .leftcontainer .newsblock{
-	border-top: 0px;
 	margin-left: 15px;
 }
 
@@ -220,10 +212,20 @@ font-size: 12px !important;
 }
 
 .group_detail_container .group-list-content>a{
-	font-size: 14px;
+	font-size: 15px;
 }
 
 .group_detail_container .group-information, .group_detail_container .group-information-writer{
+	font-size: 12px;
+	margin-top: 0px;
+}
+
+
+.container_products_detail .group-list-content>a{
+	font-size: 14px;
+}
+
+.container_products_detail .group-information, .container_products_detail .group-information-writer{
 	font-size: 12px;
 	margin-top: 0px;
 }
@@ -235,15 +237,33 @@ font-size: 12px !important;
 
 
 .group_detail_container .img3-imagefst3, .group_detail_container .img3-imagescd3, .group_detail_container .img3-imagethd3{
-	width: 33%;
-	float: left;
-	padding: 3px 2px 0px 0px;
+	padding: 2px 2px 0px 0px;
+}
+
+
+.group_detail_container .img1-imagefst3, .group_detail_container .img1-imagescd3, .group_detail_container .img1-imagethd3{
+	padding: 2px 2px 0px 0px;
+}
+
+
+.group_detail_container .img1-imagefst1{
+	padding: 2px 2px 0px 0px;
 }
 
 
 
+.newsblock .img3-imagefst3, .newsblock .img3-imagescd3, .newsblock .img3-imagethd3{
+	padding: 6px 2px 0px 0px;
+}
+
+.newsblock .img1-imagefst3, .newsblock .img1-imagescd3, .newsblock .img1-imagethd3{
+	padding: 6px 2px 0px 0px;
+}
 
 
+.newsblock .img1-imagefst1{
+	padding: 6px 2px 0px 0px;
+}
 
 .group-information>span>a{
 	font-size: 12px;
@@ -258,8 +278,33 @@ font-size: 12px !important;
 
 
 .pagination .paginator, .pagination .paginator_current{
-	width: 20px;
-	height: 20px;
-	line-height: 10px;
-	font-size: 10px;
+}
+
+
+#article .article-author, #article  .comment {
+	font-size: 12px;
+}
+
+#article  .comment .pl-content{
+	font-size: 14px;
+}
+
+
+.container_products_detail  .comment{
+	font-size: 12px;
+}
+
+
+.container_products_detail  .comment .pl-content{
+	font-size: 14px;
+}
+
+
+.container>.col-sm-8{
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+.breadcrumbs li a{
+	font-size: 16px;
 }

@@ -1,0 +1,399 @@
+{% load ckeditor_filter %}
+{% load time_filter %}
+{% block HeadDoc %}
+<link href="/static/css/group_detail.css" rel="stylesheet">
+<script src="/static/js/topic_detail.js"></script>
+
+
+<script>/*板块固定滚动,板块内width要定长*/
+$.fn.smartFloat = function() { 
+    var position = function(element) { 
+        var top = element.position().top; //当前元素对象element距离浏览器上边缘的距离 
+        var pos = element.css("position"); //当前元素距离页面document顶部的距离 
+        $(window).scroll(function() { //侦听滚动时 
+            var scrolls = $(this).scrollTop(); 
+            if (scrolls > top) { //如果滚动到页面超出了当前元素element的相对页面顶部的高度 
+                if (window.XMLHttpRequest) { //如果不是ie6 
+                    element.css({ //设置css 
+                        position: "fixed", //固定定位,即不再跟随滚动 
+                        top: 0, //距离页面顶部为0 
+                      
+                    }).addClass("shadow"); //加上阴影样式.shadow 
+                } else { //如果是ie6 
+                    element.css({ 
+                        top: scrolls  //与页面顶部距离 
+                    });     
+                } 
+            }else { 
+                element.css({ //如果当前元素element未滚动到浏览器上边缘，则使用默认样式 
+                    position: pos, 
+                    top: top 
+                }).removeClass("shadow");//移除阴影样式.shadow 
+            } 
+        }); 
+    }; 
+    return $(this).each(function() { 
+        position($(this));                          
+    }); 
+}; 
+</script>
+
+<script>
+$(function(){ 
+    $("#rightstableblock").smartFloat(); 
+}); 
+</script>
+
+<script>/*去除&nbsp;*/
+$(function(){ 
+    $('.group-informatio-blank').each(function() {
+      var $this = $(this);
+      $this.html($this.html().replace(/&nbsp;/g, ''));
+    })
+}); 
+</script>
+
+
+<script>
+$.fn.widthsizeFunction = function() { 
+  width = $(this).css('width');
+  windowidth = parseFloat($(window).width())
+  if (windowidth > 768){
+    x = (parseFloat(width)*1)-71;
+  }
+  else {
+    x = (parseFloat(width)*1);
+  }
+  return  $('.group-list-content').css('width',x+'px');
+}
+</script>
+
+<script>
+$.fn.jiangpaisizeFunction = function() { 
+  width = $(this).css('width');
+  x = (parseFloat(width)*1)-76;
+  return  $('.jifen-rank-name').css('width',x+'px');
+}
+</script>
+
+
+<script>
+$(function(){ 
+  $('.group-list').widthsizeFunction();
+  $('.jifen-rank-content-ul li').jiangpaisizeFunction();
+}); 
+</script>
+
+<script>
+$(window).resize(function(){
+  $('.group-list').widthsizeFunction();
+  $('.jifen-rank-content-ul li').jiangpaisizeFunction();
+});
+</script>
+
+
+<script>
+$.fn.imgsizeFunction = function() { 
+  width = $(this).css('width');
+  x = (parseFloat(width)*1)
+  return  $(this).css('height',x+'px');
+}
+</script>
+
+<script>
+$.fn.imgsizebeijingFunction = function() { 
+  width = $(this).css('width');
+  x = (parseFloat(width)*0.267)
+  return  $(this).css('height',x+'px');
+}
+</script>
+
+<script>
+$(function(){ 
+  $('.per-info-icon').imgsizeFunction();
+  $('.img-circle-heng').imgsizeFunction();
+}); 
+</script>
+
+<script>
+$(window).resize(function(){
+  $('.per-info-icon').imgsizeFunction();
+  $('.img-circle-heng').imgsizeFunction();
+});
+</script>
+
+
+<script>/*回到页面顶端*/
+$(function(){ 
+  $('.barcomment1').click(function(){
+  $('html,body').animate({scrollTop:$('.comment-form').offset().top}, 800);}); 
+  $(window).scroll(function() {   
+    if($(window).scrollTop() >= 100){
+      $('.rtotopsctoll1').fadeIn(300); 
+    }else{    
+      $('.rtotopsctoll1').fadeOut(300);    
+    }  
+  });
+  $('.rtotopsctoll1').click(function(){
+  $('html,body').animate({scrollTop: '0px'}, 800);}); 
+
+});
+</script>
+
+
+
+<script>
+$.fn.imgsizeFunctionimg3 = function() { 
+  width = $(this).css('width');
+  x = (parseFloat(width)*0.636)
+  return  $(this).css('height',x+'px');
+}
+</script>
+
+<script>
+$(function(){ 
+  $('.img3-imagefst3').imgsizeFunctionimg3();
+  $('.img3-imagescd3').imgsizeFunctionimg3();
+  $('.img3-imagethd3').imgsizeFunctionimg3();
+  $('.img1-imagefst1').imgsizeFunctionimg3();
+  $('.img1-imagefst3').imgsizeFunctionimg3();
+  $('.img1-imagescd3').imgsizeFunctionimg3();
+  $('.img1-imagethd3').imgsizeFunctionimg3();
+}); 
+</script>
+
+<script>
+$(window).resize(function(){
+  $('.img3-imagefst3').imgsizeFunctionimg3();
+  $('.img3-imagescd3').imgsizeFunctionimg3();
+  $('.img3-imagethd3').imgsizeFunctionimg3();
+  $('.img1-imagefst1').imgsizeFunctionimg3();
+  $('.img1-imagefst3').imgsizeFunctionimg3();
+  $('.img1-imagescd3').imgsizeFunctionimg3();
+  $('.img1-imagethd3').imgsizeFunctionimg3();
+});
+</script>
+{% endblock %}
+
+
+ {% block content %}
+
+ <div class="group-list-block">
+
+<div class="menu">
+  <ul class="nav nav-pills rightblock">
+      <li class="presentationw1" role="presentation"><a href="javascript:void(0);">{{group.title}}话题 ({{topicount}})</a></li>
+      <li class="presentationw2" role="presentation"><a href="{% url 'group_score' group.id %}"><i class="score-topic-score"></i>涨积分</a></li>
+    </ul>   
+    </div>
+{% for item in topicstickied %}
+ <div class="group-list">
+<div class="group-list-usericon   hidden-xs">  
+  <a href="{{item.writer.get_absolute_url}}">
+ <img  class="commentusericon" src='{{item.writer.get_image_url}}'>
+  </a>
+</div>
+
+
+<div class="group-list-content">
+ <a href="{{item.get_absolute_url}}">
+ {{item.title}}
+ </a>
+
+ <span class='topic-page'>
+{% if item.id|topics_page_count %}
+[ {% for pageitem in item.id|topics_page_count %}  
+<a href="{{item.get_absolute_url}}?page={{ pageitem }}">
+{{ pageitem }}
+</a>
+{% endfor %} ]
+{% endif %}
+</span>
+
+<span class='zhiding'>置</span>
+
+
+ {% if item.score %}
+<i class="score-topic"></i>
+{% endif %}
+
+ <div class="group-information">
+ <span class='group-informatio-blank'>
+<!--   <a href="{{item.writer.get_absolute_url}}">
+ <img  class="commentusericon" src='{{item.writer.get_image_url}}'>
+  </a> -->
+ <a class="group-information-writer" href="{{item.writer.get_absolute_url}}">
+{{item.writer}}
+ </a>
+ </span>
+
+ <span class='group-informatio-blank'>
+
+ {{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month|time_blank_n}}前
+
+</span>
+<!--  <span class='group-informatio-blank'>
+回复数:{{item.id|Topic_comment}}
+</span> -->
+
+{%  if item.id|Topic_comment %}
+ <span class='group-informatio-blank hidden-xs'>
+<i class="icon icon-line"></i>
+{{item.lastcommentime.user}}回复于
+</span>
+
+ <span class='group-informatio-blank hidden-xs'>
+{{item.lastcommentime.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month|time_blank_n}}前
+</span>
+{% endif %}
+
+<span class='topic-reply pull-right'>
+<i class="icon-reply"></i><span>{{item.id|Topic_comment}}</span> 
+</span>  
+
+</div>
+</div><!-- <div class="group-list-content"> -->
+<div style="clear:both;"></div> 
+</div>
+ {% endfor %}
+
+
+ {% for item in topic %}
+ <div class="group-list">
+<div class="group-list-usericon hidden-xs">  
+  <a href="{{item.writer.get_absolute_url}}">
+ <img  class="commentusericon" src='{{item.writer.get_image_url}}'>
+  </a>
+</div>
+
+
+<div class="group-list-content">
+ <a href="{{item.get_absolute_url}}">
+ {{item.title}}
+ </a>
+
+ <span class='topic-page'>
+{% if item.id|topics_page_count %}
+[ {% for pageitem in item.id|topics_page_count %}  
+<a href="{{item.get_absolute_url}}?page={{ pageitem }}">
+{{ pageitem }}
+</a>
+{% endfor %} ]
+{% endif %}
+</span>
+ 
+
+ {% if item.score %}
+<i class="score-topic"></i>
+{% endif %}
+
+
+{% if item.img1 %}
+<div class='img3 visible-xs-block'>
+<img  class="img1-imagefst1" src='{{item.get_imagefst3_url}}'>
+</div>
+<div class='img3 hidden-xs'>
+<img  class="img1-imagefst3" src='{{item.get_imagefst3_url}}'>
+<img  class="img1-imagescd3" src='{{item.get_imagescd3_url}}'>
+<img  class="img1-imagethd3" src='{{item.get_imagethd3_url}}'>
+</div>
+<div style="clear:both;"></div> 
+{% elif item.img3 %}
+<div class='img3'>
+<img  class="img3-imagefst3" src='{{item.get_imagefst3_url}}'>
+<img  class="img3-imagescd3" src='{{item.get_imagescd3_url}}'>
+<img  class="img3-imagethd3" src='{{item.get_imagethd3_url}}'>
+</div>
+<div style="clear:both;"></div> 
+{% endif %}
+
+ <div class="group-information">
+ <span class='group-informatio-blank'>
+<!--  	<a href="{{item.writer.get_absolute_url}}">
+ <img  class="commentusericon" src='{{item.writer.get_image_url}}'>
+  </a> -->
+ <a class="group-information-writer" href="{{item.writer.get_absolute_url}}">
+{{item.writer}}
+ </a>
+ </span>
+
+ <span class='group-informatio-blank'>
+
+ {{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month|time_blank_n}}前
+
+</span>
+<!--  <span class='group-informatio-blank'>
+回复数:{{item.id|Topic_comment}}
+</span> -->
+
+{%  if item.id|Topic_comment %}
+
+<i class="icon icon-line  hidden-xs"></i>
+
+
+ <span class='group-informatio-blank hidden-xs'>
+{{item.lastcommentime.user}}回复于
+</span>
+
+ <span class='group-informatio-blank hidden-xs'>
+{{item.lastcommentime.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month|time_blank_n}}前
+</span>
+{% endif %}
+
+
+
+<i class="icon icon-line "></i>
+<span><span class="hidden-xs">来自：</span><a href="{{item.group.get_absolute_url}}">{{item.group.title}}</a>
+</span>
+
+
+
+<span class='topic-reply pull-right'>
+<i class="icon-reply"></i><span>{{item.id|Topic_comment}}</span> 
+</span> 
+
+
+
+</div>
+</div>
+<div style="clear:both;"></div> 
+</div>
+ {% endfor %}
+ </div> <!-- <div class="group-list-block"> -->
+
+<div class='paginationcontain'>
+<div class="pagination">
+    <span class="step-links">
+{% if topic.has_previous %}
+        <a class='paginator paginator_first' title='上一页' href='?page={{ topic.previous_page_number }}'><span>上一页</span></a>
+ {% endif %}
+
+ 
+ {% if ellipsis_front %}
+<a class='paginator' href='?page=1' title='1'><span>1</span></a>
+ <div class='paginator'><span>...</span></div>
+ {% endif %}
+ {% for page in pagerange %}
+     {% if page = topic.number %}
+         <a class='paginator_current' title='当前页:{{ page }}'><span>{{ page }}</span></a>
+     {% else %}
+         <a class='paginator' href='?page={{ page }}' title='{{ page }}'><span>{{ page }}</span></a>
+     {% endif %}
+ {% endfor %}
+ {% if ellipsis_real %}
+<div class='paginator'><span>...</span></div>
+<a class='paginator' href='?page={{last_page}}' title='{{last_page}}'><span>{{last_page}}</span></a>
+ {% endif %}
+
+
+
+ {% if topic.has_next %}
+    <a class='paginator paginator_first' title='下一页' href='?page={{ topic.next_page_number }}'><span>下一页</span></a>
+ {% endif %}
+    </span>
+</div><!-- <div class="pagination"> -->
+</div>
+
+
+ {% endblock %}
+ 

@@ -14,7 +14,10 @@
       </span>
 
       {% if item.is_child %}
-      <div class="blockquote">回复@{{item.parent.user}}发表的：{{item.parent.text|AtWhoUser|safe}}</div>
+      <div class="blockquote"><img class="img-circle commentusericon" src="{{item.parent.user.get_image_url}}"><a href="{{item.parent.user.get_absolute_url}}"> {{item.parent.user}}</a> 
+      &nbsp&nbsp<span class="author-time">{{item.parent.timestamp}}</span>
+        <div class="pl-content">{{item.parent.text|AtWhoUser|safe}}</div>
+      </div>
       {% endif %}
 
       <div class="pl-content">{{item.text|AtWhoUser|safe}}</div>
