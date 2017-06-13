@@ -104,9 +104,15 @@ $(function() {
         {% elif  item.topic %}
         Re话题：<a href="{{item.topic.get_absolute_url}}">{{item.topic.title}}
         </a>
-        {% else %}
+
+        {% elif item.products %}
         Re试用：<a href="{{item.products.get_absolute_url}}">{{item.products.title}}
         </a>
+
+        {% elif item.instrument %}
+        Re评分：<a href="{{item.instrument.get_absolute_url}}">{{item.instrument.model}}
+        </a>
+
         {% endif %}
       </span>
      <!--  <i class="icon-delete pull-right" data-toggle="modal" data-target="#myModal1"></i> -->

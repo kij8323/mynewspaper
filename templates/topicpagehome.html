@@ -1,0 +1,152 @@
+{% block HeadDoc %}
+{% load time_filter %}
+
+
+
+<script>/*去除&nbsp;*/
+$(function(){ 
+    $('.posttime').each(function() {
+      var $this = $(this);
+      $this.html($this.html().replace(/&nbsp;/g, ''));
+    })
+}); 
+</script>
+
+<script>
+$(function(){ 
+$('.carousel').carousel({
+  interval: 2300
+})
+}); 
+</script>
+
+
+
+<script>
+$.fn.imgsizeFunction = function() { 
+  width = $(this).css('width');
+  x = (parseFloat(width)*0.636)
+  return  $(this).css('height',x+'px');
+}
+</script>
+
+<script>
+$.fn.imgsizeFunctioninstru = function() { 
+  width = $(this).css('width');
+  x = (parseFloat(width)*1.42)
+  return  $(this).css('height',x+'px');
+}
+</script>
+
+<script>
+$.fn.imgsizeFunctiontopic = function() { 
+  width = $(this).css('width');
+  x = (parseFloat(width)*0.33)
+  return  $(this).css('height',x+'px');
+}
+</script>
+
+
+
+<script>
+$(function(){ 
+  $('.hotnewsblock table img').imgsizeFunction();
+  $('.img3-imagefst3').imgsizeFunction();
+  $('.img3-imagescd3').imgsizeFunction();
+  $('.img3-imagethd3').imgsizeFunction();
+  $('.img1-imagefst1').imgsizeFunction();
+  $('.img1-imagefst3').imgsizeFunction();
+  $('.img1-imagescd3').imgsizeFunction();
+  $('.img1-imagethd3').imgsizeFunction();
+  $('.img-instrument').imgsizeFunctioninstru();
+
+  $('.topicblock .topicblock-line2').imgsizeFunctiontopic();
+}); 
+</script>
+
+<script>
+$(window).resize(function(){
+$('.hotnewsblock table img').imgsizeFunction();
+  $('.img3-imagefst3').imgsizeFunction();
+  $('.img3-imagescd3').imgsizeFunction();
+  $('.img3-imagethd3').imgsizeFunction();
+  $('.img1-imagefst1').imgsizeFunction();
+  $('.img1-imagefst3').imgsizeFunction();
+  $('.img1-imagescd3').imgsizeFunction();
+  $('.img1-imagethd3').imgsizeFunction();
+  $('.img-instrument').imgsizeFunctioninstru();
+
+  $('.topicblock .topicblock-line2').imgsizeFunctiontopic();
+});
+</script>
+
+<script>
+$.fn.imgsizeFunctionitem = function() { 
+  width = $(this).css('width');
+  x = (parseFloat(width)*0.56)
+  return  $(this).css('height',x+'px');
+}
+</script>
+
+<script>
+$(function(){ 
+  $('.item-img, .item-img  a img').imgsizeFunctionitem();
+/*  $('.leftimgblock a img').imgsizeFunction();*/
+}); 
+</script>
+
+<script>
+$(window).resize(function(){
+  $('.item-img, .item-img  a img').imgsizeFunctionitem();
+/*  $('.leftimgblock a img').imgsizeFunction();*/
+});
+</script>
+
+
+{% endblock %}
+
+ {% block content %}
+
+
+{% for item in topic %}
+<div class="col-xs-11 topicblock" id="{{item.id}}">
+<div class="topicblock-line1">
+<a href="{{item.writer.get_absolute_url}}"><img  class="img-circle usericon" src='{{item.writer.get_image_url}}'></a>
+<div class="usericon-info">
+  <a href="{{item.writer.get_absolute_url}}">
+  <div class="usericon-info-name">{{item.writer.username}}</div>
+  </a>
+  <div class="usericon-info-time">
+    {{item.timestamp|date:"m月d日 "}}
+  </div>
+</div>
+<div style="clear:both;"></div>
+</div><!-- <div class="topicblock-line1"> -->
+
+<div class="topicblock-line2">
+<a href="{{item.get_absolute_url}}"><img  class="" src='{{item.get_imagesugg_url}}'></a>
+</div>
+
+<h3 class="topicblock-line3">
+<a href="{{item.get_absolute_url}}">{{item.title}}</a>
+</h3>
+
+<div class="topicblock-line4">
+{{item.associatetitle}}
+</div>
+
+<div class="topicblock-line5">
+<a href="{{item.group.get_absolute_url}}" >
+  <span class="glyphicon {{item.group.glyphicon}}" aria-hidden="true" style="margin-right:3px;"></span>
+  {{item.group.title}}
+  </a>
+<span class="glyphicon glyphicon-comment" aria-hidden="true"></span> {{item.id|Topic_comment}}
+</div>
+
+</div>
+{% endfor %}
+
+
+
+ {% endblock %}
+ 

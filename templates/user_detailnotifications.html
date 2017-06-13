@@ -295,7 +295,7 @@ $(document).ready(function(){
       {% if item.verb == '#' %}
       回复了你的话题:
       {% elif item.verb == '$' %}
-      回复了你的评论:<span class="target_comment">{{item.target_object.parent.text|safe}}</span>
+      回复了你的评论:
       {% else %}
       @了你: 
       {% endif %}
@@ -305,6 +305,12 @@ $(document).ready(function(){
       <i class="pull-right"><span class="badge">未读</span></i>
       {{ item.setread }}
       {% endif %}
+
+      {% if item.verb == '$' %}
+      </br>
+      <div class="target_comment">{{item.target_object.parent.text|safe}}</div>
+      {% endif %}
+
 
 
       {% if item.target_object.topic %}
@@ -319,6 +325,22 @@ $(document).ready(function(){
             <div id='{{item.target_object.parent.user.username}}' class='{{item.target_object.user.username}}'>{{item.text|AtWhoUser|safe}}</div>
             </div>
           {% endif %}
+
+
+          {% elif item.target_object.instrument %}
+          {% if item.target_object.parent %}
+          <div class="icon_hotcomentjiao"></div>
+          <div class='targetcomment' id='{{item.target_object.parent.id}}' onmouseover="this.style.cursor='pointer'" onclick="document.location='{{item.target_object.get_absolute_instrument_url}}'">
+            <div id='{{item.target_object.parent.user.username}}' class='{{item.target_object.user.username}}'>{{item.text|AtWhoUser|safe}}</div>
+            </div>
+
+          {% else %}
+          <div class="icon_hotcomentjiao"></div>
+            <div class='targetcomment' id='{{item.target_object.id}}' onmouseover="this.style.cursor='pointer'" onclick="document.location='{{item.target_object.get_absolute_instrument_url}}'" >
+            <div id='{{item.target_object.parent.user.username}}' class='{{item.target_object.user.username}}'>{{item.text|AtWhoUser|safe}}</div>
+            </div>
+            {% endif %}
+
       {% else %}
       <div class="icon_hotcomentjiao"></div>
       <div class='targetcomment' id='{{item.target_object.id}}'>
@@ -334,10 +356,17 @@ $(document).ready(function(){
         {% elif item.target_products %}
         来自试用：<a class="re-products" id="{{item.target_products.id}}" href="{{item.target_products.get_absolute_url}}">{{item.target_products.title}}
         </a>     
-          
-        {% else %}
+       
+        {% elif item.target_topic %}
         来自话题：<a class="re-topic" id="{{item.target_topic.id}}" href="{{item.target_topic.get_absolute_url}}">{{item.target_topic.title}}
         </a>
+
+
+        {% elif item.target_instrument %}
+        来自评分：<a class="re-topic" id="{{item.target_instrument.id}}" href="{{item.target_instrument.get_absolute_url}}">{{item.target_instrument.model}}
+        </a>
+
+  
         {% endif %}
       </span>
 
@@ -348,7 +377,7 @@ $(document).ready(function(){
 
       {% if item.timestamp > timeline %}
       <a href="javascript:;" class='reprivcy pull-right'>
-        回复
+
       </a>
       {% endif %}
       

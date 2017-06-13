@@ -14,23 +14,23 @@ class Company(models.Model):
 	#公司名称
 	title = models.CharField(max_length=120)
 	#公司网址
-	weburl = models.CharField(max_length=120)
+	weburl = models.CharField(max_length=120,null=True, blank=True)
 	#公司所在地
-	location = models.CharField(max_length=120,null=True, db_index=True)
+	location = models.CharField(max_length=120,null=True, db_index=True, blank=True)
 	#融资阶段
 	financing = models.CharField(max_length=120,null=True, blank=True, db_index=True)
 	#公司所在地
 	# address_shi = models.CharField(max_length=120,null=True)
 	#主要所属领域
-	industry = models.CharField(max_length=120,null=True, db_index=True)
+	industry = models.CharField(max_length=120,null=True, db_index=True, blank=True)
 	#一句话简介
-	associatetitle = models.CharField(max_length=120,null=True)
+	associatetitle = models.CharField(max_length=120,null=True, blank=True)
 	#产品与优势
-	product = RichTextField(max_length=2000,null=True)
+	product = RichTextField(max_length=2000,null=True, blank=True)
 	#过往融资经历
 	pastfinancing = RichTextField(max_length=2000,null=True, blank=True)
 	#目标用户
-	client = RichTextField(max_length=2000,null=True)
+	client = RichTextField(max_length=2000,null=True, blank=True)
 	#公司未来
 	future = RichTextField(max_length=2000,null=True, blank=True)
 	#相似产品

@@ -221,3 +221,11 @@ padding-left: 0px;
 	height:  46px;
 	line-height:  46px;
 }
+
+.modal-body {
+word-break:keep-all;
+white-space:nowrap;
+overflow:auto;
+}
+
+

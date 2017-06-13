@@ -29,7 +29,6 @@ margin-left: 12px;
 
 .try-amount-price{   /*v3*/
 	margin-left: 12px;
-	margin-bottom: 12px;
 }
 
 
@@ -60,11 +59,11 @@ margin-left: 12px;
 
 .timer i{
 	color: #5cb85c;
-	font-size: 18px;
+	font-size: 15px;
 }
 
 .apply-bottom{
-	padding: 32px 0px 0px 12px;
+	padding: 10px 0px 0px 12px;
 }
 
 .weichatshare{
@@ -123,12 +122,16 @@ float: right;
 	font-size: 16px;
 	border-radius: 5px;
 	border-bottom: 1px solid #f0f0f0;
+	padding-left: 0px;
+	white-space:nowrap;
+	overflow:auto;
+
 }
 
 
 
 
- .presentationw4 a,  .presentationw1 a, .presentationw2 a, .presentationw3 a{
+ .presentationw5 a,  .presentationw4 a,  .presentationw1 a, .presentationw2 a, .presentationw3 a{
 /*	background-color: #f0f4fb;*/
 	color: #555;
 }
@@ -143,8 +146,6 @@ float: right;
 
 
 .products-detail-info{
-	padding: 25px 30px;
-	word-break:break-all;
 }
 
 .products-comment{
@@ -545,7 +546,7 @@ a{
 
 .apply-amount h4 span{
 	/*font-weight: 700;*/
-	font-size: 16px;
+	font-size: 15px;
 	color: #5fb861;
 }
 
@@ -596,8 +597,8 @@ text-align: justify;
 }
 
 .score{
-color: #999;
-margin-top: 14px;
+margin-top: 15px;
+margin-bottom: 15px;
 }
 
 .try-amount-price-apply h4, .try-amount-price-apply p{ 
@@ -606,6 +607,9 @@ margin-top: 14px;
 }
 
 
+#myModal2{
+	text-align: center;
+}
 
 
 
@@ -628,9 +632,12 @@ margin-top: 14px;
 }
 
 .try-amount-price-amount{
-	border-left: solid 1px #999;
+	border-left: solid 1px #ddd;
 	padding-left: 20px;
 	float: left;
+	border-right: solid 1px #ddd;
+	padding-right: 20px;
+	margin-right: 20px;
 }
 
 .apply-amount span{
@@ -651,7 +658,7 @@ margin-top: 14px;
 }
 
 .products-score p span{
-	font-size: 16px;
+	font-size: 15px;
 	color: #5fb861;
 	margin-left: 10px;
 }
@@ -667,7 +674,8 @@ margin-top: 14px;
 
 
 .products-score-block{
-	margin-top: 83px;
+	border-right: 1px dashed #ddd;
+	margin-right: 9px;
 }
 
 .mianfeishiyonginfo{
@@ -903,7 +911,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = #90000000,end
 }
 
 .container_products_detail_small >.small_try_info{
-	width: 50%;
+	width: 33.33%;
 	float: left;
 	font-size: 12px;
 	text-align: center;
@@ -1664,4 +1672,156 @@ float: left;
 
 .whatscore-small{
 	color: #337ab7;
+}
+
+
+
+.products-detail .menu li{
+display: inline-block;
+padding: 8px 8px;
+}
+
+
+
+
+
+
+.products-detail-info tbody tr th, .products-detail-info tbody tr td {
+	line-height: 66px;
+	font-weight:normal;
+
+}
+
+.products-detail-info thead tr th{
+	color: #666;
+}
+
+
+
+
+
+
+
+
+
+
+/*v1*/
+.try-amount-price span{
+font-size: 15px;
+color: #5fb861;
+}
+
+.products-one-block{
+	text-align: left;
+}
+
+.products-one-block>.apply-bottom {
+padding-left: 0px;
+}
+
+.products-one-block .glyphicon-usd, .products-one-block .glyphicon-list-alt{
+    float: left;
+    margin-right: 10px;
+    color: #999;
+    width: 25px;
+    height: 25px;
+    font-size: 18px;
+}
+
+.btn-one, .btn-one:hover{
+	color: white;
+	background-color: #0066FF;
+	border-color: #0066FF;
+}
+
+
+#myModal3{
+	text-align: center;
+}
+
+
+
+.payone .controlone {
+display: inline-block;
+vertical-align: middle;
+padding: 0 5px;
+}
+
+.payone .controlone .subtractone, .payone .controlone .addone {
+display: block;
+float: left;
+width: 20px;
+height: 20px;
+font-size: 14px;
+text-align: center;
+color: white;
+cursor: pointer;
+background-color: rgb(95,184,97);
+}
+
+.payone .controlone .numone {
+display: block;
+float: left;
+/*width: 80px;*/
+height: 20px;
+background-color: #fff;
+font-size: 18px;
+text-align: center;
+color: black;
+}
+
+.payone span,  .payone .addstepone{
+width: 56px;
+text-align: justify;
+}
+
+
+.payone{
+margin-top: 15px;
+margin-bottom: 15px;
+text-align: center;
+}
+
+
+.one-list-num{
+/*	float: left;*/
+	cursor: pointer;
+	margin-right: 15px;
+	border: 1px solid #ddd;
+	border-radius: 18px;
+	padding: 3px 10px 3px 10px;
+}
+
+
+.one-list-num:hover{
+	border: 1px solid rgb(95,184,97);
+	color: rgb(95,184,97);
+}
+
+
+.one-list{
+	margin-top: 15px;
+}
+
+.one-list-renci{
+	color: #999;
+}
+
+.small_info{
+	margin: 6px 0px 0px 0px;
+	/*height: 21px;*/
+	line-height: 21px;
+	font-size: 12px;
+	text-align: center;
+/*	border-bottom: 1px dashed #ddd;*/
+
+}
+
+
+.try-title h4{
+	margin-top: 0px;
+}
+
+.try-amount-price p {
+	margin-bottom: 0px;
 }

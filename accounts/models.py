@@ -6,6 +6,9 @@ from django.core.urlresolvers import reverse
 from django.forms import ModelForm
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
+from django.dispatch import receiver
+from django.db.models.signals import pre_save, post_save
+import scorebill
 
 class MyUserManager(BaseUserManager):
     def create_user(self, username=None, email=None, password=None):
@@ -70,7 +73,7 @@ class MyUser(AbstractBaseUser):
 					verbose_name='Is Paid Member')
 	is_active = models.BooleanField(default=True)
 	is_admin = models.BooleanField(default=False)
-	icon = models.ImageField(upload_to='images/', null=True, blank=True, default='images/78avatarbig.jpg')
+	icon = models.ImageField(upload_to='images/usericon/', null=True, blank=True, default='images/78avatarbig.jpg')
 	thirdicon = models.CharField(max_length=2000, null=True, blank=True, default= None)
 	#特殊查询功能
 	objects = MyUserManager()
@@ -83,6 +86,7 @@ class MyUser(AbstractBaseUser):
 
 
 	qianming = models.CharField(max_length=200, null=True, blank=True)
+	ifscore = models.BooleanField(default=False)
 	score = models.IntegerField(default=0)
 
 	def __unicode__(self):
@@ -123,6 +127,33 @@ class MyUser(AbstractBaseUser):
 
 	# def get_absolute_url(self):
 	# 	return reverse('home')
+
+@receiver(pre_save, sender=MyUser)
+def scorebillsys(sender, **kwargs):
+	user = kwargs.pop("instance")
+	try:
+		user1 = MyUser.objects.get(id = user.id)
+		if user.score != user1.score and user.ifscore != user1.ifscore:
+			myscore = int(user.score - user1.score)
+			if myscore > 0:
+				sb = scorebill.models.Scorebill(user = user1, score = myscore, plus = True)
+				sb.save()
+			else:
+				sb = scorebill.models.Scorebill(user = user1, score = -myscore, plus = False)
+				sb.save()
+		else:
+			pass;
+	except:
+		pass
+
+@receiver(post_save, sender=MyUser)
+def scorebillsysre(sender, **kwargs):
+	user = kwargs.pop("instance")
+	if user.ifscore == True:
+		user.ifscore = False
+		user.save(update_fields=['ifscore'])
+	else:
+		pass;
 
 class WeiboUser(models.Model):
 	weiboid = models.CharField(max_length=2000)

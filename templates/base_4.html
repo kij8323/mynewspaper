@@ -217,19 +217,21 @@ $(document).ready(function(){
           <ul class="nav navbar-nav underline">
 
             <li class="categorybutton  hidden-xs">
-              <a href="{% url 'home' %}">首页</a>
+              <a href="{% url 'home' %}"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> 首页</a>
             </li>
-            <li class="subcate hidden-xs"><a href="{% url 'productsall' %}">试用</a></li>
+            <li class="subcate hidden-xs"><a href="{% url 'productsall' %}"><span class="glyphicon glyphicon-gift" aria-hidden="true"></span> 试用</a></li>
 <!--             <li class="subcate hidden-xs"><a href="{% url 'company_list' %}">项目板</a></li>
             <li class="subcate hidden-xs"><a href="{% url 'investment_list_index' %}">投资机构</a></li> -->
-            <li class="subcate hidden-xs"><a href="{% url 'group_all'  %}">社区</a></li>
+
+          <li class="subcate  hidden-xs"><a href="{% url 'judgement'  %}"><span class="glyphicon glyphicon-star" aria-hidden="true"></span> 评分</a></li>
+            <li class="subcate hidden-xs"><a href="{% url 'group_all'  %}"><span class="glyphicon  glyphicon-leaf" aria-hidden="true"></span> 社区</a></li>
 
           </ul>
 <div id='index_search'>
 <form class="navbar-form navbar-left" role="search" action="{% url 'index_search' %}" method="get">
 <!--   {% csrf_token %} -->
     <div class="input-group has-success">
-      <input id = 'search_word' type="text" class="form-control" name="search_word"  placeholder="找感兴趣的东西">
+      <input id = 'search_word' type="text" class="form-control" name="search_word"  placeholder="话题 试用 评分">
       <span class="input-group-btn">
         <button class="btn btn-default" type="submit">搜索</button>
       </span>
@@ -239,16 +241,23 @@ $(document).ready(function(){
           <ul class="nav navbar-nav navbar-right">
 
 
-          <li class="subcate visible-xs-block"><a href="{% url 'home' %}">首页</a></li>
-          <li class="subcate visible-xs-block"><a href="{% url 'productsall' %}">试用</a></li>
-          <li class="subcate visible-xs-block"><a href="{% url 'group_all'  %}">社区</a></li>
+          <li class="subcate visible-xs-block"><a href="{% url 'home' %}"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> 首页</a></li>
+          <li class="subcate visible-xs-block"><a href="{% url 'productsall' %}"><span class="glyphicon glyphicon-gift" aria-hidden="true"></span> 试用</a></li>
+          <li class="subcate  visible-xs-block"><a href="{% url 'judgement'  %}"><span class="glyphicon glyphicon-star" aria-hidden="true"></span> 评分</a></li>
+          <li class="subcate visible-xs-block"><a href="{% url 'group_all'  %}"><span class="glyphicon  glyphicon-leaf" aria-hidden="true"></span> 社区</a></li>
 
 
         {% if user.is_authenticated %}
-        <li class="subcate visible-xs-block"><a href="{% url 'user_detailnotifications' user.id %}">消息<span class="badge inboxcount">{{ user.id|user_unread_count }}</span></a></li>
-        <li class="subcate visible-xs-block"><a href="{{user.get_absolute_url}}">帐号</a></li>
-        <li class="subcate visible-xs-block"><a href="{% url 'user_userdashboardarticletopic' user.id %}">我的话题</a></li>
-        <li class="subcate visible-xs-block"><a href="{% url 'userlogout' %}">退出</a></li>
+        <li class="subcate visible-xs-block"><a href="{% url 'user_detailnotifications' user.id %}">
+          {% if user.id|user_unread_count > 0 %}
+          <span class="glyphicon glyphicon-envelope" aria-hidden="true" style="color:#F13F47;" ></span>
+           {% else %}
+          <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+          {% endif %} 消息
+	</a></li>
+        <li class="subcate visible-xs-block"><a href="{{user.get_absolute_url}}"><span class="glyphicon  glyphicon-user" aria-hidden="true"></span> 帐号</a></li>
+        <li class="subcate visible-xs-block"><a href="{% url 'user_userdashboardarticletopic' user.id %}"><span class="glyphicon  glyphicon-edit" aria-hidden="true"></span> 我的话题</a></li>
+        <li class="subcate visible-xs-block"><a href="{% url 'userlogout' %}"><span class="glyphicon  glyphicon-log-out" aria-hidden="true"></span> 退出</a></li>
 
         <li class="hidden-xs">
           <a href="{% url 'user_detailnotifications' user.id %}">
@@ -263,7 +272,7 @@ $(document).ready(function(){
 
         <li class='userinfobutton hidden-xs'><a  href="{{user.get_absolute_url}}"><span><img  class="img-circle baseusericon" src='{{user.get_image_url}}'></span>{{user.username}}</a><span class="dropdown-toggle" data-toggle="dropdown"></span>  <ul class="dropdown-menu hidden-xs" id='userinfobutton-dropdown-menu' aria-labelledby="dLabel">
                 <li><a href="{% url 'user_detailnotifications' user.id %}">消息<span class="badge inboxcount">{{ user.id|user_unread_count }}</span></a></li>
-                <li><a href="{% url 'user_detailcollections' user.id %}">我的收藏</a></li>
+                <li><a href="{% url 'user_detailcollectionstopic' user.id %}">我的收藏</a></li>
                 <li><a href="{% url 'user_userdashboardarticletopic' user.id %}">我的话题</a></li>
                 <li><a href="{% url 'user_detailcomments' user.id %}">我的评论</a></li>
 <!--                 <li><a href="{% url 'user_userdashboardcompany' user.id %}">我的公司</a></li>
@@ -275,8 +284,8 @@ $(document).ready(function(){
 
 
         {% else %}
-            <li class="subcate"><a href="{% url 'loggin' %}">登录</a></li>
-            <li class="subcate"><a href="{% url 'register' %}">注册 <span class="sr-only">(current)</span></a></li>
+            <li class="subcate"><a href="{% url 'loggin' %}"><span class="glyphicon  glyphicon-log-in" aria-hidden="true"></span> 登录</a></li>
+            <li class="subcate"><a href="{% url 'register' %}"><span class="glyphicon  glyphicon-user" aria-hidden="true"></span> 注册 <span class="sr-only">(current)</span></a></li>
         {% endif %} 
           </ul>
         </div><!--/.nav-collapse -->
@@ -318,7 +327,7 @@ $(document).ready(function(){
 
 
         <p>
-            <span>Copyright © 2015-2016 梧桐观点 - 北京星岸智能科技有限公司</span>
+            <span>Copyright © 2016-2017 梧桐观点 - 北京星岸智能科技有限公司</span>
 
             <a href="http://www.miibeian.gov.cn/" target="_blank">京ICP备16001752号-2</a>
           </p>

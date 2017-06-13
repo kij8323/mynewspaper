@@ -23,38 +23,6 @@ $('#carousel-example-generic').carousel('next');
 </script>
 
 
-<script>/*加载更多*/
-$(function() {
-  var cur_page_num = 1;
- $("body").on("click", '#morecomment-btn-block', function(){
-    var $elements = $('.newsblock');
-    var homearticlelen = $elements.length;
-    $.ajaxSetup({
-    data: {csrfmiddlewaretoken: '{{ csrf_token }}', 
-           homearticlelen: homearticlelen,
-          },
-          });
-
-    $.ajax({
-        url: "{% url 'morearticlehome' %}",
-        type: "post",
-        success: function(data) {
-        cur_page_num=cur_page_num+1;         
-        /*alert(cur_page_num);  */         
-        var newnode=document.createElement("div");             
-        newnode.setAttribute("class", "container-fluid grid");            
-        newnode.setAttribute("id","new"+String(cur_page_num));           
-        document.getElementById("morecomment").appendChild(newnode); 
-        $('#new'+String(cur_page_num)).load('{% url 'articlepagehome' %}');
-        $('#morecomment-btn-block').html(data.loadcompleted) 
-          },
-          error: function(data) { 
-              alert("Got an error dude");
-          }
-    });
-  })
-})
-</script>
 
 <script>/*去除&nbsp;*/
 $(function(){ 
@@ -246,9 +214,6 @@ $(function() {
                     <div class="item item-img">
                     {% endif %}
                     <a href="{{item.get_absolute_url}}"><img src="{{item.get_image_url}}">
-                     {% if item.original %}
-                      <span class="original-mark"  >首发</span>
-                      {% endif %}
                       <div class="carousel-caption">
                         <h3>{{item.title}}</h3>
                     </a>
@@ -282,7 +247,7 @@ $(function() {
                             <img src="{{item.get_image_url}}" width="100%" height="267" alt="" /></a>
 
                             <span class="title">
-                              <div class="remenshenqing">话题首发</div>
+                              <div class="remenshenqing">{{item.group.title}}</div>
                               <div>{{item.title}}</div></span></li>
                       {% endfor %}
                     </ul>
@@ -449,48 +414,6 @@ $(function() {
 </div>
 
 
-<div class='hotnewsblock'>
-        <div class='head'>          <span class='shu-mark'>|</span>热门话题</div>
-
-    <table class="table table-hover hotnews">
-      <tbody>
-{% for item in topicquery1 %}
-        <tr>
-          {% if forloop.counter > 2 %}
-          <td>
-            <a href="{{item.get_absolute_url}}">{{item.title}}</a>
-          </td>
-          {% else %}
-          <td>
-             <a href="{{item.get_absolute_url}}" style="display:block;"><img src="{{item.get_imagefst3_url}}" >
-              <div class="t-h2-hottry">
-            {{item.title}}
-            </div>
-             </a>
-
-          </td>
-          {% endif %}
-        </tr>
-{% endfor %}
-      </tbody>
-    </table>
-    <table class="table table-hover hotnews2">
-      <tbody>
-{% for item in topicquery2 %}
-        <tr>
-<th scope="row">
-            <div  class='hotnewsblock123'></div>
-          </th>
-          <td>
-             <a href="{{item.get_absolute_url}}" style="display:block;">
-            {{item.title}}
-             </a>
-          </td>
-        </tr>
-{% endfor %}
-      </tbody>
-    </table>
-  </div><!-- class='headblock' -->
 
 
 <div class='joinus'>
@@ -544,7 +467,7 @@ $(function() {
             <div clss='nicecommentblock-userinfo' style="margin-top:10px;">
             <img  class="img-circle usericon-nicecomment hidden-xs" src='{{item.user.get_image_url}}'><span class="user-nicecomment"><a href="{{item.user.get_absolute_url}}">{{item.user}}</a></span></div>
           </div></td>
-          {% else %}
+          {% elif item.topic %}
           <td> <a class="nicecommentblock-qust" href="{{item.topic.get_absolute_url}}"><!-- {{item.user}} 评 --> {{item.topic.title}}<br></a>
             <i class="icon_hotcomentjiao"></i>
             <div class='commentline0'  onmouseover="this.style.cursor='pointer'" onclick="document.location='{{item.get_absolute_url}}'">
@@ -552,6 +475,87 @@ $(function() {
             <div clss='nicecommentblock-userinfo' style="margin-top:10px;">
             <img  class="img-circle usericon-nicecomment hidden-xs" src='{{item.user.get_image_url}}'><span class="user-nicecomment"><a href="{{item.user.get_absolute_url}}">{{item.user}}</a></span></div>
           </div></td>
+
+
+          {% elif item.instrument %}
+          <td> <a class="nicecommentblock-qust" href="{{item.topic.get_absolute_url}}"><!-- {{item.user}} 评 --> {{item.instrument.model}}<br></a>
+            <i class="icon_hotcomentjiao"></i>
+            <div class='commentline0' onmouseover="this.style.cursor='pointer'" onclick="document.location='{{item.get_absolute_instrument_url}}'">
+            <div class='commentline'>
+
+    <span class="instrugrade">
+    {% if item.grade != 0 %}
+    {% if item.grade = 1 %}
+    <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    {% elif item.grade = 2 %}
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    {% elif item.grade = 3 %}
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    {% elif item.grade = 4 %}
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star  glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    {% elif item.grade = 5 %}
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    {% elif item.grade = 6 %}
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    {% elif item.grade = 7 %}
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    {% elif item.grade = 8 %}
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    {% elif item.grade = 9 %}
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+    {% elif item.grade = 10 %}
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    {% endif %}
+    <span class="commentgrade">{{item.grade}}</span></span></br>
+    {% endif %}
+
+              {{item.text|safe}}</div>
+            <div clss='nicecommentblock-userinfo' style="margin-top:10px;">
+            <img  class="img-circle usericon-nicecomment hidden-xs" src='{{item.user.get_image_url}}'><span class="user-nicecomment"><a href="{{item.user.get_absolute_url}}">{{item.user}}</a></span></div>
+          </div></td>
+
+
+
           {% endif %}
         </tr>
 {% endfor %}

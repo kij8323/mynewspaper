@@ -6,6 +6,7 @@
 #注册的函数必须放在名为tasks.py的文件中
 from celery.decorators import task
 from accounts.models import thidauth2, thidauth1, thidauth3
+import scorebill
 
 #更新数据库readers+1
 @task
@@ -43,62 +44,62 @@ def add(x, y):
 #验证文章作者以及点赞人是否第三方认证并判断加分
 @task
 def topiczanplus(x, y, z):
-    if z.score == True:
-        if thidauth2(x, y):
-            y.score = y.score + 5
-            y.save()
-        else:
-            pass
+    if thidauth2(x, y):
+        y.score = y.score + 5
+        y.save()
+        sb = scorebill.models.Scorebill(user = y, score = 5, plus = True, way = 1, topic = z)
+        sb.save()
+        return 'success'
     else:
         pass
-    return 'score success!'
+    return 'fail'
 
 #验证文章作者以及点赞人是否第三方认证并判断减分
 @task
 def topiczanminus(x, y, z):
-    if z.score == True:
-        if thidauth2(x, y):
-            y.score = y.score - 5
-            y.save()
-        else:
-            pass
+    if thidauth2(x, y):
+        y.score = y.score - 5
+        y.save()
+        sb = scorebill.models.Scorebill(user = y, score = 5, plus = False, way = 2, topic = z)
+        sb.save()
+        return 'success'
     else:
         pass
-    return 'score success!'
-
+    return 'fail'
 
 
 #验证评论作者以及点赞人是否第三方认证并判断加分
 @task
 def commentzanplus(x, y, z):
     try:
-        if z.topic.score == True:
-            if thidauth2(x, y):
-                y.score = y.score + 5
-                y.save()
-            else:
-                pass
+        if thidauth2(x, y):
+            y.score = y.score + 5
+            y.save()
+            sb = scorebill.models.Scorebill(user = y, score = 5, plus = True, way = 3, comment = z)
+            sb.save()
+            return 'success'
         else:
             pass
     except:
         pass
-    return 'score success!'
+    return 'fail'
 
 #验证评论作者以及点赞人是否第三方认证并判断减分
 @task
 def commentzanminus(x, y, z):
     try:
-        if z.topic.score == True:
-            if thidauth2(x, y):
-                y.score = y.score - 5
-                y.save()
-            else:
-                pass
+        if thidauth2(x, y):
+            y.score = y.score - 5
+            y.save()
+            sb = scorebill.models.Scorebill(user = y, score = 5, plus = False, way = 4, comment = z)
+            sb.save()
+            return 'success'
         else:
             pass
     except:
         pass
-    return 'score success!'
+    return 'fail'
+
 
 
 #验证话题作者是否第三方验证，并判断加分
@@ -107,10 +108,12 @@ def topicwritescore(x, y, z):
     try:
         if y.score == True:
             if thidauth1(x):
-                x.score = x.score + 20
+                x.score = x.score +150 
                 x.save()
                 z = z(user=x, topic=y)
                 z.save()
+                sb = scorebill.models.Scorebill(user = x, score = 150, plus = True, way = 5, topic = y)
+                sb.save()
             else:
                 pass
         else:
@@ -127,7 +130,7 @@ def topiccommentplus(x, y, z, a):
     try:
         if z.score == True:
             if thidauth2(x, y):
-                y.score = y.score + 20
+                y.score = y.score + 10
                 y.save()
                 x.score = x.score + 10
                 x.save()
@@ -195,7 +198,7 @@ def topiccommentreplyplus(x, y, z, a, b):
 def prodapplscore(x):
     try:
         if thidauth1(x):
-            x.score = x.score + 30
+            x.score = x.score + 10
             x.save()
             return 'success'
         else:
@@ -210,8 +213,10 @@ def prodapplscore(x):
 def dakascore(x):
     try:
         if thidauth1(x):
-            x.score = x.score + 15
+            x.score = x.score + 5 
             x.save()
+            sb = scorebill.models.Scorebill(user = x, score = 5, plus = True, way = 7)
+            sb.save()  
             return 'success'
         else:
             pass
@@ -219,6 +224,22 @@ def dakascore(x):
         pass
     return 'fail'
 
+
+#最佳评论加积分
+@task
+def commentscore(x, y):
+    try:
+        if thidauth1(x):
+            x.score = x.score + 30
+            x.save()
+            sb = scorebill.models.Scorebill(user = x, score = 30, plus = True, way = 6, comment = y)
+            sb.save()   
+            return 'success'
+        else:
+            pass
+    except:
+        pass
+    return 'fail'
 
 #积分竞拍减积分
 @task
@@ -228,9 +249,13 @@ def payscrerec(a,b,c,d,e):
         if userpay.count() != 0:
             b.score = b.score+userpay[0].payscore-d
             b.save()
+            sb = scorebill.models.Scorebill(user = b, score = d - userpay[0].payscore, plus = False, way = 8, products = c)
+            sb.save()  
         else:
             b.score = b.score-d
             b.save()
+            sb = scorebill.models.Scorebill(user = b, score = d, plus = False, way = 8, products = c)
+            sb.save() 
 
         try:
             userecpay = e.objects.get(user=b, products=c)
@@ -245,3 +270,20 @@ def payscrerec(a,b,c,d,e):
     return 'fail'
 
 
+
+
+#评论人是否第三方认证，判断加分
+@task
+def instrumentcommentplus(x, y, z):
+    try:
+        if thidauth1(x):
+            x.score = x.score + 20
+            x.save()
+            z = z(user=x, instrument=y)
+            z.save()  
+            return 'success'
+        else:
+            pass
+    except:
+        pass
+    return 'fail'

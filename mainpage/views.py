@@ -17,13 +17,16 @@ from company.models import Company
 from investment.models import Investment
 from products.models import Products, Application
 from updatenew.models import Updatenew
+from judgement.models import Instrument
+
+
 # Create your views here.
-ARTICLE_MAINPAGE_TIMERANGE = 15 #首页显示新闻数量
+ARTICLE_MAINPAGE_TIMERANGE = 6 #首页显示新闻数量
 ARTICLE_MAINPAGE_COVER_TIMERANGE = 15	#首页封面文章的发表时间范围
 TOPIC_MAINPAGE_COVER_TIMERANGE = 25 #争议话题的发表时间范围
 TOPIC_MAINPAGE_TIMERANGE = 15 #热门话题的时间范围
 ARTICLE_MAINPAGE_HOT_TIMERANGE = 5 #一周新闻排行的时间范围
-COMMENT_MAINPAGE_TIMERANGE = 15 #精彩点评的时间范围
+COMMENT_MAINPAGE_TIMERANGE = 3 #精彩点评的时间范围
 HOTRY_MAINPAGE_RANGE = 3 #首页显示热门试用
 ARTICLE_MAINPAGE_HOT_TODAY = 3 #48小时热门新闻
 
@@ -38,6 +41,7 @@ def index_search(request):
 		indexarticle = 'mysql'
 		indextopic = 'mysqltopic'
 		indexproducts = 'mysqlproducts'
+		indexinstrument = 'mysqlinstrument'
 		# filtercol = 'group_id'
 		# filtervals = []
 		# sortby = ''
@@ -86,7 +90,20 @@ def index_search(request):
 			for match in res5['matches']:
 				index5.append(match['id']) 
 		test5 = Products.objects.all().filter(id__in = index5).order_by('-id') #获得属于id集合的对象的queryset
+
+		res6 = cl.Query ( q, indexinstrument )
+		if not res6:
+			print 'query failed: %s' % cl.GetLastError()
+			sys.exit(1)
+		if cl.GetLastWarning():
+			print 'WARNING: %s\n' % cl.GetLastWarning()
+		index6 = [] #查询结果的id集合
+		if res6.has_key('matches'):
+			for match in res6['matches']:
+				index6.append(match['id'])  
+		test6 = Instrument.objects.all().filter(id__in = index6).filter(verify = True).order_by('-id') #获得属于id集合的对象的queryset
 		
+	
 		cache.set("search_word", q)
 		# 分页
 		paginator = Paginator(test2, 10)
@@ -116,6 +133,7 @@ def index_search(request):
 			'firmshow' : firmshow,
 			'test4' : test4,
 			'test5' : test5,
+			'test6' : test6,
 		}
 	else:
 		context = {
@@ -161,10 +179,12 @@ def home(request):
 
 def homepage(request):
 	queryset = Updatenew.objects.all().order_by('-id')[0:ARTICLE_MAINPAGE_TIMERANGE]
+	topic = Topic.objects.filter(score = True).order_by('-id')[0:ARTICLE_MAINPAGE_TIMERANGE]
 
 #	queryset = Article.objects.all().order_by('-id')[0:ARTICLE_MAINPAGE_TIMERANGE]
 	context = {
 	'queryset': queryset,
+	'topic': topic,
 	}
 	return render(request, 'homepage.html', context)
 
@@ -180,6 +200,44 @@ def contactus(request):
 #加入我们页
 def joinus(request):
 	return render(request, 'joinus.html')
+
+
+
+#加载更多文按钮
+def moretopichome(request):
+	if request.is_ajax():
+		request.session['hometopiclen'] = request.POST.get('hometopiclen')
+		hometopiclen = int(request.session['hometopiclen'])
+		article = Topic.objects.filter(score = True).order_by('-id')
+
+	if article.count() == hometopiclen:
+		loadcompleted = '已全部加载完成'
+	else:
+		loadcompleted = '加载更多'
+	data = {
+		"loadcompleted": loadcompleted,
+	}
+	json_data = json.dumps(data)
+	return HttpResponse(json_data, content_type='application/json')
+
+#加载更多话题页
+def topicpagehome(request):
+	if request.session.get('hometopiclen', False):
+		hometopiclen = request.session['hometopiclen']
+
+# v1
+	hometopic = Topic.objects.filter(score = True).order_by('-id')
+
+	#homearticle = Article.objects.all().order_by('-id')
+	hometopiclen = int(hometopiclen)
+	topicquery = hometopic[hometopiclen:hometopiclen+5]
+	context = {
+		"topic": topicquery,
+	}
+	return render(request, 'topicpagehome.html',  context)
+
+
+
 
 #加载更多文按钮
 def morearticlehome(request):

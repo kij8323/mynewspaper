@@ -74,7 +74,7 @@ $.fn.smartFloat = function() {
 {% endblock %}
 
  {% block content %}
-    <div class="container container-home">
+    <div class="container container-index">
 
       <div class="row">
         <div class="col-sm-7  leftcontainer">
@@ -107,6 +107,102 @@ $.fn.smartFloat = function() {
 {% endfor %}
 <div class="clearfix"></div>
 {% endif %}
+
+
+
+{% if firmshow %}
+{% for item in test6 %}
+ <div class="col-xs-12 newsblock" >
+
+        <div class="instument-img">
+          <a href="{{item.get_absolute_url}}">
+          <img src="{{item.get_image_url}}">
+          </a>
+        </div><!-- <div class="firm-img"> -->
+        <div class="try-info">
+          <div class="investmentname">
+            <a href="{{item.get_absolute_url}}">
+           [评分] {{item.model|highlight|safe}}
+            </a>
+          </div><!-- <div class="name"> -->
+    <div class="instrugrade">
+
+    {% if item.grade = 0 %}
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    {% elif item.grade = 1 %}
+    <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    {% elif item.grade = 2 %}
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    {% elif item.grade = 3 %}
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    {% elif item.grade = 4 %}
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star  glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    {% elif item.grade = 5 %}
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    {% elif item.grade = 6 %}
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    {% elif item.grade = 7 %}
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    {% elif item.grade = 8 %}
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    {% elif item.grade = 9 %}
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+    {% elif item.grade = 10 %}
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    {% endif %}
+    {{item.grade}}</div>
+        </div><!--  <div class="info"> -->
+   
+</div><!-- <div class="col-xs-12 newsblock" > -->
+{% endfor %}
+<div class="clearfix"></div>
+{% endif %}
+
+
 
 {% if firmshow %}
 {% for item in test3 %}

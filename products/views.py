@@ -21,7 +21,7 @@ from django.shortcuts import render, HttpResponseRedirect, redirect
 from django.core.urlresolvers import reverse
 from topic.models import Topic
 from article.tasks import prodapplscore, payscrerec
-
+from finance.models import Finance
 
 
 def productsall(request):
@@ -228,7 +228,6 @@ def products_detail(request, products_id):
 				cache.incr(cachekey)
 			else:
 				cache.set(cachekey, Application.objects.filter(products=products).count(), settings.CACHE_EXPIRETIME)
-			prodapplscore.delay(request.user)
 		return redirect(reverse("products_detail", kwargs={"products_id": products_id}))
 	else:
 		try:
@@ -302,7 +301,6 @@ def payscorerecord(request, products_id):
 				cache.incr(cachekey)
 			else:
 				cache.set(cachekey, Application.objects.filter(products=products).count(), settings.CACHE_EXPIRETIME)
-			prodapplscore.delay(request.user)
 		return redirect(reverse("products_detail", kwargs={"products_id": products_id}))
 	else:
 		try:
@@ -335,6 +333,68 @@ def payscorerecord(request, products_id):
 		}
 		return render(request, 'payscorerecord.html',  context)
 
+def productsone(request, products_id):
+	try:
+		products = Products.objects.get(pk=products_id)
+	except products.DoesNotExist:
+		raise Http404("Products does not exist")
+	user = request.user
+	payscore = Payscore.objects.filter(products = products).order_by('-payscore')
+	if payscore.count() == 0:
+		payscore = 0
+	else:
+		payscore = payscore[0].payscore
+	finance = Finance.objects.filter(products = products).filter(trade_status = True).order_by('-id')
+
+	if request.method == 'POST' and user.is_authenticated:
+		user.phonenumber = request.POST.get('phonenumberinput')
+		user.address = request.POST.get('addressinput')
+		reason = request.POST.get('reasoninput')
+		user.save()
+		products.applyamountcount+= 1
+		instancesave.delay(products)
+		try:
+			application = Application.objects.get(user=user.id, products=products)
+		except Application.DoesNotExist:
+			news_App = Application(user=user, products=products, reason = reason, address = request.POST.get('addressinput'))
+			news_App.save()
+			cachekey = "products_applyamount_" + str(products_id)
+			if cache.get(cachekey) != None:
+				cache.incr(cachekey)
+			else:
+				cache.set(cachekey, Application.objects.filter(products=products).count(), settings.CACHE_EXPIRETIME)
+#			prodapplscore.delay(request.user)
+		return redirect(reverse("products_detail", kwargs={"products_id": products_id}))
+	else:
+		try:
+			application = Application.objects.get(user=user.id, products=products)
+			applybutton = True
+		except Application.DoesNotExist:
+			applybutton = False
+		# if application:
+		# 	applybutton = True
+		# else:
+		# 	applybutton = False
+		#把本页地址装入session
+		request.session['lastpage'] = request.get_full_path()
+		#分享链接的地址
+		sharelink = request.get_host()+request.get_full_path()
+		# applyamount = Application.objects.filter(products=products).count()
+		hotry = Products.objects.filter(status = 1).exclude(id = products_id).filter(verify = True).order_by('-id')[0:5]
+
+		context = {
+			"products":products,
+			"form": CommentForm,
+			'sharelink': sharelink,
+			'user':user,
+			'applybutton':applybutton,
+			# 'applyamount':applyamount,
+			'hotry':hotry,
+			'payscore': payscore+5,
+			'payscoretitle': payscore,
+			'finance': finance,
+		}
+		return render(request, 'productsone.html',  context)
 
 
 
@@ -346,12 +406,18 @@ def payscore(request):
 		user = request.user
 		# print type(score)
 		# print type(user.score)
-		if user.score >= score and score > products.scoreing:
+		userpay = Payscore.objects.filter(user=user, products=products).order_by('-payscore')		
+		if userpay.count() != 0:
+			scorejudgy = user.score+userpay[0].payscore-score
+		else:
+			scorejudgy = user.score-score
+
+		if scorejudgy >= 0 and score > products.scoreing and products.status == 1:
 			payscrerec.delay(Payscore, user, products, score, Payscorerec)
 			products.scoreing = score
 			products.save()
 			s = Payscore(user=user, products=products, payscore=score)
-			s.save()
+			instancesave.delay(s)
 			ifpay = True
 			cachekey = "products_payscore_" + str(products.id)
 			if cache.get(cachekey) != None:
@@ -410,7 +476,6 @@ def productsapply(request, products_id):
 				cache.incr(cachekey)
 			else:
 				cache.set(cachekey, Application.objects.filter(products=products).count(), settings.CACHE_EXPIRETIME)
-			prodapplscore.delay(request.user)
 		return redirect(reverse("products_detail", kwargs={"products_id": products_id}))
 	else:
 		try:
@@ -482,7 +547,6 @@ def productsreport(request, products_id):
 		# 	cache.incr(cachekey)
 		# else:
 		# 	cache.set(cachekey, Application.objects.filter(products=products).count(), settings.CACHE_EXPIRETIME)
-			prodapplscore.delay(request.user)
 		return redirect(reverse("products_detail", kwargs={"products_id": products_id}))
 	else:
 		try:
@@ -541,7 +605,7 @@ def productscomment(request):
 				cache.set(cachekey, products.comment_set.count(), settings.CACHE_EXPIRETIME)
 			#返回@用户的列表，并向@的用户发送消息
 			userlist = atwho(text = text, sender = user, targetcomment = c, targetarticle = None
-							, targetproducts = products, targetopic = None)
+							, targetproducts = products, targetopic = None, targetinstrument = None)
 			#给被@的用户增加链接
 			for item in userlist:
 				atwhouser = MyUser.objects.get(username = item)
@@ -599,7 +663,7 @@ def productscommentcomment(request):
 			readersin.delay(targetcomment)
 			#返回@用户的列表，并向@的用户发送消息
 			userlist = atwho(text = text, sender = user, targetcomment = c, targetarticle = None
-							, targetproducts = products, targetopic = None )
+							, targetproducts = products, targetopic = None, targetinstrument = None )
 			#给被@的用户增加链接
 			for item in userlist:
 				print 'for item in userlist:'
@@ -673,18 +737,42 @@ import json
 from django.http import HttpResponse
 import random
 import string
-import time
+import time, datetime
+from datetime import timedelta 
+
 def newapplication(request, products_id, app_num, period_num):
+	products = Products.objects.get(id = products_id)
 	for newnum in range(0,int(app_num)):
 		try:
-			products = Products.objects.get(id = products_id)
 			products.applyamountcount+= 1
 			instancesave.delay(products)
 			time.sleep(int(period_num))
 		except:
 			pass
+
+	while (products.timedeadline.replace(tzinfo=None)+timedelta(hours=8) - datetime.datetime.now() > timedelta(seconds=0)):
+		time.sleep(1)
+	products.status = 2
+	products.save()
+
 	data = {
 		"ok": "over",
 	}
+	json_data = json.dumps(data)
+	return HttpResponse(json_data, content_type='application/json')
+
+
+
+import re
+def function(request):
+	products = Products.objects.all()
+
+	for item in products:
+		item.ifapply = True
+		item.save()
+	data = {
+		"ok": "over",
+	}
+	
 	json_data = json.dumps(data)
 	return HttpResponse(json_data, content_type='application/json')

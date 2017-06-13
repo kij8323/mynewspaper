@@ -172,7 +172,7 @@ def articlecomment(request):
 			#返回@用户的列表，并向@的用户发送消息
 			userlist = atwho(text = text, sender = user
 							, targetcomment = c, targetarticle = article, targetproducts = None
-							, targetopic = None)
+							, targetopic = None, targetinstrument = None)
 			#给被@的用户增加链接
 			for item in userlist:
 				print 'for item in userlist:'
@@ -233,7 +233,7 @@ def commentcomment(request):
 			readersin.delay(targetcomment)
 			#返回@用户的列表，并向@的用户发送消息
 			userlist = atwho(text = text, sender = user, targetcomment = c, targetproducts = None
-							, targetarticle = article, targetopic = None )
+							, targetarticle = article, targetopic = None, targetinstrument = None )
 			#给被@的用户增加链接
 			for item in userlist:
 				print 'for item in userlist:'

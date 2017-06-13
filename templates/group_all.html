@@ -267,8 +267,8 @@ $(function() {
   </div>
   <div class="cate-spec">
   <a class="cate-link" href="{% url 'group_detail' 12 %}">
-  <span class="glyphicon glyphicon-bullhorn" aria-hidden="true" style="background-color: #CC3333;"></span>
-    <div class="cate-spec-name">瞎聊</div>
+  <span class="glyphicon glyphicon-earphone" aria-hidden="true" style="background-color: #CC3333;"></span>
+    <div class="cate-spec-name">闲聊</div>
   </a>
   </div>
   <div class="cate-spec">
@@ -328,8 +328,8 @@ $(function() {
   </div>
 <div class="cate-spec">
   <a class="cate-link" href="{% url 'group_detail' 22 %}">
-  <span class="glyphicon glyphicon-question-sign" aria-hidden="true" style="background-color: #008080;"></span>
-    <div class="cate-spec-name">问答</div>
+  <span class="glyphicon glyphicon-bullhorn" aria-hidden="true" style="background-color: #008080;"></span>
+    <div class="cate-spec-name">活动</div>
   </a>
   </div>
 
@@ -417,7 +417,7 @@ $(function() {
 <div class="jifenrank-line-heng"></div>
 <div style="clear:both;"></div>
 </div>
-<div class="jifen-rank-title-asso-heng">参与有<i class="score-topic-rank"></i>标志的帖子就能涨积分</div>
+<a href="{% url 'topic_detail' 142 %}"><div class="jifen-rank-title-asso">如何获得积分？</div></a>
 <div class="jifen-rank-heng">
   <ul class="jifen-rank-content-ul-heng">
     {% for item in scorerank %}
@@ -494,7 +494,7 @@ $(function() {
  <div class="jifen-rank-title"><div class="jifenpaihangking"></div>积分排行</div>
 <div class="jifenrank-line"></div>
 <div style="clear:both;"></div> 
-<div class="jifen-rank-title-asso">参与有<i class="score-topic-rank"></i>标志的帖子就能涨积分</div>
+<a href="{% url 'topic_detail' 142 %}"><div class="jifen-rank-title-asso">如何获得积分？</div></a>
 </div>
 <div class="jifen-rank-content">
   <ul class="jifen-rank-content-ul">

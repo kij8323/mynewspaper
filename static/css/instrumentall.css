@@ -1,0 +1,378 @@
+
+
+
+.instrulinetitle {
+color: #333;
+padding-bottom: 10px;
+border-bottom: 2px solid #67CA87;
+margin-bottom: 18px;
+font: 16px Arial, Helvetica, sans-serif;/*v1*/
+margin-top: 20px;/*v1*/
+word-break:keep-all;
+white-space:nowrap;
+overflow:auto;
+}
+
+.instrumentline{
+	padding-left: 9px;
+	padding-right: 9px;
+}
+
+.instrumentblock{
+	width: 25%;
+	float: left;
+	padding-right: 9px;
+	padding-left: 9px;
+	text-align:center;
+	margin-bottom: 24px;
+}
+
+
+.instrumentblock img{
+	width: 100%;
+	margin-bottom: 5px;
+}
+
+.instrumentline a{
+	text-decoration:none;
+}
+
+.instrumentblock a{
+	color: #333;
+}
+
+.instruname{
+	color: #138A64;
+	text-overflow: -o-ellipsis-lastline;
+	overflow: hidden;
+	text-overflow: ellipsis;display: -webkit-box;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
+	height: 20px;
+}
+
+.instrugrade{
+	color: #e48f15;
+	font-size: 12px;
+}
+
+.glyphicon-gray{
+	color: #bababa;
+}
+
+#btn-more{
+	background: #f7f7f7;
+}
+
+
+.instrumentline #btn-more {
+display: block;
+height: 34px;
+line-height: 34px;
+text-align: center;
+font-size: 14px;
+background: #f7f7f7;
+color: #138A64;
+margin-left: 8px;
+margin-right: 8px;
+}
+
+.instrumentline #btn-more:hover {
+background-color: #eaeaea;
+text-decoration: none;
+}
+
+.container-fluid {
+padding: 0;
+margin: 0;
+}
+
+
+.map, .map a{
+	color: #888;
+	font-size: 14px;
+	margin-top: 7px;
+	margin-bottom: 9px;
+}
+
+
+
+
+
+#instruindex_word{
+	height: 34px;
+	border: 0px;
+	width: 50%;
+}
+
+.instruindex-btn{
+	height: 34px;
+	margin-left: -5px;
+	background-color: #fff;
+	border: 0px;
+	text-align: center;
+}
+
+.instruindex-block{
+	background-color: #edf4ed;
+	padding: 30px 20px 30px 20px;
+	text-align: center;
+	border-radius: 5px;
+}
+
+.instruindex-group input, .instruindex-group  button{
+	outline:medium;
+}
+
+
+
+
+
+
+
+
+#rightsidebar{
+	position: fixed;
+	bottom: 68px;
+	right: 0;
+	list-style-type:none;
+	z-index: 2;
+	text-align: center;
+	filter:alpha(opacity=70); /*IE滤镜，透明度50%*/
+	-moz-opacity:0.7; /*Firefox私有，透明度50%*/
+	opacity:0.7;/*其他，透明度50%*/
+}
+
+.barcomment, .rtotopsctoll, .daka{
+	background-color: #67CA87;
+	color: black;
+	width: 39px;
+	height: 39px;
+	margin-bottom: 16px;
+	text-align: center;
+}
+
+
+
+#rightsidebar a{
+	line-height: 39px;
+	color: white;
+	font-weight: 700;
+
+}
+
+
+.rtotopsctoll em {
+	border-left: 2px solid #fff;
+	border-bottom: 2px solid #fff;
+	display: inline-block;
+	margin: 16px 0 0 1px;
+	width: 12px;
+	height: 12px;
+	-webkit-transform: rotate(135deg);
+	transform: rotate(135deg);	
+}
+
+.rtotopsctoll{
+	display:none;
+}
+
+
+
+
+
+#overlay {
+    background: white;
+    filter: alpha(opacity=50); /* IE的透明度 */
+    opacity: 0.5;  /* 透明度 */
+    display: none;
+    /*position: absolute;*/
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 100; /* 此处的图层要大于页面 */
+    text-align: center;
+}
+
+
+.slice {
+
+ /*   position: fixed;*/
+  width: 14em;
+  height: 6em;
+  /*margin: .5em;*/
+  padding: 2em;
+  text-align: center;
+   margin-left: auto;
+  margin-right: auto;
+}
+.slice > div {
+  margin: 1em auto;
+}
+.slice > div:nth-child(2) {
+  font-family: cursive;
+  position: absolute;
+  bottom: 0;
+  left: 3em;
+  color: #fff;
+}
+
+.instrucatege{
+	font-size: 12px;
+}
+
+.instrucate{
+	font-weight: normal;
+	color: #999;
+	font-size: 12px;
+	cursor:pointer;
+}
+
+#cate0{
+	margin-left: 12px;
+}
+
+.focuscate{
+	color: #138A64;
+	font-weight: bolder;
+}
+
+.instrucate:hover{
+	color: #138A64;
+}
+
+
+
+
+
+#newinstru{
+	font-size: 12px;
+	padding: 3px;
+	background-color: #138A64;
+	color: white;
+	border-radius: 2px;
+	cursor:pointer;
+
+}
+
+
+#id_company{
+	margin: 15px auto 15px auto;
+}
+
+.instru-ps, .instru-ps-tilte{
+	/*padding-left: 20px;*/
+	color: #999;
+	font-size: 12px;
+	line-height: 150%;
+}
+
+ .nicecommentblock{  /*v5*/
+	background-color: #fafafa;
+	padding: 26px 15px 20px 15px; 
+	margin-bottom: 20px;
+}
+
+.head{
+	font-size: 16px;
+	margin-bottom: 10px;
+	color: #333;
+	vertical-align:middle;
+}
+
+.shu-mark{
+	background-color: #5fb760;
+	color: #5fb760;
+	/*margin-right: 10px;*/
+	border-top: solid 2px #5fb760;
+	border-bottom: solid 2px #5fb760;
+	/*border-radius: 6px;*/
+	left: -14px;
+	position: relative;
+}
+
+.usericon-nicecomment{
+	width: 25px;
+	height: 25px;
+	margin-right: 10px;
+	/*float: left;*/
+/*	display: inline;*/
+}
+
+
+
+.nicecomment tbody tr td a{
+		text-overflow: -o-ellipsis-lastline;
+	overflow: hidden;
+	text-overflow: ellipsis;display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	margin-bottom: 5px;
+}
+
+.user-nicecomment{
+	/*float: left;*/
+	display: inline;
+	line-height: 25px;
+	margin-left: 5px !important;
+	margin-right: 15px;
+}
+
+.user-nicecomment a{
+	color: #999999;
+	display: inline !important;
+}
+
+
+.nicecommentblock td{
+	border-bottom: 1px dashed #ddd;
+}
+
+.nicecommentblock td{
+	padding: 18px 0px !important;
+}
+
+/*v4*/
+.nicecommentblock-qust{
+	line-height: 22px !important;
+	margin-bottom: -3px !important;
+}
+
+.table>tbody>tr>td>a:hover{
+	color: #3ca5f6;
+}
+
+.commentline0{
+	padding: 10px;
+	background-color: #f1f1f1;
+}
+
+.icon_hotcomentjiao{
+	display: inline-block;
+	background-image: url(/static/images/icon_hotcomentjiao.png);
+	width: 40px;
+	height: 8px;
+	background-repeat: no-repeat;
+	margin-bottom: -5px;
+}
+
+.nicecomment>tbody>tr>td>a {
+
+margin-left: 0px;
+color: #999;
+text-decoration:none
+}
+
+
+.col-sm-8 .nicecommentblock{
+	background-color: white;
+}
+
+.col-sm-8 .nicecommentblock .head{
+	font-size: 14px;
+}
+
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+border-top: 1px dashed #ddd;
+}

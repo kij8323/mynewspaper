@@ -11,7 +11,7 @@ from django.conf import settings
 from notifications.models import Notification
 
 #给评论中每一个被@的用户发送notifications，并返回一个被@用户的列表
-def atwho(text, sender, targetcomment, targetarticle, targetopic , targetproducts):
+def atwho(text, sender, targetcomment, targetarticle, targetopic , targetproducts ,  targetinstrument):
 	commmentdecode = text.decode("utf8")
 	pattern = re.compile(u'@([\u4e00-\u9fa5\w\-]+)') 
 	results =  pattern.findall(commmentdecode) #用正则把评论中有@的字符串分割开
@@ -27,7 +27,8 @@ def atwho(text, sender, targetcomment, targetarticle, targetopic , targetproduct
 					, recipient = user, verb="@"
 					, text=text, target_article = targetarticle
 					, target_products = targetproducts
-					, target_topic = targetopic)
+					, target_topic = targetopic
+					, target_instrument = targetinstrument)
 			cachekey = "user_unread_count" + str(user.id)
 			if cache.get(cachekey) != None:
 				cache.incr(cachekey)

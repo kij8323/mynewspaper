@@ -1,0 +1,653 @@
+{% extends "base_1.html" %}
+{% block HeadDoc %}
+{% load staticfiles %}
+{% load time_filter %}
+<link href="/static/css/instrument_detail.css" rel="stylesheet">
+<link href="/static/css/topic_detail.css" rel="stylesheet">
+<script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+<script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+
+<script src="/static/js/instrument_detail.js"></script>
+<script src="/static/js/topic_detail.js"></script>
+
+
+<script>
+$.fn.imgsizeFunction = function() { 
+  width = $(this).css('width');
+  x = (parseFloat(width)*1.42)
+  return  $(this).css('height',x+'px');
+}
+</script>
+
+
+<script>
+$(window).resize(function(){
+  $('.instruinfo-img img').imgsizeFunction();
+});
+</script>
+
+<script>
+$(function(){ 
+  $('.instruinfo-img img').imgsizeFunction();
+}); 
+</script>
+
+
+<script>/*回复文章*/
+$(function() {
+  $("body").on("click", '#btn-block', function(){
+    var comment = editor.getData();
+    var grade = $("#star-grade-score").text()
+    if (comment!="" && grade!="" ){
+    $.ajaxSetup({
+    data: {csrfmiddlewaretoken: '{{ csrf_token }}', 
+          comment: comment, 
+          instrumentid: {{instrument.id}},
+          grade: grade,
+          },
+          });
+    $.ajax({
+        url: "{% url 'instrumentcomment' %}",
+        type: "post",
+        dataType: 'json',
+          success: function(data) {
+            $(".freshcomment").append(
+              ' <div class="comment"><span class="author-name"><img  class="img-circle commentusericon" src={{user.get_image_url}}><div class="rightcomment">'+data.user+'</span><span class="author-time">&nbsp刚刚</span><div class="pl-content">'+data.text+'</div><div class="pl-box-btm" id="'+data.user+'"><div class="btn-dp-right pull-right" id="'+data.commentid+'"><i class="icon-dp-positive" style="background-position: -220px -173px;"></i><span class="commentuserlike'+data.commentid+'">0</span><i class="icon-dp-negtive" style="background-position: -270px -171px;"></i><span class="commentuserdislike'+data.commentid+'">0</span></div><span class="btn-dp" style="color: rgb(187, 187, 187);"><i class="icon-dp-checkbox" style="background-position: -28px -22px;"></i> 添加点评</span><div class="form-comment-reply" id="'+data.commentid+'"><div class="freshchildcomment'+data.commentid+'" style="margin-top : 1em;"></div><label for="id_commentext">Commentext:</label><textarea class="form-control" cols="40" id="id_commentext" name="commentext" placeholder="" rows="8"></textarea><button id="btn-block" type="button" class="btn  btn-success btn-block btn-reply">发表</button></div></div></div></div>'
+              )
+              commnetcount = $('.article-pl-count').text()
+              $('.article-pl-count').text(parseInt(commnetcount)+1)
+          },
+          error: function(data) { 
+             return 0;
+          } 
+    });
+
+
+    $('html,body').animate({scrollTop: $(document).height()}, 100);  
+     
+    $.messager.popup("评论发表成功!");
+    $(".modal.msg-popup .modal-body").css({
+        'color': '#449d44',
+        "background-color":"#CCF4D9",
+        });
+    editor.setData('');
+  $("#grage-star .glyphicon-star").css("color","#bababa");
+  $("#star-exp").text("");
+  $("#star-grade-score").text("");
+
+    }
+    else if (grade == ""){
+    $.messager.popup("请选择评分!");
+    $(".modal.msg-popup .modal-body").css({
+        'color': '#a94442',
+        "background-color":"#f2dede",
+        });
+    }
+    else{
+    $.messager.popup("请输入评论！");
+    $(".modal.msg-popup .modal-body").css({
+        'color': '#a94442',
+        "background-color":"#f2dede",
+        });
+  }
+  })
+})
+</script>
+
+
+
+
+<script>/*评论回复*/
+$(function() {
+ $("body").on("click", '.btn-reply', function(){
+    var comment = $(this).prev(".form-control").val()
+    if (comment!=""){
+    preentid = $(this).parent().attr("id");
+    $.ajaxSetup({
+    data: {csrfmiddlewaretoken: '{{ csrf_token }}', 
+          comment: comment, 
+          instrumentid: {{instrument.id}},
+          /*parenttext: parenttext,*/
+          preentid: preentid,
+          },
+          });
+    $.ajax({
+        url: "{% url 'instrucommentcomment' %}",
+        type: "post",
+        dataType: 'json',
+          success: function(data) {
+            $('.freshchildcomment'+preentid).append(
+              ' <div class="childcomment"><img class="commentusericon" src={{user.get_image_url}}><div class="rightchildcomment" id="'+data.user+'"><span class="author-name"><a href={{user.get_absolute_url}}>'+data.user+'</a></span><span class="author-time"> 0&nbsp;分钟前 :</span><div class="pl-content">'+data.text+'</div><div class="btn-dp-child"><i class="icon-childcomment"></i>回复</div><span class="btn-dp-right pull-right" id="'+data.commentid+'"><i class="icon-dp-positive" style="background-position: -220px -173px;"></i><span class="commentuserlike'+data.commentid+'">0</span><i class="icon-dp-negtive" style="background-position: -270px -171px;"></i><span class="commentuserdislike'+data.commentid+'">0</span></span></div></div>'
+              )
+              commnetcount = $('.article-pl-count').text()
+              $('.article-pl-count').text(parseInt(commnetcount)+1)
+          },
+          error: function(data) { 
+              alert("Got an error dude");
+          }
+    });
+    /*$('html,body').animate({scrollTop:$('#btn-block').offset().top}, 100);*/
+    $.messager.popup("评论发表成功!");
+    $(".modal.msg-popup .modal-body").css({
+        'color': '#449d44',
+        "background-color":"#CCF4D9",
+        });
+    $(this).prev(".form-control").val("")
+    }
+    else{
+    $.messager.popup("请输入评论！");
+    $(".modal.msg-popup .modal-body").css({
+        'color': '#a94442',
+        "background-color":"#f2dede",
+        });
+  }
+  })
+})
+</script>
+
+
+<script>/*点赞*/
+$(function() {
+ $("body").on("click", '.icon-dp-positive', function(){
+    var preentid = $(this).parent().attr("id");
+    like = parseInt($(this).next('.commentuserlike'+preentid).text())
+    $.ajaxSetup({
+    data: {csrfmiddlewaretoken: '{{ csrf_token }}', 
+          commentid: preentid,
+          },
+          });
+    $.ajax({
+        url: "{% url 'commentlike' %}",
+        type: "post",
+        success: function(data) {
+        
+          /*$(this).next().html(data.commentlikecount)*/
+          /*alert(data.commentlikecount)*/
+          $('.commentuserlike'+preentid).html(like + data.commentlikecount)
+          },
+          error: function(data) { 
+            /*alert('Error')*/
+          }
+    });
+  })
+})
+</script>
+
+<script>/*点衰*/
+$(function() {
+ $("body").on("click", '.icon-dp-negtive', function(){
+    var preentid = $(this).parent().attr("id");
+    dislike = parseInt($(this).next('.commentuserdislike'+preentid).text())
+    $.ajaxSetup({
+    data: {csrfmiddlewaretoken: '{{ csrf_token }}', 
+          commentid: preentid,
+          },
+          });
+    $.ajax({
+        url: "{% url 'commentdislike' %}",
+        type: "post",
+        success: function(data) {
+          $('.commentuserdislike'+preentid).html(dislike + data.commentdislikecount)
+          },
+          error: function(data) { 
+            /*alert('Error')*/
+          }
+    });
+  })
+})
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var star5per = (({{instrumentgrade.star5}}/{{instrumentgrade.starall}}*100).toFixed(1)).toString()+"%"
+  var star4per = (({{instrumentgrade.star4}}/{{instrumentgrade.starall}}*100).toFixed(1)).toString()+"%"
+  var star3per = (({{instrumentgrade.star3}}/{{instrumentgrade.starall}}*100).toFixed(1)).toString()+"%"
+  var star2per = (({{instrumentgrade.star2}}/{{instrumentgrade.starall}}*100).toFixed(1)).toString()+"%"
+  var star1per = (({{instrumentgrade.star1}}/{{instrumentgrade.starall}}*100).toFixed(1)).toString()+"%"  
+
+  if ({{instrumentgrade.starall}}==0){
+    star5per='0%'
+    star4per='0%'
+    star3per='0%'
+    star2per='0%'
+    star1per='0%'
+  }
+
+  $("#star5-per").text(star5per)
+  $("#star4-per").text(star4per)
+  $("#star3-per").text(star3per)
+  $("#star2-per").text(star2per)
+  $("#star1-per").text(star1per)
+
+  x = (parseFloat(star5per))
+  $("#star5-per-w").css('width',x+'px');
+  x = (parseFloat(star4per))
+  $("#star4-per-w").css('width',x+'px');
+  x = (parseFloat(star3per))
+  $("#star3-per-w").css('width',x+'px');
+  x = (parseFloat(star2per))
+  $("#star2-per-w").css('width',x+'px');
+  x = (parseFloat(star1per))
+  $("#star1-per-w").css('width',x+'px');
+  var grade = ({{instrumentgrade.grade}})
+  $(".scoreing").text(grade)
+
+  if ( grade == 0 ){
+    $(".scoreing-right").prepend('<span class="glyphicon glyphicon-star  glyphicon-gray" aria-hidden="true"></span> <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span> <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span> <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span> <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>')
+  }
+
+  else if ( grade == 1){
+    $(".scoreing-right").prepend('<span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span> <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span> <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span> <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span> <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>')
+  }
+
+
+  else if (grade==2){
+    $(".scoreing-right").prepend('<span class="glyphicon glyphicon-star" aria-hidden="true"></span> <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span> <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span> <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span> <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>')
+  }
+
+  else if ( grade==3){
+    $(".scoreing-right").prepend('<span class="glyphicon glyphicon-star" aria-hidden="true"></span> <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span> <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span> <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span> <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>')
+  }
+
+  else if ( grade==4 ){
+    $(".scoreing-right").prepend('<span class="glyphicon glyphicon-star" aria-hidden="true"></span> <span class="glyphicon glyphicon-star" aria-hidden="true"></span> <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span> <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span> <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>')
+  }
+
+  else if ( grade==5 ){
+    $(".scoreing-right").prepend('<span class="glyphicon glyphicon-star" aria-hidden="true"></span> <span class="glyphicon glyphicon-star" aria-hidden="true"></span> <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span> <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span> <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>')
+  }
+
+  else if ( grade==6 ){
+    $(".scoreing-right").prepend('<span class="glyphicon glyphicon-star" aria-hidden="true"></span> <span class="glyphicon glyphicon-star" aria-hidden="true"></span> <span class="glyphicon glyphicon-star" aria-hidden="true"></span> <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span> <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>')
+  }
+
+  else if ( grade==7 ){
+    $(".scoreing-right").prepend('<span class="glyphicon glyphicon-star" aria-hidden="true"></span> <span class="glyphicon glyphicon-star" aria-hidden="true"></span> <span class="glyphicon glyphicon-star" aria-hidden="true"></span> <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span> <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>')
+  }
+
+  else if ( grade==8 ){
+    $(".scoreing-right").prepend('<span class="glyphicon glyphicon-star" aria-hidden="true"></span> <span class="glyphicon glyphicon-star" aria-hidden="true"></span> <span class="glyphicon glyphicon-star" aria-hidden="true"></span> <span class="glyphicon glyphicon-star" aria-hidden="true"></span> <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>')
+  }
+
+  else if ( grade==9 ){
+    $(".scoreing-right").prepend('<span class="glyphicon glyphicon-star" aria-hidden="true"></span> <span class="glyphicon glyphicon-star" aria-hidden="true"></span> <span class="glyphicon glyphicon-star" aria-hidden="true"></span> <span class="glyphicon glyphicon-star" aria-hidden="true"></span> <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>')
+  }
+
+  else if ( grade==10 ){
+    $(".scoreing-right").prepend('<span class="glyphicon glyphicon-star" aria-hidden="true"></span> <span class="glyphicon glyphicon-star" aria-hidden="true"></span> <span class="glyphicon glyphicon-star" aria-hidden="true"></span> <span class="glyphicon glyphicon-star" aria-hidden="true"></span> <span class="glyphicon glyphicon-star" aria-hidden="true"></span>')
+  }
+  else{
+
+  }
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $(".form-comment-reply").css({
+        'display': 'block',
+        });
+  });
+</script>
+{% endblock %}
+
+
+{% block content %}
+<!-- Modal1 -->
+<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+<div class="instru-comment-form">
+ <div class="form-comment">
+
+<div id="grage-star">评分: 
+<span id = "star1" class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+<span id = "star2" class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+<span id = "star3" class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+<span id = "star4" class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+<span id = "star5" class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+<span id = "star-exp"></span>
+<span id = "star-grade-score"></span>
+</div>
+
+<div class="px">
+  短评:
+</div>
+
+{% if user.is_authenticated %}
+    <textarea name="editor1" id="editor1" rows="10" cols="80">
+    </textarea>
+    <script>
+        // Replace the <textarea id="editor1"> with a CKEditor
+        // instance, using default configuration.
+       editor = CKEDITOR.replace( 'editor1' , {
+        language: 'zh-cn',
+        toolbar: [['Link','Unlink'], ['-', 'Bold', 'Italic', 'Format'], ['Smiley', ]],
+        width: '100%',
+        uiColor: '#ffffff',
+
+    });
+    </script>
+{% else %}
+<div class="authboard">
+<div class="authboardword">
+<h4>请<a href="{% url 'loggin' %}">登录</a>后参与评论</h4>
+</div>
+</div>
+{% endif %} 
+<button  id="btn-block" type="button" class='btn  btn-success btn-block replayscrollposition' >发表</button>
+</div>
+</div><!-- class="comment-form" -->
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="container  instrumentdetail_container">
+<div class="row">
+<div class='map'>
+<a href="{{instrument.get_absolute_url}}">{{instrument.model}}</a>
+</div>
+
+  <div class="col-sm-8">
+    <div class="instruinfo">
+      <div class="instruinfo-img">
+        <img src="{{instrument.get_image_url}}">
+      </div>
+
+      <div class="instruinfo-score">
+        <div class="instruinfo-score-title">梧桐评分</div>
+        <div class="instruinfo-score-score">
+          <div class="scoreing"></div>
+          <div class="scoreing-right">
+
+            <div class="scoreing-right-person">
+              <a href="">{{instrumentgrade.starall}}人评价</a>
+            </div>
+          </div><!-- <div class="scoreing-right"> -->
+          <div style="clear:both;"></div>
+        </div><!-- <div class="instruinfo-score-score"> -->
+        <div class="instruinfo-score-rating hidden-xs">
+          <div class="item">
+          <span class="starstop">5星</span>
+          <div class="power" id= "star5-per-w" style="width:100px;"></div>
+          <span id= "star5-per" class="rating_per"></span>
+          </div><!-- <div class="item"> -->
+          <div class="item">
+          <span class="starstop">4星</span>
+          <div class="power" id= "star4-per-w" style="width:100px;"></div>
+          <span id= "star4-per" class="rating_per"></span>
+          </div><!-- <div class="item"> -->
+          <div class="item">
+          <span class="starstop">3星</span>
+          <div class="power"  id= "star3-per-w" style="width:100px;"></div>
+          <span  id= "star3-per" class="rating_per"></span>
+          </div><!-- <div class="item"> -->
+          <div class="item">
+          <span class="starstop">2星</span>
+          <div class="power"  id= "star2-per-w" style="width:100px;"></div>
+          <span  id= "star2-per" class="rating_per"></span>
+          </div><!-- <div class="item"> -->
+          <div class="item">
+          <span class="starstop">1星</span>
+          <div class="power"  id= "star1-per-w" style="width:100px;"></div>
+          <span  id= "star1-per" class="rating_per"></span>
+          </div><!-- <div class="item"> -->
+        </div><!-- <div class="instruinfo-score-rating"> -->
+        <div class="instruinfo-score-info visible-xs-block">
+        <span class="pl">
+          设备类型:
+        </span>
+        <span>
+          {{instrument.category.title}}
+        </span>
+        </br>
+        <span class="pl">
+          产品官方信息:
+        </span>
+        <span>
+          <a href="{{instrument.introaddr}}">链接</a>
+        </span>
+        </br>
+        <span class="pl">
+          上市时间:
+        </span>
+        <span>
+          {{instrument.uptime}}
+        </span>
+        </br>
+        <span class="pl">
+          制造商:
+        </span>
+        <span>
+          {{instrument.company.title}}
+        </span>
+        </br>
+        </div>
+
+
+      </div><!-- <div class="instruinfo-score"> -->
+
+
+      <div class="instruinfo-info hidden-xs">
+        <!-- <h4>{{instrument.model}}</h4> -->
+        <span class="pl">
+          设备类型:
+        </span>
+        <span>
+          {{instrument.category.title}}
+        </span>
+        </br>
+        <span class="pl">
+          产品官方信息:
+        </span>
+        <span>
+          <a href="{{instrument.introaddr}}">链接</a>
+        </span>
+        </br>
+        <span class="pl">
+          上市时间:
+        </span>
+        <span>
+          {{instrument.uptime}}
+        </span>
+        </br>
+        <span class="pl">
+          制造商:
+        </span>
+        <span>
+          {{instrument.company.title}}
+        </span>
+        </br>
+        </div>
+
+    </div><!-- <div class="instruinfo"> -->
+
+<div style="clear:both;"></div>
+
+
+
+    <div class="comment">
+      <img  class="commentusericon " src='{{comment.user.get_image_url}}'>
+      <div class='rightcomment'>
+
+
+        <div  class="comment-info-line">
+      <span class="author-name"><a href="{{comment.user.get_absolute_url}}">{{comment.user}}</a></span>
+
+<span class="comment-star   hidden-xs">
+    {% if comment.grade = 2 %}
+      <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+      <span  class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+      <span  class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+      <span  class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+      <span  class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    {% elif comment.grade = 4 %}
+      <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+      <span  class="glyphicon glyphicon-star" aria-hidden="true"></span>
+      <span  class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+      <span  class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+      <span  class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    {% elif comment.grade = 6 %}
+      <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+      <span  class="glyphicon glyphicon-star" aria-hidden="true"></span>
+      <span  class="glyphicon glyphicon-star" aria-hidden="true"></span>
+      <span  class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+      <span  class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    {% elif comment.grade = 8 %}
+      <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+      <span  class="glyphicon glyphicon-star" aria-hidden="true"></span>
+      <span  class="glyphicon glyphicon-star" aria-hidden="true"></span>
+      <span  class="glyphicon glyphicon-star" aria-hidden="true"></span>
+      <span  class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    {% elif comment.grade = 10 %}
+      <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+      <span  class="glyphicon glyphicon-star" aria-hidden="true"></span>
+      <span  class="glyphicon glyphicon-star" aria-hidden="true"></span>
+      <span  class="glyphicon glyphicon-star" aria-hidden="true"></span>
+      <span  class="glyphicon glyphicon-star" aria-hidden="true"></span>    
+    {% endif %}
+</span>
+
+
+      <span class="author-time">
+      {{comment.timestamp}}
+      </span>
+
+      {% if comment.score %}
+      <span style="margin-left:8px; color:#e48f15;" class="glyphicon glyphicon-fire" aria-hidden="true"></span>
+      {% endif %}
+
+      </div>
+
+<div class="comment-star  visible-xs-block">
+    {% if comment.grade = 2 %}
+      <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+      <span  class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+      <span  class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+      <span  class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+      <span  class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    {% elif comment.grade = 4 %}
+      <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+      <span  class="glyphicon glyphicon-star" aria-hidden="true"></span>
+      <span  class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+      <span  class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+      <span  class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    {% elif comment.grade = 6 %}
+      <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+      <span  class="glyphicon glyphicon-star" aria-hidden="true"></span>
+      <span  class="glyphicon glyphicon-star" aria-hidden="true"></span>
+      <span  class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+      <span  class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    {% elif comment.grade = 8 %}
+      <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+      <span  class="glyphicon glyphicon-star" aria-hidden="true"></span>
+      <span  class="glyphicon glyphicon-star" aria-hidden="true"></span>
+      <span  class="glyphicon glyphicon-star" aria-hidden="true"></span>
+      <span  class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    {% elif comment.grade = 10 %}
+      <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+      <span  class="glyphicon glyphicon-star" aria-hidden="true"></span>
+      <span  class="glyphicon glyphicon-star" aria-hidden="true"></span>
+      <span  class="glyphicon glyphicon-star" aria-hidden="true"></span>
+      <span  class="glyphicon glyphicon-star" aria-hidden="true"></span>    
+    {% endif %}
+</div>
+
+      <div class="pl-content">{{comment.text|AtWhoUser|safe}}</div>
+
+      <div class="pl-box-btm" id = '{{comment.user}}'>
+
+                <div class="btn-dp-right pull-right" id="{{comment.id}}">
+                <i class="icon-dp-positive"></i>
+                <span class='commentuserlike{{comment.id}}'>{{comment.id|comment_like_count}}</span>
+                
+                <i class="icon-dp-negtive"></i>
+                <span class='commentuserdislike{{comment.id}}'>{{comment.id|comment_dislike_count}}</span>
+                </div>
+
+               <!--  <span class="btn-dp-reply">
+                <i class="icon-dp"></i>
+                回复
+                </span> -->
+
+              <span class="btn-dp">
+                <i class="icon-dp-checkbox"></i>
+                {% if comment.child_commentcount %}
+                {{comment.child_commentcount}}条点评
+                {% else %}
+                添加点评
+                {% endif %}
+                </span>
+                <div class="form-comment-reply" id="{{comment.id}}">
+
+                  {% for childitem in comment.child_comment %}
+                  <div class = 'childcomment'>
+                    <img  class="commentusericon " src='{{childitem.user.get_image_url}}'>
+                  <div class = 'rightchildcomment' id = '{{childitem.user}}'>
+                  <span class="author-name"><a href="{{childitem.user.get_absolute_url}}">{{childitem.user}}</a></span>
+                  <span class="author-time">
+                  {{childitem.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前 :
+                   </span>
+      {% if childitem.score %}
+      <span style="margin-left:8px; color:#e48f15;" class="glyphicon glyphicon-fire" aria-hidden="true"></span>
+      {% endif %}
+
+                  <div class="pl-content">{{childitem.text|AtWhoUser|safe}}</div>
+                  <div class="btn-dp-child ">
+                    <i class="icon-childcomment"></i>回复
+                    </div>
+
+            <span class="btn-dp-right pull-right" id="{{childitem.id}}">
+                <i class="icon-dp-positive"></i>
+                <span class='commentuserlike{{childitem.id}}'>{{childitem.id|comment_like_count}}</span>
+                
+                <i class="icon-dp-negtive"></i>
+                <span class='commentuserdislike{{childitem.id}}'>{{childitem.id|comment_dislike_count}}</span>
+                </span>
+
+
+                 
+                  </div><!-- rightchildcomment -->
+                  </div>
+                  {% endfor %}
+                  
+                  <div class="freshchildcomment{{comment.id}}" style='margin-top : 1em;'>
+                  </div>
+                    {{form}}
+                <button  id="btn-block" type="button" class='btn  btn-success btn-block btn-reply ' >发表</button>
+              </div>
+      </div>
+
+      </div>
+
+      {% if comment.user.qianming %}
+      <div class="qianmingline">{{comment.user.qianming}}</div>
+      {% else %}
+      <div class="qianmingline-none"></div>
+      {% endif %}
+    </div><!-- comment -->
+
+<!--                            最新回复                         -->
+
+
+<div class="freshcomment">
+</div>
+
+
+  </div><!-- <div class="col-sm-8"> -->
+  <div class="col-sm-4  hidden-xs">
+  </div><!-- <div class="col-sm-4"> -->
+</div><!-- <div class="row"> -->
+</div><!-- <div class="container  instrumentdetail_container"> -->
+
+{% endblock %}

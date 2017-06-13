@@ -247,7 +247,10 @@ $(window).resize(function(){
       <span class="author-time">
       {{comment.timestamp}}
       </span>
-
+      {% if comment.score %}
+      <span style="margin-left:8px; color:#e48f15;" class="glyphicon glyphicon-fire" aria-hidden="true"></span>
+      {% endif %}
+      
       
 
       <div class="pl-content">{{comment.text|AtWhoUser|safe}}</div>
@@ -284,6 +287,9 @@ $(window).resize(function(){
                   <span class="author-time">
                   {{childitem.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前 :
                    </span>
+                {% if childitem.score %}
+                <span style="margin-left:8px; color:#e48f15;" class="glyphicon glyphicon-fire" aria-hidden="true"></span>
+                {% endif %}
                   <div class="pl-content">{{childitem.text|AtWhoUser|safe}}</div>
                   <div class="btn-dp-child">
                     <i class="icon-childcomment"></i>回复

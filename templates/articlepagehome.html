@@ -190,6 +190,129 @@ $(window).resize(function(){
 </div> 
 </div> <!-- newsblock -->
 
+
+
+{% elif item.comment.instrument and item.comment.grade != 0 %}
+    <div class="col-xs-11 newsblock" id="{{item.id}}">
+    <div class="rightwordblock">
+
+    <div class="usericon-line">
+    <span><img  class="img-circle usericon" src='{{item.comment.user.get_image_url}}'></span>
+    <span class="writer"><a href="{{item.comment.user.get_absolute_url}}">{{item.comment.user}}</a></span>
+    <span class="nomline">参与了</span>
+    <span class="hidden-xs"><a href="{{item.comment.instrument.get_absolute_url}}">{{item.comment.instrument.model}}</a></span> <span class="nomline">评分</span>
+
+    
+
+    <span class="posttime pull-right hidden-xs">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</span>
+    </div>
+
+    <div class="topic-title visible-xs-block"><a href="{{item.comment.instrument.get_absolute_url}}">{{item.comment.instrument.model}}</a></div>
+
+    <i class="icon_hotcomentjiao" style="margin-left: 27px;"></i>
+    <div class='comment-block' onmouseover="this.style.cursor='pointer'" onclick="document.location='{{item.comment.get_absolute_instrument_url}}'" >
+
+
+    <span class="instrugrade">
+
+    {% if item.comment.grade = 0 %}
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    {% elif item.comment.grade = 1 %}
+    <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    {% elif item.comment.grade = 2 %}
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    {% elif item.comment.grade = 3 %}
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    {% elif item.comment.grade = 4 %}
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star  glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    {% elif item.comment.grade = 5 %}
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    {% elif item.comment.grade = 6 %}
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    {% elif item.comment.grade = 7 %}
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    {% elif item.comment.grade = 8 %}
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    {% elif item.comment.grade = 9 %}
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+    {% elif item.comment.grade = 10 %}
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    {% endif %}
+    <span class="commentgrade">{{item.comment.grade}}</span></span>
+{{item.comment.text|AtWhoUser|safe}}</div>
+
+    <div class="posttime-vis visible-xs-block">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</div>
+</div> 
+</div> <!-- newsblock -->
+
+
+{% elif item.comment.instrument and item.comment.grade = 0 %}
+    <div class="col-xs-11 newsblock" id="{{item.id}}">
+    <div class="rightwordblock">
+
+    <div class="usericon-line">
+    <span><img  class="img-circle usericon" src='{{item.comment.user.get_image_url}}'></span>
+    <span class="writer"><a href="{{item.comment.user.get_absolute_url}}">{{item.comment.user}}</a></span>
+    <span class="nomline">评论了</span>
+    <span class="hidden-xs"><a href="{{item.comment.instrument.get_absolute_url}}">{{item.comment.instrument.model}}</a></span>
+   
+
+    <span class="posttime pull-right hidden-xs">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</span>
+    </div>
+
+    <div class="topic-title visible-xs-block"><a href="{{item.comment.instrument.get_absolute_url}}">{{item.comment.instrument.model}}</a></div>
+
+    <i class="icon_hotcomentjiao" style="margin-left: 27px;"></i>
+    <div class='comment-block' onmouseover="this.style.cursor='pointer'" onclick="document.location='{{item.comment.get_absolute_instrument_url}}'" >{{item.comment.text|AtWhoUser|safe}}</div>
+
+    <div class="posttime-vis visible-xs-block">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</div>
+</div> 
+</div> <!-- newsblock -->
+
 {% elif item.comment.products %}
     <div class="col-xs-11 newsblock" id="{{item.id}}">
     <div class="rightwordblock">

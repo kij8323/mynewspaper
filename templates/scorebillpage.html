@@ -1,0 +1,66 @@
+
+{% block HeadDoc %}
+
+{% endblock %}
+
+{% block content %}
+	<table class="table table-striped">
+		<tbody>
+			{% if scorebill %} 
+			{% for item in scorebill %}
+			{% if item.topic %}
+			<tr onmouseover="this.style.cursor='pointer'" onclick="document.location='{{item.topic.get_absolute_url}}';">
+			{% elif item.comment %}
+			<tr onmouseover="this.style.cursor='pointer'" onclick="document.location='{{item.comment.get_absolute_url}}';">
+			{% elif item.products %}
+			<tr onmouseover="this.style.cursor='pointer'" onclick="document.location='{{item.products.get_payscore_url}}';">
+			{% else %}
+			<tr>
+			{% endif %}
+				<th>
+					{% if item.plus %}
+					<span style="color:#5cb85c;">+</span>
+					{% else %}
+					<span style="color:rgb(241, 63, 71);">-</span>
+					{% endif %}
+				</th>
+				<td>
+					{{ item.score }}分
+				</td>
+				<td scope="row">
+					{% if item.way == 1 %}
+					话题被点赞
+					{% elif item.way == 2 %}
+					话题点赞被取消
+					{% elif item.way == 3 %}
+					评论被点赞
+					{% elif item.way == 4 %}
+					评论点赞被取消
+					{% elif item.way == 5 %}
+					话题被加金币
+					{% elif item.way == 6 %}
+					评论被加精
+					{% elif item.way == 7 %}
+					打卡
+					{% elif item.way == 8 %}
+					积分竞拍质押
+					{% elif item.way == 9 %}
+					积分竞拍质押返还
+					{% elif item.way == 0 %}
+					系统操作
+					{% endif %}
+				</td>
+				<td>
+					{{ item.timestamp }}分
+				</td>
+			</tr>
+			{% endfor %}
+			{% else %} 
+			账户需要授权第三方登录，才能获得/贡献积分<br/>
+			授权方法：点击右上方帐号→第三方登陆授权→设置
+			{% endif %}
+		</tbody>
+	</table>
+{% endblock %}
+
+ 

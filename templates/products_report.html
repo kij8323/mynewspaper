@@ -25,7 +25,7 @@ $(function(){
        var hour = Math.floor((SysSecond / 3600) % 24);      //计算小时 
        var day = Math.floor((SysSecond / 3600) / 24);        //计算天 
      
-       node.html('<div class="icon_prodeta_daojishi"></div> 距离申请结束：'+"<i>"+day +"</i>"+ " 天 " + "<i>"+ hour + "</i>"+" 小时 " + "<i>"+ minite + "</i>"+" 分 " + "<i>"+second +"</i>"+ " 秒 "); 
+       node.html('距离申请结束：'+"<i>"+day +"</i>"+ " 天 " + "<i>"+ hour + "</i>"+" 小时 " + "<i>"+ minite + "</i>"+" 分 " + "<i>"+second +"</i>"+ " 秒 "); 
       } else {//剩余时间小于或等于0的时候，就停止间隔函数 
        window.clearInterval(InterValObj); 
        //这里可以添加倒计时时间为0后需要执行的事件 
@@ -160,7 +160,7 @@ $(document).ready(function(){
 <script>/*出价*/
 $(function() {
  $("body").on("click", '#applyscoreconform', function(){
-    score = Number($('.applyscoreconformprice').text())
+    score = Number($('#num-score').text())
     protit = $('.try-title h4 ').text()
     $.ajaxSetup({
     data: {csrfmiddlewaretoken: '{{ csrf_token }}', 
@@ -205,15 +205,11 @@ $(function() {
 <script>/*输入联系方式莫太框*/
 $(function() {
  $("body").on("click", '#applyscore', function(){
-      score = Number($('#num-score').text())
-      $('.applyscoreconformprice').text(score)
       $('#myModal2').modal('toggle')
   })
 })
 $(function() {
  $("body").on("click", '#applyscore-small', function(){
-      score = Number($('#num-score-small').text())
-      $('.applyscoreconformprice').text(score)
       $('#myModal2').modal('toggle')
   })
 })
@@ -282,6 +278,74 @@ $(window).resize(function(){
   $('.img3-imagethd3').imgsizeFunctionimg3();
 });
 </script>
+
+
+
+
+<script>/*输入联系方式莫太框*/
+$(function() {
+ $("body").on("click", '#applyone', function(){
+      $('#myModal3').modal('toggle')
+  })
+})
+$(function() {
+ $("body").on("click", '#applyone-small', function(){
+      $('#myModal3').modal('toggle')
+  })
+})
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.subtractone').click(function(){
+    node = $(this).next(".numone")
+    score = Number(node.text())
+    payscore = 1
+    if (score <= payscore){
+      node.text(score)
+    }
+    else {
+      node.text(score-1)
+    }
+  });
+  $('.addone').click(function(){
+    node = $(this).prev(".numone")
+    score = Number(node.text())
+    node.text(score+1)
+  });
+  });
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.one-list-num').click(function(){
+    /*node = $(this)*/
+    $('.one-list-num').css({
+        "border": "1px solid #ddd",
+        "color": "#333",
+        });
+    $(this).css({
+        "border": "1px solid rgb(95,184,97)",
+        "color": "rgb(95,184,97)",
+        });
+    score = Number($(this).text())
+    $('.numone').text(score)
+  });
+  });
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $('#applyoneconform').click(function(){
+    one = String($('.numone').text())
+    products = String({{products.id}})
+    $('#formone').val(one)
+    $('#formproducts').val(products)
+    $("#oneform").submit();
+  });
+  });
+</script>
 {% endblock %}
 
 
@@ -338,23 +402,77 @@ $(window).resize(function(){
         <h4 class="modal-title" id="myModalLabel">出价确认</h4>
       </div>
       <div class="modal-body">
-        <h5>你确认要出价<span class="applyscoreconformprice"></span>积分吗</h5>
-        <div class="scorerule">
-        如何获得积分？
-        </div>
-        <div class="scorerule">
-          第1步. 帐号授权微信或微博第三方登录，授权方法：点击右上方帐号&rarr;第三方登陆授权&rarr;设置；
-        </div>
-        <div class="scorerule">
-          第2步. 在测评区回复带有<i class="score-topic"></i>的帖子.
-        </div>
-	<div class="applink"><a href="http://www.wutongnews.com/topic/142/">《关于梧桐试用积分获得以及抽取试用用户的参考依据 》</a></div>
+
+              <div class="score">
+                <span>出价</span>   
+                      <div class="control">
+                          <span class="subtract">-</span>
+                          {% if products.ifscore %}
+                          <span class="num" id="num-score">{{payscore}}</span>
+                          {% endif %}
+                          <span class="add">+</span>
+                      </div>
+                <span class="addstep">幅度 5</span>
+              </div>
+
+<div class="applink"><a href="http://www.wutongnews.com/topic/826/">《什么是积分?》</a></div>  
+
         <button type="button" class="btn btn-default btn-success myModalbtn confirmdelete" data-dismiss="modal" id="applyscoreconform">确定</button>
         <button type="button" class="btn btn-default myModalbtn" data-dismiss="modal">取消</button>
       </div>
     </div>
   </div>
 </div>
+
+
+<!-- Modal3 -->
+<div class="modal" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">一元购</h4>
+      </div>
+      <div class="modal-body">
+
+              <div class="payone">
+                <span>参与</span>   
+                      <div class="controlone">
+                          <span class="subtractone">-</span>
+                          {% if products.ifone %}
+                          <span class="numone" id="num-one">1</span>
+                          {% endif %}
+                          <span class="addone">+</span>
+                      </div>
+                <span class="addstepone">人次</span>
+
+                <div class="one-list">
+                  <span class="one-list-num">10</span>
+                  <span class="one-list-num">50</span>
+                  <span class="one-list-num">100</span>
+                  <span class="one-list-num">200</span>
+                  <span class="one-list-renci">人次</span>
+                </div>
+
+              </div>
+<p>注：一元购不需要提交测评</p>
+<div class="applink"><a href="http://www.wutongnews.com/topic/1023/">《一元购规则》</a></div>  
+
+        <button type="button" class="btn btn-default btn-success myModalbtn confirmdelete" data-dismiss="modal" id="applyoneconform">确定</button>
+        <button type="button" class="btn btn-default myModalbtn" data-dismiss="modal">取消</button>
+
+        <form name="oneform" id = "oneform" method="post"  target="_blank" action="{% url 'alipayfinance' %}">  
+          {% csrf_token %}
+        <input type="hidden" name="one" id="formone" >
+        <input type="hidden" name="products" id="formproducts" >
+        </form>  
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 
 
 <div class="container_products_detail_small visible-xs-block row">
@@ -367,61 +485,35 @@ $(window).resize(function(){
           </span>          
         </div>
   </div>
-<!-- <div class='small_amount'>总数量: {{products.amount}}</div>
-<div class='small_price'>价格: {{products.price}}</div> -->
 
+
+  <div class='small_info'>
+    市场价：{{products.price}}元 &nbsp; &nbsp; 
+    总限量：{{products.amount}}
+  </div>
         <div class='small_try_info'>
-          
-          <div >总数量: {{products.amount}}</div>
-          <div>试用数量: {{products.tryamount}}</div>
+          <div>试用限量: {{products.tryamount}}</div>
           <div>申请人数: 
                     {% if products.applyamountcount > 30 %}
                     {{products.applyamountcount}}
                     {% else %}
                     {{products.id|products_applyamount_count}}
                     {% endif %} 
-	  </div>
+          </div>
                 {% if products.status = 1 %}
                       {% if user.is_authenticated %}
+                      {% if products.ifapply %}
                         {% if applybutton %}
                             <button type="button" class="btn btn-success" >已申请</button>
                         {% else %}
                             <button type="button" class="btn btn-success" id='applybutton-small'>立即申请</button>
                         {% endif %}
+                        {% else %}
+                            <button type="button" class="btn">立即申请</button>
+                        {% endif %}
+
                       {% else %}
                       <button type="button" class="btn btn-success" onclick="window.location.href='{% url 'loggin' %}'" >立即申请</button>
-                      {% endif %}
-                {% elif products.status = 2 %}
-                          <button type="button" class="btn btn-warning " >体验中</button>
-                {% elif products.status = 3 %}
-                          <button type="button" class="btn btn-danger " >已结束</button>
-                {% endif %}
-        </div>
-
-        <div class='small_try_info' style="border-left: 1px dashed #ddd;">
-          <div>竞拍数量: {{products.scoreamount}}<a class="whatscore-small" href="/topic/142/">(积分?)</a></div>
-          <div>当前最高价: {{payscoretitle}}积分</div>
-              <div class="score">
-                <span>出价</span>   
-                      <div class="control">
-                          <span class="subtract">-</span>
-                          {% if products.ifscore %}
-                          <span class="num" id="num-score-small">{{payscore}}</span>
-                          {% endif %}
-                          <span class="add">+</span>
-                      </div>
-                <!-- <span class="addstep">幅度 5</span> -->
-              </div>
-                {% if products.status = 1 %}
-                      {% if user.is_authenticated %}
-                      {% if products.ifscore %}
-                            <button type="button" class="btn btn-warning" id='applyscore-small'>立即出价</button>
-                      {% else %}
-                            <button type="button" class="btn btn-warning" >不参与积分拍</button>
-                      {% endif %}
-
-                      {% else %}
-                      <button type="button" class="btn btn-warning" onclick="window.location.href='{% url 'loggin' %}'" >立即出价</button>
                       {% endif %}
                 {% elif products.status = 2 %}
                           <button type="button" class="btn btn-warning " >已结束</button>
@@ -429,9 +521,55 @@ $(window).resize(function(){
                           <button type="button" class="btn btn-danger " >已结束</button>
                 {% endif %}
         </div>
+        <div class='small_try_info' style="border-left: 1px dashed #ddd;">
+          <div>竞拍限量: {{products.scoreamount}}</div>
+          <div>当前积分: {{payscoretitle}}</div>
 
+                {% if products.status = 1 %}
+                      {% if user.is_authenticated %}
+                      {% if products.ifscore %}
+                            <button type="button" class="btn btn-warning" id='applyscore-small'>立即出分</button>
+                      {% else %}
+                            <button type="button" class="btn" >立即出分</button>
+                      {% endif %}
+
+                      {% else %}
+                      <button type="button" class="btn btn-warning" onclick="window.location.href='{% url 'loggin' %}'" >立即出分</button>
+                      {% endif %}
+                {% elif products.status = 2 %}
+                          <button type="button" class="btn btn-warning " >已结束</button>
+                {% elif products.status = 3 %}
+                          <button type="button" class="btn btn-danger " >已结束</button>
+                {% endif %}
+        </div>
+        <div class='small_try_info' style="border-left: 1px dashed #ddd;">
+          <div>一元限量: {{products.oneamount}}</div>
+          <div>当前人次: {{products.one}}</div>
+
+                {% if products.status = 1 %}
+                      {% if user.is_authenticated %}
+                      {% if products.ifone %}
+                            <button type="button" class="btn btn-one" id='applyone-small'>一元购</button>
+                      {% else %}
+                            <button type="button" class="btn" >一元购</button>
+                      {% endif %}
+
+                      {% else %}
+                      <button type="button" class="btn btn-one" onclick="window.location.href='{% url 'loggin' %}'" >一元购</button>
+                      {% endif %}
+                {% elif products.status = 2 %}
+                          <button type="button" class="btn btn-warning " >已结束</button>
+                {% elif products.status = 3 %}
+                          <button type="button" class="btn btn-danger " >已结束</button>
+                {% endif %}
+        </div>
+  </div>
   </div>
 </div>
+
+
+
+
 
 
    <div class="container  container_products_detail">
@@ -458,7 +596,7 @@ $(window).resize(function(){
 
 
       	<div class="try-info col-sm-12 hidden-xs">
-      		<div class="products-pic col-sm-4">
+      		<div class="products-pic col-sm-3">
 
             {% if products.get_detailimage_url == '/static/media/images/companylogo.png' %}
               <img src="{{products.get_image_url}}">
@@ -467,127 +605,138 @@ $(window).resize(function(){
             {% endif %}
       		</div>
 
-      		<div class="products-info col-sm-4">
-      			<div class="try-title">
-      			<h4>{{products.title}}</h4>
-      			</div>
-      			<div class="try-amount-price-apply ">
-	      			<div class="try-amount-price ">
-	      				<p class="try-amount-price-price">市场价<span>{{products.price}}</span></p>
-	      				<p class="try-amount-price-amount">总数量<span>{{products.amount}}</span></p>
+
+
+<div class="col-sm-9">
+            <div class="try-title">
+            <h4>{{products.title}}</h4>
+            </div>
+
+            <div class="try-amount-price-apply ">
+              <div class="try-amount-price ">
+                <p class="try-amount-price-price">市场价<span>{{products.price}}</span></p>
+                <p class="try-amount-price-amount">总数量<span>{{products.amount}}份</span></p>
+                <!-- <p>积分竞拍数量<span>{{products.scoreamount}}</span></p> -->
+              <div class="timer">距离申请结束：
+                <span class="products-time">
+                  {{ products.ret_timesince_sec}}
+                </span>          
+              </div>
                 <div style="clear:both;"></div> 
               </div>
               </div>
-              <div class='try-info-boader'>
+              </div>
 
+
+
+          <div class="products-info col-sm-3">
+              <div class='try-info-boader'>
               <div class="apply-amount ">
                 <h4><div class="icon_prodeta_xianliang"></div> 试用限量:<span>{{products.tryamount}}份</span></h4>
               </div>
-	      			<div class="apply-amount ">
-	      				<h4><div class="icon_prodeta_renshu"></div>已申请:<span>{% if products.applyamountcount > 30 %}{{products.applyamountcount}}{% else %}{{products.id|products_applyamount_count}}{% endif %}人</span></h4>
-	      			</div>
-
-		          <div class="timer">
-              <div class="icon_prodeta_daojishi"></div> 距离申请结束：
-		            <span class="products-time">
-		              {{ products.ret_timesince_sec}}
-		            </span>          
-		          </div>
-		          <div class="apply-bottom  col-sm-12">
-
+              <div class="apply-amount ">
+                <h4><div class="icon_prodeta_renshu"></div>已申请:<span>{% if products.applyamountcount > 30 %}{{products.applyamountcount}}{% else %}{{products.id|products_applyamount_count}}{% endif %}人</span></h4>
+              </div>
+              <div class="apply-bottom  col-sm-12">
                 {% if products.status = 1 %}
                       {% if user.is_authenticated %}
+                      {% if products.ifapply %}
                         {% if applybutton %}
                             <button type="button" class="btn btn-success" >已申请</button>
                         {% else %}
-        		                <button type="button" class="btn btn-success" id='applybutton'>立即申请</button>
+                            <button type="button" class="btn btn-success" id='applybutton'>立即申请</button>
                         {% endif %}
                       {% else %}
+                      <button type="button" class="btn">立即申请</button>
+                      {% endif %}
+
+                      {% else %}
                       <button type="button" class="btn btn-success" onclick="window.location.href='{% url 'loggin' %}'" >立即申请</button>
-                      {% endif %}
-                {% elif products.status = 2 %}
-                          <button type="button" class="btn btn-warning " >体验中</button>
-                {% elif products.status = 3 %}
-                          <button type="button" class="btn btn-danger " >已结束</button>
-                {% endif %}
-
-		          </div>
-               <div style="clear:both;"></div>
-              </div>
-
-
-
-
-      		</div><!-- <div class="products-pic col-sm-6"> -->
-
-
-<div class="products-score col-sm-4">
-
-              <div class="try-share"><span class="try-share-word">分享至</span>
-            <a href="http://www.jiathis.com/send/?webid=tsina&url=http://{{sharelink}}&title={{products.title}}&appkey=2155349390" style="display:block;">
-            <i class="weiboshare">
-            </i>
-            </a>
-              <a class="jiathis_button_weixin" style="display:block;">
-               <i class="weichatshare">
-              </i>
-              </a>
-              <a href="http://www.jiathis.com/send/?webid=qzone&url=http://{{sharelink}}&title={{products.title}}" style="display:block;">
-            <i class="qqzoneshare">
-            </i>
-            </a>
-              </div>
-
-<div class="products-score-block">
-             <p><div class="icon_prodeta_xianliang"></div></p><p>积分竞拍数量:<span>{{products.scoreamount}}份</span></p>
-              
-                <p><div class="icon_prodeta_dangqian"></div></p><p>当前最高价:<span>{{payscoretitle}}积分</span> </p>
-
-              <div class="score"><div class="icon_prodeta_chujia"></div>
-                <span>我的出价</span>   
-                      <div class="control">
-                          <span class="subtract">-</span>
-                          {% if products.ifscore %}
-                          <span class="num" id="num-score">{{payscore}}</span>
-                          {% endif %}
-                          <span class="add">+</span>
-                      </div>
-                <span class="addstep">加价幅度 5 积分</span>
-              </div>
-              <div class="apply-bottom">
-
-                {% if products.status = 1 %}
-                      {% if user.is_authenticated %}
-                      {% if products.ifscore %}
-                            <button type="button" class="btn btn-warning" id='applyscore'>立即出价</button>
-                      {% else %}
-                            <button type="button" class="btn btn-warning" >不参与积分拍</button>
-                      {% endif %}
-
-                      {% else %}
-                      <button type="button" class="btn btn-warning" onclick="window.location.href='{% url 'loggin' %}'" >立即出价</button>
                       {% endif %}
                 {% elif products.status = 2 %}
                           <button type="button" class="btn btn-warning " >已结束</button>
                 {% elif products.status = 3 %}
                           <button type="button" class="btn btn-danger " >已结束</button>
                 {% endif %}
-                <a class="pull-right whatscore" href="/topic/142/">什么是积分?</a>
               </div>
-        
+               <div style="clear:both;"></div>
+              </div>
+          </div><!-- <div class="products-pic col-sm-3"> -->
+
+
+
+
+
+<div class="products-score col-sm-3">
+<div class="products-score-block">
+             <p><div class="icon_prodeta_chujia"></div></p><p>积分竞拍数量:<span>{{products.scoreamount}}份</span></p>
+                <p><div class="icon_prodeta_dangqian"></div></p><p>当前最高价:<span>{{payscoretitle}}积分</span> </p>
+              <div class="apply-bottom">
+                {% if products.status = 1 %}
+                      {% if user.is_authenticated %}
+                      {% if products.ifscore %}
+                            <button type="button" class="btn btn-warning" id='applyscore'>立即出分</button>
+                      {% else %}
+                            <button type="button" class="btn" >立即出分</button>
+                      {% endif %}
+
+                      {% else %}
+                      <button type="button" class="btn btn-warning" onclick="window.location.href='{% url 'loggin' %}'" >立即出价</button>
+                      {% endif %}
+                {% elif products.status = 2 %}
+                          <button type="button" class="btn btn-warning" >已结束</button>
+                {% elif products.status = 3 %}
+                          <button type="button" class="btn btn-danger " >已结束</button>
+                {% endif %}
+              </div>
       </div>    
 </div>
 
 
-      	</div><!-- <div class="try-info col-sm-12">
- -->
+
+
+
+<div class="products-score col-sm-3">
+<div class="products-one-block">
+             <p><div class="glyphicon glyphicon-usd" aria-hidden="true"></div></p><p>一元购限量:<span>{{products.oneamount}}份</span></p>
+                <p><div class="glyphicon glyphicon-list-alt" aria-hidden="true"></div></p><p>当前人次:<span>{{products.one}}人次</span> </p>
+              <div class="apply-bottom">
+
+                {% if products.status = 1 %}
+                      {% if user.is_authenticated %}
+                      {% if products.ifone %}
+                            <button type="button" class="btn btn-one" id='applyone'>一元购</button>
+                      {% else %}
+                            <button type="button" class="btn" >一元购</button>
+                      {% endif %}
+
+                      {% else %}
+                      <button type="button" class="btn btn-one" onclick="window.location.href='{% url 'loggin' %}'" >一元购</button>
+                      {% endif %}
+                {% elif products.status = 2 %}
+                          <button type="button" class="btn btn-warning " >已结束</button>
+                {% elif products.status = 3 %}
+                          <button type="button" class="btn btn-danger " >已结束</button>
+                {% endif %}
+              </div>
+      </div>    
+</div>
+
+</div><!-- <div class="try-info col-sm-12">-->
+
+
+
 
  
 			<div class='products-detail col-sm-9'>
 				<div class="menu">
-				  <ul class="nav nav-pills rightblock">
+				  <ul class=" rightblock">
               <li class="presentationw1" role="presentation"><a href="{% url 'products_detail' products.id %}">商品详情</a></li>
-              <li class="presentationw4" role="presentation"><a href="{% url 'payscorerecord' products.id %}">出价记录({{products.id|products_payscore_count}})</a></li>
+
+              <li class="presentationw5" role="presentation"><a href="{% url 'productsone' products.id %}">一元购记录({{products.one}})</a></li>
+
+
+              <li class="presentationw4" role="presentation"><a href="{% url 'payscorerecord' products.id %}">积分记录({{products.id|products_payscore_count}})</a></li>
 
               <li class="presentationw2" role="presentation"><a href="{% url 'productsapply' products.id %}">申请名单</a></li>
               <li class="presentationw3" role="presentation"><a href="{% url 'productsreport' products.id %}">测评话题 ({{products.reportnum}})</a></li>

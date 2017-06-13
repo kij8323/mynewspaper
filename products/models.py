@@ -15,7 +15,7 @@ from DjangoUeditor.models import UEditorField
 from article.tasks import instancedelete, instancesave
 from django.dispatch import receiver
 from django.db.models.signals import post_save
-
+import scorebill
 
 class Products(models.Model):
 	id = models.AutoField(primary_key=True, db_index=True)
@@ -31,8 +31,19 @@ class Products(models.Model):
 	scoreamount = models.IntegerField(default=0)
 	#试用数量
 	tryamount = models.IntegerField(default=0)
+
+	#一元购数量
+	oneamount = models.IntegerField(default=0)
+
 	#是否积分竞拍
 	ifscore = models.BooleanField(default=False, db_index=True)
+
+
+	#是否参与申请
+	ifapply = models.BooleanField(default=False, db_index=True)
+	#是否一元购
+	ifone = models.BooleanField(default=False, db_index=True)
+
 	#积分当前价
 	scoreing = models.IntegerField(default=0)
 	#是否审核通过
@@ -66,6 +77,9 @@ class Products(models.Model):
 
 	#假申请人数
 	applyamountcount = models.IntegerField(default=0)
+
+	one = models.IntegerField(default=0)
+
 
 	def __unicode__(self):
 	    return self.title
@@ -150,6 +164,8 @@ def ppayscorerec(sender, **kwargs):
 			item.user.score = item.user.score + item.payscore
 			instancesave.delay(item.user)
 			instancedelete.delay(item)
+			sb = scorebill.models.Scorebill(user = item.user, score = item.payscore, plus = True, way = 9, products = products)
+			instancesave.delay(sb)
 	else:
 		pass;
 

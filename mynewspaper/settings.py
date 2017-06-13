@@ -58,7 +58,11 @@ INSTALLED_APPS = (
     'investment',
     'products',
     'DjangoUeditor',
-    'updatenew'
+    'updatenew',
+    'judgement',
+    'scorebill',
+    'finance',
+
 )
 
 
@@ -103,7 +107,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'newspaper',
         'USER': 'root',
-        'PASSWORD': '012ssskkk',
+        'PASSWORD': 'WuTong123',
         'HOST': 'localhost',
         'PORT': '3306',
     }

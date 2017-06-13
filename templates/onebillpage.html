@@ -1,0 +1,36 @@
+{% load time_filter %}
+{% block HeadDoc %}
+
+{% endblock %}
+
+{% block content %}
+	<table class="table table-striped">
+     <thead>
+        <tr>
+          <th>订单号</th>
+          <th>时间</th>
+          <th>产品</th>
+        </tr>
+      </thead>
+		<tbody>
+			{% if onebill %} 
+			{% for item in onebill %}
+			<tr onmouseover="this.style.cursor='pointer'" onclick="document.location='{{item.products.get_absolute_url}}';">
+				<th>
+					{{item.out_trade_no|onebill}}
+				</th>
+				<td scope="row">
+					{{item.timestamp}}
+				</td>
+				<td scope="row">
+					{{item.products}}
+				</td>
+			</tr>
+			{% endfor %}
+			{% else %} 
+			{% endif %}
+		</tbody>
+	</table>
+{% endblock %}
+
+ 

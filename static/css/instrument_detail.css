@@ -1,0 +1,308 @@
+.map, .map a{
+	font-size: 20px;
+	margin-top: 7px;
+	margin-bottom: 9px;
+	color: #333;
+}
+
+.map{
+	margin-left: 15px;
+}
+
+.instruinfo-img{
+	width: 20%;
+	padding-right: 12px;
+	float: left;
+}
+
+.instruinfo-img img{
+	width: 100%;
+}
+
+.instruinfo-info{
+	float: left;
+	width: 40%;
+	padding: 0 0 0 15px;
+}
+
+.instruinfo-info h4{
+margin-top: 0px;
+}
+
+.instruinfo-info span {
+font: 14px Arial, Helvetica, sans-serif;
+line-height: 200%;
+}
+
+.pl {
+color: #333;
+}
+
+.instruinfo-score{
+	width: 40%;
+	float: left;
+	border-right: 1px solid #eaeaea;
+}
+
+.instruinfo-score-title{
+	font-size: 16px;
+	color: #9b9b9b;
+}
+
+.instruinfo-score-score .scoreing{
+	color: #494949;
+padding: 0;
+/*min-width: 25%;*/
+font-size: 28px;
+float: left;
+margin-right: 15px;
+}
+
+.instruinfo-score-score {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.scoreing-right{
+float: left;
+}
+
+
+.scoreing-right .glyphicon{
+	color: #e48f15;
+font-size: 12px;
+}
+
+.scoreing-right-person{
+	font-size: 12px;
+}
+
+.instruinfo-score-rating .starstop{
+font-size: 12px;
+line-height: 14px;
+}
+
+.starstop, .rating_per{
+	color: #9b9b9b;
+}
+
+.instruinfo-score-rating .power{
+	background: #CCF4D9 none repeat scroll 0 0;
+	height: 10px;
+	display: inline-block;
+}
+
+.instru-comment-form{
+	border-top: 0px;
+/*	margin-top: 30px;
+	margin-bottom: 30px;*/
+}
+
+
+.modal-header{
+	border-bottom: 0px;
+}
+
+#gragebt{
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+
+#gragebt a{
+	padding: 5px 8px 5px 8px;
+/*	border: 1px solid;*/
+	border-radius: 2px;
+	color: #449d44;
+	background-color: #CCF4D9;
+}
+
+#gragebt a:hover{
+	color: white;
+	background-color: #449d44;
+}
+
+#gragebt .glyphicon-comment{
+	margin-right: 3px;
+}
+
+#grage-star .glyphicon-gray{
+	color: #bababa;
+}
+
+#grage-star .glyphicon-star{
+	cursor: pointer;
+}
+
+
+#grage-star{
+	text-align: left;
+	margin-bottom: 15px;
+}
+
+.instru-comment-form .px{
+	text-align: left;
+	margin-bottom: 5px;
+}
+
+#star-exp{
+	color: #e48f15;
+}
+
+#star-grade-score{
+	display: none;
+}
+
+.comment-info{
+	font: 15px Arial, Helvetica, sans-serif;
+	color: #449d44;
+	margin: 0 0 30px 0;
+/*	padding-bottom: 25px;*/
+	line-height: 150%;
+/*	border-bottom: 1px solid #f0f0f0;*/
+}
+
+.comment-info span {
+font: 12px Arial, Helvetica, sans-serif;
+line-height: 150%;
+color: #666666;
+}
+
+.scoreing-right .glyphicon-gray{
+	color: #bababa;
+}
+
+.instruinfo-score-info span {
+font: 14px Arial, Helvetica, sans-serif;
+line-height: 200%;
+}
+
+.instrumentdetail_container .comment .author-time{
+	margin-left: 0px;
+}
+
+
+.comment-star .glyphicon{
+	font-size: 12px;
+}
+
+.comment-star .glyphicon-star{
+	color: #e48f15;
+}
+
+.comment-star .glyphicon-gray{
+	color: #bababa;
+}
+
+
+
+#rightsidebar{
+	position: fixed;
+	bottom: 68px;
+	right: 0;
+	list-style-type:none;
+	z-index: 2;
+	text-align: center;
+	filter:alpha(opacity=70); /*IE滤镜，透明度50%*/
+	-moz-opacity:0.7; /*Firefox私有，透明度50%*/
+	opacity:0.7;/*其他，透明度50%*/
+}
+
+.barcomment, .rtotopsctoll, .daka{
+	background-color: #67CA87;
+	color: black;
+	width: 39px;
+	height: 39px;
+	margin-bottom: 16px;
+	text-align: center;
+	cursor: pointer;
+}
+
+
+
+#rightsidebar a{
+	line-height: 39px;
+	color: white;
+	font-weight: 700;
+
+}
+
+
+.rtotopsctoll em {
+	border-left: 2px solid #fff;
+	border-bottom: 2px solid #fff;
+	display: inline-block;
+	margin: 16px 0 0 1px;
+	width: 12px;
+	height: 12px;
+	-webkit-transform: rotate(135deg);
+	transform: rotate(135deg);	
+}
+
+.rtotopsctoll{
+	display:none;
+}
+
+
+
+
+
+
+.cateinstrublock{
+	margin-bottom: 15px;
+}
+
+.cateinstruinfo-img {
+width: 33%;
+padding-right: 12px;
+float: left;
+}
+
+.cateinstruinfo-img img {
+width: 100%;
+}
+
+.instrugrade {
+color: #e48f15;
+font-size: 12px;
+}
+
+.instrugrade .glyphicon-gray{
+	color: #bababa;
+}
+
+.instruinfo-info{
+	line-height: 150%;
+}
+
+.investmentname{
+	font-size: 12px;
+	text-overflow: -o-ellipsis-lastline;
+	overflow: hidden;
+	text-overflow: ellipsis;display: -webkit-box;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
+	margin-top: 5px;
+}
+
+
+.cateinstruinfo-info{
+	line-height: 150%;
+}
+
+.cateinstruinfo-info span{
+	font-size: 12px;
+	color: #9b9b9b;
+}
+
+.cateinstruinfo-info span a{
+	font-size: 12px;
+	color: #9b9b9b;
+}
+.cateinstruinfo-info span a:hover{
+	color: #337ab7;
+}
+
+.cateinstrublocktitle{
+	color: #449d44;
+	margin-bottom: 15px;
+}

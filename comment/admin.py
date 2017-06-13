@@ -5,7 +5,7 @@ from django.contrib import admin
 from .models import Comment, CommentLike, CommentDisLike
 
 class CommentAdmin(admin.ModelAdmin):
-	list_display = ('id', '__unicode__', 'text', 'timestamp')
+	list_display = ('id', '__unicode__', 'readers', 'score', 'text', 'timestamp')
 	class Meta:
 		model = Comment
 

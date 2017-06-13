@@ -136,9 +136,61 @@ else{
 }
 }
 </script>
+
+
+<script type="text/javascript">
+$(function() {
+ $("body").on("click", '#scorebillbutton', function(){
+    $('#scorebillpage').load('{% url 'scorebillpage' user.id %}');
+  })
+})
+</script>
+
+<script type="text/javascript">
+$(function() {
+ $("body").on("click", '#onebillbutton', function(){
+    $('#onebillpage').load('{% url 'onebillpage' user.id %}');
+  })
+})
+</script>
 {% endblock %}
 
  {% block content %}
+<!-- Modal8 -->
+<div class="modal fade" id="myModal8" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style = "border-bottom:0px;">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+        <h4 class="modal-title" id="myModalLabel">积分明细</h4>
+      </div>
+      <div class="modal-body">
+<div id='scorebillpage'>
+
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal9 -->
+<div class="modal fade" id="myModal9" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style = "border-bottom:0px;">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">积分明细</h4>
+      </div>
+      <div class="modal-body">
+<div id='onebillpage'>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <!-- Modal1 -->
 <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -390,27 +442,31 @@ else{
 {% endif %}
 </div>
 
-<div class="col-xs-12 iconline hidden-xs">
+
+<div class="col-xs-12 iconline">
 <div class="col-xs-6 emailline">
-  <h4>邮箱: <span class="ng-binding">{{userofinfor.email}}</span></h4>
+  <h4>一元购:</h4>
 </div>
 {% if host %}
-<button type="button" class="pull-right btn btn-success" data-toggle="modal" data-target="#myModal2">
- 修改
+<button type="button" class="pull-right btn btn-success" data-toggle="modal" data-target="#myModal9" id = "onebillbutton">
+查询
 </button>
 {% endif %}
 </div>
 
-<div class="col-xs-12 iconline ">
+<div class="col-xs-12 iconline">
 <div class="col-xs-6 emailline">
   <h4>积分: <span class="ng-binding">{{userofinfor.score}}</span></h4>
 </div>
-<!-- {% if host %}
-<button type="button" class="pull-right btn btn-success" data-toggle="modal" data-target="#myModal2">
- 修改
+
+{% if host %}
+<button type="button" class="pull-right btn btn-success" data-toggle="modal" data-target="#myModal8" id = "scorebillbutton">
+ 明细
 </button>
-{% endif %} -->
+{% endif %}
+
 </div>
+
 
 
 
@@ -447,6 +503,17 @@ else{
 </button>
 </div>
 {% endif %}
+
+<div class="col-xs-12 iconline hidden-xs">
+<div class="col-xs-6 emailline">
+  <h4>邮箱: <span class="ng-binding">{{userofinfor.email}}</span></h4>
+</div>
+{% if host %}
+<button type="button" class="pull-right btn btn-success" data-toggle="modal" data-target="#myModal2">
+ 修改
+</button>
+{% endif %}
+</div>
 
 
 <div class="col-xs-12 lastline">

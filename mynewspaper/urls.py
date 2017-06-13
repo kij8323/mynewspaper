@@ -14,6 +14,11 @@ urlpatterns = [
     url(r'^joinus/', 'mainpage.views.joinus', name='joinus'),#加入我们
     url(r'^contactus/', 'mainpage.views.contactus', name='contactus'),#联系我们
     url(r'^home/morearticlehome/$', 'mainpage.views.morearticlehome', name='morearticlehome'),#首页更多文章按钮ajax
+
+    url(r'^home/moretopichome/$', 'mainpage.views.moretopichome', name='moretopichome'),#首页更多文章按钮ajax
+
+    url(r'^home/topicpagehome/$', 'mainpage.views.topicpagehome', name='topicpagehome'),#首页更多文章加载页面
+
     url(r'^home/articlepagehome/$', 'mainpage.views.articlepagehome', name='articlepagehome'),#首页更多文章加载页面
     url(r'^home/index_search/$', 'mainpage.views.index_search', name='index_search'),#搜索页面
 
@@ -67,9 +72,9 @@ urlpatterns = [
     url(r'^groupdetailpage/$', 'topic.views.groupdetailpage', name='groupdetailpage'),#加载话题组页
 
 
-    url(r'^topiccommentpage/$', 'topic.views.topiccommentpage', name='topiccommentpage'),#加载话题评论
+    url(r'^topiccommentpage/(?P<topic_id>[0-9]+)/$', 'topic.views.topiccommentpage', name='topiccommentpage'),#加载话题评论
 
-    url(r'^topicdetailpage/$', 'topic.views.topicdetailpage', name='topicdetailpage'),#话题页
+    url(r'^topicdetailpage/(?P<topic_id>[0-9]+)/$', 'topic.views.topicdetailpage', name='topicdetailpage'),#话题页
 
     url(r'^topic/(?P<topic_id>[0-9]+)/$', 'topic.views.topic_detail', name='topic_detail'),#话题页
     url(r'^topic/newtopic/$', 'topic.views.newtopic', name='newtopic'),#新建话题页
@@ -143,8 +148,37 @@ urlpatterns = [
     url(r'^products/report/(?P<products_id>[0-9]+)/$', 'products.views.productsreport', name='productsreport'),
 
     url(r'^products/test123xxxnewapplication/(?P<products_id>[0-9]+)/(?P<app_num>[0-9]+)/(?P<period_num>[0-9]+)/$', 'products.views.newapplication', name='newapplication'),#对id为4的产品，生成4个机器人申请，每100秒一个
+    url(r'^products/test123xxxfunction/$', 'products.views.function', name='function'),
+    url(r'^products/one/(?P<products_id>[0-9]+)/$', 'products.views.productsone', name='productsone'),#文章页加载更多评论页面
+
+
 
     url(r'^comment/(?P<comment_id>[0-9]+)/$', 'comment.views.commentdetail', name='commentdetail'),#个人信息
+    url(r'^comment/instrument/(?P<comment_id>[0-9]+)/$', 'comment.views.commentdetailinstrument', name='commentdetailinstrument'),#个人信息
+
+
+    url(r'^judgement/$', 'judgement.views.judgement', name='judgement'),#评分页
+    url(r'^instrument/(?P<instrument_id>[0-9]+)/$', 'judgement.views.instrumentdetail', name='instrument_detail'),#评分页
+
+    url(r'^instrumentpage/(?P<category_id>[0-9]+)/$', 'judgement.views.instrumentpage', name='instrumentpage'),#
+
+    url(r'^instrument/moreinstru/$', 'judgement.views.moreinstru', name='moreinstru'),
+    url(r'^instrument/moreinstrupage/$', 'judgement.views.moreinstrupage', name='moreinstrupage'),
+    url(r'^instrument/instrumentcomment/$', 'judgement.views.instrumentcomment', name='instrumentcomment'),#发表话题评论页ajax
+    url(r'^instrument/instrucommentcomment/$', 'judgement.views.instrucommentcomment', name='instrucommentcomment'),#发表话题评论页ajax
+
+    url(r'^instrument/index/$', 'judgement.views.instrumentindex', name='instrumentindex'),#发表话题评论页ajax
+    url(r'^newinstru/$', 'judgement.views.newinstru', name='newinstru'),#
+
+    url(r'^scorebillpage/(?P<user_id>[0-9]+)/$', 'scorebill.views.scorebillpage', name='scorebillpage'),#搜索页面
+    url(r'^onebillpage/(?P<user_id>[0-9]+)/$', 'finance.views.onebillpage', name='onebillpage'),#搜索页面
+
+    url(r'^weixin/finance/$', 'finance.views.weixinfinance', name='weixinfinance'),#
+    url(r'^alipay/finance/$', 'finance.views.alipayfinance', name='alipayfinance'),#
+    url(r'^alipay/redirect/finance/$', 'finance.views.alipayredirectfinance', name='alipayredirectfinance'),#
+    url(r'^alipay/notify/finance/$', 'finance.views.alipaynotifyfinance', name='alipaynotifyfinance'),#
+    url(r'^alipay/gateway/finance/$', 'finance.views.alipaygatewayfinance', name='alipaygatewayfinance'),#
+    url(r'^weixin/gateway/finance/$', 'finance.views.weixingatewayfinance', name='weixingatewayfinance'),#
 
 
 #    url(r'^products/address/(?P<products_id>[0-9]+)/$', 'products.views.productsaddress', name='productsaddress'),#文章页加载更多评论页面

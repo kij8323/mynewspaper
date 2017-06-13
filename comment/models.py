@@ -7,7 +7,7 @@ from products.models import Products
 from ckeditor.fields import RichTextField
 from django.forms import ModelForm
 from django.core.urlresolvers import reverse
-
+from judgement.models import Instrument
 # Create your models here.
 class Comment(models.Model):
 	id = models.AutoField(primary_key=True, db_index=True)
@@ -21,6 +21,10 @@ class Comment(models.Model):
 
 	#评论的产品试用
 	products = models.ForeignKey(Products, null=True, blank=True, db_index=True)
+
+	#评论评分
+	instrument = models.ForeignKey(Instrument, null=True, blank=True, db_index=True)
+
 
 
 	#评论内容
@@ -38,6 +42,12 @@ class Comment(models.Model):
 	parenttext = models.TextField(null=True, blank=True)
 	#计算回复热度
 	readers = models.IntegerField(default=0)
+
+	#积分
+	score = models.BooleanField(default=False, db_index=True)
+	#评论评分
+	grade = models.IntegerField(default=0)
+
 
 	class Meta:
 		ordering = ['-timestamp']
@@ -67,6 +77,9 @@ class Comment(models.Model):
 
 	def get_absolute_url(self):
 		return reverse('commentdetail', kwargs={"comment_id": self.id})
+
+	def get_absolute_instrument_url(self):
+		return reverse('commentdetailinstrument', kwargs={"comment_id": self.id})
 
 
 

@@ -1,7 +1,7 @@
 
 
 
-.container-home{
+.container-index{
 	/*width: 90%;*/
 	margin-top: 50px;
 }
@@ -504,4 +504,32 @@ margin-right: 15px;
 
 .topic-reply{
 	margin-right: 5px;
+}
+
+
+
+
+
+.instument-img{
+width: 100px;
+height: 142px;
+margin-bottom: 16px;
+margin-top: 7px;
+background: #f3f3f3;
+float: left;
+}
+
+.instument-img img {
+border-radius: 3px;
+width: 100%;
+height: 100%;
+}
+
+.instrugrade{
+	color: #e48f15;
+	font-size: 12px;
+}
+
+.glyphicon-gray{
+	color: #bababa;
 }

@@ -194,8 +194,8 @@ $(function() {
   </div>
   <div class="cate-spec">
   <a class="cate-link" href="{% url 'group_detail' 12 %}">
-  <span class="glyphicon glyphicon-bullhorn" aria-hidden="true" style="background-color: #CC3333;"></span>
-    <div class="cate-spec-name">瞎聊</div>
+  <span class="glyphicon glyphicon-earphone" aria-hidden="true" style="background-color: #CC3333;"></span>
+    <div class="cate-spec-name">闲聊</div>
   </a>
   </div>
   <div class="cate-spec">
@@ -255,8 +255,8 @@ $(function() {
   </div>
 <div class="cate-spec">
   <a class="cate-link" href="{% url 'group_detail' 22 %}">
-  <span class="glyphicon glyphicon-question-sign" aria-hidden="true" style="background-color: #008080;"></span>
-    <div class="cate-spec-name">问答</div>
+  <span class="glyphicon glyphicon-bullhorn" aria-hidden="true" style="background-color: #008080;"></span>
+    <div class="cate-spec-name">活动</div>
   </a>
   </div>
 
@@ -330,7 +330,7 @@ $(function() {
 <div class="menu">
   <ul class="nav nav-pills rightblock">
       <li class="presentationw1" role="presentation"><a href="{% url 'group_detail' group.id %}">{{group.title}}话题</a></li>
-      <li class="presentationw2" role="presentation"><a href="javascript:void(0);"><i class="score-topic-score"></i>涨积分 ({{topicount}})</a></li>
+      <li class="presentationw2" role="presentation"><a href="javascript:void(0);"><i class="score-topic-score"></i>精华 ({{topicount}})</a></li>
     </ul>
        </div>
 {% for item in topicstickied %}

@@ -1,0 +1,525 @@
+{% extends "base_1.html" %}
+{% load time_filter %}
+{% block HeadDoc %}
+<link href="/static/css/instrumentall.css" rel="stylesheet">
+<link rel="stylesheet" href="/static/css/loaders.min.css">
+
+<script>
+$.fn.imgsizeFunction = function() { 
+  width = $(this).css('width');
+  x = (parseFloat(width)*1.42)
+  return  $(this).css('height',x+'px');
+}
+</script>
+
+
+<script>
+$(window).resize(function(){
+  $('.instrumentblock img').imgsizeFunction();
+});
+</script>
+
+<script>
+$(function(){ 
+  $('.instrumentblock img').imgsizeFunction();
+}); 
+</script>
+
+
+<script>/*加载更多*/
+$(function() {
+  var cur_page_num = 1;
+ $("body").on("click", '#btn-more', function(){
+    var cate = $('.focuscate').attr('id');
+    if (cate == 'cate0'){
+      cate = 0
+    }
+    else if (cate == 'cate1'){
+      cate = 2 
+    }
+    else if (cate == 'cate2'){
+      cate = 3
+    }
+    else if (cate == 'cate3'){
+      cate = 5
+    }
+    else if (cate == 'cate4'){
+      cate = 6
+    }
+    else if (cate == 'cate5'){
+      cate = 7
+    }
+    else if (cate == 'cate6'){
+      cate = 8
+    }
+
+    var $elements = $('.instrumentblock');
+    var instrulen = $elements.length;
+    $.ajaxSetup({
+    data: {csrfmiddlewaretoken: '{{ csrf_token }}', 
+           instrulen: instrulen,
+           cate: cate,
+          },
+          });
+
+    $.ajax({
+        url: "{% url 'moreinstru' %}",
+        type: "post",
+        success: function(data) {
+        cur_page_num=cur_page_num+1;                
+        var newnode=document.createElement("div");             
+        newnode.setAttribute("class", "container-fluid grid");            
+        newnode.setAttribute("id","new"+String(cur_page_num));           
+        document.getElementById("morecomment").appendChild(newnode); 
+        $('#new'+String(cur_page_num)).load('{% url 'moreinstrupage' %}');
+        $('#btn-more').html(data.loadcompleted) 
+          },
+          error: function(data) { 
+              alert("Got an error dude");
+          }
+    });
+  })
+})
+</script>
+
+
+
+
+<script>/*回到页面顶端*/
+$(function(){ 
+  $('.barcomment').click(function(){
+  $('html,body').animate({scrollTop:$('.comment-form').offset().top}, 800);}); 
+  $(window).scroll(function() {   
+    if($(window).scrollTop() >= 100){
+      $('.rtotopsctoll').fadeIn(300); 
+    }else{    
+      $('.rtotopsctoll').fadeOut(300);    
+    }  
+  });
+  $('.rtotopsctoll').click(function(){
+  $('html,body').animate({scrollTop: '0px'}, 800);}); 
+
+});
+</script>
+
+<script>/*daka*/
+$(function() {
+ $("body").on("click", '.daka', function(){
+
+    $.ajaxSetup({
+    data: {csrfmiddlewaretoken: '{{ csrf_token }}', 
+          userid: {{user.id}},
+          },
+          });
+    $.ajax({
+        url: "{% url 'daka' %}",
+        type: "post",
+        success: function(data) {
+          if (data.mess == "succ"){
+              $.messager.popup("打卡成功!");
+              $(".modal.msg-popup .modal-body").css({
+                  'color': '#449d44',
+                  "background-color":"#CCF4D9",
+                  });}
+          else if (data.mess == "err"){
+                $.messager.popup("重复打卡！");
+                $(".modal.msg-popup .modal-body").css({
+                    'color': '#a94442',
+                    "background-color":"#f2dede",
+                    });}
+          },
+          error: function(data) { 
+            /*alert('Error')*/
+          }
+    });
+  })
+})
+</script>
+
+
+<script type="text/javascript">
+window.onload=function(){ 
+    $("#overlay").fadeTo(200, 0.5);
+    $('#instrumentpage').load('{% url 'instrumentpage' 0 %}');
+} 
+</script>
+
+<script>
+$(function(){ 
+  $('.instrucate').click(function(){
+    $('.instrucate').removeClass("focuscate");
+    $(this).addClass("focuscate");
+  });
+
+  $('#cate0').click(function(){
+    $("#overlay").fadeTo(200, 0.5);
+    $('#instrumentpage').load('{% url 'instrumentpage' 0 %}');
+  });
+
+  $('#cate1').click(function(){
+    $("#overlay").fadeTo(200, 0.5);
+    $('#instrumentpage').load('{% url 'instrumentpage' 2 %}');
+  });
+
+  $('#cate2').click(function(){
+    $("#overlay").fadeTo(200, 0.5);
+    $('#instrumentpage').load('{% url 'instrumentpage' 3 %}');
+  });
+
+  $('#cate3').click(function(){
+    $("#overlay").fadeTo(200, 0.5);
+    $('#instrumentpage').load('{% url 'instrumentpage' 5 %}');
+  });
+  $('#cate4').click(function(){
+    $("#overlay").fadeTo(200, 0.5);
+    $('#instrumentpage').load('{% url 'instrumentpage' 6 %}');
+  });
+  $('#cate5').click(function(){
+    $("#overlay").fadeTo(200, 0.5);
+    $('#instrumentpage').load('{% url 'instrumentpage' 7 %}');
+  });
+  $('#cate6').click(function(){
+    $("#overlay").fadeTo(200, 0.5);
+    $('#instrumentpage').load('{% url 'instrumentpage' 8 %}');
+  });
+});
+</script>
+
+
+
+<script>/*添加新评分产品*/
+$(function() {
+  $("body").on("click", '#instru-com', function(){
+    var id_model = $("#id_model").val()
+    var id_company = $("#id_company").val()
+    if (id_model!="" && id_company!="" ){
+    $.ajaxSetup({
+    data: {csrfmiddlewaretoken: '{{ csrf_token }}', 
+          id_company: id_company, 
+          id_model: id_model,
+          },
+          });
+    $.ajax({
+        url: "{% url 'newinstru' %}",
+        type: "post",
+        dataType: 'json',
+          success: function(data) {
+            return 0;
+          },
+          error: function(data) { 
+            alert('no')
+             return 0;
+          } 
+    }); 
+    $("#id_company").val("");
+    $("#id_model").val("");
+    $("#myModal1").modal('hide')
+    $.messager.popup("产品录入成功!");
+    $(".modal.msg-popup .modal-body").css({
+        'color': '#449d44',
+        "background-color":"#CCF4D9",
+        });
+    }
+    else{
+    $.messager.popup("请完善信息！");
+    $(".modal.msg-popup .modal-body").css({
+        'color': '#a94442',
+        "background-color":"#f2dede",
+        });
+  }
+  })
+})
+</script>
+{% endblock %}
+
+{% block content %}
+
+<!-- Modal2 -->
+<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+        <h4 class="modal-title" id="myModalLabel">录入想要评分的产品</h4>
+      </div>
+      <div class="modal-body">
+
+<div class="instru-ps-tilte">梧桐小贴示:</div>
+<ol class="instru-ps">
+  <li>请先搜索想要评价的产品，确定没有后再录入新产品</li>
+  <li>我们将在产品录入后的12小时内完成审核，上线新产品</li>
+</ol>  
+{% if user.is_authenticated %}
+<div id='emailform'>
+<input  id='id_model' class="form-control" type="text" name="emailaddress" placeholder="型号和信息，例：iphone7手机" />
+<input  id='id_company' class="form-control" type="text" name="emailaddress" placeholder="生产厂家，例：苹果" />
+
+<button type="button" id="instru-com" class="btn btn-default btn-success">确定</button>
+<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+</div><!-- <div id='emailform'> -->
+{% else %}
+<h4>请<a href="{% url 'loggin' %}">登录</a>后参与录入</h4>
+{% endif %} 
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<ul id="rightsidebar">
+<li class="rtotopsctoll">
+ <a href="javascript:void(0)"><em></em></a> 
+</li>
+</ul>
+<div class="container  instrumentall_container">
+<div class="row">
+<!-- 	        <div class='map hidden-xs'>
+            <a href="{% url 'judgement' %}">
+              梧桐试用
+            </a>
+             &gt;
+              {{products.title}}
+          </div> -->
+<div class="col-sm-8">
+
+
+<div class="instruindex-block">
+<form class="instruindex-form" role="search" action="{% url 'instrumentindex' %}" method="get">
+<!--   {% csrf_token %} -->
+    <div class="instruindex-group">
+      <input id = 'instruindex_word' type="text" name="search_word"  placeholder=" 评分产品">
+      <span class="instruindex-btn">
+        <button class="instruindex-btn" type="submit"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+      </span>
+    </div>
+</form>
+</div>
+
+
+<div class="instrulinetitle">
+	最新评分
+  <span id="cate0" class="instrucate focuscate">全部</span> 
+  <span class="instrucatege">|</span>
+  <span id="cate1" class="instrucate">手机</span>
+  <span class="instrucatege">|</span>
+  <span id="cate2" class="instrucate">穿戴</span>
+  <span class="instrucatege">|</span>
+  <span id="cate3" class="instrucate">影音</span>
+  <span class="instrucatege">|</span>
+  <span id="cate4" class="instrucate">家居</span>
+  <span class="instrucatege">|</span>
+  <span id="cate5" class="instrucate">外设</span>
+  <span class="instrucatege">|</span>
+  <span id="cate6" class="instrucate">平板</span>
+  <span id="newinstru" data-toggle="modal" data-target="#myModal1">录入新产品</span>
+</div>
+<div class="instrumentline">
+
+
+<div id="instrumentpage">
+ <div id='overlay'>
+<div class="slice">
+<div data-loader="circle"  >
+</div>
+</div>
+ </div>
+</div>
+
+
+</div><!-- <div calss="instrumentline"> -->
+
+<div class='nicecommentblock visible-xs-block'>
+<div class='head'>        
+  最受欢迎的评分
+</div>
+    <table class="table table-hover nicecomment">
+      <tbody>
+{% for item in nicecomment %}
+        <tr>
+          <td> <a class="nicecommentblock-qust" href="{{item.instrument.get_absolute_url}}"><!-- {{item.user}} 评 --> {{item.instrument.model}}<br></a>
+            <i class="icon_hotcomentjiao"></i>
+            <div class='commentline0' onmouseover="this.style.cursor='pointer'" onclick="document.location='{{item.get_absolute_instrument_url}}'">
+            <div class='commentline'>
+
+    <span class="instrugrade">
+    {% if item.grade != 0 %}
+    {% if item.grade = 1 %}
+    <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    {% elif item.grade = 2 %}
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    {% elif item.grade = 3 %}
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    {% elif item.grade = 4 %}
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star  glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    {% elif item.grade = 5 %}
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    {% elif item.grade = 6 %}
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    {% elif item.grade = 7 %}
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    {% elif item.grade = 8 %}
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    {% elif item.grade = 9 %}
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+    {% elif item.grade = 10 %}
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    {% endif %}
+    <span class="commentgrade">{{item.grade}}</span></span></br>
+
+
+              {{item.text|safe}}</div>
+            <div clss='nicecommentblock-userinfo' style="margin-top:10px;">
+            <img  class="img-circle usericon-nicecomment " src='{{item.user.get_image_url}}'><span class="user-nicecomment"><a href="{{item.user.get_absolute_url}}">{{item.user}}</a></span></div>
+          </div></td>
+
+
+          {% endif %}
+        </tr>
+{% endfor %}
+      </tbody>
+    </table>
+</div>
+
+</div><!-- <div class="col-sm-8"> -->
+<div class="col-sm-4  hidden-xs">
+<div class='nicecommentblock'>
+<div class='head'>        
+  最受欢迎的评分
+</div>
+    <table class="table table-hover nicecomment">
+      <tbody>
+{% for item in nicecomment %}
+        <tr>
+          <td> <a class="nicecommentblock-qust" href="{{item.instrument.get_absolute_url}}"><!-- {{item.user}} 评 --> {{item.instrument.model}}<br></a>
+            <i class="icon_hotcomentjiao"></i>
+            <div class='commentline0' onmouseover="this.style.cursor='pointer'" onclick="document.location='{{item.get_absolute_instrument_url}}'">
+            <div class='commentline'>
+
+    <span class="instrugrade">
+    {% if item.grade != 0 %}
+    {% if item.grade = 1 %}
+    <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    {% elif item.grade = 2 %}
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    {% elif item.grade = 3 %}
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    {% elif item.grade = 4 %}
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star  glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    {% elif item.grade = 5 %}
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    {% elif item.grade = 6 %}
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    {% elif item.grade = 7 %}
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    {% elif item.grade = 8 %}
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    {% elif item.grade = 9 %}
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+    {% elif item.grade = 10 %}
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    {% endif %}
+    <span class="commentgrade">{{item.grade}}</span></span></br>
+
+
+              {{item.text|safe}}</div>
+            <div clss='nicecommentblock-userinfo' style="margin-top:10px;">
+            <img  class="img-circle usericon-nicecomment " src='{{item.user.get_image_url}}'><span class="user-nicecomment"><a href="{{item.user.get_absolute_url}}">{{item.user}}</a></span></div>
+          </div></td>
+
+
+          {% endif %}
+        </tr>
+{% endfor %}
+      </tbody>
+    </table>
+</div>
+
+</div><!-- <div class="col-sm-4"> -->
+</div><!-- <div class="row"> -->
+</div><!-- <div class="container  instrumentall_container"> -->
+
+
+
+{% endblock %}

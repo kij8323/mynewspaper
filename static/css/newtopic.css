@@ -229,3 +229,21 @@ a:hover{
 	width: 100% !important;
 	height: none !important;;
 }*/
+
+
+.instru-ps{
+	color: #999;
+	font-size: 12px;
+	line-height: 150%;
+	margin-left: 90px;
+}
+
+.instru-ps-tilte{
+	color: #999;
+	font-size: 12px;
+	line-height: 150%;
+	margin-left: 90px;
+	padding-left: 20px;
+	margin-top: 15px;
+	margin-bottom: 5px;
+}

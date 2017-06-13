@@ -16,7 +16,7 @@ from django.core.cache import cache
 from django.conf import settings
 from article.tasks import readersin, add, readersout, instancedelete, instancesave
 from products.models import Products
-
+from judgement.models import Instrument, Category
 # Create your models here.
 class Notification(models.Model):
 	id = models.AutoField(primary_key=True, db_index=True)
@@ -32,6 +32,10 @@ class Notification(models.Model):
 	#是否已读
 	read = models.BooleanField(default=False)
 	target_products = models.ForeignKey(Products, null=True, blank=True)#产生消息的评论的话题
+
+	target_instrument = models.ForeignKey(Instrument, null=True, blank=True)#产生消息的评论的话题
+
+
 
 	#消息发送时间
 	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False, db_index=True)
@@ -91,12 +95,14 @@ def new_notification(sender, **kwargs):
 	target_article = kwargs.pop("target_article", None)
 	target_topic = kwargs.pop("target_topic", None)
 	target_products = kwargs.pop("target_products", None)
+	target_instrument = kwargs.pop("target_instrument", None)
 	try:
 		c = Notification(target_object=target_object, 
 						sender_object=sender_object, 
 						target_topic=target_topic,
 						target_article = target_article,
 						target_products = target_products,
+						target_instrument = target_instrument,
 						recipient=recipient,
 						verb = verb,
 						text = text,

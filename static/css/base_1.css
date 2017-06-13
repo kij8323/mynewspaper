@@ -453,3 +453,12 @@ max-height: 400px;
 .categorybutton .dropdown-menu li a{
 	padding: 0 10px 10px 10px; 
 }
+
+
+#navbar .navbar-right .subcate{
+	float: left;
+	width: 50%;
+	text-align: center;
+}
+
+

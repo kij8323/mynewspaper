@@ -16,6 +16,7 @@ from notifications.models import Notification
 from company.models import Company
 from investment.models import Investment
 from products.models import Products, Application, Payscore
+from judgement.models import Instrument
 COMMENT_PERPAGE_COUNT = 12 #topic页面每页显示多少个评论
 #楼层计算器,topic评论的楼层计算
 @register.filter
@@ -78,6 +79,21 @@ def time_chinese_months(value):
 def AnonymousUser(value): 
     return value.replace('AnonymousUser', u'游客');
 
+
+@register.filter
+def onerenci(value): 
+    return int(value[-6:]) - int(value[-13:-7]) + 1;
+
+@register.filter
+def onebill(value): 
+    if value[-6:] == value[-13:-7]:
+        return value[-6:];
+    elif value[-6:] != value[-13:-7]:
+        return (value[-13:]);
+    else:
+        return "订单错误";
+
+
 #删除html标签
 @register.filter
 def delebq(value): 
@@ -129,6 +145,18 @@ def Topic_comment(value):
         topic = Topic.objects.get(id=value)
         cache.set(cachekey, topic.comment_set.count(), 1209600)
         return cache.get(cachekey)
+
+#缓存instrument评论数量
+@register.filter
+def Instrument_comment(value): 
+    cachekey = "instrument_comment_" + str(value)
+    if cache.get(cachekey) != None:
+        return cache.get(cachekey)
+    else:
+        instrument = Instrument.objects.get(id=value)
+        cache.set(cachekey, instrument.comment_set.count(), 1209600)
+        return cache.get(cachekey)
+
 
 #判断话题页数
 @register.filter

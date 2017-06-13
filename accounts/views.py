@@ -545,30 +545,30 @@ def userdashboardinformations(request, user_id):
 
 
 		action_url = reverse("user_detailinformations", kwargs={"user_id": user_id})
-		if request.method == 'POST' and request.FILES.get('img', False):
+		if host and request.method == 'POST' and request.FILES.get('img', False):
 			image = request.FILES['img']
 			user.icon = image
 			user.thirdicon = None
 			user.save() 
 			os.system('echo yes | python /home/shen/Documents/paperproject/mynewspaper/manage.py collectstatic')
 			return redirect(action_url)
-		if request.method == 'POST' and request.POST.get('emailaddress', False):
+		if host and request.method == 'POST' and request.POST.get('emailaddress', False):
 			emailaddress = request.POST.get('emailaddress')
 			user.email = emailaddress
 			user.save()
 			return redirect(action_url)
-		if request.method == 'POST' and request.POST.get('id_qianming', False):
+		if host and request.method == 'POST' and request.POST.get('id_qianming', False):
 			qianming = request.POST.get('id_qianming')
 			user.qianming = qianming
 			user.save()
 			return redirect(action_url)
-		if request.method == 'POST' and request.POST.get('phonenumber', False):
+		if host and request.method == 'POST' and request.POST.get('phonenumber', False):
 			phonenumber = request.POST.get('phonenumber')
 			user.phonenumber = phonenumber
 			user.save()
 			return redirect(action_url)
-		if request.method == 'POST' and request.POST.get('password', False):
-			print request.POST.get('password')
+		if host and request.method == 'POST' and request.POST.get('password', False):
+
 			password = request.POST.get('password')
 			user.set_password(password)
 			user.save()
@@ -1245,7 +1245,7 @@ def notificationsconversation(request):
 
 		notifications1 = Notification.objects.filter(recipient = recipient).filter(sender_object = request.user).filter(verb = '_@_')
 		notifications2 = Notification.objects.filter(recipient = request.user).filter(sender_object = recipient).filter(verb = '_@_')
-		notifications = notifications1|notifications2
+		notifications = notifications1|notifications2.order_by('-id')
 		test = []
 		test2 = []
 		test3 = []

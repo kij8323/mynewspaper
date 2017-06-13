@@ -336,7 +336,6 @@ def group_score(request, group_id):
 def topic_detail(request, topic_id):
 	try:
 		topic = Topic.objects.get(pk=topic_id)
-		request.session['topicdetailid'] = topic_id
 		user = topic.writer
 		sender = request.user
 		if user == sender:
@@ -447,8 +446,7 @@ def topic_detail(request, topic_id):
 	return render(request, 'topic_detail.html',  context)
 
 
-def topicdetailpage(request):
-	topic_id = request.session['topicdetailid']
+def topicdetailpage(request, topic_id):
 	try:
 		topic = Topic.objects.get(pk=topic_id)
 	except Topic.DoesNotExist:
@@ -461,8 +459,7 @@ def topicdetailpage(request):
 
 
 
-def topiccommentpage(request):
-	topic_id = request.session['topicdetailid']
+def topiccommentpage(request, topic_id):
 	try:
 		topic = Topic.objects.get(pk=topic_id)
 	except Topic.DoesNotExist:
@@ -546,7 +543,7 @@ def newtopic(request):
 			group = Group.objects.get(id=group.id)
 			cache.set(cachekey,  group.topicount)
 		userlist = atwho(text = content, sender = request.user, targetcomment = None, targetproducts = None
-						, targetarticle = None, targetopic = new_topic)
+						, targetarticle = None, targetopic = new_topic, targetinstrument = None)
 		return redirect(reverse("topic_detail", kwargs={"topic_id": new_topic.id}))
 	else:
 		print  request.user
@@ -661,7 +658,7 @@ def topicomment(request):
 			c = Comment(user=user, topic=topic, text=text)
 			c.save()
 			userlist = atwho(text = text, sender = user, targetcomment = c, targetproducts = None
-							, targetarticle = None, targetopic = topic)#优先发送@消息
+							, targetarticle = None, targetopic = topic, targetinstrument = None)#优先发送@消息
 			for item in userlist:
 				atwhouser = MyUser.objects.get(username = item)
 				test = "@<a href='" +'/user/'+str(atwhouser.id)+'/informations/'+"'>"+atwhouser.username+"</a>"+' '
@@ -700,14 +697,6 @@ def topicomment(request):
 				cache.incr(cachekey)
 			else:
 				cache.set(cachekey, Comment.objects.filter(topic=topic).filter(parent = None).count(), settings.CACHE_EXPIRETIME)
-			try:
-				topicusercomment = Topicusercomment.objects.get(topic=topic, user=user)
-			except:
-				topicusercomment = None
-			if topicusercomment or topic.writer == user:
-				pass
-			else:
-				topiccommentplus.delay(topic.writer, user, topic, Topicusercomment)
 			
 			data = {
 			"user": user.username,
@@ -739,7 +728,7 @@ def topcommentcomment(request):
 			c = Comment(user=user, topic=topic, text=text, parent=targetcomment)
 			c.save()
 			userlist = atwho(text = text, sender = user, targetcomment = c, targetproducts = None
-							, targetarticle = None, targetopic = topic)#优先发送@消息
+							, targetarticle = None, targetopic = topic, targetinstrument = None)#优先发送@消息
 			for item in userlist:
 				atwhouser = MyUser.objects.get(username = item)
 				test = "@<a href='" +'/user/'+str(atwhouser.id)+'/informations/'+"'>"+atwhouser.username+"</a>"+' '
@@ -788,38 +777,6 @@ def topcommentcomment(request):
 			# c = Comment(user=user, topic=topic, text=text, parent=targetcomment)
 			# c.save()
 
-			try:
-				topicusercomment = Topicusercomment.objects.get(topic=topic, user=user)
-			except:
-				topicusercomment = None
-			if topicusercomment or topic.writer == user:
-				pass
-			else:
-				topiccommentplus.delay(topic.writer, user, topic, Topicusercomment)
-
-
-			try:
-				topicwritereply = Topicwritereply.objects.get(topic=topic, user=targetcomment.user)
-			except:
-				topicwritereply = None
-			if topicwritereply == None and user == topic.writer and targetcomment.user != user:
-				topicwritereplyplus.delay(topic.writer, targetcomment.user, topic, Topicwritereply)
-			else:
-				pass
-
-
-			try:
-				topiccommentreply1 = Topiccommentreply.objects.get(topic=topic, user1=user, user2 = targetcomment.user)
-			except:
-				topiccommentreply1 = None
-			try:
-				topiccommentreply2 = Topiccommentreply.objects.get(topic=topic, user1=targetcomment.user, user2 = user)
-			except:
-				topiccommentreply2 = None
-			if topiccommentreply1 == None and topiccommentreply2 == None and user != topic.writer and targetcomment.user != user:
-				topiccommentreplyplus.delay(topic.writer, targetcomment.user, user, topic, Topiccommentreply)
-			else:
-				pass
 
 
 
@@ -953,7 +910,7 @@ def mobilenew(request):
 			group = Group.objects.get(id=group.id)
 			cache.set(cachekey,  group.topicount)
 		userlist = atwho(text = new_topic.content, sender = request.user, targetcomment = None, targetproducts = None
-						, targetarticle = None, targetopic = new_topic)
+						, targetarticle = None, targetopic = new_topic, targetinstrument = None)
 		return redirect(reverse("topic_detail", kwargs={"topic_id": new_topic.id}))
 	context = {
 		'group': 'x',

@@ -62,6 +62,9 @@ class Topic(models.Model):
 	id = models.AutoField(primary_key=True, db_index=True)
 	#文章名称
 	title = models.CharField(max_length=120)
+
+	associatetitle = models.CharField(max_length=120, null=True, blank=True)
+
 	#文章上传时间
 	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False, null=True)
 	#文章更新时间
@@ -72,8 +75,6 @@ class Topic(models.Model):
 	content = UEditorField(max_length=150000, width=800, upload_settings={"imageMaxSize":1500000})
 	#文章地址
 	url_address = models.CharField(max_length=500, null=True, blank=True)
-	#文章图标
-	image = models.ImageField(upload_to='images/', null=True, blank=True)
 	group = models.ForeignKey(Group)
 	readers = models.IntegerField(default=0)
 	#是否为封面
@@ -95,13 +96,21 @@ class Topic(models.Model):
 	score = models.BooleanField(default=False, db_index=True)
 
 
+
 	#是否在测评页显示1张图
 	img1 = models.BooleanField(default=False, db_index=True)
 	#是否在测评页显示3张图
 	img3 = models.BooleanField(default=False, db_index=True)
-	imagefst3 = models.ImageField(upload_to='images/', null=True, blank=True)
-	imagescd3 = models.ImageField(upload_to='images/', null=True, blank=True)
-	imagethd3 = models.ImageField(upload_to='images/', null=True, blank=True)
+
+        #文章图标
+        image = models.ImageField(upload_to='images/topic/', null=True, blank=True)
+
+#首页推荐话题图
+        imagesugg = models.ImageField(upload_to='images/topic/', null=True, blank=True)
+
+	imagefst3 = models.ImageField(upload_to='images/topic/', null=True, blank=True)
+	imagescd3 = models.ImageField(upload_to='images/topic/', null=True, blank=True)
+	imagethd3 = models.ImageField(upload_to='images/topic/', null=True, blank=True)
 
 	images1 = models.ImageField(upload_to='images/', null=True, blank=True)
 	images2 = models.ImageField(upload_to='images/', null=True, blank=True)
@@ -126,6 +135,10 @@ class Topic(models.Model):
 
 	def get_image_url(self):
 		return "%s%s" %(settings.MEDIA_URL, self.image)
+
+	def get_imagesugg_url(self):
+		return "%s%s" %(settings.MEDIA_URL, self.imagesugg)
+
 
 	def blockid(self):
 		blockid = "block"+str(self.id)
@@ -262,11 +275,24 @@ class Daka(models.Model):
 def subtopicount(sender, **kwargs):
 	os.system('echo yes | python /home/shen/Documents/paperproject/mynewspaper/manage.py collectstatic')
 	topic = kwargs.pop("instance")
-	try:
-		topicwritescorem = TopicWriteScoreM.objects.get(topic=topic, user=topic.writer)
-	except:
-		topicwritescorem = None
-	if topicwritescorem:
-		pass
-	else:
-		topicwritescore.delay(topic.writer, topic, TopicWriteScoreM)
+
+
+@receiver(pre_save, sender=Topic)
+def Updatenewscore(sender, **kwargs):
+        topic = kwargs.pop("instance")
+        try:
+                topic1 = Topic.objects.get(id = topic.id)
+                if topic.score == True and topic1.score == False and topic.savetext == False:
+                        try:
+                                topicwritescorem = TopicWriteScoreM.objects.get(topic=topic, user=topic.writer)
+                        except:
+                                topicwritescorem = None
+                        if topicwritescorem:
+                                pass
+                        else:
+                                topicwritescore.delay(topic.writer, topic, TopicWriteScoreM)
+
+                else:
+                        pass
+        except:
+                pass

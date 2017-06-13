@@ -35,6 +35,8 @@ $(function() {
           } 
     });
     $('html,body').animate({scrollTop:$('.freshcomment').offset().top-($(window).height()/2)+100}, 100);
+
+
     $.messager.popup("评论发表成功!");
     $(".modal.msg-popup .modal-body").css({
         'color': '#449d44',
@@ -400,10 +402,10 @@ $(document).ready(function(){
 <script type="text/javascript">
 window.onload=function(){ 
     $(".overlay").fadeTo(200, 0.5);
-    $('#topiccommentpage').load('{% url 'topiccommentpage' %}', 
+    $('#topiccommentpage').load('{% url 'topiccommentpage' topic.id %}', 
       function(){
         $(".overlay").fadeTo(200, 0.5);
-        $('#topicdetailpage').load('{% url 'topicdetailpage' %}');
+        $('#topicdetailpage').load('{% url 'topicdetailpage' topic.id %}');
         $.getScript("http://v3.jiathis.com/code/jia.js"); 
       });
 } 
@@ -413,6 +415,7 @@ window.onload=function(){
 
 
  {% block content %}
+
 
 <!-- Modal4 -->
 <div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -457,7 +460,7 @@ window.onload=function(){
 <li class="rtotopsctoll ">
 <a href="javascript:void(0)"><em></em></a> 
 </li>
-<li class='barcomment visible-xs-block'>
+<li class='barcomment visible-xs-block'> 
 <a href="javascript:void(0)">评论</a>
 </li>
 </ul>
@@ -600,9 +603,8 @@ window.onload=function(){
 </div>
 
 
-
-
-<div class="comment-form">
+<div class="comment-form ">
+     <!-- <span class="span-mark-author">发表评论</span> -->
       <div class="author-info">
       {% if user.is_authenticated %}
       <img  class="commentusericon1" src='{{user.get_image_url}}'>
@@ -624,6 +626,7 @@ window.onload=function(){
         toolbar: [['Link','Unlink'], ['-', 'Bold', 'Italic', 'Format'], ['Smiley', ]],
         width: '100%',
         uiColor: '#ffffff',
+
     });
     </script>
 {% else %}
@@ -637,6 +640,8 @@ window.onload=function(){
       <button  id="btn-block" type="button" class='btn  btn-success btn-block replayscrollposition' >发表</button>
     </div>
     </div><!-- class="comment-form" -->
+
+
      </div><!-- <div id="topic"> -->
      </div>
 

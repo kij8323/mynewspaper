@@ -1,0 +1,322 @@
+{% extends "base_1.html" %}
+{% load time_filter %}
+{% block HeadDoc %}
+<link href="/static/css/instrumentindex.css" rel="stylesheet">
+<script src="/static/js/topic_detail.js"></script>
+<!-- <link href="/static/css/group_detail.css" rel="stylesheet"> -->
+<!-- 网页刷新后，将url中的“?search_word=手机+苹果”分割为“手机 苹果“显示在搜索栏内 函数注册-->
+<script language="javascript" charset='GB2312'>   
+function GetRequest() {   
+   var url = location.search; //获取url中"?"符后的字串 
+   url = decodeURI(url)   
+   var theRequest = new Object();   
+   if (url.indexOf("?") != -1) {   
+      var str = url.substr(1);   
+      strs = str.split("&");   
+      for(var i = 0; i < strs.length; i ++) {   
+         theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);   
+      }   
+   }   
+   return theRequest;   
+}   
+</script>  
+
+<!-- 网页刷新后，将url中的“?search_word=手机+苹果”分割为“手机 苹果“显示在搜索栏内 使用上述注册函数-->
+<script charset='GB2312'>
+$(document).ready(function(){
+var Request = new Object();
+Request = GetRequest();
+search_word = Request["search_word"];
+search_word = search_word.replace("+", " ")
+$("#instruindex_word").val(search_word);
+});
+</script>
+
+
+<script>/*板块固定滚动,板块内width要定长*/
+$.fn.smartFloat = function() { 
+    var position = function(element) { 
+        var top = element.position().top; //当前元素对象element距离浏览器上边缘的距离 
+        var pos = element.css("position"); //当前元素距离页面document顶部的距离 
+        $(window).scroll(function() { //侦听滚动时 
+            var scrolls = $(this).scrollTop(); 
+            if (scrolls > top) { //如果滚动到页面超出了当前元素element的相对页面顶部的高度 
+                if (window.XMLHttpRequest) { //如果不是ie6 
+                    element.css({ //设置css 
+                        position: "fixed", //固定定位,即不再跟随滚动 
+                        top: 0, //距离页面顶部为0 
+                      
+                    }).addClass("shadow"); //加上阴影样式.shadow 
+                } else { //如果是ie6 
+                    element.css({ 
+                        top: scrolls  //与页面顶部距离 
+                    });     
+                } 
+            }else { 
+                element.css({ //如果当前元素element未滚动到浏览器上边缘，则使用默认样式 
+                    position: pos, 
+                    top: top 
+                }).removeClass("shadow");//移除阴影样式.shadow 
+            } 
+        }); 
+    }; 
+    return $(this).each(function() { 
+        position($(this));                          
+    }); 
+}; 
+</script>
+
+<script>
+/*$(function(){ 
+    $("#rightstableblock").smartFloat(); 
+}); */
+</script>
+
+
+
+<script>/*添加新评分产品*/
+$(function() {
+  $("body").on("click", '#instru-com', function(){
+    var id_model = $("#id_model").val()
+    var id_company = $("#id_company").val()
+    if (id_model!="" && id_company!="" ){
+    $.ajaxSetup({
+    data: {csrfmiddlewaretoken: '{{ csrf_token }}', 
+          id_company: id_company, 
+          id_model: id_model,
+          },
+          });
+    $.ajax({
+        url: "{% url 'newinstru' %}",
+        type: "post",
+        dataType: 'json',
+          success: function(data) {
+            return 0;
+          },
+          error: function(data) { 
+            alert('no')
+             return 0;
+          } 
+    }); 
+    $("#id_company").val("");
+    $("#id_model").val("");
+    $("#myModal1").modal('hide')
+    $.messager.popup("产品录入成功!");
+    $(".modal.msg-popup .modal-body").css({
+        'color': '#449d44',
+        "background-color":"#CCF4D9",
+        });
+    }
+    else{
+    $.messager.popup("请完善信息！");
+    $(".modal.msg-popup .modal-body").css({
+        'color': '#a94442',
+        "background-color":"#f2dede",
+        });
+  }
+  })
+})
+</script>
+{% endblock %}
+
+ {% block content %}
+
+<!-- Modal2 -->
+<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+        <h4 class="modal-title" id="myModalLabel">录入想要评分的产品</h4>
+      </div>
+      <div class="modal-body">
+
+<div class="instru-ps-tilte">梧桐小贴示:</div>
+<ol class="instru-ps">
+  <li>请先搜索想要评价的产品，确定没有后再录入新产品</li>
+  <li>我们将在产品录入后的12小时内完成审核，上线新产品</li>
+</ol>  
+{% if user.is_authenticated %}
+<div id='emailform'>
+
+<input  id='id_model' class="form-control" type="text" name="emailaddress" placeholder="型号和信息，例：iphone7手机" />
+<input  id='id_company' class="form-control" type="text" name="emailaddress" placeholder="生产厂家，例：苹果" />
+
+<button type="button" id="instru-com" class="btn btn-default btn-success">确定</button>
+<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+</div><!-- <div id='emailform'> -->
+{% else %}
+<h4>请<a style="color:#337ab7;" href="{% url 'loggin' %}">登录</a>后参与录入</h4>
+{% endif %} 
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="container  container-index">
+
+      <div class="row">
+        <div class="col-sm-7  leftcontainer">
+        <!-- <h4 class="categorytitle">test类</h4> -->
+        <!-- <div class="col-sm-8  leftcontainer"> -->
+
+<div class="instruindex-block">
+<form class="instruindex-form" role="search" action="{% url 'instrumentindex' %}" method="get">
+<!--   {% csrf_token %} -->
+    <div class="instruindex-group">
+      <input id = 'instruindex_word' type="text" name="search_word"  placeholder=" 评分产品">
+      <span class="instruindex-btn">
+        <button class="instruindex-btn" type="submit"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+      </span>
+    </div>
+</form>
+</div>
+
+        
+  <span class="span-mark-author pull-left">搜索结果</span>
+  <div id="newinstru" data-toggle="modal" data-target="#myModal1">找不到想要的评分产品？</div>
+
+{% if firmshow %}
+{% for item in test6 %}
+ <div class="col-xs-12 newsblock" >
+
+        <div class="instument-img">
+          <a href="{{item.get_absolute_url}}">
+          <img src="{{item.get_image_url}}">
+          </a>
+        </div><!-- <div class="firm-img"> -->
+        <div class="try-info">
+          <div class="investmentname">
+            <a href="{{item.get_absolute_url}}">
+           {{item.model|highlight|safe}}
+            </a>
+          </div><!-- <div class="name"> -->
+    <div class="instrugrade">
+
+    {% if item.grade = 0 %}
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    {% elif item.grade = 1 %}
+    <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    {% elif item.grade = 2 %}
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    {% elif item.grade = 3 %}
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    {% elif item.grade = 4 %}
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star  glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    {% elif item.grade = 5 %}
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    {% elif item.grade = 6 %}
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    {% elif item.grade = 7 %}
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    {% elif item.grade = 8 %}
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+    {% elif item.grade = 9 %}
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+    {% elif item.grade = 10 %}
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    {% endif %}
+    {{item.grade}}</div>
+
+      <div class="instruinfo-info">
+        <!-- <h4>{{instrument.model}}</h4> -->
+        <span class="pl">
+          设备类型:
+        </span>
+        <span>
+          {{item.category.title}}
+        </span>
+        </br>
+        <span class="pl">
+          产品官方信息:
+        </span>
+        <span>
+          <a href="{{item.introaddr}}">链接</a>
+        </span>
+        </br>
+        <span class="pl">
+          上市时间:
+        </span>
+        <span>
+          {{item.uptime}}
+        </span>
+        </br>
+        <span class="pl">
+          制造商:
+        </span>
+        <span>
+          {{item.company.title}}
+        </span>
+        </br>
+        </div>
+
+        </div><!--  <div class="info"> -->
+   
+</div><!-- <div class="col-xs-12 newsblock" > -->
+{% endfor %}
+<div class="clearfix"></div>
+{% endif %}
+
+
+
+
+
+
+        </div><!-- class="col-sm-8 leftcontainer" -->
+      <!-- </div> --><!-- <div class="row">  -->  
+
+<div class="col-sm-4 hidden-xs">
+</div><!-- class="col-sm-4" -->
+
+
+
+      </div><!-- row -->
+
+    </div> <!-- /container -->
+ {% endblock %}
+ 
+

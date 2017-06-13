@@ -1,0 +1,121 @@
+{% load time_filter %}
+{% block HeadDoc %}
+<link href="/static/css/instrumentall.css" rel="stylesheet">
+
+
+<script>
+$.fn.imgsizeFunction = function() { 
+  width = $(this).css('width');
+  x = (parseFloat(width)*1.42)
+  return  $(this).css('height',x+'px');
+}
+</script>
+
+
+<script>
+$(window).resize(function(){
+  $('.instrumentblock img').imgsizeFunction();
+});
+</script>
+
+<script>
+$(function(){ 
+  $('.instrumentblock img').imgsizeFunction();
+}); 
+</script>
+
+
+
+
+
+
+{% endblock %}
+
+{% block content %}
+
+
+{% for item in instrumentall %}
+	<div class="instrumentblock">
+		<a href="{% url 'instrument_detail' item.id %}">
+			<img src="{{item.get_image_url}}">
+		</a>
+		<a href="{% url 'instrument_detail' item.id %}"><span class="instruname">{{item.model}}</span></a>
+		<div class="instrugrade">
+
+		{% if item.grade = 0 %}
+		<span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+		<span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+		<span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+		<span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+		<span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+		{% elif item.grade = 1 %}
+		<span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+		<span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+		<span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+		<span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+		<span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+		{% elif item.grade = 2 %}
+		<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+		<span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+		<span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+		<span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+		<span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+		{% elif item.grade = 3 %}
+		<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+		<span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+		<span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+		<span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+		<span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+		{% elif item.grade = 4 %}
+		<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+		<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+		<span class="glyphicon glyphicon-star  glyphicon-gray" aria-hidden="true"></span>
+		<span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+		<span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+		{% elif item.grade = 5 %}
+		<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+		<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+		<span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+		<span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+		<span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+		{% elif item.grade = 6 %}
+		<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+		<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+		<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+		<span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+		<span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+		{% elif item.grade = 7 %}
+		<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+		<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+		<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+		<span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+		<span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+		{% elif item.grade = 8 %}
+		<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+		<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+		<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+		<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+		<span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
+		{% elif item.grade = 9 %}
+		<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+		<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+		<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+		<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+		<span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+		{% elif item.grade = 10 %}
+		<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+		<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+		<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+		<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+		<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+		{% endif %}
+		{{item.grade}}</div>
+	</div>
+{% endfor %}
+<div style="clear:both;"></div>
+<div id="morecomment"></div>
+<div>
+<a id="btn-more" href="javascript:;">加载更多</a>
+</div>
+
+{% endblock %}

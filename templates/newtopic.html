@@ -70,7 +70,15 @@ $(function() {
 <script type="text/javascript">
 $(function() {  
   $("#id_group option:eq(1)").remove();
+  $("#id_group option:eq(11)").remove();
 })
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+var txt1 = '<div class="instru-ps-tilte">梧桐小贴示:</div><ol class="instru-ps"><li>上传图片大小不超过2M</li><li>图片在编辑时不必设置图片宽度与高度，话题发布后会自适应</li><li>如果有特殊需求，图片宽度建议设置在100%，高度不必设置</li></ol>';
+  $('form').children().eq(5).after(txt1);
+  })
 </script>
 {% endblock %}
 
@@ -100,7 +108,7 @@ $(function() {
 <input id="savetext"   name="savetext"  type="text">
 
     <input type="button" id='tijiao' value="提交" class='btn  btn-success btn-block pull-left'/>
-    <input type="button" id='baocun' value="保存" class='btn  btn-default btn-block pull-left'/>
+    <input type="button" id='baocun' value="暂存" class='btn  btn-default btn-block pull-left'/>
 
 
 </form>
