@@ -1,0 +1,25 @@
+{% extends "base_1.html" %}
+{% block HeadDoc %}
+<style type="text/css">
+
+body {
+background-color: white;
+}
+
+img{
+	max-width: 100%;
+}
+
+</style>
+
+
+
+{% endblock %}
+
+{% block content %}
+<div class='container' style = "text-align: center;">
+<img  class="weixin" src='{{finance.get_qrcodeimage_url}}' style = "width: 330px;"></br>
+<img  class="weixin" src='http://www.wutongnews.com/static/media/images/usericon/%C3%8B%C2%B5%C3%83%C3%8E%C3%84%C3%96.png'>
+</div>
+{% endblock %}
+

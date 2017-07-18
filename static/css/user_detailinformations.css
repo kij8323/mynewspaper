@@ -52,7 +52,6 @@ body{
 	/*border-radius: 6px;*/
 	padding-left: 15px;
 	padding-right: 15px;
-	padding-bottom: 15px;
 }
 
 .iconline{
@@ -147,8 +146,7 @@ margin-bottom: 20px;
 }
 
 .btn-messages{
-	font-size: 16px;
-	border-radius: 0;
+	width: 150px;
 }
 
 
@@ -229,3 +227,15 @@ overflow:auto;
 }
 
 
+
+
+.container-user .dashboard h4{
+	margin: 6px 0px 6px 0px;
+}
+
+.container-user .dashboard .iconline .glyphicon-chevron-right{
+	float: right;
+	margin-top: 8px;
+	margin-bottom: 8px;
+	color: #999;
+}

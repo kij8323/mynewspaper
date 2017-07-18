@@ -46,42 +46,35 @@ $(function() {
 })
 </script>
 
+
 <script>/*回复私信*/
 $(function() {
  $("body").on("click", '.reprivcy', function(){
-  recipientid = $(this).parent().parent().children(".senderid").attr("id");
-  recipientname = $(this).parent().parent().children(".senderid").text();
-  $('#myModalLabelcomment').text("回复" + recipientname + "的评论")
+  privcytarge = $($(this).parent().parent().children().get(0)).attr("id");
+  privcytargename = $($(this).parent().parent().children().get(0)).text();
+  $('#modealprivcyino').text("回复私信给：" + privcytargename)
+  $('#privcytarget').val(privcytarge)
+  $.ajaxSetup({
+  data: {csrfmiddlewaretoken: '{{ csrf_token }}', 
+        privcytargetid: privcytarge,
+        },
+        });
+  $.ajax({
+        url: "{% url 'notificationsconversation' %}",
+        type: "post",
+        dataType: 'json',
+        success: function(data) {
+          $('#notificationsconversation').text('')
+          for(var i=0;i<data.notifications.length;i++){
+                  $('#notificationsconversation').append("<div class='notilinetime '>"+data.notificationstime[i]+"</div>"+"<div class='notiline "+ data.backcolor[i] +"'>" + data.notifications[i]+"</div>")
+                            }
+          },
+        error: function(data) { 
+          alert('2')
+          },
+        });
+
   $('#myModal4').modal('show')
-  recipientcata = $(this).parent().prev().children().attr("class");
-  if (recipientcata == 're-article')
-    {
-        articleid = $(this).parent().prev().children().attr("id");
-        preentid = $(this).parent().prev().prev().attr("id");
-        $('#re-cata').text('re-article')
-        $.cookie("preentid", preentid);
-        $.cookie("articleid", articleid);
-      }
-  else if (recipientcata == 're-products')
-    {
-        productsid = $(this).parent().prev().children().attr("id");
-        preentid = $(this).parent().prev().prev().attr("id");
-        $('#re-cata').text('re-products')
-        $.cookie("preentid", preentid);
-        $.cookie("productsid", productsid);
-      }
-  else if (recipientcata == 're-topic')
-    {
-        topicid = $(this).parent().prev().children().attr("id");
-        preentid = $(this).parent().prev().prev().attr("id");
-        targetpreentname = $(this).parent().prev().prev().children().attr("id");
-        targetname = $(this).parent().prev().prev().children().attr("class");
-        $('#re-cata').text('re-topic')
-        $.cookie("preentid", preentid);
-        $.cookie("topicid", topicid);
-        $.cookie("targetpreentname", targetpreentname);
-        $.cookie("targetname", targetname);
-      }
   })
 })
 </script>
@@ -228,35 +221,36 @@ $(document).ready(function(){
 </div>
 
 <!-- Modal4 -->
+<!-- Modal4 -->
 <div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
               <div id="erroriconprivcycomment" style="text-align: center;">请输入内容</div>
-        <h4 class="modal-title" id="myModalLabelcomment">回复的评论</h4>
-        <div id='re-cata'></div>
-<!--         <div id="modealprivcyino"></div> -->
+        <h4 class="modal-title" id="myModalLabel"></h4>
+        <div id="notificationsconversation"></div>
       </div>
       <div class="modal-body">
 <div id='privcycommentform'>
-  
-{% if user.is_authenticated %}
 
-  <label for="privcycomment" id="modealprivcyino">内容</label>
+{% if user.is_authenticated %}
+<form  action="{% url 'user_privcynotifications' userofinfor.id %}" method="post">
+  {% csrf_token %}
+  <label for="privcycomment" id="modealprivcyino"></label>
 <!-- <input  id='privcycomment' class="form-control" type="text" name="privcycomment" /> -->
 <textarea  id='privcycomment'  class="form-control" type="text" name="privcycomment" ></textarea>
-
-<button type="submit" class="btn btn-default btn-success confirmreply">确定</button>
+<input style="display: none"  id='privcytarget' class="form-control" type="text" name="privcytarget"  />
+<button type="submit" class="btn btn-default btn-success">确定</button>
 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-
+</form>
 {% else %}
 <div class="authboard">
 <div class="authboardword">
 <h4>请<a href="{% url 'loggin' %}">登录</a>后给他发信</h4>
 </div>
 </div>
-{% endif %} 
+{% endif %}
 
 </div>
       </div>
@@ -267,24 +261,47 @@ $(document).ready(function(){
  <div class="container">
 <div class="container-user">
 
-  <div class="col-xs-2 hidden-xs">
-  <ul class="nav nav-pills nav-stacked leftblock">
-     <li class="presentation1" role="presentation"><a href="{% url 'user_detailinformations' userofinfor.id%}"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>{{hostname}}主页</a></li>
-      <li class="presentation5" role="presentation"><a href="{% url 'user_userdashboardarticletopic' userofinfor.id%}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>{{hostname}}话题</a></li>
-      <li class="presentation2" role="presentation"><a href="{% url 'user_detailcomments' userofinfor.id%}"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span>{{hostname}}评论</a></li>
+
+<div class="user-icon-background">
+</div>
+
+  <div class="user-top-block">
+    <img class="pull-left img-circle icon-top" src="{{userofinfor.get_image_url}}" >
+
+    <div class="user-top-name">
+    {{userofinfor.username}}
+    </div>
+
 {% if host %}
-      <li class="presentation3" role="presentation"><a href="{% url 'user_detailnotifications' userofinfor.id%}"><span class="glyphicon glyphicon-inbox" aria-hidden="true"></span>{{hostname}}消息<span class="badge inboxcount1">{{ user.id|user_unread_count }}</span></a></li>
-      
-      <li class="presentation4" role="presentation"><a href="{% url 'user_detailcollectionstopic' userofinfor.id%}"><span class="glyphicon glyphicon-paperclip" aria-hidden="true"></span>{{hostname}}收藏</a></li>
-        <li class="presentation7" role="presentation"><a href="{% url 'user_detailtry' userofinfor.id%}"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>{{hostname}}试用</a></li>
-      {% endif %}
-    </ul>
-</div><!-- class="col-md-2" -->
-  <div class="col-xs-10">
-  <ul class="nav nav-pills rightblock">
-      <li class="presentationw1" role="presentation"><a href="{% url 'user_detailnotifications' userofinfor.id %}">@我</a></li>
-      <li class="presentationw2" role="presentation"><a href="{% url 'user_privcynotifications' userofinfor.id %}">私信<span class="badgeprivcy">{{ user.id|user_privcyunread_count }}</span></a></li>
-      <li class="presentationw3" role="presentation"><a href="#"></a></li>
+    <div class="newtopicuser pull-right hidden-xs">
+    <a  href="{% url 'newtopic' %}" class='btn btn-success btn-block' ><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> 发布话题</a>
+     </div>
+{% endif %}
+
+
+  <div class="per-info-qianming" >
+        {% if userofinfor.qianming %}
+        {{userofinfor.qianming}}
+        {% else %}
+        这货还没有签名...
+        {% endif %}
+
+      </div>
+
+  </div>
+
+  <ul class="rightblock">
+      <li class="presentationw1" role="presentation"><a href="{% url 'user_detailinformations' userofinfor.id%}">帐号</a></li>
+      <li class="presentationw2" role="presentation"><a href="{% url 'user_userdashboardarticletopic' userofinfor.id%}">
+      话题</a></li>
+      <li class="presentationw3" role="presentation"><a href="{% url 'user_detailcomments' userofinfor.id%}">评论</a></li>
+
+{% if host %}
+      <li class="presentationw5" role="presentation"><a href="{% url 'user_detailnotifications' userofinfor.id%}">消息<span class="badge inboxcount1">{{ user.id|user_unread_count }}</span></a></li>
+{% endif %}
+
+      <li class="presentationw6" role="presentation"><a href="{% url 'user_detailcollectionstopic' userofinfor.id%}">收藏</a></li>
+      <li class="presentationw7" role="presentation"><a href="{% url 'user_detailtry' userofinfor.id%}">试用</a></li>
     </ul>
 
 {% if host %}
@@ -294,6 +311,8 @@ $(document).ready(function(){
       <a class = "senderid" id="{{item.sender_object.id}}" href="{{item.sender_object.get_absolute_url}}">{{item.sender_object.username}}</a>
       {% if item.verb == '#' %}
       回复了你的话题:
+      {% elif item.verb == '_@_' %}
+      给你发送了私信:
       {% elif item.verb == '$' %}
       回复了你的评论:
       {% else %}
@@ -315,12 +334,10 @@ $(document).ready(function(){
 
       {% if item.target_object.topic %}
           {% if item.target_object.parent %}
-          <div class="icon_hotcomentjiao"></div>
           <div class='targetcomment' id='{{item.target_object.parent.id}}'  onmouseover="this.style.cursor='pointer'" onclick="document.location='{{item.target_object.get_absolute_url}}'">
             <div id='{{item.target_object.parent.user.username}}' class='{{item.target_object.user.username}}'>{{item.text|AtWhoUser|safe}}</div>
             </div>
           {% else %}
-          <div class="icon_hotcomentjiao"></div>
             <div class='targetcomment' id='{{item.target_object.id}}'  onmouseover="this.style.cursor='pointer'" onclick="document.location='{{item.target_object.get_absolute_url}}'" >
             <div id='{{item.target_object.parent.user.username}}' class='{{item.target_object.user.username}}'>{{item.text|AtWhoUser|safe}}</div>
             </div>
@@ -329,20 +346,24 @@ $(document).ready(function(){
 
           {% elif item.target_object.instrument %}
           {% if item.target_object.parent %}
-          <div class="icon_hotcomentjiao"></div>
           <div class='targetcomment' id='{{item.target_object.parent.id}}' onmouseover="this.style.cursor='pointer'" onclick="document.location='{{item.target_object.get_absolute_instrument_url}}'">
             <div id='{{item.target_object.parent.user.username}}' class='{{item.target_object.user.username}}'>{{item.text|AtWhoUser|safe}}</div>
             </div>
 
           {% else %}
-          <div class="icon_hotcomentjiao"></div>
             <div class='targetcomment' id='{{item.target_object.id}}' onmouseover="this.style.cursor='pointer'" onclick="document.location='{{item.target_object.get_absolute_instrument_url}}'" >
             <div id='{{item.target_object.parent.user.username}}' class='{{item.target_object.user.username}}'>{{item.text|AtWhoUser|safe}}</div>
             </div>
             {% endif %}
 
+      {% elif item.verb == '_@_' %}
+      
+      <div class='targetcomment'  >
+        {{item.text|AtWhoUser|safe}}
+        </div>
+
+
       {% else %}
-      <div class="icon_hotcomentjiao"></div>
       <div class='targetcomment' id='{{item.target_object.id}}'>
         {{item.text|AtWhoUser|safe}}
         </div>
@@ -375,9 +396,9 @@ $(document).ready(function(){
 
       <i class="icon-delete pull-right"></i>
 
-      {% if item.timestamp > timeline %}
+      {% if item.verb == '_@_' %}
       <a href="javascript:;" class='reprivcy pull-right'>
-
+        回复
       </a>
       {% endif %}
       
@@ -407,7 +428,6 @@ $(document).ready(function(){
       </div><!-- <div class="dashboard"> -->
 {% endif %}
 
-</div><!-- class="col-md-10" -->
 </div><!-- class="container-user" -->
 </div><!-- class="container" -->
  {% endblock %}

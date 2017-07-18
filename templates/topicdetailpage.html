@@ -6,7 +6,25 @@
 <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
 <script src="/static/js/jquerypage.js"></script>
 
+<script>
+$.fn.qqvideosizeFunction = function() { 
+  width = $(this).css('width');
+  x = (parseFloat(width)*0.56)
+  return  $(this).css('height',x+'px');
+}
+</script>
 
+<script>
+$(function(){ 
+  $('#qqvideo').qqvideosizeFunction();
+}); 
+</script>
+
+<script>
+$(window).resize(function(){
+  $('#qqvideo').qqvideosizeFunction();
+});
+</script>
 
 <script>
 $.fn.contentimgsizeFunction = function() { 
@@ -34,7 +52,6 @@ $(window).resize(function(){
 <div class="article-content-wrap">
      <p>{{topic.content|AtWhoUser|safe}}</p>
 </div>
-
 
  {% endblock %}
  

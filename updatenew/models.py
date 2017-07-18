@@ -11,7 +11,7 @@ from django.db.models.signals import pre_save, post_delete, post_save
 from datetime import timedelta 
 from article.tasks import topicwritescore, instancesave, commentscore
 from judgement.models import Instrument
-
+from finance.models import Finance
 
 # Create your models here.
 
@@ -22,6 +22,7 @@ class Updatenew(models.Model):
 	payscore = models.ForeignKey(Payscore, null=True, blank=True)
 	instrument = models.ForeignKey(Instrument, null=True, blank=True)
 	score = models.BooleanField(default=False)
+	finance = models.ForeignKey(Finance, null=True, blank=True)
 	#更新时间
 	timestamp = models.DateTimeField(auto_now=False, auto_now_add=True, null=True)
 

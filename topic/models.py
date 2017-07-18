@@ -72,7 +72,7 @@ class Topic(models.Model):
 	#作者
 	writer = models.ForeignKey(MyUser, db_index=True)
 	#文章内容
-	content = UEditorField(max_length=150000, width=800, upload_settings={"imageMaxSize":1500000})
+	content = UEditorField(max_length=150000, width=800, upload_settings={"imageMaxSize":1500000}, null=True, blank=True)
 	#文章地址
 	url_address = models.CharField(max_length=500, null=True, blank=True)
 	group = models.ForeignKey(Group)
@@ -94,6 +94,10 @@ class Topic(models.Model):
 	guanggao = models.BooleanField(default=False, db_index=True)
 	#积分
 	score = models.BooleanField(default=False, db_index=True)
+
+	ifvideo = models.BooleanField(default=False)
+	videoaddr = models.CharField(max_length=1000, null=True, blank=True)
+	videotime = models.CharField(max_length=50, null=True, blank=True)
 
 
 

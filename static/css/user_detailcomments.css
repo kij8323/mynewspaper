@@ -35,14 +35,14 @@ body{
 
 
 
-.presentation2{
+.presentation3{
 	border-color: #ddd;
 	border-left: 2px solid #67CA87;
 	margin-bottom: -3px;
 /*	border-top-radius: 6px;*/
 }
 
-.presentationw1{
+.presentationw3{
 	border-bottom: 2px solid #67CA87;
 }
 
@@ -117,3 +117,22 @@ margin-top: 10px;
 a:link{
 	text-decoration: none;
 }
+
+
+
+.targetcomment{
+	border-left-width: 2px;
+	background-color: #fafafa;
+	margin: 15px 0 18px;
+	padding: 20px 30px;
+	border-left: 4px solid #ddd;
+}
+
+.targetcomment *{
+	margin: 0px;
+}
+
+.grayword{
+	color: #bbb;
+}
+

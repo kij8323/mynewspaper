@@ -14,6 +14,7 @@
 $(function() {
   var cur_page_num = 1;
  $("body").on("click", '#morecomment-btn-block', function(){
+    $(this).text("加载更多......")
     var $elements = $('.products-information');
     var productslen = $elements.length;
     /*alert(productslen)*/
@@ -149,9 +150,8 @@ $(function(){
 
 <script type="text/javascript">
 window.onload=function(){ 
-    $("#overlay").fadeTo(200, 0.5);
     $('#productsallpage').load('{% url 'productsallpage' %}');
-} 
+}; 
 </script>
 
 <script>/*daka*/
@@ -195,9 +195,6 @@ $(function() {
 <ul id="rightsidebar">
 <li class="rtotopsctoll">
  <a href="javascript:void(0)"><em></em></a> 
-</li>
-<li class="daka">
-  <a href="javascript:void(0)">打卡</a> 
 </li>
 </ul>
 
@@ -269,12 +266,7 @@ $(function() {
 
     <div class="container">
 <div id="productsallpage">
- <div id='overlay'>
-<div class="slice">
-<div data-loader="circle"  >
-</div>
-</div>
- </div>
+ <img src="/static/media/images/usericon/wutongloading.gif"  style= "margin:30px 48% 30px" alt="" />
 </div>
 
     </div> <!-- /container -->

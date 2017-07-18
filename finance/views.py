@@ -21,29 +21,267 @@ from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from products.models import Products
-from accounts.models import MyUser
-# import re, sys
+from accounts.models import MyUser, WeixinUser
+from updatenew.models import Updatenew
+import re, sys
 # reload(sys)
 # sys.setdefaultencoding( "utf-8" )
 # Create your views here.
+import qrcode
+import socket
 
-def weixinfinance(request):
-	url = "www.baidu.com"
+def get_ip():
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    try:
+        # doesn't even have to be reachable
+        s.connect(('10.255.255.255', 0))
+        IP = s.getsockname()[0]
+    except:
+        IP = '127.0.0.1'
+    finally:
+        s.close()
+    return IP
+
+
+
+
+@login_required(login_url='/user/loggin/')
+def weixinfinancegz(request):
+	state = request.GET.get('state')
+	state = state.split('p')
+	one = state[0]
+	productsid = state[1]
+
+
+	CODE = request.GET.get('code')
+	url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=wxd7c459fd37fa1f3e&secret=88e9fb19bffe04b76178ef7ec4cf80cc&code="+CODE+"&grant_type=authorization_code"
+
+	req = urllib2.Request(url)
+	res_data = urllib2.urlopen(req)
+	res = res_data.readline()
+	openid = json.loads(res)['openid']
+
+
+	if int(one)>0 and productsid:
+		products = Products.objects.get(id = int(productsid))
+
+		if len(productsid) == 1:
+			productsid = "000"+productsid
+		elif len(productsid) == 2:
+			productsid = "00"+productsid
+		elif len(productsid) == 3:
+			productsid = "0"+productsid
+		elif len(productsid) == 4:
+			pass
+		elif len(productsid) > 4:
+			return HttpResponseRedirect("http://www.wutongnews.com")
+
+		listb = str(products.one+1)
+		listl = str(products.one+int(one))
+
+		if len(listb) == 1:
+			listb = "00000"+listb
+		elif len(listb) == 2:
+			listb = "0000"+listb
+		elif len(listb) == 3:
+			listb = "000"+listb
+		elif len(listb) == 4:
+			listb = "00"+listb
+		elif len(listb) == 5:
+			listb = "0"+listb
+		elif len(listb) == 6:
+			pass
+		elif len(listb) > 6:
+			return HttpResponseRedirect("http://www.wutongnews.com")
+
+		if len(listl) == 1:
+			listl = "00000"+listl
+		elif len(listl) == 2:
+			listl = "0000"+listl
+		elif len(listl) == 3:
+			listl = "000"+listl
+		elif len(listl) == 4:
+			listl = "00"+listl
+		elif len(listl) == 5:
+			listl = "0"+listl
+		elif len(listl) == 6:
+			pass
+		elif len(listl) > 6:
+			return HttpResponseRedirect("http://www.wutongnews.com")
+
+		userlist = productsid + "_" + str(time.time()) + "_" + listb + "-" + listl
+		userlist = userlist.replace('.', '')
+	else:
+		return HttpResponseRedirect("http://www.wutongnews.com")
+
+	url = "https://api.mch.weixin.qq.com/pay/unifiedorder"
 	key = "192006250b4c09247ec02edce69f6a2d"
+	spbill_create_ip = get_ip()
 
-	appid = 'appid' #微信支付分配的公众账号ID（企业号corpid即为此appId）
-	mch_id = 'mch_id' #微信支付分配的商户号
+	appid = 'wxd7c459fd37fa1f3e' #微信支付分配的公众账号ID（企业号corpid即为此appId）
+	mch_id = '1481008902' #微信支付分配的商户号
 	nonce_str = ''.join(random.sample(string.ascii_letters  +  string.digits, 32))  #随机字符串，长度要求在32位以内
+
 	# sign = 'sign' #通过签名算法计算得出的签名值
-	body = '押金质押' #商品简单描述，该字段请按照规范传递
-	out_trade_no = '1' #商户系统内部订单号，要求32个字符内，只能是数字、大小写字母_-|*@ ，且在同一个商户号下唯一
-	total_fee = 100.88 #订单总金额，单位为分
-	spbill_create_ip = "10.10.10.10 " #APP和网页支付提交用户端ip，Native支付填调用微信支付API的机器IP
-	notify_url =  "www.baidu.com" #异步接收微信支付结果通知的回调地址，通知url必须为外网可访问的url，不能携带参数
-	trade_type = 'trade_type' #取值如下：JSAPI，NATIVE，APP等
-	product_id = 'product_id' #trade_type=NATIVE时（即扫码支付），此参数必传。此参数为二维码中包含的商品ID，商户自行定义。
+	body = "一元购" #商品简单描述，该字段请按照规范传递
+	out_trade_no = str(userlist) #商户系统内部订单号，要求32个字符内，只能是数字、大小写字母_-|*@ ，且在同一个商户号下唯一
+	total_fee = str(int(one)*100) #订单总金额，单位为分
+	spbill_create_ip = spbill_create_ip #APP和网页支付提交用户端ip，Native支付填调用微信支付API的机器IP
+	notify_url =  "http://www.wutongnews.com/weixin/notify/finance" #异步接收微信支付结果通知的回调地址，通知url必须为外网可访问的url，不能携带参数
+	trade_type = 'JSAPI' #取值如下：JSAPI，NATIVE，APP等
+	product_id = str(products.id) #trade_type=NATIVE时（即扫码支付），此参数必传。此参数为二维码中包含的商品ID，商户自行定义。
+	openid =str(openid)
+	stringA = "appid="  +  appid  +  "&"\
+	 + "body=" + body + "&"\
+	 + "mch_id=" + mch_id + "&"\
+	 + "nonce_str=" + nonce_str + "&"\
+	 + "notify_url=" + notify_url + "&"\
+	 + "openid=" + openid + "&"\
+	 + "out_trade_no=" + out_trade_no + "&"\
+	 + "product_id=" + product_id + "&"\
+	 + "spbill_create_ip=" + spbill_create_ip + "&"\
+	 + "total_fee=" + str(total_fee) + "&"\
+	 + "trade_type=" + trade_type + "&"\
+	 + "key=" + key
+
+	stringSignTemp = hashlib.md5()
+	stringSignTemp.update(stringA)
+	sign = stringSignTemp.hexdigest().upper()
+
+	xmlvalues = "<xml><appid>"  +  appid  +  "</appid>"\
+	 + "<mch_id>" + mch_id + "</mch_id>"\
+	 + "<nonce_str>" + nonce_str + "</nonce_str>"\
+	 + "<body>" + body + "</body>"\
+	 + "<openid>" + openid + "</openid>"\
+	 + "<out_trade_no>" + out_trade_no + "</out_trade_no>"\
+	 + "<total_fee>" + str(total_fee) + "</total_fee>"\
+	 + "<spbill_create_ip>" + spbill_create_ip + "</spbill_create_ip>"\
+	 + "<notify_url>" + notify_url + "</notify_url>"\
+	 + "<trade_type>" + trade_type + "</trade_type>"\
+	 + "<product_id>" + product_id + "</product_id>"\
+	 + "<sign>" + sign + "</sign></xml>"
+
+#	xmlvalues = xmlvalues.encode("UTF-8")  
+	req = urllib2.Request(url = url, headers = {'Content-Type' : 'text/xml'}, data=xmlvalues)
+	response = urllib2.urlopen(req)
+	res = response.read()
+
+	res = res.replace('[', '<');
+	res = res.replace(']', '>');
+	reprepay_id = ".*<prepay_id><!<CDATA<(.*)>>></prepay_id>.*"
+	prepay_id = re.findall(reprepay_id, res)
+
+	timeStamp = str(time.time()).replace('.', '')[0:10]
+	signType = 'MD5'
+	package = "prepay_id=" + prepay_id[0]
+
+	stringB = "appId="  +  appid  +  "&"\
+	 + "nonceStr=" + nonce_str + "&"\
+	 + "package=" + package + "&"\
+	 + "signType=" + signType + "&"\
+	 + "timeStamp=" + timeStamp + "&"\
+	 + "key=" + key
 
 
+	stringSignTempgz = hashlib.md5()
+	stringSignTempgz.update(stringB)
+	paySign = stringSignTempgz.hexdigest().upper()
+
+
+
+	try:
+		finance = Finance.objects.get(out_trade_no = out_trade_no)
+	except:
+		finance = Finance(user = request.user, out_trade_no = out_trade_no, total_amount = str(one), products = products, start = int(listb), end = int(listl))
+		finance.save()
+
+	context = {
+
+		"appid": appid,
+		"nonce_str": nonce_str,
+		"timestamp": timeStamp,
+		'signtype': signType,
+		'package': package,
+		'paysign': paySign,
+		}
+	return render(request, 'weixinfinancegz.html',  context)
+
+
+
+
+@login_required(login_url='/user/loggin/')
+def weixinfinance(request):
+	one = request.GET.get('one')
+	productsid = request.GET.get('products')
+
+	if int(one)>0 and productsid:
+		products = Products.objects.get(id = int(productsid))
+
+		if len(productsid) == 1:
+			productsid = "000"+productsid
+		elif len(productsid) == 2:
+			productsid = "00"+productsid
+		elif len(productsid) == 3:
+			productsid = "0"+productsid
+		elif len(productsid) == 4:
+			pass
+		elif len(productsid) > 4:
+			return HttpResponseRedirect("http://www.wutongnews.com")
+
+		listb = str(products.one+1)
+		listl = str(products.one+int(one))
+
+		if len(listb) == 1:
+			listb = "00000"+listb
+		elif len(listb) == 2:
+			listb = "0000"+listb
+		elif len(listb) == 3:
+			listb = "000"+listb
+		elif len(listb) == 4:
+			listb = "00"+listb
+		elif len(listb) == 5:
+			listb = "0"+listb
+		elif len(listb) == 6:
+			pass
+		elif len(listb) > 6:
+			return HttpResponseRedirect("http://www.wutongnews.com")
+
+		if len(listl) == 1:
+			listl = "00000"+listl
+		elif len(listl) == 2:
+			listl = "0000"+listl
+		elif len(listl) == 3:
+			listl = "000"+listl
+		elif len(listl) == 4:
+			listl = "00"+listl
+		elif len(listl) == 5:
+			listl = "0"+listl
+		elif len(listl) == 6:
+			pass
+		elif len(listl) > 6:
+			return HttpResponseRedirect("http://www.wutongnews.com")
+
+		userlist = productsid + "_" + str(time.time()) + "_" + listb + "-" + listl
+		userlist = userlist.replace('.', '')
+	else:
+		return HttpResponseRedirect("http://www.wutongnews.com")
+
+	url = "https://api.mch.weixin.qq.com/pay/unifiedorder"
+	key = "192006250b4c09247ec02edce69f6a2d"
+	spbill_create_ip = get_ip()
+
+	appid = 'wxd7c459fd37fa1f3e' #微信支付分配的公众账号ID（企业号corpid即为此appId）
+	mch_id = '1481008902' #微信支付分配的商户号
+	nonce_str = ''.join(random.sample(string.ascii_letters  +  string.digits, 32))  #随机字符串，长度要求在32位以内
+
+	# sign = 'sign' #通过签名算法计算得出的签名值
+	body = "一元购" #商品简单描述，该字段请按照规范传递
+	out_trade_no = str(userlist) #商户系统内部订单号，要求32个字符内，只能是数字、大小写字母_-|*@ ，且在同一个商户号下唯一
+	total_fee = str(int(one)*100) #订单总金额，单位为分
+	spbill_create_ip = spbill_create_ip #APP和网页支付提交用户端ip，Native支付填调用微信支付API的机器IP
+	notify_url =  "http://www.wutongnews.com/weixin/notify/finance" #异步接收微信支付结果通知的回调地址，通知url必须为外网可访问的url，不能携带参数
+	trade_type = 'NATIVE' #取值如下：JSAPI，NATIVE，APP等
+	product_id = str(products.id) #trade_type=NATIVE时（即扫码支付），此参数必传。此参数为二维码中包含的商品ID，商户自行定义。
 
 	stringA = "appid="  +  appid  +  "&"\
 	 + "body=" + body + "&"\
@@ -57,13 +295,11 @@ def weixinfinance(request):
 	 + "trade_type=" + trade_type + "&"\
 	 + "key=" + key
 
-
 	stringSignTemp = hashlib.md5()
 	stringSignTemp.update(stringA)
 	sign = stringSignTemp.hexdigest().upper()
 
-
-	xmlvalues = "<appid>"  +  appid  +  "</appid>"\
+	xmlvalues = "<xml><appid>"  +  appid  +  "</appid>"\
 	 + "<mch_id>" + mch_id + "</mch_id>"\
 	 + "<nonce_str>" + nonce_str + "</nonce_str>"\
 	 + "<body>" + body + "</body>"\
@@ -73,25 +309,179 @@ def weixinfinance(request):
 	 + "<notify_url>" + notify_url + "</notify_url>"\
 	 + "<trade_type>" + trade_type + "</trade_type>"\
 	 + "<product_id>" + product_id + "</product_id>"\
-	 + "<sign>" + sign + "</sign>"
+	 + "<sign>" + sign + "</sign></xml>"
 
 
-	# req = urllib2.Request(url = url, headers = {'Content-Type' : 'text/xml'}, data=xmlvalues)
-	# response = urllib2.urlopen(req)
-	# res = response.read()
+	req = urllib2.Request(url = url, headers = {'Content-Type' : 'text/xml'}, data=xmlvalues)
+	response = urllib2.urlopen(req)
+	res = response.read()
 
-	data = {
-		"xmlvalues":xmlvalues,
-		"stringA":stringA,
-	}
-	json_data = json.dumps(data)
-	return HttpResponse(json_data, content_type='application/json')
+	twocode =  res[-56:-21]
+	img=qrcode.make(twocode)
+	imgadd = "/home/shen/Documents/paperproject/static/media/images/qrcode/" + out_trade_no + ".png"
+	img.save(imgadd)
+	getimgadd = "images/qrcode/" + out_trade_no + ".png"
+	try:
+		finance = Finance.objects.get(out_trade_no = out_trade_no)
+	except:
+		finance = Finance(user = request.user, out_trade_no = out_trade_no, total_amount = str(one), products = products, qrcodeimage = getimgadd, start = int(listb), end = int(listl))
+		finance.save()
+
+	context = {
+		"finance": finance,
+		}
+	return render(request, 'weixinfinance.html',  context)
+
+
+@csrf_exempt
+def weixinnotifyfinance(request):
+	try:
+		xml = request.read()
+		xml = str(xml).encode('ascii','ignore')
+
+		xml = xml.replace('[', '<');
+		xml = xml.replace(']', '>');
+
+
+		reappid = ".*<appid><!<CDATA<(.*)>>></appid>.*"
+		rebank_type = ".*<bank_type><!<CDATA<(.*)>>></bank_type>.*"
+		recash_fee = ".*<cash_fee><!<CDATA<(.*)>>></cash_fee>.*"
+		refee_type = ".*<fee_type><!<CDATA<(.*)>>></fee_type>.*"
+		reis_subscribe = ".*<is_subscribe><!<CDATA<(.*)>>></is_subscribe>.*"
+		remch_id = ".*<mch_id><!<CDATA<(.*)>>></mch_id>.*"
+		renonce_str = ".*<nonce_str><!<CDATA<(.*)>>></nonce_str>.*"
+		reopenid = ".*<openid><!<CDATA<(.*)>>></openid>.*"
+		reout_trade_no = ".*<out_trade_no><!<CDATA<(.*)>>></out_trade_no>.*"
+		reresult_code = ".*<result_code><!<CDATA<(.*)>>></result_code>.*"
+		rereturn_code = ".*<return_code><!<CDATA<(.*)>>></return_code>.*"
+		resign = ".*<sign><!<CDATA<(.*)>>></sign>.*"
+		retime_end = ".*<time_end><!<CDATA<(.*)>>></time_end>.*"
+		retotal_fee = ".*<total_fee>(.*)</total_fee>.*"
+		retrade_type = ".*<trade_type><!<CDATA<(.*)>>></trade_type>.*"
+		retransaction_id = ".*<transaction_id><!<CDATA<(.*)>>></transaction_id>.*"
+
+		appid = re.findall(reappid,xml)
+		bank_type = re.findall(rebank_type,xml)
+		cash_fee = re.findall(recash_fee,xml)
+		fee_type = re.findall(refee_type,xml)
+		is_subscribe = re.findall(reis_subscribe,xml)
+		mch_id = re.findall(remch_id,xml)
+		nonce_str = re.findall(renonce_str,xml)
+		openid = re.findall(reopenid,xml)
+		out_trade_no = re.findall(reout_trade_no,xml)
+		result_code = re.findall(reresult_code,xml)
+		return_code = re.findall(rereturn_code,xml)
+		sign = re.findall(resign,xml)
+		time_end = re.findall(retime_end,xml)
+		total_fee = re.findall(retotal_fee,xml)
+		trade_type = re.findall(retrade_type,xml)
+		transaction_id = re.findall(retransaction_id,xml)
+
+		xmlele = 'appid='+appid[0] + '&bank_type='+bank_type[0] + '&cash_fee='+cash_fee[0] + '&fee_type='+fee_type[0] + '&is_subscribe='+is_subscribe[0] + '&mch_id='+mch_id[0] + '&nonce_str='+nonce_str[0] + '&openid='+openid[0] + '&out_trade_no='+out_trade_no[0] + '&result_code='+result_code[0] + '&return_code='+return_code[0] + '&time_end='+time_end[0] + '&total_fee='+total_fee[0] + '&trade_type='+trade_type[0] + '&transaction_id='+transaction_id[0]
+		
+		sign = sign[0]
+		out_trade_no = out_trade_no[0]
+		total_fee = total_fee[0]
+		return_code = return_code[0]
+
+		xml = xmlele+"&key=192006250b4c09247ec02edce69f6a2d"
+
+
+		stringSignTemp = hashlib.md5()
+		stringSignTemp.update(xml)
+		valisign = stringSignTemp.hexdigest().upper()
+
+
+
+		if valisign == sign and return_code == "SUCCESS":
+			try:
+				finance = Finance.objects.get(out_trade_no = out_trade_no)
+				if finance.total_amount+"00" == total_fee:
+					finance.trade_status = True
+					finance.receipt_amount = finance.total_amount
+					try:
+						lastfinance = Finance.objects.all().filter(products = finance.products, trade_status = True).order_by('-end')[0]
+					except:
+						lastfinance = None
+					total_amount = int(finance.total_amount)
+					if lastfinance:
+						last_out_trade_no = lastfinance.end
+					else:
+						last_out_trade_no = 0
+					productsid = str(finance.products.id)
+					if len(productsid) == 1:
+						productsid = "000"+productsid
+					elif len(productsid) == 2:
+						productsid = "00"+productsid
+					elif len(productsid) == 3:
+						productsid = "0"+productsid
+					elif len(productsid) == 4:
+						pass
+					elif len(productsid) > 4:
+						return HttpResponse("<xml><return_code><![CDATA[FAIL]]></return_code><return_msg><![CDATA[None]]></return_msg></xml>")
+					listb = str(last_out_trade_no + 1)
+					listl = str(last_out_trade_no + total_amount )
+					if len(listb) == 1:
+						listb = "00000"+listb
+					elif len(listb) == 2:
+						listb = "0000"+listb
+					elif len(listb) == 3:
+						listb = "000"+listb
+					elif len(listb) == 4:
+						listb = "00"+listb
+					elif len(listb) == 5:
+						listb = "0"+listb
+					elif len(listb) == 6:
+						pass
+					elif len(listb) > 6:
+						return HttpResponse("<xml><return_code><![CDATA[FAIL]]></return_code><return_msg><![CDATA[None]]></return_msg></xml>")
+					if len(listl) == 1:
+						listl = "00000"+listl
+					elif len(listl) == 2:
+						listl = "0000"+listl
+					elif len(listl) == 3:
+						listl = "000"+listl
+					elif len(listl) == 4:
+						listl = "00"+listl
+					elif len(listl) == 5:
+						listl = "0"+listl
+					elif len(listl) == 6:
+						pass
+					elif len(listl) > 6:
+						return HttpResponse("<xml><return_code><![CDATA[FAIL]]></return_code><return_msg><![CDATA[None]]></return_msg></xml>")
+					userlist = productsid + "_" + str(time.time()) + "_" + listb + "-" + listl
+					userlist = userlist.replace('.', '')
+
+					finance.out_trade_no = str(userlist)
+					finance.start = int(listb)
+					finance.end = int(listl)
+					finance.save()
+
+					products = finance.products
+					products.one = int(listl)
+					products.save(update_fields=['one'])
+
+					updatenew = Updatenew(finance = finance)
+					updatenew.save()
+
+
+					return HttpResponse("<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[None]]></return_msg></xml>")
+				else:
+					return HttpResponse("<xml><return_code><![CDATA[FAIL]]></return_code><return_msg><![CDATA[None]]></return_msg></xml>")
+			except:
+				return HttpResponse("<xml><return_code><![CDATA[FAIL]]></return_code><return_msg><![CDATA[None]]></return_msg></xml>")
+		else:
+			return HttpResponse("<xml><return_code><![CDATA[FAIL]]></return_code><return_msg><![CDATA[None]]></return_msg></xml>")
+	except:
+		return HttpResponse("<xml><return_code><![CDATA[FAIL]]></return_code><return_msg><![CDATA[None]]></return_msg></xml>")
+
+
 
 
 @login_required(login_url='/user/loggin/')
 def alipayfinance(request):
-	one = request.POST.get('one')
-	productsid = request.POST.get('products')
+	one = request.GET.get('one')
+	productsid = request.GET.get('products')
 	if int(one)>0 and productsid:
 		products = Products.objects.get(id = int(productsid))
 
@@ -191,7 +581,7 @@ def alipayfinance(request):
 	try:
 		finance = Finance.objects.get(out_trade_no = out_trade_no)
 	except:
-		finance = Finance(user = request.user, out_trade_no = out_trade_no, total_amount = total_amount, products = products)
+		finance = Finance(user = request.user, out_trade_no = out_trade_no, total_amount = total_amount, products = products, start = int(listb), end = int(listl))
 		finance.save()
 
 	return HttpResponseRedirect(requesturl)
@@ -284,10 +674,69 @@ def alipaynotifyfinance(request):
 				finance.buyer_id = unquote(str(request.POST.get('buyer_id')))
 				finance.trade_no = unquote(str(request.POST.get('trade_no')))
 				finance.out_biz_no = unquote(str(request.POST.get('out_biz_no')))
+
+				try:
+					lastfinance = Finance.objects.all().filter(products = finance.products, trade_status = True).order_by('-end')[0]
+				except:
+					lastfinance = None
+				total_amount = int(finance.total_amount)
+				if lastfinance:
+					last_out_trade_no = lastfinance.end
+				else:
+					last_out_trade_no = 0
+				productsid = str(finance.products.id)
+				if len(productsid) == 1:
+					productsid = "000"+productsid
+				elif len(productsid) == 2:
+					productsid = "00"+productsid
+				elif len(productsid) == 3:
+					productsid = "0"+productsid
+				elif len(productsid) == 4:
+					pass
+				elif len(productsid) > 4:
+					return HttpResponse("failure")
+				listb = str(last_out_trade_no + 1)
+				listl = str(last_out_trade_no + total_amount )
+				if len(listb) == 1:
+					listb = "00000"+listb
+				elif len(listb) == 2:
+					listb = "0000"+listb
+				elif len(listb) == 3:
+					listb = "000"+listb
+				elif len(listb) == 4:
+					listb = "00"+listb
+				elif len(listb) == 5:
+					listb = "0"+listb
+				elif len(listb) == 6:
+					pass
+				elif len(listb) > 6:
+					return HttpResponse("failure")
+				if len(listl) == 1:
+					listl = "00000"+listl
+				elif len(listl) == 2:
+					listl = "0000"+listl
+				elif len(listl) == 3:
+					listl = "000"+listl
+				elif len(listl) == 4:
+					listl = "00"+listl
+				elif len(listl) == 5:
+					listl = "0"+listl
+				elif len(listl) == 6:
+					pass
+				elif len(listl) > 6:
+					return HttpResponse("failure")
+				userlist = productsid + "_" + str(time.time()) + "_" + listb + "-" + listl
+				finance.out_trade_no = str(userlist)
+				finance.start = int(listb)
+				finance.end = int(listl)
+
+
 				finance.save()
 				products = finance.products
-				products.one = products.one + int(float(finance.receipt_amount))
+				products.one = int(listl) 
 				products.save(update_fields=['one'])
+				updatenew = Updatenew(finance = finance)
+				updatenew.save()
 				return HttpResponse("success")
 			else:
 				return HttpResponse("failure") 
@@ -311,11 +760,6 @@ def alipaygatewayfinance(request):
 	return HttpResponse(json_data, content_type='application/json')
 
 
-def weixingatewayfinance(request):
-	data = {
-	}
-	json_data = json.dumps(data)
-	return HttpResponse(json_data, content_type='application/json')
 
 
 def onebillpage(request, user_id):

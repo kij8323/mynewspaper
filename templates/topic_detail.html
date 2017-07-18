@@ -6,7 +6,6 @@
 <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
 <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
 <script src="/static/js/jquerypage.js"></script>
-<link rel="stylesheet" href="/static/css/loaders.min.css">
 
 <script>/*回复文章*/
 $(function() {
@@ -174,7 +173,7 @@ $(function() {
 $(function(){ 
   $('.replyleftframe').click(function(){
      editor.focus()
-  $('html,body').animate({scrollTop:$('.replayscrollposition').offset().top}, 100);});
+  $('html,body').animate({scrollTop:$('.comment-form').offset().top}, 100);});
 });
 </script>
 
@@ -312,10 +311,10 @@ $(function(){
         success: function(data) {
             $('#dianzancount').html(like + data.topiclikecount)
             if (data.topiclikecount == 1){
-              $('#dianzan').css({"color":"#67CA87","border":"3px solid #67CA87"});
+              $('#dianzan').css({"background-color":"#67CA87"});
               }
             else{
-              $('#dianzan').css({"color":"#999","border":"3px solid #999"});
+              $('#dianzan').css({"background-color":"#999"});
               }
           },
           error: function(data) { 
@@ -343,10 +342,10 @@ $(function(){
         success: function(data) {
           $('#dianzancount').html(like + data.topiclikecount)
             if (data.topiclikecount == 1){
-              $('#aldianzan').css({"color":"#67CA87","border":"3px solid #67CA87"});
+              $('#aldianzan').css({"background-color":"#67CA87"});
               }
             else{
-              $('#aldianzan').css({"color":"#999","border":"3px solid #999"});
+              $('#aldianzan').css({"background-color":"#999"});
               }
           },
           error: function(data) { 
@@ -368,14 +367,24 @@ $.fn.imgsizeFunction = function() {
 </script>
 
 <script>
+$.fn.qqvideosizeFunction = function() { 
+  width = $(this).css('width');
+  x = (parseFloat(width)*0.56)
+  return  $(this).css('height',x+'px');
+}
+</script>
+
+<script>
 $(function(){ 
   $('.per-info-icon').imgsizeFunction();
+  $('#qqvideo').qqvideosizeFunction();
 }); 
 </script>
 
 <script>
 $(window).resize(function(){
   $('.per-info-icon').imgsizeFunction();
+  $('#qqvideo').qqvideosizeFunction();
 });
 </script>
 
@@ -398,17 +407,12 @@ $(document).ready(function(){
 });
 </script>
 
-
 <script type="text/javascript">
 window.onload=function(){ 
-    $(".overlay").fadeTo(200, 0.5);
-    $('#topiccommentpage').load('{% url 'topiccommentpage' topic.id %}', 
-      function(){
-        $(".overlay").fadeTo(200, 0.5);
-        $('#topicdetailpage').load('{% url 'topicdetailpage' topic.id %}');
-        $.getScript("http://v3.jiathis.com/code/jia.js"); 
-      });
-} 
+    $('#topicdetailpage').load('{% url 'topicdetailpage' topic.id %}');
+    $('#topiccommentpage').load('{% url 'topiccommentpage' topic.id %}');
+     $.getScript("http://v3.jiathis.com/code/jia.js"); 
+  }; 
 </script>
 
 {% endblock %}
@@ -452,8 +456,13 @@ window.onload=function(){
   </div>
 </div>
 
+<div class="qqvideo-block">
+{% if topic.ifvideo %}
+  {{topic.videoaddr|safe}}
+{% endif %}
+</div>
 
-<div class="container">
+<div class="container container-topic-detail">
 
 
 <ul id="rightsidebar" >
@@ -515,40 +524,40 @@ window.onload=function(){
 
 <div class="col-sm-8">
 
-  <ul class="breadcrumbs">
-            <li><a href="{% url 'group_all'  %}">全部</a><span> &gt; </span></li>
-            <li><a href="{{ group.get_absolute_url }}">{{ group.title }}</a></li>
-        </ul>
-
 <div id="article">
- <h1 class="t-h1">{{topic.title}}</h1>
+  <div class="article-head">
+ <h3 class="t-h1">{{topic.title}}</h3>
 
+<a href="{{topic.writer.get_absolute_url}}" class="visible-xs-block">
+<img  class="commentusericon1" src='{{topic.writer.get_image_url}}'>
+</a>
+
+<a class="article-head-name visible-xs-block" href = "{{topic.writer.get_absolute_url}}">{{topic.writer}}</a>
 
 {% if ifhotcomment %}
 <div class="article-author">
-                <a href="{{topic.writer.get_absolute_url}}">
-               <img  class="commentusericon1" src='{{topic.writer.get_image_url}}'>
-                </a>
-                <span class="author-name"><a href = "{{topic.writer.get_absolute_url}}">{{topic.writer}}</a></span>
                 <span class="article-time">{{topic.timestamp|date:"Y-m-d"}}</span>
-                <span class="article-pl"><i class="icon-reply"></i><span class="article-pl-count">{{topic.id|Topic_comment}}</span></span>
+		<i>·</i>
+                <span class="article-pl"><span class="glyphicon glyphicon-comment" aria-hidden="true" style="font-size:11px;"></span> <span class="article-pl-count">{{topic.id|Topic_comment}}</span></span>
+		<i>·</i>
+                <span class=""><a href = "{{group.get_absolute_url}}">{{group.title}}</a></span>
                 {% if host %}
-                <a href="{% url 'renewtopic' topic.id%}"><span class="topic-edite pull-right">编辑/更改</span></a>
+		<i>·</i>
+                <a href="{% url 'renewtopic' topic.id%}"><span class="">编辑/更改</span></a>
                 {% endif %}
 <!--                 <span class="topic-pl">收藏</span> -->
             </div>
+</div>
 
 <div class="article-img-box">
 </div>
 
 <div id="topicdetailpage">
- <div class='overlay'>
-<div class="slice">
-<div data-loader="circle"  >
+ <img src="/static/media/images/usericon/wutongloading.gif"  style= "margin:30px 48% 30px" alt="" />
 </div>
-</div>
- </div>
-</div>
+
+
+
 
 <div class="clearfix"></div>
 
@@ -584,7 +593,22 @@ window.onload=function(){
 
 {% endif %}
 
-
+<div id='hotarticle' class="visible-xs-block">
+  <div class="pull-left" >
+  <h4><b style = "font-size:16px;">作者其他话题</b></h4>
+  <span class="span-mark"></span>
+  </div>
+<div class="rightnewtpic">
+{% for item in writertopic %}
+<div class="rightitle">
+<a href="{{item.get_absolute_url}}">
+{{item.title}}
+</a>
+<div class="hotopic-reply"><i class="hotopic-icon-reply"></i>{{item.id|Topic_comment}}</div>
+</div>
+{% endfor %}
+</div><!-- <div class="rightnewtpic"> -->
+</div>
 
 <!--                             热门回复                         -->
 <!--                             热门回复                         -->
@@ -592,16 +616,6 @@ window.onload=function(){
 
 <!--                            最新回复                         -->
 <!--                            最新回复                         -->
-
-<div id="topiccommentpage">
- <div class='overlay'>
-<div class="slice">
-<div data-loader="circle"  >
-</div>
-</div>
- </div>
-</div>
-
 
 <div class="comment-form ">
      <!-- <span class="span-mark-author">发表评论</span> -->
@@ -610,7 +624,7 @@ window.onload=function(){
       <img  class="commentusericon1" src='{{user.get_image_url}}'>
       {% else %}
       <img  class="commentusericon1" src="/static/media/images/78avatarbig.jpg">
-      {% endif %} 
+      {% endif %}
       </div>
 <!--         <form class="form-comment" role="form" method='POST' autocomplete="off" action='{{ action_url }}'> -->
     <div class="form-comment">
@@ -635,11 +649,19 @@ window.onload=function(){
 <h4>请<a href="{% url 'loggin' %}">登录</a>后参与评论</h4>
 </div>
 </div>
-{% endif %} 
+{% endif %}
 
       <button  id="btn-block" type="button" class='btn  btn-success btn-block replayscrollposition' >发表</button>
     </div>
     </div><!-- class="comment-form" -->
+
+
+
+<div id="topiccommentpage">
+ <img src="/static/media/images/usericon/wutongloading.gif"  style= "margin:30px 48% 30px" alt="" />
+</div>
+
+
 
 
      </div><!-- <div id="topic"> -->

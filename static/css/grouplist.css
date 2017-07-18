@@ -1,0 +1,68 @@
+.cate-spec{
+	float: left;
+	width: 33.3%;
+	text-align: center;
+	padding: 15px;
+
+}
+
+.cate-list-block .cate-spec>a{
+	color: #69707A;
+	text-decoration:none
+}
+
+.rightblock a{
+	text-decoration:none
+}
+
+.score-topic-score {
+display: inline-block;
+background-image: url(/static/media/images/icon_coins_score2x.png);
+width: 20px;
+height: 20px;
+background-repeat: no-repeat;
+margin-bottom: -6px;
+}
+
+.menu li a:hover{
+	color: #67CA87;
+}
+.rightblock{
+	background-color: white;
+	margin-bottom: 3px;
+	font-size: 16px;
+	border-radius: 5px;
+	border-bottom: 1px solid #f0f0f0;
+	white-space: nowrap;
+	overflow: auto;
+	padding-left: 0px;
+}
+
+.rightblock li{
+	padding: 8px;
+}
+
+ .presentationw3 a{
+ 	font-size: 16px;
+ 	color: #67CA87;
+
+ }
+
+
+.presentationw2 a,  .presentationw1 a{
+	color: rgb(31,33,27);
+	font-size: 16px;
+}
+
+
+.menu .rightblock a:hover{
+	background-color: white;
+}
+
+.presentationw3{
+	border-bottom: 2px solid #67CA87;
+}
+
+.presentationw1,.presentationw2,.presentationw3 {
+	display: inline-block;
+}

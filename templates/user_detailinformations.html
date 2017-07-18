@@ -129,10 +129,10 @@ window.onload = function(){
 var ua = navigator.userAgent.toLowerCase();
 var isWeixin = ua.indexOf('micromessenger') != -1;
 if (!isWeixin) {
-  $('#weibourl-choise').append('<a href="{{weixinurl}}"><button type="button" class="btn btn-success">获取授权</button></a>')
+  $('#weibourl-choise').append('<a href="{{weixinurl}}"><button type="button" class="btn btn-success btn-sm">获取授权</button></a>')
 }
 else{
-  $('#weibourl-choise').append('<a href="{{weixinurlgongzhong}}"><button type="button" class="btn btn-success">获取授权</button></a>')
+  $('#weibourl-choise').append('<a href="{{weixinurlgongzhong}}"><button type="button" class="btn btn-success btn-sm">获取授权</button></a>')
 }
 }
 </script>
@@ -141,7 +141,7 @@ else{
 <script type="text/javascript">
 $(function() {
  $("body").on("click", '#scorebillbutton', function(){
-    $('#scorebillpage').load('{% url 'scorebillpage' user.id %}');
+    $('#scorebillpage').load('{% url 'scorebillpage' userofinfor.id %}');
   })
 })
 </script>
@@ -149,7 +149,7 @@ $(function() {
 <script type="text/javascript">
 $(function() {
  $("body").on("click", '#onebillbutton', function(){
-    $('#onebillpage').load('{% url 'onebillpage' user.id %}');
+    $('#onebillpage').load('{% url 'onebillpage' userofinfor.id %}');
   })
 })
 </script>
@@ -207,7 +207,7 @@ $(function() {
   {% csrf_token %}
 <a id='iconinputcover' href="#" onclick="document.getElementById('iconinput').click(); return false;" /><h5>浏览本地图片...</h5></a>
 <input id='iconinput' type="file" name="img"  accept="image/*" style="visibility: hidden;"/>
-<button type="submit" class="btn btn-default btn-success">上传</button>
+<button type="submit" class="btn btn-default btn-success btn-sm">上传</button>
 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
 </form>
 </div>
@@ -233,7 +233,7 @@ $(function() {
   {% csrf_token %}
     <!-- <label for="id_email">新邮箱地址</label> -->
 <input  id='id_email' class="form-control" type="text" name="emailaddress" placeholder="新邮箱地址" />
-<button type="submit" class="btn btn-default btn-success">确定</button>
+<button type="submit" class="btn btn-default btn-success btn-sm">确定</button>
 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
 </form>
 </div>
@@ -263,7 +263,7 @@ $(function() {
 <input  id='passwordinput' class="form-control" type="password" name="password" placeholder="新密码" />
   <!-- <label for="repasswordinput">再次确认</label> -->
 <input id='repasswordinput'  class="form-control " type="password" name="repassword" placeholder="再次确认新密码" />
-<button type="submit" class="btn btn-default btn-success">确定</button>
+<button type="submit" class="btn btn-default btn-success btn-sm">确定</button>
 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
 </form>
 </div>
@@ -287,7 +287,7 @@ $(function() {
   {% csrf_token %}
   <!-- <label for="passwordinput">新密码</label> -->
 <input  id='phonenumber' class="form-control" type="text" name="phonenumber" placeholder="手机号码" />
-<button type="submit" class="btn btn-default btn-success">确定</button>
+<button type="submit" class="btn btn-default btn-success btn-sm">确定</button>
 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
 </form>
 </div>
@@ -314,11 +314,11 @@ $(function() {
           {% if weiboset %}
           <li><span style='color: #5fb760;'>已授权</span></li>
           <li class="hidden-xs"><span style='color: #999;'>帐号:{{weibousername}}</span></li>
-          <li><a href="{% url 'disweiboconnection' %}"><button type="button" class="btn btn-default">取消授权</button></a></li>
+          <li><a href="{% url 'disweiboconnection' %}"><button type="button" class="btn btn-default btn-sm">取消授权</button></a></li>
           {% else %}
           <li><span style='color: #999;'>未授权</span></li>
           <li class="hidden-xs"><span style='color: #999;'>帐号:{{weibousername}}</span></li>
-          <li><a href="{{weibourl}}"><button type="button" class="btn btn-success">获取授权</button></a></li>
+          <li><a href="{{weibourl}}"><button type="button" class="btn btn-success btn-sm">获取授权</button></a></li>
           {% endif %}
         </ul>
         <ul class="thirdshejiao-line">
@@ -326,11 +326,11 @@ $(function() {
           {% if weixinset %}
           <li><span style='color: #5fb760;'>已授权</span></li>
           <li class="hidden-xs"><span style='color: #999;'>帐号:{{weixinusername}}</span></li>
-          <li><a href="{% url 'disweixinconnection' %}"><button type="button" class="btn btn-default">取消授权</button></a></li>
+          <li><a href="{% url 'disweixinconnection' %}"><button type="button" class="btn btn-default btn-sm">取消授权</button></a></li>
           {% else %}
           <li><span style='color: #999;'>未授权</span></li>
           <li class="hidden-xs"><span style='color: #999;'>帐号:{{weixinusername}}</span></li>
-          <li id='weibourl-choise'><!-- <a href="{{weixinurlgongzhong}}"><button type="button" class="btn btn-success">获取授权</button></a> --></li>
+          <li id='weibourl-choise'><!-- <a href="{{weixinurlgongzhong}}"><button type="button" class="btn btn-success btn-sm">获取授权</button></a> --></li>
           {% endif %}
         </ul>
       </div>
@@ -358,7 +358,7 @@ $(function() {
   <label for="privcycomment">内容:</label>
 <!-- <input  id='privcycomment' class="form-control" type="text" name="privcycomment" /> -->
 <textarea  id='privcycomment'  class="form-control" type="text" name="privcycomment" ></textarea>
-<button type="submit" class="btn btn-default btn-success">确定</button>
+<button type="submit" class="btn btn-default btn-success btn-sm">确定</button>
 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
 </form>
 {% else %}
@@ -391,7 +391,7 @@ $(function() {
   {% csrf_token %}
     <!-- <label for="id_email">新邮箱地址</label> -->
 <textarea  id='id_qianming' class="form-control" type="text" name="id_qianming" placeholder="填写新签名">{{userofinfor.qianming}}</textarea>
-<button type="submit" class="btn btn-default btn-success">确定</button>
+<button type="submit" class="btn btn-default btn-success btn-sm">确定</button>
 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
 </form>
 </div>
@@ -405,81 +405,110 @@ $(function() {
 
  <div class="container">
 <div class="container-user">
-	<div class="col-xs-2 hidden-xs">
-	<ul class="nav nav-pills nav-stacked leftblock">
-     <li class="presentation1" role="presentation"><a href="{% url 'user_detailinformations' userofinfor.id%}"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>{{hostname}}主页</a></li>
-      <li class="presentation5" role="presentation"><a href="{% url 'user_userdashboardarticletopic' userofinfor.id%}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>{{hostname}}话题</a></li>
-      <li class="presentation2" role="presentation"><a href="{% url 'user_detailcomments' userofinfor.id%}"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span>{{hostname}}评论</a></li>
-{% if host %}
-      <li class="presentation3" role="presentation"><a href="{% url 'user_detailnotifications' userofinfor.id%}"><span class="glyphicon glyphicon-inbox" aria-hidden="true"></span>{{hostname}}消息<span class="badge inboxcount1">{{ user.id|user_unread_count }}</span></a></li>
-      
-      <li class="presentation4" role="presentation"><a href="{% url 'user_detailcollectionstopic' userofinfor.id%}"><span class="glyphicon glyphicon-paperclip" aria-hidden="true"></span>{{hostname}}收藏</a></li>
 
-      <li class="presentation7" role="presentation"><a href="{% url 'user_detailtry' userofinfor.id%}"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>{{hostname}}试用</a></li>
-      {% endif %}
-    </ul>
-</div><!-- class="col-md-2" -->
-	<div class="col-xs-10">
-	<ul class="nav nav-pills rightblock hidden-xs">
-      <li class="presentationw1" role="presentation"><a href="#">帐号信息</a></li>
-      <li class="presentationw2" role="presentation"><a href="#"></a></li>
-      <li class="presentationw3" role="presentation"><a href="#"></a></li>
-    </ul>
 
-<div class="col-xs-12 dashboard">
-
-<div class="col-xs-12 iconline">
-  <h4>用户名: {{userofinfor.username}}</h4>
+<div class="user-icon-background">
 </div>
 
-
-<div class="col-xs-12 iconline">
-  <h4 class="col-xs-1 lefticon">头像:</h4><img class="pull-left img-circle icon" src="{{userofinfor.get_image_url}}" >
+  <div class="user-top-block">
+    <img class="pull-left img-circle icon-top" src="{{userofinfor.get_image_url}}" >
+    <div class="user-top-name">
+    {{userofinfor.username}}
+    </div>
 {% if host %}
-<button  type="button" class="pull-right btn btn-success" data-toggle="modal" data-target="#myModal1">
- 修改
-</button>
+    <div class="newtopicuser pull-right hidden-xs">
+    <a  href="{% url 'newtopic' %}" class='btn btn-success btn-block' ><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> 发布话题</a>
+     </div>
 {% endif %}
+
+  <div class="per-info-qianming" >
+        {% if userofinfor.qianming %}
+        {{userofinfor.qianming}}
+        {% else %}
+        这货还没有签名...
+        {% endif %}
+      </div>
+  </div>
+
+	<ul class="rightblock">
+      <li class="presentationw1" role="presentation"><a href="{% url 'user_detailinformations' userofinfor.id%}">帐号</a></li>
+      <li class="presentationw2" role="presentation"><a href="{% url 'user_userdashboardarticletopic' userofinfor.id%}">
+      话题</a></li>
+      <li class="presentationw3" role="presentation"><a href="{% url 'user_detailcomments' userofinfor.id%}">评论</a></li>
+
+{% if host %}
+      <li class="presentationw5" role="presentation"><a href="{% url 'user_detailnotifications' userofinfor.id%}">消息<span class="badge inboxcount1">{{ user.id|user_unread_count }}</span></a></li>
+{% endif %}
+
+      <li class="presentationw6" role="presentation"><a href="{% url 'user_detailcollectionstopic' userofinfor.id%}">收藏</a></li>
+      <li class="presentationw7" role="presentation"><a href="{% url 'user_detailtry' userofinfor.id%}">试用</a></li>
+
+    </ul>
+
+
+
+
+
+<div class="col-xs-12 dashboard" >
+
+{% if host %}
+<div class="col-xs-12 iconline visible-xs-block"  style = "cursor : pointer;">
+  <a href="{% url 'mobilenew' %}">
+<div class="col-xs-6 emailline">
+  <h4>发布话题</h4>
+</div>
+<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+</a>
 </div>
 
-
-<div class="col-xs-12 iconline">
+<div class="col-xs-12 iconline"  id = "onebillbutton"  data-toggle="modal" data-target="#myModal9" style = "cursor : pointer;">
 <div class="col-xs-6 emailline">
   <h4>一元购:</h4>
 </div>
-{% if host %}
-<button type="button" class="pull-right btn btn-success" data-toggle="modal" data-target="#myModal9" id = "onebillbutton">
-查询
-</button>
-{% endif %}
+<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
 </div>
 
-<div class="col-xs-12 iconline">
+<div class="col-xs-12 iconline" data-toggle="modal" data-target="#myModal8" id = "scorebillbutton" style = "cursor : pointer;">
 <div class="col-xs-6 emailline">
   <h4>积分: <span class="ng-binding">{{userofinfor.score}}</span></h4>
 </div>
+<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+</div>
 
-{% if host %}
-<button type="button" class="pull-right btn btn-success" data-toggle="modal" data-target="#myModal8" id = "scorebillbutton">
- 明细
-</button>
 {% endif %}
+
+
 
 </div>
 
 
 
 
+
+
+<div class="col-xs-12 dashboard">
+
+{% if host %}
+<div class="col-xs-12 iconline">
+  <h4 class="col-xs-1 lefticon">头像:</h4><img class="pull-left img-circle icon" src="{{userofinfor.get_image_url}}" >
+<button  type="button" class="pull-right btn btn-success btn-sm" data-toggle="modal" data-target="#myModal1">
+ 修改
+</button>
+</div>
+{% endif %}
+
+
+{% if host %}
 <div class="col-xs-12 iconline">
 <div class="col-xs-6 emailline">
   <h4>{{hostname}}签名: <span class="ng-binding"></span></h4>
 </div>
-{% if host %}
-<button type="button" class="pull-right btn btn-success" data-toggle="modal" data-target="#myModal7">
+<button type="button" class="pull-right btn btn-success btn-sm" data-toggle="modal" data-target="#myModal7">
  修改
 </button>
-{% endif %}
 </div>
+{% endif %}
+
 
 
   {% if host %}
@@ -487,7 +516,7 @@ $(function() {
 <div class="col-xs-6 emailline">
   <h4>手机号码: <span class="ng-binding">{{userofinfor.phonenumber}}</span></h4>
 </div>
-<button type="button" class="pull-right btn btn-success" data-toggle="modal" data-target="#myModal5">
+<button type="button" class="pull-right btn btn-success btn-sm" data-toggle="modal" data-target="#myModal5">
  修改
 </button>
 </div>
@@ -498,34 +527,34 @@ $(function() {
 <div class="col-xs-6 emailline">
   <h4>第三方登录授权</h4>
 </div>
-<button type="button" class="pull-right btn btn-success" data-toggle="modal" data-target="#myModal6">
+<button type="button" class="pull-right btn btn-success btn-sm" data-toggle="modal" data-target="#myModal6">
  设置
 </button>
 </div>
 {% endif %}
 
-<div class="col-xs-12 iconline hidden-xs">
+<div class="col-xs-12 iconline ">
 <div class="col-xs-6 emailline">
   <h4>邮箱: <span class="ng-binding">{{userofinfor.email}}</span></h4>
 </div>
 {% if host %}
-<button type="button" class="pull-right btn btn-success" data-toggle="modal" data-target="#myModal2">
+<button type="button" class="pull-right btn btn-success btn-sm" data-toggle="modal" data-target="#myModal2">
  修改
 </button>
 {% endif %}
 </div>
 
 
-<div class="col-xs-12 lastline">
+<div class="col-xs-12 iconline"  style = "border: 0px;">
   {% if host %}
   <div class="col-xs-6 emailline">
   <h4>账号密码</h4>
 </div>
-<button type="button" class="pull-right btn btn-success" data-toggle="modal" data-target="#myModal3">
+<button type="button" class="pull-right btn btn-success btn-sm" data-toggle="modal" data-target="#myModal3">
 修改
 </button>
 {% else %}
-<button type="button" class="btn btn-success btn-messages" data-toggle="modal" data-target="#myModal4">
+<button type="button" class="btn btn-success btn-sm btn-messages" data-toggle="modal" data-target="#myModal4">
 给TA发私信
 </button>
 {% endif %}

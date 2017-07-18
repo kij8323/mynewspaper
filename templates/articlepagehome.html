@@ -45,27 +45,6 @@ $('.hotnewsblock table img').imgsizeFunction();
 });
 </script>
 
-<script>
-$.fn.imgsizeFunctionitem = function() { 
-  width = $(this).css('width');
-  x = (parseFloat(width)*0.56)
-  return  $(this).css('height',x+'px');
-}
-</script>
-
-<script>
-$(function(){ 
-  $('.item-img, .item-img  a img').imgsizeFunctionitem();
-/*  $('.leftimgblock a img').imgsizeFunction();*/
-}); 
-</script>
-
-<script>
-$(window).resize(function(){
-  $('.item-img, .item-img  a img').imgsizeFunctionitem();
-/*  $('.leftimgblock a img').imgsizeFunction();*/
-});
-</script>
 
 
 {% endblock %}
@@ -82,7 +61,7 @@ $(window).resize(function(){
     <span class="hidden-xs"><a href="{{item.topic.get_absolute_url}}">{{item.topic.title}}</a></span>
 
 
-    <span class="posttime pull-right hidden-xs">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</span>
+    <span class="posttime hidden-xs">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</span>
     </div>
 
    <!--  <h3><a href="{{item.topic.get_absolute_url}}">{{item.topic.title}}</a></h3> -->
@@ -104,7 +83,7 @@ $(window).resize(function(){
     <span class="hidden-xs"><a href="{{item.topic.get_absolute_url}}">{{item.topic.title}}</a></span>
     <span class="nomline">被加了金币</span><i class="score-topic"></i>
 
-    <span class="posttime pull-right hidden-xs">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</span>
+    <span class="posttime hidden-xs">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</span>
     </div>
 
     <div class="topic-title visible-xs-block"><a href="{{item.topic.get_absolute_url}}">{{item.topic.title}}</a></div>
@@ -150,7 +129,7 @@ $(window).resize(function(){
     <span class="nomline">积分</span>
     <i class="score-topic"></i>
 
-    <span class="posttime pull-right hidden-xs">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</span>
+    <span class="posttime hidden-xs">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</span>
     </div>
 
    <!--  <h3><a href="{{item.topic.get_absolute_url}}">{{item.topic.title}}</a></h3> -->
@@ -160,6 +139,35 @@ $(window).resize(function(){
 
     <div class='img3'>
     <img  class="img3-imagefst3" src='{{item.payscore.products.get_image_url}}'>
+    </div>
+    <div style="clear:both;"></div> 
+
+</div> 
+</div> <!-- newsblock -->
+
+
+{% elif item.finance %}
+    <div class="col-xs-11 newsblock" id="{{item.id}}">
+    <div class="rightwordblock">
+
+    <div class="usericon-line">
+    <span><img  class="img-circle usericon" src='{{item.finance.user.get_image_url}}'></span>
+    <span class="writer"><a href="{{item.finance.user.get_absolute_url}}">{{item.finance.user}}</a></span>
+    <span class="nomline">参与了</span>
+    <span class="hidden-xs"><a href="{{item.finance.products.get_absolute_url}}">{{item.finance.products.title}}</a></span>
+    <span class="nomline">一元购 人次:</span>
+    <span><a href="{{item.finance.products.get_absolute_url}}">{{item.finance.total_amount}}</a></span>
+    <span class="glyphicon glyphicon-usd" style = "color: #ec971f;" aria-hidden="true"></span>
+
+    <span class="posttime hidden-xs">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</span>
+    </div>
+
+
+    <div class="topic-title visible-xs-block"><a href="{{item.finance.products.get_absolute_url}}">{{item.finance.products.title}}</a></div>
+    <div class="posttime-vis visible-xs-block">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</div>
+
+    <div class='img3'>
+    <img  class="img3-imagefst3" src='{{item.finance.products.get_image_url}}'>
     </div>
     <div style="clear:both;"></div> 
 
@@ -178,12 +186,11 @@ $(window).resize(function(){
     <span class="hidden-xs"><a href="{{item.comment.topic.get_absolute_url}}">{{item.comment.topic.title}}</a></span>
     
 
-    <span class="posttime pull-right hidden-xs">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</span>
+    <span class="posttime hidden-xs">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</span>
     </div>
 
     <div class="topic-title visible-xs-block"><a href="{{item.comment.topic.get_absolute_url}}">{{item.comment.topic.title}}</a></div>
 
-    <i class="icon_hotcomentjiao" style="margin-left: 27px;"></i>
     <div class='comment-block'  onmouseover="this.style.cursor='pointer'" onclick="document.location='{{item.comment.get_absolute_url}}'">{{item.comment.text|AtWhoUser|safe}}</div>
 
     <div class="posttime-vis visible-xs-block">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</div>
@@ -204,12 +211,11 @@ $(window).resize(function(){
 
     
 
-    <span class="posttime pull-right hidden-xs">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</span>
+    <span class="posttime hidden-xs">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</span>
     </div>
 
     <div class="topic-title visible-xs-block"><a href="{{item.comment.instrument.get_absolute_url}}">{{item.comment.instrument.model}}</a></div>
 
-    <i class="icon_hotcomentjiao" style="margin-left: 27px;"></i>
     <div class='comment-block' onmouseover="this.style.cursor='pointer'" onclick="document.location='{{item.comment.get_absolute_instrument_url}}'" >
 
 
@@ -301,12 +307,11 @@ $(window).resize(function(){
     <span class="hidden-xs"><a href="{{item.comment.instrument.get_absolute_url}}">{{item.comment.instrument.model}}</a></span>
    
 
-    <span class="posttime pull-right hidden-xs">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</span>
+    <span class="posttime hidden-xs">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</span>
     </div>
 
     <div class="topic-title visible-xs-block"><a href="{{item.comment.instrument.get_absolute_url}}">{{item.comment.instrument.model}}</a></div>
 
-    <i class="icon_hotcomentjiao" style="margin-left: 27px;"></i>
     <div class='comment-block' onmouseover="this.style.cursor='pointer'" onclick="document.location='{{item.comment.get_absolute_instrument_url}}'" >{{item.comment.text|AtWhoUser|safe}}</div>
 
     <div class="posttime-vis visible-xs-block">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</div>
@@ -324,12 +329,11 @@ $(window).resize(function(){
     <span class="hidden-xs"><a href="{{item.comment.products.get_absolute_url}}">{{item.comment.products.title}}</a></span>
     
 
-    <span class="posttime pull-right hidden-xs">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</span>
+    <span class="posttime hidden-xs">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</span>
     </div>
 
     <div class="topic-title visible-xs-block"><a href="{{item.comment.products.get_absolute_url}}">{{item.comment.products.title}}</a></div>
 
-    <i class="icon_hotcomentjiao" style="margin-left: 27px;"></i>
     <div class='comment-block'>{{item.comment.text|AtWhoUser|safe}}</div>
 
     <div class="posttime-vis visible-xs-block">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</div>
@@ -347,7 +351,7 @@ $(window).resize(function(){
     <span class="nomline" style="color:#5fb760">新一期试用</span>
     <span class="hidden-xs"><a href="{{item.products.get_absolute_url}}">{{item.products.title}}</a></span>
     <span class="nomline">已上线</span>
-    <span class="posttime pull-right hidden-xs">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</span>
+    <span class="posttime hidden-xs">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</span>
     </div>
 
    <!--  <h3><a href="{{item.topic.get_absolute_url}}">{{item.topic.title}}</a></h3> -->

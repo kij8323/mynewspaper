@@ -227,3 +227,21 @@ a:link{
 a:hover{
 	color: #337ab7;
 }
+
+.presentationw1,.presentationw2,.presentationw3 {
+	display: inline-block;
+}
+
+.rightblock a{
+	text-decoration:none
+}
+
+.rightblock li{
+	padding: 8px;
+}
+
+
+.rightblock{
+	white-space: nowrap;
+	overflow: auto;
+}

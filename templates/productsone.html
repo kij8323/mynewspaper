@@ -276,9 +276,40 @@ $(document).ready(function(){
   $('#applyoneconform').click(function(){
     one = String($('.numone').text())
     products = String({{products.id}})
-    $('#formone').val(one)
-    $('#formproducts').val(products)
-    $("#oneform").submit();
+    url = "http://www.wutongnews.com/alipay/finance?code=/αβγδθηζεικλμποξνρφΑΕσχΒΖτψΓΗυωΔΘΦΡΝΙΚΣΞΛΟΤΨΧΩΥΠΜмиедзлабвёйнокжгьычшщэюъцтсхфрпуЛЗДГЖКМИЕБВЁЙНБАяЬЫЪЦУФРÈÉÊÇÂÆÀÀäÞÚÕÜÑÒØÖÏÓÝÚæîëçãííïðèáâìöýüûõøíîòïóöôЯЮЪЫЧЩЬЭЩ┓├┏↙┯↘ô┓┱&one="+one+"&products="+products
+    window.open(url);
+  });
+  });
+</script>
+
+
+<script type="text/javascript">
+function isWeiXin(){ 
+var ua = window.navigator.userAgent.toLowerCase(); 
+if(ua.match(/MicroMessenger/i) == 'micromessenger'){ 
+return true; 
+}else{ 
+return false; 
+} 
+} 
+</script>
+
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $('#applywechatoneconform').click(function(){
+    one = String($('.numone').text())
+    products = String({{products.id}})
+    if(isWeiXin()){ 
+    url="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxd7c459fd37fa1f3e&redirect_uri=http%3A%2F%2Fwww.wutongnews.com%2Fweixin%2Ffinancegz&response_type=code&scope=snsapi_base&state="+one+'p'+products+"#wechat_redirect"
+    window.open(url);
+      } 
+    else{
+    url = "http://www.wutongnews.com/weixin/finance?code=/αβγδθηζεικλμποξνρφΑΕσχΒΖτψΓΗυωΔΘΦΡΝΙΚΣΞΛΟΤΨΧΩΥΠΜмиедзлабвёйнокжгьычшщэюъцтсхфрпуЛЗДГЖКМИЕБВЁЙНБАяЬЫЪЦУФРÈÉÊÇÂÆÀÀäÞÚÕÜÑÒØÖÏÓÝÚæîëçãííïðèáâìöýüûõøíîòïóöôЯЮЪЫЧЩЬЭЩ┓├┏↙┯↘ô┓┱&one="+one+"&products="+products
+    window.open(url);
+    }
+
   });
   });
 </script>
@@ -400,15 +431,10 @@ $(document).ready(function(){
               </div>
 <p>注：一元购不需要提交测评</p>
 <div class="applink"><a href="http://www.wutongnews.com/topic/1023/">《一元购规则》</a></div>  
+        <button type="button" class="btn btn-default btn-one myModalbtn" data-dismiss="modal" id="applyoneconform">支付宝</button>
+        <button type="button" class="btn btn-default btn-success myModalbtn" data-dismiss="modal" id="applywechatoneconform">微信支付</button>
 
-        <button type="button" class="btn btn-default btn-success myModalbtn confirmdelete" data-dismiss="modal" id="applyoneconform">确定</button>
-        <button type="button" class="btn btn-default myModalbtn" data-dismiss="modal">取消</button>
 
-        <form name="oneform" id = "oneform" method="post"  target="_blank" action="{% url 'alipayfinance' %}">  
-          {% csrf_token %}
-        <input type="hidden" name="one" id="formone" >
-        <input type="hidden" name="products" id="formproducts" >
-        </form>  
       </div>
     </div>
   </div>
@@ -439,7 +465,7 @@ $(document).ready(function(){
     总限量：{{products.amount}}
   </div>
         <div class='small_try_info'>
-          <div>试用限量: {{products.tryamount}}</div>
+          <div>申请限量: {{products.tryamount}}</div>
           <div>申请人数: 
                     {% if products.applyamountcount > 30 %}
                     {{products.applyamountcount}}
@@ -578,7 +604,7 @@ $(document).ready(function(){
           <div class="products-info col-sm-3">
               <div class='try-info-boader'>
               <div class="apply-amount ">
-                <h4><div class="icon_prodeta_xianliang"></div> 试用限量:<span>{{products.tryamount}}份</span></h4>
+                <h4><div class="icon_prodeta_xianliang"></div> 申请限量:<span>{{products.tryamount}}份</span></h4>
               </div>
               <div class="apply-amount ">
                 <h4><div class="icon_prodeta_renshu"></div>已申请:<span>{% if products.applyamountcount > 30 %}{{products.applyamountcount}}{% else %}{{products.id|products_applyamount_count}}{% endif %}人</span></h4>
@@ -693,6 +719,12 @@ $(document).ready(function(){
               <li class="presentationw3" role="presentation"><a href="{% url 'productsreport' products.id %}">测评话题 ({{products.reportnum}})</a></li>
 				    </ul>
 	             </div>
+
+               {% if products.oneresult %}
+                <div class="products-one-result">
+                  {{products.oneresult|safe}}
+                </div>
+                {% endif %}
 
 	<div class="products-detail-info">
               <table class="table table-striped ">

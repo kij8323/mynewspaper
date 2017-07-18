@@ -70,6 +70,7 @@ urlpatterns = [
     url(r'^groupall/score/$', 'topic.views.groupall_score', name='groupall_score'),#
     url(r'^groupallpage/$', 'topic.views.groupallpage', name='groupallpage'),#加载话题组页
     url(r'^groupdetailpage/$', 'topic.views.groupdetailpage', name='groupdetailpage'),#加载话题组页
+    url(r'^grouplist/$', 'topic.views.grouplist', name='grouplist'),#加载话题组页
 
 
     url(r'^topiccommentpage/(?P<topic_id>[0-9]+)/$', 'topic.views.topiccommentpage', name='topiccommentpage'),#加载话题评论
@@ -173,12 +174,16 @@ urlpatterns = [
     url(r'^scorebillpage/(?P<user_id>[0-9]+)/$', 'scorebill.views.scorebillpage', name='scorebillpage'),#搜索页面
     url(r'^onebillpage/(?P<user_id>[0-9]+)/$', 'finance.views.onebillpage', name='onebillpage'),#搜索页面
 
+    url(r'^weixin/financegz/$', 'finance.views.weixinfinancegz', name='weixinfinancegz'),#
+ 
+
+
     url(r'^weixin/finance/$', 'finance.views.weixinfinance', name='weixinfinance'),#
     url(r'^alipay/finance/$', 'finance.views.alipayfinance', name='alipayfinance'),#
     url(r'^alipay/redirect/finance/$', 'finance.views.alipayredirectfinance', name='alipayredirectfinance'),#
     url(r'^alipay/notify/finance/$', 'finance.views.alipaynotifyfinance', name='alipaynotifyfinance'),#
     url(r'^alipay/gateway/finance/$', 'finance.views.alipaygatewayfinance', name='alipaygatewayfinance'),#
-    url(r'^weixin/gateway/finance/$', 'finance.views.weixingatewayfinance', name='weixingatewayfinance'),#
+    url(r'^weixin/notify/finance/$', 'finance.views.weixinnotifyfinance', name='weixingnotifyfinance'),#
 
 
 #    url(r'^products/address/(?P<products_id>[0-9]+)/$', 'products.views.productsaddress', name='productsaddress'),#文章页加载更多评论页面

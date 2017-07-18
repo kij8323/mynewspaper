@@ -58,12 +58,7 @@ $(function(){
 $.fn.widthsizeFunction = function() { 
   width = $(this).css('width');
   windowidth = parseFloat($(window).width())
-  if (windowidth > 768){
-    x = (parseFloat(width)*1)-71;
-  }
-  else {
-    x = (parseFloat(width)*1);
-  }
+  x = (parseFloat(width)*1)-71;
   return  $('.group-list-content').css('width',x+'px');
 }
 </script>
@@ -75,10 +70,25 @@ $.fn.jiangpaisizeFunction = function() {
   return  $('.jifen-rank-name').css('width',x+'px');
 }
 </script>
-
+<script>
+$.fn.rightblocksizeFunction = function() { 
+  width = $(this).css('width');
+  windowidth = parseFloat($(window).width())
+  if (windowidth > 768){
+  }
+  else {
+    if ($(".presentationw3").html()){
+    }
+    else{
+    $(".rightblock").prepend("<li class='presentationw3' role='presentation'><a href='{% url 'grouplist'%}''>话题组</a></li>")
+    }
+  }
+}
+</script>
 
 <script>
 $(function(){ 
+  $('.rightblock').rightblocksizeFunction();
   $('.group-list').widthsizeFunction();
   $('.jifen-rank-content-ul li').jiangpaisizeFunction();
 }); 
@@ -86,6 +96,7 @@ $(function(){
 
 <script>
 $(window).resize(function(){
+  $('.rightblock').rightblocksizeFunction();
   $('.group-list').widthsizeFunction();
   $('.jifen-rank-content-ul li').jiangpaisizeFunction();
 });
@@ -181,14 +192,14 @@ $(window).resize(function(){
  <div class="group-list-block">
 
 <div class="menu">
-  <ul class="nav nav-pills rightblock">
-      <li class="presentationw1" role="presentation"><a href="javascript:void(0);">{{group.title}}话题 ({{topicount}})</a></li>
+  <ul class=" rightblock">
+      <li class="presentationw1" role="presentation"><a href="javascript:void(0);">{{group.title}} ({{topicount}})</a></li>
       <li class="presentationw2" role="presentation"><a href="{% url 'group_score' group.id %}"><i class="score-topic-score"></i>精华</a></li>
     </ul>   
     </div>
 {% for item in topicstickied %}
  <div class="group-list">
-<div class="group-list-usericon   hidden-xs">  
+<div class="group-list-usericon   ">  
   <a href="{{item.writer.get_absolute_url}}">
  <img  class="commentusericon" src='{{item.writer.get_image_url}}'>
   </a>
@@ -260,7 +271,7 @@ $(window).resize(function(){
 
  {% for item in topic %}
  <div class="group-list">
-<div class="group-list-usericon hidden-xs">  
+<div class="group-list-usericon ">  
   <a href="{{item.writer.get_absolute_url}}">
  <img  class="commentusericon" src='{{item.writer.get_image_url}}'>
   </a>
@@ -296,13 +307,6 @@ $(window).resize(function(){
 <img  class="img1-imagefst3" src='{{item.get_imagefst3_url}}'>
 <img  class="img1-imagescd3" src='{{item.get_imagescd3_url}}'>
 <img  class="img1-imagethd3" src='{{item.get_imagethd3_url}}'>
-</div>
-<div style="clear:both;"></div> 
-{% elif item.img3 %}
-<div class='img3'>
-<img  class="img3-imagefst3" src='{{item.get_imagefst3_url}}'>
-<img  class="img3-imagescd3" src='{{item.get_imagescd3_url}}'>
-<img  class="img3-imagethd3" src='{{item.get_imagethd3_url}}'>
 </div>
 <div style="clear:both;"></div> 
 {% endif %}

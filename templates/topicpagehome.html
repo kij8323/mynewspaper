@@ -41,7 +41,7 @@ $.fn.imgsizeFunctioninstru = function() {
 <script>
 $.fn.imgsizeFunctiontopic = function() { 
   width = $(this).css('width');
-  x = (parseFloat(width)*0.33)
+  x = (parseFloat(width)*0.56)
   return  $(this).css('height',x+'px');
 }
 </script>
@@ -61,6 +61,7 @@ $(function(){
   $('.img-instrument').imgsizeFunctioninstru();
 
   $('.topicblock .topicblock-line2').imgsizeFunctiontopic();
+  $('.topicblock .leftimgblock a img').imgsizeFunction();
 }); 
 </script>
 
@@ -77,30 +78,10 @@ $('.hotnewsblock table img').imgsizeFunction();
   $('.img-instrument').imgsizeFunctioninstru();
 
   $('.topicblock .topicblock-line2').imgsizeFunctiontopic();
+  $('.topicblock .leftimgblock a img').imgsizeFunction();
 });
 </script>
 
-<script>
-$.fn.imgsizeFunctionitem = function() { 
-  width = $(this).css('width');
-  x = (parseFloat(width)*0.56)
-  return  $(this).css('height',x+'px');
-}
-</script>
-
-<script>
-$(function(){ 
-  $('.item-img, .item-img  a img').imgsizeFunctionitem();
-/*  $('.leftimgblock a img').imgsizeFunction();*/
-}); 
-</script>
-
-<script>
-$(window).resize(function(){
-  $('.item-img, .item-img  a img').imgsizeFunctionitem();
-/*  $('.leftimgblock a img').imgsizeFunction();*/
-});
-</script>
 
 
 {% endblock %}
@@ -109,41 +90,148 @@ $(window).resize(function(){
 
 
 {% for item in topic %}
+
+{% if item.imagesugg %}
 <div class="col-xs-11 topicblock" id="{{item.id}}">
+
+<div class="topicblock-line1" style="margin-top:0px;margin-bottom:8px">
+<a href="{{item.writer.get_absolute_url}}"><img  class="img-circle usericon" src='{{item.writer.get_image_url}}'></a>
+<div class="usericon-info">
+  <a href="{{item.writer.get_absolute_url}}">
+  <div class="usericon-info-name">{{item.writer.username}}</div>
+  </a>
+  <span class="usericon-info-time">
+    {{item.timestamp|date:"m月d日 "}}
+  </span>
+  <a href="{{item.group.get_absolute_url}}" >
+  <span class="glyphicon {{item.group.glyphicon}}" aria-hidden="true" style="margin-right:3px;"></span>
+  {{item.group.title}}
+  </a>
+<span class="glyphicon glyphicon-comment" aria-hidden="true" ></span> {{item.id|Topic_comment}}
+</div>
+<div style="clear:both;"></div>
+</div><!-- <div class="topicblock-line1"> -->
+
+<h3 class="topicblock-line3">
+<a href="{{item.get_absolute_url}}">{{item.title}}</a>
+</h3>
+
+<div class="topicblock-line2">
+    {% if item.ifvideo %}
+  <span class="vedio-sign"><span class="glyphicon glyphicon-play" aria-hidden="true" ></span> {{item.videotime}}</span>
+  {% endif %}
+<a href="{{item.get_absolute_url}}"><img  class="" src='{{item.get_imagesugg_url}}'></a>
+</div>
+
+
+</div>
+
+{% elif item.image %}
+
+          <div class="col-xs-11 topicblock" id="{{item.id}}">
+          <div class="col-xs-4 leftimgblock" style = "padding-right:0px;">
+
+          {% if item.ifvideo %}
+          <span class="vedio-sign-left"><span class="glyphicon glyphicon-play" aria-hidden="true" ></span> {{item.videotime}}</span>
+          {% endif %}
+          <a href="{{item.get_absolute_url}}"><img src="{{item.get_image_url}}" ></a>
+
+          </div> 
+          <div class="col-xs-8 rightwordblock"  style = "padding-left:15px;">
+          <h3><a href="{{item.get_absolute_url}}">{{item.title}}</a></h3>
+
 <div class="topicblock-line1">
 <a href="{{item.writer.get_absolute_url}}"><img  class="img-circle usericon" src='{{item.writer.get_image_url}}'></a>
 <div class="usericon-info">
   <a href="{{item.writer.get_absolute_url}}">
   <div class="usericon-info-name">{{item.writer.username}}</div>
   </a>
-  <div class="usericon-info-time">
+  <span class="usericon-info-time">
     {{item.timestamp|date:"m月d日 "}}
-  </div>
+  </span>
+  <a href="{{item.group.get_absolute_url}}" >
+  <span class="glyphicon {{item.group.glyphicon}}" aria-hidden="true" style="margin-right:3px;"></span>
+  {{item.group.title}}
+  </a>
+<span class="glyphicon glyphicon-comment" aria-hidden="true" ></span> {{item.id|Topic_comment}}
 </div>
 <div style="clear:both;"></div>
 </div><!-- <div class="topicblock-line1"> -->
 
-<div class="topicblock-line2">
-<a href="{{item.get_absolute_url}}"><img  class="" src='{{item.get_imagesugg_url}}'></a>
-</div>
+
+</div> 
+</div> <!-- newsblock -->
+
+{% elif item.img3 %}
+
+<div class="col-xs-11 topicblock" id="{{item.id}}">
 
 <h3 class="topicblock-line3">
 <a href="{{item.get_absolute_url}}">{{item.title}}</a>
 </h3>
 
-<div class="topicblock-line4">
-{{item.associatetitle}}
+<div class='img3'>
+<img  class="img3-imagefst3" src='{{item.get_imagefst3_url}}'>
+<img  class="img3-imagescd3" src='{{item.get_imagescd3_url}}'>
+<img  class="img3-imagethd3" src='{{item.get_imagethd3_url}}'>
 </div>
+<div style="clear:both;"></div> 
 
-<div class="topicblock-line5">
-<a href="{{item.group.get_absolute_url}}" >
+
+<div class="topicblock-line1">
+<a href="{{item.writer.get_absolute_url}}"><img  class="img-circle usericon" src='{{item.writer.get_image_url}}'></a>
+<div class="usericon-info">
+  <a href="{{item.writer.get_absolute_url}}">
+  <div class="usericon-info-name">{{item.writer.username}}</div>
+  </a>
+  <span class="usericon-info-time">
+    {{item.timestamp|date:"m月d日 "}}
+  </span>
+  <a href="{{item.group.get_absolute_url}}" >
   <span class="glyphicon {{item.group.glyphicon}}" aria-hidden="true" style="margin-right:3px;"></span>
   {{item.group.title}}
   </a>
-<span class="glyphicon glyphicon-comment" aria-hidden="true"></span> {{item.id|Topic_comment}}
+<span class="glyphicon glyphicon-comment" aria-hidden="true" ></span> {{item.id|Topic_comment}}
 </div>
+<div style="clear:both;"></div>
+</div><!-- <div class="topicblock-line1"> -->
 
 </div>
+{% else %}
+
+          <div class="col-xs-11 topicblock" id="{{item.id}}">
+          <div class="col-xs-4 leftimgblock"  style = "padding-right:0px;">
+          <a href="{{item.get_absolute_url}}"><img src="{{item.get_image_url}}" ></a>
+
+          </div> 
+          <div class="col-xs-8 rightwordblock"  style = "padding-left:15px;">
+          <h3><a href="{{item.get_absolute_url}}">{{item.title}}</a></h3>
+
+<div class="topicblock-line1">
+<a href="{{item.writer.get_absolute_url}}"><img  class="img-circle usericon" src='{{item.writer.get_image_url}}'></a>
+<div class="usericon-info">
+  <a href="{{item.writer.get_absolute_url}}">
+  <div class="usericon-info-name">{{item.writer.username}}</div>
+  </a>
+  <span class="usericon-info-time">
+    {{item.timestamp|date:"m月d日 "}}
+  </span>
+  <a href="{{item.group.get_absolute_url}}" >
+  <span class="glyphicon {{item.group.glyphicon}}" aria-hidden="true" style="margin-right:3px;"></span>
+  {{item.group.title}}
+  </a>
+<span class="glyphicon glyphicon-comment" aria-hidden="true" ></span> {{item.id|Topic_comment}}
+</div>
+<div style="clear:both;"></div>
+</div><!-- <div class="topicblock-line1"> -->
+
+</div> 
+</div> <!-- newsblock -->
+
+
+
+{% endif %}
+
 {% endfor %}
 
 

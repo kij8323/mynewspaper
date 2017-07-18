@@ -140,3 +140,84 @@ display: inline-block;
 	list-style-type:none;
 	/*padding-left: 12px;*/
 }
+
+
+.weiboshare{
+    background-image: url(/static/media/images/usericon/weiboiconblock_5K8z5uX.png);
+	display: inline-block;
+	height: 34px;
+	width: 34px;
+	background-size:100% 100%;
+	float: left;
+}
+
+.weichatshare{
+    background-image: url(/static/media/images/usericon/weixiniconblock.png);
+	display: inline-block;
+	height: 34px;
+	width: 34px;
+	float: left;
+	background-size:100% 100%;
+}
+
+.weiboshare-block{
+	height: 34px;
+	line-height: 34px;
+	padding: 0 10px 0 10px;
+	background-color: #ff424f;
+	border-radius: 5px;
+	
+}
+
+ .weichatshare-block{
+	height: 34px;
+	line-height: 34px;
+	padding: 0 10px 0 10px;
+	background-color: #04b00f;
+	border-radius: 5px;
+	
+}
+
+.weiboshare-block p{
+	float: left;
+	padding: 0 5px 0 0;
+	color: white;
+
+}
+
+.weichatshare-block p{
+	float: left;
+	padding: 0 5px 0 0;
+	color: white;
+
+}
+
+
+/*v1*/
+.third-box {
+position: relative;
+border-top: 1px solid #ccc;
+padding: 20px 0 0;
+text-align: center;
+margin-top: 15px;
+width: 300px;
+margin-left: auto;
+margin-right: auto;
+
+}
+
+.third-box .third-title {
+position: absolute;
+top: -12px;
+text-align: center;
+width: 100%;
+}
+
+.third-box .third-title span {
+color: #8d8d8d;
+font-size: 14px;
+padding: 0 10px;
+background: #f0f4fb;
+display: inline-block;
+}
+

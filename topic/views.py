@@ -50,9 +50,24 @@ def group_all(request):
                 raise Http404("Does not exist")
         return render(request, 'group_all.html',  context)
 
+
+def grouplist(request):
+	groupall = Group.objects.all().exclude(id=11)
+	topic = Topic.objects.all().filter(savetext = False).exclude(group=11).exclude(group = 19)
+
+	topicount = topic.count()
+	context = {
+		'groupall': groupall,
+		'topicount': topicount,
+		}
+	return render(request, 'grouplist.html',  context)
+
+
+
+
 def groupallpage(request):
 
-    topic = Topic.objects.all().order_by("-updated").filter(savetext = False).exclude(group=11).exclude(group = 19)
+    topic = Topic.objects.all().order_by("-updated").filter(savetext = False).exclude(group=11).exclude(group = 19).exclude(writer=54)
     topicount = topic.count()
     topicstickied = Topic.objects.all().filter(group = 11)
     # 分页
@@ -173,7 +188,7 @@ def groupdetailpage(request):
     	group_id = request.session['groupdetailid']
         group = Group.objects.get(pk=group_id)
 #               groupall = Group.objects.all().order_by("-topicount")
-        topic = group.topic_set.all().order_by("-updated").filter(savetext = False).exclude(group=11)
+        topic = group.topic_set.all().order_by("-updated").filter(savetext = False).exclude(group=11).exclude(writer=54)
         topicount = topic.count()
         managers = Groupmanager.objects.filter(group = group)
         topicstickied = Topic.objects.all().filter(group = 11)

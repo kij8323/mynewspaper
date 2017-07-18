@@ -518,6 +518,8 @@ a:hover{
 	font-size: 16px;
 	border-radius: 5px;
 	border-bottom: 1px solid #f0f0f0;
+		white-space: nowrap;
+	overflow: auto;
 }
 
  .presentationw1 a{
@@ -902,6 +904,7 @@ padding-bottom: 20px;*/
 padding: 7px 5px 30px 5px;
 margin-bottom: 25px;
 border-radius: 5px;
+margin-top: 13px;
 }
 
 
@@ -1020,3 +1023,15 @@ margin-top: 6px;
   color: #fff;
 }
 
+
+.presentationw1,.presentationw2,.presentationw3 {
+	display: inline-block;
+}
+
+.rightblock a{
+	text-decoration:none
+}
+
+.rightblock li{
+	padding: 8px;
+}

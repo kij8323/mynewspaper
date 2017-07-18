@@ -1,11 +1,5 @@
 .rightwordblock h3{
-	font-size: 14px !important;
-	text-overflow: -o-ellipsis-lastline;
-	overflow: hidden;
-	text-overflow: ellipsis;display: -webkit-box;
-	-webkit-line-clamp: 2 !important;
-	-webkit-box-orient: vertical;
-	margin-bottom: 0px !important;
+	font-size: 16px; 
 }
 
 .item h3{
@@ -19,7 +13,6 @@
 }
 
 .leftimgblock a img{
-	width: 138% !important;
 }
 
 .rightwordblock{
@@ -33,10 +26,11 @@
 
 
 
-
-h1{
+.container-topic-detail .t-h1{
 	font-size: 17px;
 }
+
+
 
 
 #article{
@@ -109,7 +103,6 @@ font-size: 12px !important;
 
 
 #morecomment-btn-block, #moretopic-btn-block{
-	width: 70% !important;
 	margin-left: auto;
 	margin-right: auto;
 
@@ -268,9 +261,6 @@ font-size: 12px !important;
 }
 
 
-#article .article-author, #article  .comment {
-	font-size: 12px;
-}
 
 #article  .comment .pl-content{
 	font-size: 14px;
@@ -329,12 +319,12 @@ font-size: 12px !important;
 
 .home-container .topicblock{
 	width: 100%;
+	padding: 15px 0 15px 0;
 }
 
 .home-container .newsblock{
-	width: 100%;
-	padding-right: 20px;
-	padding-left: 20px;
+	width:100%;
+	padding: 15px 0 15px 0;
 }
 
 .home-container  .topicblock-title{
@@ -342,14 +332,180 @@ margin-left: 20px;
 }
 
 
+.home-container  .topicblock .topicblock-line1{
+	font-size: 12px;
+	margin:8px auto auto auto;
+}
+
+.home-container .topicblock-line1 span{
+	font-size: 10px;
+}
+
 .home-container  .topicblock .topicblock-line3{
-font-size: 18px;
+font-size: 16px;
+	margin:0px auto 8px auto;
 }
 
 .home-container .topicblock .topicblock-line4{
-font-size: 14px;
+font-size: 12px;
+	margin:auto auto 8px auto;
 }
 
 .home-container .topicblock .topicblock-line5{
+	font-size: 12px;
+	margin:8px auto 8px auto;
+}
+
+
+
+.container_products_detail .products-detail{
+	padding: 0px;
+}
+
+
+
+#productsallpage .products-list #morecomment-btn-block{
+	width: 91%;
+}
+
+
+.home-container .topicblock .usericon{
+	width: 30px;
+	height: 30px;
+}
+
+/*v1*/
+.home-container  .usericon{
+	width: 30px ;
+	height: 30px ;
+/*	margin-right: 0px !important;*/
+}
+
+
+
+.home-container .topic-title a,.home-container .posttime-vis,.home-container .posttime-vis,.home-container .comment-block{
+	margin-left: auto;
+	margin-top: auto;
+}
+
+
+.home-container .topicblock .usericon-info-name, .home-container .topicblock .usericon-info-time{
+
+line-height: 16px;
+
+}
+.home-container .leftcontainer h3{
 	font-size: 14px;
+}
+
+
+.container-user .dashboard h4{
+	color: #555;
+	font-size: 13px;
+	font-weight:normal;
+	line-height: 17px;
+}
+
+.container-user .dashboard .iconline{
+	padding: 7px;
+}
+
+.container-user .dashboard .icon{
+	width: 30px;
+	height: 30px;
+}
+.container-user{
+	margin-left: -15px;
+	margin-right:-15px;
+
+}
+
+.container-user .user-top-block{
+	margin-bottom: 2px;
+}
+
+
+.container-user .rightblock{
+	margin-bottom: 12px;
+	font-size: 14px;
+	color: black;
+}
+
+.container-user .user-top-block .icon-top{
+	width: 70px;
+	height: 70px;
+	margin-top: -50px;
+}
+
+
+
+.container-user .user-top-block .per-info-qianming{
+	margin-left: 75px;
+
+}
+.container-user .user-top-block .user-top-name{
+
+	margin-left: 75px;
+}
+
+
+.container-user .user-icon-background{
+	background-repeat:no-repeat;
+	background-attachment:fixed;
+	background-size:100%;
+	background-image:url(/static/media/images/usericon/屏幕快照_2017-07-06_上午10.37.27.png);
+
+}
+
+
+.container_products_detail .rightblock{
+	font-size: 14px;
+	color: black;
+}
+
+
+.home-container .comment-block{
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.home-container .topicblock .img3-imagefst3, .home-container .topicblock .img3-imagescd3, .home-container .topicblock .img3-imagethd3{
+	padding: 0px 1px 0px 1px;
+}
+
+.group_detail_container .group-list-usericon a img{
+	width: 41px;
+	height: 41px;
+}
+
+
+.group_detail_container .group-list-usericon{
+	padding-right: 8px;
+}
+
+.group_detail_container .paginationcontain{
+	margin-top: 0px;
+}
+
+
+.home-container  .vedio-sign-left{
+	font-size: 10px;
+}
+
+.home-container  .vedio-sign{
+	font-size: 10px;
+}
+
+
+.qqvideo-block{
+	padding-left: 0px !important;
+	padding-right: 0px !important;
+}
+
+.container-topic-detail .article-head{
+	text-align: center;
+}
+
+.article-head>*{
+	margin: 30px auto 30px auto;
 }

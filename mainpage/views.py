@@ -18,10 +18,10 @@ from investment.models import Investment
 from products.models import Products, Application
 from updatenew.models import Updatenew
 from judgement.models import Instrument
-
+from accounts.models import MyUser
 
 # Create your views here.
-ARTICLE_MAINPAGE_TIMERANGE = 6 #首页显示新闻数量
+ARTICLE_MAINPAGE_TIMERANGE = 8 #首页显示新闻数量
 ARTICLE_MAINPAGE_COVER_TIMERANGE = 15	#首页封面文章的发表时间范围
 TOPIC_MAINPAGE_COVER_TIMERANGE = 25 #争议话题的发表时间范围
 TOPIC_MAINPAGE_TIMERANGE = 15 #热门话题的时间范围
@@ -133,7 +133,7 @@ def index_search(request):
 			'firmshow' : firmshow,
 			'test4' : test4,
 			'test5' : test5,
-			'test6' : test6,
+#			'test6' : test6,
 		}
 	else:
 		context = {
@@ -155,6 +155,9 @@ def home(request):
 	coverarticle = Topic.objects.all().filter(cover = True).order_by("-id")[0:3]
 	guanggaotopic = Topic.objects.all().filter(guanggao = True).order_by("-id")[0:2]
 #	hotnews48 = Article.objects.all().filter(timestamp__gte=datetime.date.today() - timedelta(days=ARTICLE_MAINPAGE_HOT_TODAY)).order_by("-readers")[0]
+        scorerank=MyUser.objects.exclude(pk=53).exclude(pk=519).order_by('-score')[0:5]
+
+
 	groupall = Group.objects.all().exclude(id=11)
 	context = {
 	'topicquery1' : topic[0:2],
@@ -173,6 +176,7 @@ def home(request):
 	'guanggaotopic2': guanggaotopic[1],
 	'hotry':hotry,
 	'groupall': groupall,
+	'scorerank':scorerank,
 	}
 	return render(request, 'home.html', context)
 	#return render(request, 'home.html')

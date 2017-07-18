@@ -31,12 +31,12 @@ window.onload = function(){
 var ua = navigator.userAgent.toLowerCase();
 var isWeixin = ua.indexOf('micromessenger') != -1;
 if (!isWeixin) {
-  $('.third-box').append('<a class="pull-left" href="{{url}}"><i class="weiboshare"></i></a>')
-  $('.third-box').append('<a class="pull-right" href="{{weixinurl}}"><i class="weichatshare"></i></a>')
+  $('.third-box').append('<a class="pull-left weiboshare-block" href="{{url}}"><i class="weiboshare"></i><p>微博登录</p></a>')
+  $('.third-box').append('<a class="pull-right  weichatshare-block" href="{{weixinurl}}"><i class="weichatshare"></i><p>微信登录</p></a>')
 }
 else{
-  $('.third-box').append('<a class="pull-left" href="{{url}}"><i class="weiboshare"></i></a>')
-  $('.third-box').append('<a class="pull-right" href="{{weixinurlgongzhong}}"><i class="weichatshare"></i></a>')
+  $('.third-box').append('<a class="pull-left weiboshare-block" href="{{url}}"><i class="weiboshare"></i><p>微博登录</p></a>')
+  $('.third-box').append('<a class="pull-right  weichatshare-block" href="{{weixinurlgongzhong}}"><i class="weichatshare"></i><p>微信登录</p></a>')
 }
 }
 </script>
@@ -76,7 +76,7 @@ else{
   </label>
   </div>
 
-  <input class='btn btn-lg btn-success btn-block' type='submit' value='{{ submit_btn }}'/>
+  <input class='btn  btn-success btn-block' type='submit' value='{{ submit_btn }}'/>
   <span> <a href="{% url 'register' %}">免费注册</a></span>
     <span class="pull-right"> <a href="{% url 'repassword' %}">找回密码</a></span>
   </form>

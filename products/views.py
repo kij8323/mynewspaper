@@ -745,7 +745,7 @@ def newapplication(request, products_id, app_num, period_num):
 	for newnum in range(0,int(app_num)):
 		try:
 			products.applyamountcount+= 1
-			instancesave.delay(products)
+			products.save(update_fields=['applyamountcount'])
 			time.sleep(int(period_num))
 		except:
 			pass
@@ -753,7 +753,7 @@ def newapplication(request, products_id, app_num, period_num):
 	while (products.timedeadline.replace(tzinfo=None)+timedelta(hours=8) - datetime.datetime.now() > timedelta(seconds=0)):
 		time.sleep(1)
 	products.status = 2
-	products.save()
+	products.save(update_fields=['status'])
 
 	data = {
 		"ok": "over",

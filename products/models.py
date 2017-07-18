@@ -81,6 +81,10 @@ class Products(models.Model):
 	one = models.IntegerField(default=0)
 
 
+	#一元够结果公布
+	oneresult =  UEditorField(max_length=10000, width=800, upload_settings={"imageMaxSize":30204000}, null=True, blank=True)
+
+
 	def __unicode__(self):
 	    return self.title
 

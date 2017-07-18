@@ -9,6 +9,7 @@ body{
 .try-info{
 	background-color: white;
 	margin-top: 15px;
+	margin-bottom: 30px;
 }
 
 .products-pic img{
@@ -111,7 +112,6 @@ float: right;
 
 .products-detail{
 	background-color: white;
-	margin-top: 30px;
 	
 }
 
@@ -1643,6 +1643,8 @@ float: left;
 .container_products_detail_small{
 	margin-left: 0px;
 	margin-right: 0px;
+	padding-bottom: 15px;
+	border-bottom: 2px solid #ddd;
 }
 
 

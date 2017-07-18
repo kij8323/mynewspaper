@@ -178,10 +178,6 @@ def logginweibo(request):
 
 #登录页面
 def logginthird(request):
-	if request.GET.get('username'):
-		form = LoginForm(request.GET)
-	else:
-		form = LoginForm(None)
 
 	APP_KEY = '2155349390' # app key
 	APP_SECRET = 'bf5f82094e791b582ffb3489dcfa8a96' # app secret
@@ -221,8 +217,6 @@ def logginthird(request):
 		user = authenticate(username=loguser.user.username, password=loguser.logpassword)
 		if user is not None:
 			login(request, user)
-			if request.POST.get('checkbox'):
-				request.session.set_expiry(1209600*2)
 			if request.session.get('lastpage', False):
 				return redirect(request.session['lastpage'])
 			else:
@@ -230,79 +224,41 @@ def logginthird(request):
 		else:
 			return redirect(reverse("thirdfirstloggin", kwargs={"user_id": loguser.user.id}))
 
+
+
 	except:
-		if str(request.GET.get('log')) == "directly-login":
-			new_user = MyUser()
-			count=True
-			while (count == True):
-				try:
-					falsename = MyUser.objects.get(username= o_screen_name)
-					o_screen_name = o_screen_name+'weibo'
-				except:
-					count = False
-			new_user.username = o_screen_name
-			new_user.set_password("wutong")
-			new_user.thirdicon = o_profile_image_url
-			new_user.save()
-			loguser = WeiboUser()
-			loguser.user = new_user
-			loguser.weiboid = o_id
-			loguser.weiboname = o_screen_name
-			loguser.iconaddress = o_profile_image_url
-			loguser.logpassword = "wutong"
-			loguser.save()
-			user = authenticate(username=o_screen_name, password="wutong")
-			if user:
-				login(request, user)
-				if request.session.get('lastpage', False):
-					return redirect(request.session['lastpage'])
-				else:
-					return redirect(reverse('home'))
+		new_user = MyUser()
+		count=True
+		while (count == True):
+			try:
+				falsename = MyUser.objects.get(username= o_screen_name)
+				o_screen_name = o_screen_name+'weibo'
+			except:
+				count = False
+		new_user.username = o_screen_name
+		new_user.set_password("wutong")
+		new_user.thirdicon = o_profile_image_url
+		new_user.save()
+		loguser = WeiboUser()
+		loguser.user = new_user
+		loguser.weiboid = o_id
+		loguser.weiboname = o_screen_name
+		loguser.iconaddress = o_profile_image_url
+		loguser.logpassword = "wutong"
+		loguser.save()
+		user = authenticate(username=o_screen_name, password="wutong")
+		if user:
+			login(request, user)
+			if request.session.get('lastpage', False):
+				return redirect(request.session['lastpage'])
 			else:
-				return redirect(reverse('register'))
-		if form.is_valid():
-			human = True
-			username = form.cleaned_data['username']
-			password = form.cleaned_data['password']
-			user = authenticate(username=username, password=password)
-			if user is not None:
-				loguser = WeiboUser()
-				loguser.user = user
-				loguser.weiboid = o_id
-				loguser.weiboname = o_screen_name
-				loguser.iconaddress = o_profile_image_url
-				loguser.logpassword = password
-				loguser.save()
-				print "loguser.save()"
-				login(request, user)
-				if request.POST.get('checkbox'):
-					request.session.set_expiry(1209600*2)
-				if request.session.get('lastpage', False):
-					return redirect(request.session['lastpage'])
-				else:
-					return redirect('home')
-			else:
-				messages.error(request, '用户名与密码不匹配，请重新输入！')
-	context = {
-		"form": form,
-		"action_url": action_url,
-		"submit_btn": "关联已有账户",
-		"o_screen_name": o_screen_name,
-		"o_profile_image_url": o_profile_image_url,
-		"o_id": o_id,
-		"screen_name": screen_name,
-		"weiboid": weiboid,
-		"profile_image_url": profile_image_url,
-		}
-	return render(request, 'logginthird.html',  context)
+				return redirect(reverse('home'))
+		else:
+			return redirect(reverse('register'))
 
 import urllib
 import urllib2
 def logginweixin(request):
-	if request.GET.get('username'):
-		form = LoginForm(request.GET)
-	else:
-		form = LoginForm(None)
 	try:
 		CODE = request.GET.get('code')
 		url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx59a3f67caac61d02&secret=25fdbdc3e5ae5327111c97bba099ba28&code="+CODE+"&grant_type=authorization_code"
@@ -354,8 +310,6 @@ def logginweixin(request):
 		user = authenticate(username=loguser.user.username, password=loguser.logpassword)
 		if user is not None:
 			login(request, user)
-			if request.POST.get('checkbox'):
-				request.session.set_expiry(1209600*2)
 			if request.session.get('lastpage', False):
 				return redirect(request.session['lastpage'])
 			else:
@@ -364,67 +318,34 @@ def logginweixin(request):
 			return redirect(reverse("thirdfirstloggin", kwargs={"user_id": loguser.user.id}))
 
 	except:
-		if str(request.GET.get('log')) == "directly-login":
-			new_user = MyUser()
-			count=True
-			while (count == True):
-				try:
-					falsename = MyUser.objects.get(username= o_screen_name)
-					o_screen_name = o_screen_name+'weixin'
-				except:
-					count = False
-			new_user.username = o_screen_name
-			new_user.set_password("wutong")
-			new_user.thirdicon = o_profile_image_url
-			new_user.save()
-			loguser = WeixinUser()
-			loguser.user = new_user
-			loguser.weixinid = o_id
-			loguser.weixinname = o_screen_name
-			loguser.iconaddress = o_profile_image_url
-			loguser.logpassword = "wutong"
-			loguser.save()
-			user = authenticate(username=o_screen_name, password="wutong")
-			if user:
-				login(request, user)
-				if request.session.get('lastpage', False):
-					return redirect(request.session['lastpage'])
-				else:
-					return redirect(reverse('home'))
+		new_user = MyUser()
+		count=True
+		while (count == True):
+			try:
+				falsename = MyUser.objects.get(username= o_screen_name)
+				o_screen_name = o_screen_name+'weixin'
+			except:
+				count = False
+		new_user.username = o_screen_name
+		new_user.set_password("wutong")
+		new_user.thirdicon = o_profile_image_url
+		new_user.save()
+		loguser = WeixinUser()
+		loguser.user = new_user
+		loguser.weixinid = o_id
+		loguser.weixinname = o_screen_name
+		loguser.iconaddress = o_profile_image_url
+		loguser.logpassword = "wutong"
+		loguser.save()
+		user = authenticate(username=o_screen_name, password="wutong")
+		if user:
+			login(request, user)
+			if request.session.get('lastpage', False):
+				return redirect(request.session['lastpage'])
 			else:
-				return redirect(reverse('register'))
-		if form.is_valid():
-			human = True
-			username = form.cleaned_data['username']
-			password = form.cleaned_data['password']
-			user = authenticate(username=username, password=password)
-			if user is not None:
-				loguser = WeixinUser()
-				loguser.user = user
-				loguser.weixinid = o_id
-				loguser.weixinname = o_screen_name
-				loguser.iconaddress = o_profile_image_url
-				loguser.logpassword = password
-				loguser.save()
-				print "loguser.save()"
-				login(request, user)
-				if request.POST.get('checkbox'):
-					request.session.set_expiry(1209600*2)
-				if request.session.get('lastpage', False):
-					return redirect(request.session['lastpage'])
-				else:
-					return redirect('home')
-			else:
-				messages.error(request, '用户名与密码不匹配，请重新输入！')
-	context = {
-		"form": form,
-		"action_url": action_url,
-		"submit_btn": "关联已有账户",
-		"o_screen_name": o_screen_name,
-		"o_profile_image_url": o_profile_image_url,
-		"o_id": o_id,
-		}
-	return render(request, 'logginweixin.html',  context)
+				return redirect(reverse('home'))
+		else:
+			return redirect(reverse('register'))
 
 
 
@@ -441,6 +362,18 @@ def userlogout(request):
 def register(request):
 	form = RegisterForm(request.POST or None)
 	action_url = reverse("register")
+
+        weixinurl = "https://open.weixin.qq.com/connect/qrconnect?appid=wx59a3f67caac61d02&redirect_uri=http://www.wutongnews.com/user/loggin/weixin&response_type=code&scope=snsapi_login&state=STATE#wechat_redirect"
+
+        weixinurlgongzhong = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx59a3f67caac61d02&redirect_uri=http://www.wutongnews.com/user/loggin/weixin&response_type=code&scope=snsapi_login&state=STATE#wechat_redirect"
+
+
+        APP_KEY = '2155349390' # app key
+        APP_SECRET = 'bf5f82094e791b582ffb3489dcfa8a96' # app secret
+        CALLBACK_URL = 'http://www.wutongnews.com/user/loggin/third'
+        client = APIClient(app_key=APP_KEY, app_secret=APP_SECRET, redirect_uri=CALLBACK_URL)
+        url = client.get_authorize_url()
+
 	if form.is_valid():
 		human = True
 		username = request.POST.get('username')
@@ -463,6 +396,10 @@ def register(request):
 		"form": form,
 		"action_url": action_url,
 		"submit_btn": "注册",
+                "url": url,
+                "weixinurl": weixinurl,
+                "weixinurlgongzhong": weixinurlgongzhong,
+
 		}
 	return render(request, 'register.html',  context)
 
@@ -644,12 +581,8 @@ def weiboconnection(request):
 		profile_image_url = client.users.show.get(uid=uid)['profile_image_url']
 		try:
 			weibouser = WeiboUser.objects.get(weiboid = weiboid)
-			isweibouser = True
+			weibouser.delete()
 		except:
-			isweibouser = False
-		if isweibouser:
-			raise Http404("微博帐号已经关联别的帐号")
-		else:
 			pass
 		loguser = WeiboUser()
 		loguser.user = request.user
@@ -697,16 +630,12 @@ def weixinconnection(request):
 		unionid = str(json.loads(infores)['unionid'])
 		try:
 			weixinuser = WeixinUser.objects.get(weixinid = unionid)
-			isweixinuser = True
+			weixinuser.delete()
 		except:
-			isweixinuser = False
-		if isweixinuser:
-			raise Http404("微信帐号已经关联别的帐号")
-		else:
 			pass
 		loguser = WeixinUser()
 		loguser.user = request.user
-		loguser.weixinid = unionid
+		loguser.weixinid = unionid 
 		loguser.weixinname = nickname
 		loguser.iconaddress = headimgurl
 		# loguser.logpassword = "wutong"
@@ -746,7 +675,7 @@ def userdashboardcomments(request, user_id):
 			host = False
 			hostname = '他的'
 		user = MyUser.objects.get(pk=user_id)
-		comment = user.comment_set.all().filter(parent = None) 
+		comment = user.comment_set.all() 
 		# 分页
 		paginator = Paginator(comment, 10)
 		page = request.GET.get('page')
@@ -780,7 +709,7 @@ def userdashboardnotifications(request, user_id):
 		else:
 			host = False
 			hostname = '他的'
-		notifications = Notification.objects.filter(recipient = user).exclude(verb = '_@_').order_by("-timestamp")
+		notifications = Notification.objects.filter(recipient = user).order_by("-timestamp")
 		# 分页
 		paginator = Paginator(notifications, 10)
 		page = request.GET.get('page')
@@ -851,7 +780,8 @@ def privcynotifications(request, user_id):
 
 			except:
 				traceback.print_exc()
-			return redirect(request.get_full_path())
+			return redirect(reverse("user_detailnotifications", kwargs={"user_id": sender.id}))
+
 
 		context = {
 			'userofinfor': user,

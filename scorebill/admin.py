@@ -5,6 +5,6 @@ from .models import Scorebill
 
 # Register your models here.
 class ScorebillAdmin(admin.ModelAdmin):
-	list_display = ('id', 'user', 'score', 'plus', 'way')
+	list_display = ('id', 'user', 'score', 'plus', 'way', 'timestamp')
 
 admin.site.register(Scorebill, ScorebillAdmin)
