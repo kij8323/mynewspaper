@@ -6,6 +6,9 @@
 <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
 <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
 <script src="/static/js/jquerypage.js"></script>
+<link rel="stylesheet" href="/static/css/loaders.min.css">
+<script src="/static/js/topic_detail.js"></script>
+
 
 <script>/*回复文章*/
 $(function() {
@@ -407,18 +410,42 @@ $(document).ready(function(){
 });
 </script>
 
+
 <script type="text/javascript">
 window.onload=function(){ 
     $('#topicdetailpage').load('{% url 'topicdetailpage' topic.id %}');
     $('#topiccommentpage').load('{% url 'topiccommentpage' topic.id %}');
-     $.getScript("http://v3.jiathis.com/code/jia.js"); 
-  }; 
+ }
+</script>
+
+
+<script>/*订阅*/
+$(function() {
+ $("body").on("click", '.btn-subscription', function(){
+    $.ajaxSetup({
+    data: {csrfmiddlewaretoken: '{{ csrf_token }}', 
+          userid: {{topic.writer.id}},
+          },
+          });
+    $.ajax({
+        url: "{% url 'dosubscription' %}",
+        type: "post",
+        dataType: 'json',
+        success: function(data) {
+              $(".btn-subscription").text("已关注")
+          },
+          error: function(data) { 
+               },
+          });
+  })
+})
 </script>
 
 {% endblock %}
 
 
  {% block content %}
+
 
 
 <!-- Modal4 -->
@@ -524,6 +551,7 @@ window.onload=function(){
 
 <div class="col-sm-8">
 
+
 <div id="article">
   <div class="article-head">
  <h3 class="t-h1">{{topic.title}}</h3>
@@ -552,10 +580,11 @@ window.onload=function(){
 <div class="article-img-box">
 </div>
 
+{% if not topic.ifvideo %}
 <div id="topicdetailpage">
- <img src="/static/media/images/usericon/wutongloading.gif"  style= "margin:30px 48% 30px" alt="" />
+ <img id="loadinggif" src="/static/media/images/usericon/wutongloading.gif"  style= "margin:30px 48% 30px" alt="" />
 </div>
-
+{% endif %}
 
 
 
@@ -658,7 +687,7 @@ window.onload=function(){
 
 
 <div id="topiccommentpage">
- <img src="/static/media/images/usericon/wutongloading.gif"  style= "margin:30px 48% 30px" alt="" />
+ <img id="loadinggif" src="/static/media/images/usericon/wutongloading.gif"  style= "margin:30px 48% 30px" alt="" />
 </div>
 
 
@@ -694,9 +723,21 @@ window.onload=function(){
 
     </div>
     <div class="newtopicuser">
-    <button type="button" class="btn btn-success btn-messages newtopicuser" data-toggle="modal" data-target="#myModal4">
+    <button type="button" class="btn btn-sm btn-success btn-messages newtopicuser" data-toggle="modal" data-target="#myModal4">
     <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> 给作者发私信
     </button>
+
+    {% if subscription %}
+      <button type="button" class="btn btn-warning btn-sm" style = "margin-top:10px;">
+      已关注
+      </button>
+    {% else %}
+      <button type="button" class="btn btn-warning btn-subscription btn-sm"  style = "margin-top:10px;">
+      +关注
+      </button>
+    {% endif %}
+
+
     </div>
   </div>
 
@@ -722,5 +763,6 @@ window.onload=function(){
 </div><!-- <div id='rightstableblock'> -->
 </div><!-- <div class="col-sm-3"> -->
 </div><!-- <div class="container"> -->
+<script src="http://v3.jiathis.com/code/jia.js"></script>
  {% endblock %}
  

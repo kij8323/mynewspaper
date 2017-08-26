@@ -1,6 +1,3 @@
-body{
-	background-color: #f0f4fb;
-}
 .container-user{
 	/*margin-top: 30px;*/
 /*	width: 1194px;*/
@@ -145,8 +142,8 @@ margin-bottom: 20px;
 	height: 200px;
 }
 
-.btn-messages{
-	width: 150px;
+.btn-messages,.btn-subscription{
+	width: 120px;
 }
 
 
@@ -226,16 +223,49 @@ white-space:nowrap;
 overflow:auto;
 }
 
+.modal.msg-popup .modal-body{
+	white-space: normal ;
+}
 
+
+ #myModal9 .modal-dialog{
+width: 800px !important;
+}
 
 
 .container-user .dashboard h4{
 	margin: 6px 0px 6px 0px;
 }
 
-.container-user .dashboard .iconline .glyphicon-chevron-right{
+.container-user .dashboard .iconline .glyphicon-menu-right{
 	float: right;
 	margin-top: 8px;
 	margin-bottom: 8px;
-	color: #999;
+}
+
+
+.oneicon{
+	width: 20px;
+	height: 20px;
+}
+
+
+#onebillpage .table>tbody>tr>th, #onebillpage .table>thead>tr>th{
+	text-align: center;
+
+}
+
+#onebillpage .table>thead>tr>th:first-child, #onebillpage .table>tbody>tr>th:first-child {
+text-align: left;
+}
+
+
+
+#scorerankpage .table>tbody>tr>th, #scorerankpage .table>thead>tr>th{
+	text-align: center;
+
+}
+
+#scorerankpage .table>thead>tr>th:first-child, #scorerankpage .table>tbody>tr>th:first-child {
+text-align: left;
 }

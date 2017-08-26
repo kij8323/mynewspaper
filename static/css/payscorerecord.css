@@ -770,11 +770,8 @@ margin-bottom: 15px;
 }
 
 .hotnewsblock{
-	background-color: #fafafa;
-	padding: 26px 15px 20px 15px; 
+	padding: 0px 15px 20px 15px; 
 	margin-bottom: 20px;
-	margin-top: 24px;
-	/*margin-left: 60px;*/
 }
 
 .hotnewsblock table img{
@@ -782,21 +779,18 @@ margin-bottom: 15px;
 }
 
 .head{
-	font-size: 24px;
+	font-size: 18px;
 	margin-bottom: 0px;
 	color: #999;
 	vertical-align:middle;
 }
 
 .shu-mark{
-	background-color: #5fb760;
 	color: #5fb760;
-	/*margin-right: 10px;*/
-	border-top: solid 2px #5fb760;
-	border-bottom: solid 2px #5fb760;
-	/*border-radius: 6px;*/
-	left: -14px;
-	position: relative;
+	font-size: 20px;
+	margin-left: 6px;
+	margin-right: 10px;
+
 }
 
 .hotnews td{

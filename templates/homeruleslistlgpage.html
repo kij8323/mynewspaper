@@ -1,0 +1,43 @@
+{% load time_filter %}
+{% block HeadDoc %}
+<script>
+$.fn.ruleslistimgsizeFunction = function() { 
+  width = $(this).css('width');
+  x = (parseFloat(width)*0.636)
+  return  $(this).css('height',x+'px');
+}
+</script>
+
+
+<script>
+$(function(){ 
+  $('.rules-list  img').ruleslistimgsizeFunction();
+}); 
+</script>
+
+<script>
+$(window).resize(function(){
+   $('.rules-list  img').ruleslistimgsizeFunction();
+});
+</script>
+
+{% endblock %}
+
+{% block content %}
+<div class="row">
+<div class="rules-list">
+
+  {% for item in coverarticle %}
+  <div class="col-sm-4 rules-list-bottom">
+             <a href="{{item.get_absolute_url}}" style="display:block;">
+              <img src="{{item.get_image_url}}" >
+              <div class="rules-list-title">
+            {{item.title}}
+            </div>
+             </a>
+  </div>
+  {% endfor %}
+
+</div>
+</div>
+{% endblock %}

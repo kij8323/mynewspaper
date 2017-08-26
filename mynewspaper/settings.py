@@ -62,7 +62,7 @@ INSTALLED_APPS = (
     'judgement',
     'scorebill',
     'finance',
-
+    'discovery',
 )
 
 

@@ -1,0 +1,189 @@
+{% load time_filter %}
+{% block HeadDoc %}
+<script>/*加载更多*/
+$(function() {
+  var cur_page_num = 1;
+ $("body").on("click", '#morecomment-btn-block', function(){
+  $(this).text("加载更多......")
+    var $elements = $('.newsblock');
+    var homearticlelen = $elements.length;
+
+  /*  alert(homearticlelen)*/
+    $.ajaxSetup({
+    data: {csrfmiddlewaretoken: '{{ csrf_token }}', 
+           homearticlelen: homearticlelen,
+          },
+          });
+
+    $.ajax({
+        url: "{% url 'morearticlexshome' %}",
+        type: "post",
+        success: function(data) {
+        cur_page_num=cur_page_num+1;         
+        /*alert(cur_page_num);  */         
+        var newnode=document.createElement("div");             
+        newnode.setAttribute("class", "container-fluid grid");            
+        newnode.setAttribute("id","new"+String(cur_page_num));           
+        document.getElementById("morecomment").appendChild(newnode); 
+        $('#new'+String(cur_page_num)).load('{% url 'articlepagexshome' %}');
+        $('#morecomment-btn-block').html(data.loadcompleted) 
+        scrollposition = $('.update-list').scrollLeft()
+        scrollposition = parseFloat(scrollposition) + 268
+      $('.update-list').animate({scrollLeft: scrollposition+'px'}, 800); 
+
+          },
+          error: function(data) { 
+              alert("Got an error dude");
+          }
+    });
+  })
+})
+</script>
+
+<style type="text/css">
+#morecomment, .container-fluid{
+    display: inline-block;
+  position: relative;
+  vertical-align: top;
+}
+</style>
+
+
+{% endblock %}
+
+{% block content %}
+<div class="row">
+<div class="update-list">
+        {% for item in queryset %}
+        <div class="update-list-block newsblock">
+          <div class="update-information">
+
+
+              {% if item.topic %}
+              <div class="group-list-content-img" data-image-url="{{item.topic.content|getimg}}" style="background-image: url({{item.topic.content|getimg}});">
+{% if item.topic.ifvideo %}
+<span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span>
+{% endif %}
+</div>
+              <div class="update-information-content">
+
+                  <a href="{{item.topic.writer.get_absolute_url}}">
+                   <img  class="topicusericon" src='{{item.topic.writer.get_image_url}}'>
+                    </a>
+
+                <span class="writer"><a href="{{item.topic.writer.get_absolute_url}}">{{item.topic.writer}}</a></span>
+                <span class="nomline">发布了话题:</span>
+                <div class="update-topic"><a href="{{item.topic.get_absolute_url}}">{{item.topic.title}}</a></div>
+              </div>
+                <div class="posttime">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</div>
+        
+
+
+              {% elif item.comment.topic %}
+              <div class="group-list-content-img" data-image-url="{{item.comment.topic.content|getimg}}" style="background-image: url({{item.comment.topic.content|getimg}});">
+{% if item.comment.topic.ifvideo %}
+<span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span>
+{% endif %}
+</div>
+              <div class="update-information-content">
+                  <span class="writerinfor">
+                  <a href="{{item.comment.user.get_absolute_url}}">
+                   <img  class="topicusericon" src='{{item.comment.user.get_image_url}}'>
+                    </a>
+
+                <span class="writer"><a href="{{item.comment.user.get_absolute_url}}">{{item.comment.user}}</a></span>
+                <span class="nomline">评论了话题:</span>
+                </span>
+                <div class="update-topic"><a href="{{item.comment.topic.get_absolute_url}}">{{item.comment.topic.title}}</a></div>
+                <div class="update-comment"><a href="{{item.comment.get_absolute_url}}">{{item.comment.text|safe}}</a></div>
+              </div>
+                <div class="posttime">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</div>
+
+
+
+              {% elif item.comment.products %}
+              <div class="products-list-content-img" data-image-url="{{item.comment.products.get_image_url}}" style="background-image: url({{item.comment.products.get_image_url}});"></div>
+              <div class="update-information-content">
+                  <span class="writerinfor">
+                   <a href="{{item.comment.user.get_absolute_url}}">
+                   <img  class="topicusericon" src='{{item.comment.user.get_image_url}}'>
+                    </a>
+
+
+                <span class="writer"><a href="{{item.comment.user.get_absolute_url}}">{{item.comment.user}}</a></span>
+                <span class="nomline">评论了试用产品:</span>
+                </span>
+                <div class="update-topic"><a href="{{item.comment.products.get_absolute_url}}">{{item.comment.products.title}}</a></div>
+                <div class="update-comment">{{item.comment.text|safe}}</div>
+              </div>
+                <div class="posttime">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</div>
+
+
+
+              {% elif item.payscore %}
+              <div class="products-list-content-img" data-image-url="{{item.payscore.products.get_image_url}}" style="background-image: url({{item.payscore.products.get_image_url}});"></div>
+              <div class="update-information-content">
+
+                   <a href="{{item.payscore.user.get_absolute_url}}">
+                   <img  class="topicusericon" src='{{item.payscore.user.get_image_url}}'>
+                    </a>
+                <span class="writer"><a href="{{item.payscore.user.get_absolute_url}}">{{item.payscore.user}}</a></span>
+                <span class="nomline">拍出积分
+                  <i class="score-topic"></i>
+                  {{item.payscore.payscore}}
+                </span>
+                <div class="update-topic"><a href="{{item.payscore.products.get_absolute_url}}">{{item.payscore.products.title}}</a></div>
+              </div>
+                <div class="posttime">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</div>
+
+
+
+              {% elif item.finance %}
+              <div class="products-list-content-img" data-image-url="{{item.finance.products.get_image_url}}" style="background-image: url({{item.finance.products.get_image_url}});"></div>
+              <div class="update-information-content">
+
+
+                   <a href="{{item.finance.user.get_absolute_url}}">
+                   <img  class="topicusericon" src='{{item.finance.user.get_image_url}}'>
+                    </a>
+                <span class="writer"><a href="{{item.finance.user.get_absolute_url}}">{{item.finance.user}}</a></span>
+                <span class="nomline">参与折扣试用
+                 <span class="glyphicon glyphicon-usd" style = "color: #ec971f;" aria-hidden="true"></span>
+                  {{item.finance.total_amount}}
+                </span>
+                <div class="update-topic"><a href="{{item.finance.products.get_absolute_url}}">{{item.finance.products.title}}</a></div>
+              </div>
+                <div class="posttime">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</div>
+
+
+
+
+              {% elif item.products %}
+
+              <div class="update-information-content-new">
+
+    {% if item.products.ifone and not item.products.ifapply  and not item.products.ifscore  %}
+    <span class="nomline" >新一期折扣试用已上线</span>
+    {% else %}
+    <span class="nomline" >新一期试用已上线</span>
+    {% endif %}
+
+                <div class="update-topic"><a href="{{item.products.get_absolute_url}}">{{item.products.title}}</a></div>
+
+              <div class="products-list-new-content-img" data-image-url="{{item.products.get_image_url}}" style="background-image: url({{item.products.get_image_url}});"></div>
+
+              </div>
+                <div class="posttime">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前 总限量:{{item.products.amount}}</div>
+
+              {% endif %}
+          </div>
+          </div>
+
+        {% endfor %}
+<div id="morecomment">
+</div>
+
+</div>
+</div>
+ <button  id="morecomment-btn-block" type="button" class='btn  btn-default btn-block' >加载更多</button> 
+{% endblock %}

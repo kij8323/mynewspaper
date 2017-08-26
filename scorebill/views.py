@@ -11,3 +11,11 @@ def scorebillpage(request, user_id):
 		'scorebill': scorebill,
 	}
 	return render(request, 'scorebillpage.html',  context)
+
+def scorerankpage(request):
+	scorerank = MyUser.objects.exclude(pk=53).exclude(pk=519).order_by('-score')[0:10]
+
+	context = {
+		'scorerank': scorerank,
+	}
+	return render(request, 'scorerankpage.html',  context)

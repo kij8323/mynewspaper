@@ -1,0 +1,52 @@
+{% load time_filter %}
+{% block HeadDoc %}
+
+{% endblock %}
+
+{% block content %}
+<div class="row">
+<div class="comment-list">
+      {% for item in nicecomment %}
+          <div class="col-sm-3">
+            <div class="comment-information">
+
+              <div class="comment-information-left">
+               <a href="{{item.user.get_absolute_url}}">
+                <img class="commentusericon" src="{{item.user.get_image_url}}" >
+               </a>
+               <a href="{{item.user.get_absolute_url}}">
+               <div class="commentusername">{{item.user.username}}</div>
+               </a>
+               </div>
+
+            <div class="comment-information-right">
+            {% if item.topic %}
+              <a class="comment-title" href="{{item.topic.get_absolute_url}}">
+              {{item.topic.title}}
+              </a>
+
+
+              <a href="{{item.get_absolute_url}}">
+              <div class="comment-content">{{item.text|safe}}</div>
+              </a>
+            {% elif item.products %}
+              <a class="comment-title" href="{{item.products.get_absolute_url}}">
+              {{item.products.title}}
+              </a>
+              <!-- <a href="{{item.get_absolute_url}}"> -->
+              <div class="comment-content">{{item.text|safe}}</div>
+            <!--   </a> -->
+            {% endif %}
+<span class="posttime">
+  {% if item.score %}
+  <span style="margin-right:8px; color:#e48f15; font-size:11px;" class="glyphicon glyphicon-fire" aria-hidden="true"></span>
+  {% endif %}
+  {{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</span>
+
+            </div>
+            </div>
+          </div>
+      {% endfor %}
+</div>
+</div>
+{% endblock %}

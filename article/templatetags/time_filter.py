@@ -17,8 +17,22 @@ from company.models import Company
 from investment.models import Investment
 from products.models import Products, Application, Payscore
 from judgement.models import Instrument
+import time, datetime
+from datetime import timedelta 
 COMMENT_PERPAGE_COUNT = 12 #topic页面每页显示多少个评论
 #楼层计算器,topic评论的楼层计算
+
+@register.filter
+def discoveriftoday(value): 
+    value = str(value.replace(tzinfo=None)+timedelta(hours=8)).split()[0]
+    now = str(datetime.datetime.now()).split()[0]
+    if now == value :
+        iftoday = True
+    else:
+        iftoday = False
+    return iftoday
+
+
 @register.filter
 def pageaculate(value, arg): 
     return value + (arg-1)*COMMENT_PERPAGE_COUNT;
@@ -421,8 +435,25 @@ def highlight(value):
 #不能显示超过50个字符
 @register.filter
 def wordtwoline(value): 
-    if len(value) > 50:
-        return value[0:50]+'...'
+    if len(value) > 100:
+        return value[0:100]+'...'
     else:
         return value
+
+
+#删除html标签
+@register.filter
+def getimg(value): 
+    # dr = re.compile(r'<img src="(.+?\.jpg)"')
+    dr = re.compile(r'img.*?src="/static/media(.\S*?)"')
+    result = dr.findall(value)
+    if result:
+        return 'http://www.wutongnews.com/static/media' + result[0];
+    else:
+        dr = re.compile(r'img.*?src="(.\S*?)"')
+        result = dr.findall(value)
+        if result:
+            return result[0];
+        else:
+            False
 

@@ -525,3 +525,7 @@ background-color: rgb(72,130,74) !important;
   color: #fff;
 }
 
+
+.paginator_first{
+	width: 68px;
+}

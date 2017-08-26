@@ -1,6 +1,6 @@
 #coding=utf-8
 from django.contrib import admin
-from .models import MyUser, UserProfile, Repassworduser, WeiboUser, WeixinUser
+from .models import MyUser, UserProfile, Repassworduser, WeiboUser, WeixinUser, Subscription
 # from .form import UserChangeForm, UserCreationForm
 # Register your models here.
 
@@ -24,6 +24,10 @@ class WeiboUserAdmin(admin.ModelAdmin):
 class WeixinUserAdmin(admin.ModelAdmin):
 	list_display = ('id', 'user', 'weixinid', 'timestamp')
 
+class SubscriptionAdmin(admin.ModelAdmin):
+	list_display = ('id', 'host', 'fans', 'timestamp')
+
+
 admin.site.register(MyUser, MyUserAdmin)
 admin.site.register(UserProfile, UserProfileAdmin)
 admin.site.register(Repassworduser, RepassworduserAdmin)
@@ -31,3 +35,5 @@ admin.site.register(Repassworduser, RepassworduserAdmin)
 admin.site.register(WeiboUser, WeiboUserAdmin)
 
 admin.site.register(WeixinUser, WeixinUserAdmin)
+
+admin.site.register(Subscription, SubscriptionAdmin)

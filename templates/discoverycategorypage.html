@@ -1,0 +1,131 @@
+
+{% load time_filter %}
+{% block HeadDoc %}
+<link href="/static/css/discovery.css" rel="stylesheet">
+
+
+
+
+
+
+<script>
+$.fn.imgsizeFunction = function() { 
+  width = $(this).css('width');
+  x = (parseFloat(width)*0.622)
+  return  $(this).css('height',x+'px');
+}
+</script>
+
+<script>
+$(function(){ 
+  $('.discovery-block-img').imgsizeFunction();
+}); 
+</script>
+
+<script>
+$(window).resize(function(){
+  $('.discovery-block-img').imgsizeFunction();
+});
+</script>
+
+
+<script>
+$(function(){ 
+  width = $(".discovery-block").css('width');
+  $(".discovery-block .issue").css('width',parseFloat(width)+'px');
+
+}); 
+</script>
+
+<script>
+$(window).resize(function(){
+  width = $(".discovery-block").css('width');
+  $(".discovery-block .issue").css('width',parseFloat(width)+'px');
+
+});
+</script>
+
+
+
+
+
+
+
+<script>
+$(function(){ 
+
+  $('.rtotopsctoll').click(function(){
+  $('html,body').animate({scrollTop: '0px'}, 800);}); 
+
+});
+</script>
+
+
+
+{% endblock %}
+
+ {% block content %}
+
+
+      {% for item in discovery %}
+      <div class="col-sm-3">
+        <div class="discovery-block">
+          <a class="discovery-link" href="{{item.addr}}"  target="_blank">
+
+            {% if item.timestamp|discoveriftoday %}
+            <span class="mark today-mark">当日</span>
+            {% endif %}
+
+        <div class="discovery-block-img" data-image-url="{{item.get_image_url}}" style="background-image: url({{item.get_image_url}});">
+        <div class="issue">
+          <span>{{ item.title }}</span>
+        </div>
+        </div>
+        <div class="discovery-infor">
+          <div class="discovery-infor-icon">
+            <img src="{{item.host.get_image_url}}">
+          </div>
+          <div class="discovery-host-title">
+            {{ item.host.title }}
+          </div>
+          <div class="discovery-followinfor">
+
+
+<!--              <div>
+            {{ item.count }}
+            </div> -->
+
+
+            <div style="overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient:vertical;">
+            {{ item.infor }} <i>
+            {% if item.price == '暂无价格' %}
+            {% else %}
+            ·</i> {{ item.price }} <i>
+            {% endif %}
+	·</i> {{ item.amount }}
+            </div>
+
+            <div style="overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient:vertical;">
+            {{ item.count }}
+            </div>
+
+            <div>
+
+
+            </div>
+          </div>
+          <div class="discovery-check">查看</div>
+        </div>
+        </div>
+        </a>
+      </div>
+      {% endfor %}
+
+
+
+ {% endblock %}
+ 
+
+
+
+

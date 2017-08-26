@@ -462,7 +462,7 @@ $(document).ready(function(){
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">一元购</h4>
+        <h4 class="modal-title" id="myModalLabel"></h4>
       </div>
       <div class="modal-body">
 
@@ -571,19 +571,19 @@ $(document).ready(function(){
                 {% endif %}
         </div>
         <div class='small_try_info' style="border-left: 1px dashed #ddd;">
-          <div>一元限量: {{products.oneamount}}</div>
-          <div>当前人次: {{products.one}}</div>
+          <div>折扣限量: {{products.oneamount}}</div>
+          <div>剩余: {{products.one}}</div>
 
                 {% if products.status = 1 %}
                       {% if user.is_authenticated %}
                       {% if products.ifone %}
-                            <button type="button" class="btn btn-one" id='applyone-small'>一元购</button>
+                            <button type="button" class="btn btn-one" id='applyone-small'>折扣结算</button>
                       {% else %}
-                            <button type="button" class="btn" >一元购</button>
+                            <button type="button" class="btn" >折扣结算</button>
                       {% endif %}
 
                       {% else %}
-                      <button type="button" class="btn btn-one" onclick="window.location.href='{% url 'loggin' %}'" >一元购</button>
+                      <button type="button" class="btn btn-one" onclick="window.location.href='{% url 'loggin' %}'" >折扣结算</button>
                       {% endif %}
                 {% elif products.status = 2 %}
                           <button type="button" class="btn btn-warning " >已结束</button>
@@ -726,20 +726,20 @@ $(document).ready(function(){
 
 <div class="products-score col-sm-3">
 <div class="products-one-block">
-             <p><div class="glyphicon glyphicon-usd" aria-hidden="true"></div></p><p>一元购限量:<span>{{products.oneamount}}份</span></p>
-                <p><div class="glyphicon glyphicon-list-alt" aria-hidden="true"></div></p><p>当前人次:<span>{{products.one}}人次</span> </p>
+             <p><div class="glyphicon glyphicon-usd" aria-hidden="true"></div></p><p>折扣试用限量:<span>{{products.oneamount}}份</span></p>
+                <p><div class="glyphicon glyphicon-list-alt" aria-hidden="true"></div></p><p>剩余:<span>{{products.one}}人次</span> </p>
               <div class="apply-bottom">
 
                 {% if products.status = 1 %}
                       {% if user.is_authenticated %}
                       {% if products.ifone %}
-                            <button type="button" class="btn btn-one" id='applyone'>一元购</button>
+                            <button type="button" class="btn btn-one" id='applyone'>折扣结算</button>
                       {% else %}
-                            <button type="button" class="btn" >一元购</button>
+                            <button type="button" class="btn" >折扣结算</button>
                       {% endif %}
 
                       {% else %}
-                      <button type="button" class="btn btn-one" onclick="window.location.href='{% url 'loggin' %}'" >一元购</button>
+                      <button type="button" class="btn btn-one" onclick="window.location.href='{% url 'loggin' %}'" >折扣结算</button>
                       {% endif %}
                 {% elif products.status = 2 %}
                           <button type="button" class="btn btn-warning " >已结束</button>
@@ -762,7 +762,7 @@ $(document).ready(function(){
 				  <ul class=" rightblock">
               <li class="presentationw1" role="presentation"><a href="{% url 'products_detail' products.id %}">商品详情</a></li>
 
-              <li class="presentationw5" role="presentation"><a href="{% url 'productsone' products.id %}">一元购记录({{products.one}})</a></li>
+              <li class="presentationw5" role="presentation"><a href="{% url 'productsone' products.id %}">折扣试用({{products.one}})</a></li>
 
 
               <li class="presentationw4" role="presentation"><a href="{% url 'payscorerecord' products.id %}">积分记录({{products.id|products_payscore_count}})</a></li>

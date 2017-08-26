@@ -1,0 +1,273 @@
+body {
+background-color: #f0f0f0;
+}
+
+#rightsidebar{
+	position: fixed;
+	bottom: 68px;
+	right: 0;
+	list-style-type:none;
+	z-index: 2;
+	text-align: center;
+	filter:alpha(opacity=70); /*IE滤镜，透明度50%*/
+	-moz-opacity:0.7; /*Firefox私有，透明度50%*/
+	opacity:0.7;/*其他，透明度50%*/
+}
+
+.barcomment, .rtotopsctoll{
+	background-color: #67CA87;
+	color: black;
+	width: 39px;
+	height: 39px;
+	margin-bottom: 16px;
+	text-align: center;
+}
+
+
+.rtotopsctoll em {
+	border-left: 2px solid #fff;
+	border-bottom: 2px solid #fff;
+	display: inline-block;
+	margin: 16px 0 0 1px;
+	width: 12px;
+	height: 12px;
+	-webkit-transform: rotate(135deg);
+	transform: rotate(135deg);	
+}
+
+.rtotopsctoll{
+	display:none;
+}
+
+.dataupdate{
+	text-align: center;
+	margin-bottom: 30px;
+	margin-top: 13px;
+	color: gray;
+	font-size: 15px;
+}
+
+.discovery-block{
+	background-color: #fff;
+/*	height: 384px;*/
+}
+
+.discovery-block-img{
+width: 100%;
+background-repeat: no-repeat;
+background-size: cover;
+background-position: center center;
+border-bottom: 1px solid #f5f5f5;
+}
+
+
+.discovery-block .issue {
+display: block;
+position: absolute;
+top: 0;
+left: 0;
+/*width: 255px;*/
+padding: 10px 8px 88px 8px;
+text-align: center;
+color: #fff;
+height: 21px;
+margin: 0 15px 0 15px;
+
+}
+
+.discovery-block  .issue::before {
+background-image: linear-gradient(rgba(0, 0, 0, 0.4), transparent);
+content: "";
+position: absolute;
+top: 0;
+bottom: 0;
+left: 0;
+right: 0;
+}
+
+.discovery-block  .issue span {
+position: relative;
+z-index: 2;
+overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient:vertical;
+}
+
+.discovery-infor-icon img{
+	width: 48px;
+	height: 48px;
+	border-radius: 5px;
+	margin-top: -24px;
+}
+
+.discovery-infor-icon{
+	text-align: center;
+}
+
+.discovery-host-title{
+	text-align: center;
+	padding: 10px 0 10px 0;
+	font-weight: bold;
+	font-size: 15px;
+	color: #333;
+	height: 41px;
+
+}
+
+.discovery-block a
+{
+	text-decoration:none
+}
+
+.discovery-block .discovery-followinfor {
+font-size: 12px;
+padding: 10px  15px 20px 15px;
+color: #999;
+text-align: center;
+/*height: 42px;*/
+height: 79px;
+/*line-height: 2;*/
+
+}
+
+
+.discovery-check {
+
+width: 100%;
+padding: 12px 0 13px 0;
+color: #24AA42;
+font-size: 14px;
+border-top: 1px solid #f5f5f5;
+background: #fff;
+-webkit-tap-highlight-color: transparent;
+text-align: center;
+margin-bottom: 30px;
+}
+
+
+#morecomment-btn-block{  /*v33*/
+	color: #449d44;
+	border: solid 1px #449d44;
+	width: 186px;
+	margin-left: auto;
+	margin-right: auto;
+	border-radius: 22px;
+}
+
+.container-fluid{
+	padding: 0px;
+}
+
+
+
+
+
+
+
+ul.discover-list-ul {
+text-align: center;
+padding: 0px;
+overflow: hidden;
+height: 300px;
+}
+
+
+.ulloadmusk{
+	height: 150px;
+	position: relative;
+	margin-top: -150px;
+	padding: 0 15px;
+}
+
+.ulloadmusk-head{
+	height: 23px;
+	background: -webkit-linear-gradient(top, rgba(255, 255, 255, 0), #f0f0f0);
+	filter: progid:DXImageTransform.Microsoft.gradient(startcolorstr=transprent, endcolorstr=#f0f0f0, gradientType=0);
+	-ms-filter: progid:DXImageTransform.Microsoft.gradient(startcolorstr=transprent, endcolorstr=#f0f0f0, gradientType=0);
+	background: #f0f0f0;
+	background: -moz-linear-gradient(top, rgba(255, 255, 255, 0), #f0f0f0);
+	background: -webkit-gradient(linear, 0 0, 0 bottom, from(rgba(255, 255, 255, 0)), to(#f0f0f0));
+}
+
+.ulloadmusk-content{
+	height: 127px;
+	background: #f0f0f0;
+	text-align: center;
+/*	padding: 15px;*/
+padding-top: 23px;
+}
+
+.load-txt{
+	margin-top: 15px;
+	display: block;
+}
+
+.load-sign{
+	width: 300px;
+	margin: auto;
+	cursor:pointer;
+}
+.glyphicon-chevron-down{
+	color: #5cb85c;
+}
+
+
+
+
+ul.discover-list-ul>li{
+	display: inline-block;
+	vertical-align: middle;
+	overflow: hidden;
+	position: relative;
+	text-align: center;
+	padding: 14px 10px;
+	width: 131px;
+	height: 150px;
+
+}
+
+
+.discover-detail-ul img{
+	width: 52px;
+	height: 52px;
+	border-radius: 50%;
+	font-size: 15px;
+}
+
+/*.discover-list-title{
+	font-size: 15px;
+	font-weight: bold;
+}*/
+
+
+.discover-detail-ul p{
+	font-size: 12px;
+	color: gray;
+overflow: hidden;
+text-overflow: ellipsis;
+display: -webkit-box;
+-webkit-line-clamp: 2;-webkit-box-orient:vertical;
+}
+
+.discover-detail-ul a{
+text-decoration:none
+}
+
+ul.discover-list-ul h5{
+text-align: center;
+padding: 0px;
+color: #333;
+}
+
+
+.mark {
+position: absolute;
+display: block;
+padding: 3px 8px;
+color: #fff;
+font-size: 12px;
+text-align: center;
+z-index: 11;
+}
+
+.today-mark {
+background-color: rgba(0,0,0,.5);
+}

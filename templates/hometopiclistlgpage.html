@@ -1,0 +1,84 @@
+{% load time_filter %}
+{% block HeadDoc %}
+
+<script>
+$.fn.groupinformationsizeFunction = function() { 
+  width = $('.group-list-block .group-list-content').css('width');
+  x = (parseFloat(width))
+  return  $(this).css('width',x+'px');
+}
+</script>
+
+<script>
+$(function(){ 
+  $('.group-list-block .group-information').groupinformationsizeFunction();
+}); 
+</script>
+
+<script>
+$(window).resize(function(){
+  $('.group-list-block .group-information').groupinformationsizeFunction();
+});
+</script>
+
+{% endblock %}
+
+{% block content %}
+<div class="row">
+<div class="group-list-block">
+ {% for item in topic %}
+ <div class="group-list  col-sm-3">
+<div class="group-list-content">
+{% if item.image %}
+<div class="group-list-content-img" data-image-url="{{item.get_image_url}}" style="background-image: url({{item.get_image_url}});"></div>
+{% elif item.imagesugg %}
+<div class="group-list-content-img" data-image-url="{{item.get_imagesugg_url}}" style="background-image: url({{item.get_imagesugg_url}});"></div>
+{% elif item.imagefst3 %}
+<div class="group-list-content-img" data-image-url="{{item.get_imagefst3_url}}" style="background-image: url({{item.get_imagefst3_url}});"></div>
+{% else %}
+<div class="group-list-content-img" data-image-url="{{item.content|getimg}}" style="background-image: url({{item.content|getimg}});"></div>
+{% endif %}
+
+{% if item.ifvideo %}
+<span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span>
+{% endif %}
+
+  <div class="group-list-content-title">
+   <a href="{{item.get_absolute_url}}" >
+   {{item.title}}
+   </a>
+   </div>
+<p class="group-list-content-smalltitle">{{item.content|delebq|wordtwoline|safe}}</p>
+</div><!-- <div class="group-list-content"> -->
+ <div class="group-information">
+  <a href="{{item.writer.get_absolute_url}}">
+ <img  class="topicusericon" src='{{item.writer.get_image_url}}'>
+  </a>
+ <span class='group-informatio-blank'>
+ <a class="group-information-writer" href="{{item.writer.get_absolute_url}}">
+{{item.writer}}
+ </a>
+ </span>
+<i>·</i>
+ <span class='group-informatio-blank'>
+ {{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month|time_blank_n}}前
+</span>
+<i>·</i>
+<span class='topic-reply'>
+<span class="glyphicon glyphicon-comment" aria-hidden="true" style="font-size:11px;"></span> <span>{{item.id|Topic_comment}}</span> 
+</span>  
+<i>·</i>
+<span><a href="{{item.group.get_absolute_url}}">{{item.group.title}}</a></span>
+ {% if item.score %}
+ <i>·</i>
+<i class="score-topic"></i>
+{% endif %}
+</div><!-- <div class="group-information"> -->
+<div style="clear:both;"></div> 
+</div> <!-- <div class="group-list"> -->
+ {% endfor %}
+ <div style="clear:both;"></div>
+ </div> <!-- <div class="group-list-block"> -->
+</div>
+
+{% endblock %}

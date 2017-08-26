@@ -54,14 +54,6 @@ $(function(){
 </script>
 
 
-<script>
-$.fn.widthsizeFunction = function() { 
-  width = $(this).css('width');
-  windowidth = parseFloat($(window).width())
-  x = (parseFloat(width)*1)-71;
-  return  $('.group-list-content').css('width',x+'px');
-}
-</script>
 
 <script>
 $.fn.jiangpaisizeFunction = function() { 
@@ -74,14 +66,12 @@ $.fn.jiangpaisizeFunction = function() {
 
 <script>
 $(function(){ 
-  $('.group-list').widthsizeFunction();
   $('.jifen-rank-content-ul li').jiangpaisizeFunction();
 }); 
 </script>
 
 <script>
 $(window).resize(function(){
-  $('.group-list').widthsizeFunction();
   $('.jifen-rank-content-ul li').jiangpaisizeFunction();
 });
 </script>
@@ -260,36 +250,36 @@ $(function() {
 </ul>
 
 
+<div class="group_detail-ul">
+<ul class="group-list-ul">
+<li class="group-detail-ul">
+  <a href="{% url 'group_all' %}"> 
+  <h3>全部</h3>
+  <p>都在这里</p>
+    <div class="group-detail-ul-img" data-image-url="http://www.wutongnews.com/static/media/images/usericon/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7_2017-07-20_%E4%B8%8B%E5%8D%8812.47.44.png" style="background-image: url(http://www.wutongnews.com/static/media/images/usericon/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7_2017-07-20_%E4%B8%8B%E5%8D%8812.47.44.png);"></div>
+  </a>
+</li>
+  {% for item in groupall %}
+<li class="group-detail-ul">
+  <a href="{{item.get_absolute_url}}"> 
+  <h3>{{item.title}}</h3>
+  <p>{{item.associatetitle}}</p>
+    <div class="group-detail-ul-img" data-image-url="{{item.get_absolute_url}}" style="background-image: url({{item.get_image_url}});"></div>
+  </a>
+</li>
+  {% endfor %}
+</ul>
+</div>
+
+
 
 <div class="container    group_detail_container">
 
-<div class="col-sm-9">
 
 
 
 
 
-<div class="cate-list-block hidden-xs">
-  <div class="cate-spec">
-  <a class="cate-link" href="/group/all/" >
-  <span class="glyphicon glyphicon-leaf" aria-hidden="true"></span>
-    <div class="cate-spec-name">全部</div>
-  </a>
-  </div>
-{% for item in groupall %}
-  <div class="cate-spec">
-{% if item.get_absolute_url  == group.get_absolute_url %}
-  <a class="cate-link" href="{{item.get_absolute_url}}" style="color: #67CA87;">
-  {% else %}
-  <a class="cate-link" href="{{item.get_absolute_url}}">
-{% endif %}
-  <span class="glyphicon {{item.glyphicon}}" aria-hidden="true"></span>
-    <div class="cate-spec-name">{{item.title}}</div>
-  </a>
-  </div>
-{% endfor %}
-  <div style="clear:both;"></div> 
-</div>
 
 
 
@@ -300,72 +290,7 @@ $(function() {
 
 
 
-</div><!-- class="col-sm-8" -->
 
-<div class="col-sm-3 hidden-xs">
-
-  <div class="per-info">
-    {% if user.is_authenticated %}
-    <img  class="per-info-icon img-circle" src='{{user.get_image_url}}'>
-    <div class="per-grou-info">
-      <div class="per-grou-info-username">
-        <a href="{{user.get_absolute_url}}">{{user.username}}</a>
-      </div>
-      <div class="per-grou-info-block">
-        <ul>
-          <li><div><a href="{% url 'user_userdashboardarticletopic' user.id %}">话题</a></div>{{user.id|topic_user_count}}</li>
-          <li class="midd-li"><div>积分</div>{{user.score}}</li>
-          <!-- <li>3<div>话题</div></li> -->
-        </ul>
-      </div>
-    </div>
-<!--     <img  class="per-info-icon img-circle" src='/static/images/78avatarbig.jpg'> -->
-    {% else %}
-    <img  class="per-info-icon img-circle" src='/static/media/images/78avatarbig.jpg'>
-    <div class="per-grou-info">
-      <div class="per-grou-info-username">
-        游客
-      </div>
-      <div class="per-grou-info-block">
-        <ul>
-          <li><div>话题</div>0</li>
-          <li class="midd-li"><div>积分</div>0</li>
-          <!-- <li>3<div>话题</div></li> -->
-        </ul>    
-      </div>
-    </div>
-
-    {% endif %}
-    <div style="clear:both;"></div>
-  </div>
-
-
-
-
-
-<div id='hotarticle'>
-  <div class="pull-left" >
-  <h4><b>热门话题</b></h4>
-  <span class="span-mark"></span>
-  </div>
-<div class="rightnewtpic">
-{% for item in hottopic %}
-<div class="rightitle">
-<a href="{{item.get_absolute_url}}">
-{{item.title}}
-</a>
-<!-- <span class='grayword'>
-({{item.id|Topic_comment}}回复)
-</span> -->
-<div class="hotopic-reply"><i class="hotopic-icon-reply"></i>{{item.id|Topic_comment}}</div>
-
-</div>
-{% endfor %}
-
-</div><!-- <div class="rightnewtpic"> -->
-</div>
-
-</div><!-- class="col-sm-4" -->
 
 </div><!-- class="container" -->
  {% endblock %}

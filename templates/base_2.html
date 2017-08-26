@@ -226,6 +226,8 @@ $(document).ready(function(){
 
             <li class="subcate hidden-xs"><a href="{% url 'group_all'  %}"><span class="glyphicon  glyphicon-leaf" aria-hidden="true"></span> 社区</a></li>
 
+            <li class="subcate hidden-xs"><a href="{% url 'discovery'  %}"><span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span> 发现</a></li>
+
           </ul>
 <div id='index_search'>
 <form class="navbar-form navbar-left" role="search" action="{% url 'index_search' %}" method="get">
@@ -245,6 +247,9 @@ $(document).ready(function(){
           <li class="subcate visible-xs-block"><a href="{% url 'home' %}">首页</a></li>
           <li class="subcate visible-xs-block"><a href="{% url 'productsall' %}">试用</a></li>
           <li class="subcate visible-xs-block"><a href="{% url 'group_all'  %}">社区</a></li>
+
+        <li class="subcate visible-xs-block"><a href="{% url 'discovery'  %}">发现</a></li>
+
         {% if user.is_authenticated %}
 
         <li class="subcate visible-xs-block"><a href="{{user.get_absolute_url}}">帐号</a></li>
@@ -293,13 +298,15 @@ $(document).ready(function(){
   <div class="footer" id="information">
 <div class='information'>
           <p>
-            <a href="{% url 'aboutus' %}" target="_blank">关于我们</a>
-            <a href="{% url 'contactus' %}" target="_blank">联系我们</a>
-             <a href="{% url 'joinus' %}" target="_blank">加入我们</a>
+
+            <a href="{% url 'aboutus' %}" target="_blank">关于</a>
+            <a href="{% url 'contactus' %}" target="_blank">联系</a>
+             <a href="{% url 'joinus' %}" target="_blank">加入</a>
           </p>
         <p>
-            <span>Copyright © 2016-2017 梧桐观点 - 北京星岸智能科技有限公司</span>
-            <a href="http://www.miibeian.gov.cn/" target="_blank">京ICP备16001752号-2</a>
+            <span> © 2016-2017 梧桐 - 星岸</span>
+                <i>·</i>
+            <a href="http://www.miibeian.gov.cn/" target="_blank">京ICP备16001752号</a>
           </p>
 </div>
     </div>

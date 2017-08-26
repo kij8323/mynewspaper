@@ -1,4 +1,3 @@
-
 .modal-mpen {
 	overflow: auto;
 	padding: 0 !important;
@@ -482,7 +481,7 @@ color: #A19F9F;
 
 h4 b{
 	color: #9e9e9e;
-	font-size: 20px;
+	font-size: 18px;
 }
 
 
@@ -800,7 +799,6 @@ a:hover{
 
 
 .per-info{  
-	background-color: #fafafa;
 	border-radius: 5px;
 	padding: 0px 25px 30px 25px;
 	margin-top: 37px;
@@ -905,7 +903,6 @@ height: 200px;
 
 
 #hotarticle{  /*v3*/
-	background-color:  #fafafa;
 	width: 100%;
 	margin-top: 30px;
 	padding: 25px 19px 0 25px;
@@ -913,6 +910,7 @@ height: 200px;
 
 #hotarticle h4{
 	margin-bottom: 19px;
+		margin-left: 10px;
 }
 
 
@@ -950,10 +948,10 @@ height: 200px;
 	background-color: #67CA87;
 	position: absolute;
 	z-index: 1;
-	height: 28px;
+	height: 20px;
 	line-height: 20px;
-	margin: -42px 0 0 -25px;
-	width: 4px;
+	margin: -38px 0 0 0;
+	width: 2px;
 }
 
 
@@ -987,15 +985,12 @@ margin-left: 0px;
 
 .overlay {
     background: white;
-    filter: alpha(opacity=50); /* IE的透明度 */
-    opacity: 0.5;  /* 透明度 */
     display: none;
     /*position: absolute;*/
     top: 0px;
     left: 0px;
     width: 100%;
     height: 100%;
-    z-index: 100; /* 此处的图层要大于页面 */
     text-align: center;
 }
 
@@ -1040,3 +1035,30 @@ margin-left: 0px;
 	text-overflow: ellipsis;
 	/*font-size: 16px;*/
 }
+
+
+ #morecomment-btn-block {
+width: 50%;
+color: #449d44;
+border: solid 1px #449d44;
+/*margin-bottom: 30px;*/
+margin: 50px auto auto auto;
+border-radius: 8px;
+}
+
+.container-fluid{
+	padding: 0px;
+}
+
+
+#loadingcover{
+width:100%;
+height:100%;
+position:absolute;
+text-align: center;
+background-color: white;
+z-index: 1;
+margin-top: -16px;
+opacity: 0.5;
+}
+

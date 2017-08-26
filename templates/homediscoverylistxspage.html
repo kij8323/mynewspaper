@@ -1,0 +1,102 @@
+{% load time_filter %}
+{% block HeadDoc %}
+
+
+
+<script>
+$.fn.discoverimgsizeFunction = function() { 
+  width = $(this).css('width');
+  x = (parseFloat(width)*0.622)
+  return  $(this).css('height',x+'px');
+}
+</script>
+
+<script>
+$(function(){ 
+  $('.discovery-block-img').discoverimgsizeFunction();
+}); 
+</script>
+
+<script>
+$(window).resize(function(){
+  $('.discovery-block-img').discoverimgsizeFunction();
+});
+</script>
+
+
+<script>
+$(function(){ 
+  width = $(".discovery-block").css('width');
+  $(".discovery-block .issue").css('width',parseFloat(width)-34+'px');
+
+}); 
+</script>
+
+<script>
+$(window).resize(function(){
+  width = $(".discovery-block").css('width');
+  $(".discovery-block .issue").css('width',parseFloat(width)-34+'px');
+
+});
+</script>
+{% endblock %}
+
+{% block content %}
+
+
+
+<div class="row">
+<div class="discovery-list">
+    {% for item in discovery %}
+      <div class="discovery-list-block">
+        <div class="discovery-block">
+          <a class="discovery-link" href="{{item.addr}}">
+            {% if item.timestamp|discoveriftoday %}
+            <span class="mark today-mark">当日</span>
+            {% endif %}
+
+
+        <div class="discovery-block-img" data-image-url="{{item.get_image_url}}" style="background-image: url({{item.get_image_url}});">
+        <div class="issue">
+          <span>{{ item.title }}</span>
+        </div>
+        </div>
+        <div class="discovery-infor">
+          <div class="discovery-infor-icon">
+            <img src="{{item.host.get_image_url}}">
+          </div>
+          <div class="discovery-host-title">
+            {{ item.host.title }}
+          </div>
+          <div class="discovery-followinfor">
+
+
+            <div style="overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient:vertical; white-space: normal;">
+            {{ item.infor }} <i>
+            {% if item.price == '暂无价格' %}
+            {% else %}
+            ·</i> {{ item.price }} <i>
+            {% endif %}
+	·</i> {{ item.amount }}
+            </div>
+
+            <div style="overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 1;-webkit-box-orient:vertical;">
+            {{ item.count }}
+            </div>
+
+            <div>
+
+
+            </div>
+          </div>
+          <div class="discovery-check">查看</div>
+        </div>
+        </div>
+        </a>
+      </div>
+    {% endfor %}
+</div><!-- discover-list -->
+</div><!-- row -->
+
+
+{% endblock %}

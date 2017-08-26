@@ -1,0 +1,236 @@
+{% load time_filter %}
+{% block HeadDoc %}
+<script>/*倒计时*/
+$(function(){ 
+    /*alert('ok')*/
+    $('.timer').each(function(){
+      var SysSecond; 
+      var InterValObj; 
+      var a = $(this).children(".products-time").text()
+      var node = $(this)
+      SysSecond = parseInt(a); 
+    /*  alert('x')*/
+     //将时间减去1秒，计算天、时、分、秒 
+     function SetRemainTime() { 
+      if (SysSecond > 0) { 
+       SysSecond = SysSecond - 1; 
+       var second = Math.floor(SysSecond % 60);             // 计算秒     
+       var minite = Math.floor((SysSecond / 60) % 60);      //计算分 
+       var hour = Math.floor((SysSecond / 3600) % 24);      //计算小时 
+       var day = Math.floor((SysSecond / 3600) / 24);        //计算天 
+     
+       node.html('<span class="glyphicon glyphicon-time" aria-hidden="true"></span>：'+day + "天" + hour + "小时" + minite + "分" + second + "秒"); 
+      } else {//剩余时间小于或等于0的时候，就停止间隔函数 
+       window.clearInterval(InterValObj); 
+       //这里可以添加倒计时时间为0后需要执行的事件 
+      } 
+     } 
+
+     InterValObj = window.setInterval(SetRemainTime, 1000);
+    });
+}); 
+</script>
+
+
+<script>
+$.fn.imgsizeFunction = function() { 
+  width = $(this).css('width');
+  x = (parseFloat(width)*0.636)
+  return  $(this).css('height',x+'px');
+}
+</script>
+
+<script>
+$(function(){ 
+  $('.products-list .products-img a img').imgsizeFunction();
+}); 
+</script>
+
+<script>
+$(window).resize(function(){
+  $('.products-list .products-img a img').imgsizeFunction();
+});
+</script>
+
+<script>
+$(function(){ 
+  width = $(".products-list .products-information").css('width');
+  $(".products-list .timer-line").css('width',parseFloat(width)-34+'px');
+  $(".products-list .timer").css('width',parseFloat(width)-34+'px');
+}); 
+</script>
+
+<script>
+$(window).resize(function(){
+  width = $(".products-list .products-information").css('width');
+  $(".products-list .timer-line").css('width',parseFloat(width)-34+'px');
+  $(".products-list .timer").css('width',parseFloat(width)-34+'px');
+});
+</script>
+
+
+
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+$(".products-list .products-hover-box").mouseenter(function(){
+      $(this).animate({scrollTop: '120px'}, 200);
+  });
+  $(".products-list .products-hover-box").mouseleave(function(){
+      $(this).animate({scrollTop: '0px'}, 200);
+  });
+});
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+<div class="products-list">
+    {% for item in hotry %}
+    <div class="col-sm-3">
+      <div class="products-information" >
+        <div class="products-img">
+          {% if item.status = 1 %}
+          <a href="{{item.get_absolute_url}}">
+            <img src="{{item.get_image_url}}">
+          </a>
+          {% endif %}
+          {% if item.status = 2 %}
+          <a href="{{item.get_apply_url}}">
+            <img src="{{item.get_image_url}}">
+          </a>
+          {% endif %}
+          {% if item.status = 3 %}
+          <a href="{{item.get_report_url}}">
+            <img src="{{item.get_image_url}}">
+          </a>
+          {% endif %}
+
+          {% if item.ifone and not item.ifapply  and not item.ifscore  %}
+              {% if item.status = 1 %}
+              <span class="mark apply-mark">折扣试用</span>
+              {% endif %}
+              {% if item.status = 2 %}
+              <span class="mark experience-mark">折扣试用</span>
+              {% endif %}
+              {% if item.status = 3 %}
+              <span class="mark end-mark">折扣试用</span>
+              {% endif %}
+
+          {% else %}  
+              {% if item.status = 1 %}
+              <span class="mark apply-mark">申请中</span>
+              {% endif %}
+              {% if item.status = 2 %}
+              <span class="mark experience-mark">体验中</span>
+              {% endif %}
+              {% if item.status = 3 %}
+              <span class="mark end-mark">已结束</span>
+              {% endif %}
+           {% endif %}
+
+
+          {% if item.ret_timesince_sec >= 0 %}
+          <div class="timer-line">
+          </div>
+          <div class="timer">
+            <div class="products-time">
+              {{ item.ret_timesince_sec}}
+            </div>          
+          </div>
+          {% else %}
+          {% endif %}
+
+<div class="products-hover-box">
+          <div class="products-title">
+          {% if item.status = 1 %}
+            {{ item.title}}
+          {% endif %}
+          {% if item.status = 2 %}
+            {{ item.title}}
+          {% endif %}
+          {% if item.status = 3 %}
+            {{ item.title}}
+          {% endif %}
+          </div> 
+          <div class="try-info">
+
+            <span class="amount">价格：<span class="applyNums-size">{{item.price}}</span></span>
+
+
+          {% if item.status != 1 %}
+            <span class="openprice">测评话题：{{item.reportnum}}</span>
+          {% else %}
+            <span class="applyNums">总限量：{{item.amount}}</span>
+          {% endif %}
+          </div> 
+
+
+        {% if item.ifapply %}
+        <div class="score-info">        
+        <span class="applyNums">申请人数: <span class="applyNums-size">{% if item.applyamountcount > 30 %}{{item.applyamountcount}}{% else %}{{item.id|products_applyamount_count}}{% endif %}</span></span>
+        <span class="amount">申请限量：{{item.tryamount}}</span>
+        </div> 
+        {% else %} 
+          <div class="score-info">
+            <span class="applyNums">申请人数: <span class="applyNums-size" style="text-decoration: line-through;">0</span></span>
+            <span class="amount">不参与申请</span>
+          </div> 
+        {% endif %}
+
+
+
+        {% if item.ifscore %}
+          <div class="score-info">
+            {% if item.status != 1 %}
+            <span class="applyNums">最终积分: <span class="applyNums-size">{{item.scoreing}}</span></span>
+             {% else %}            
+            <span class="applyNums">当前积分: <span class="applyNums-size">{{item.scoreing}}</span></span>             
+             {% endif %}
+            <span class="amount">积分拍限量：{{item.scoreamount}}</span>
+          </div> 
+        {% else %} 
+          <div class="score-info">
+            {% if item.status != 1 %}
+            <span class="applyNums">最终积分: <span class="applyNums-size" style="text-decoration: line-through;">0</span></span>
+             {% else %}            
+            <span class="applyNums">当前积分: <span class="applyNums-size" style="text-decoration: line-through;">0</span></span>             
+             {% endif %}
+            <span class="amount">不参与积分拍</span>
+          </div> 
+        {% endif %}
+
+
+
+        {% if item.ifone %}
+          <div class="score-info" style="margin-bottom: 10px;">
+            <!-- <span class="amount">数量：{{item.amount}}</span> -->
+            {% if item.status != 1 %}
+            <span class="applyNums">剩余：<span class="applyNums-size">{{item.one}}</span></span>
+             {% else %}            
+            <span class="applyNums">剩余: <span class="applyNums-size">{{item.one}}</span></span>             
+             {% endif %}
+            <span class="amount">折扣试用限量：{{item.oneamount}}</span>
+          </div> 
+        {% else %} 
+          <div class="score-info"  style="margin-bottom: 10px;">
+            <!-- <span class="amount">数量：{{item.amount}}</span> -->
+            {% if item.status != 1 %}
+            <span class="applyNums">剩余: <span class="applyNums-size" style="text-decoration: line-through;">0</span></span>
+             {% else %}            
+            <span class="applyNums">剩余: <span class="applyNums-size" style="text-decoration: line-through;">0</span></span>             
+             {% endif %}
+            <span class="amount">不参与折扣试用</span>
+          </div> 
+        {% endif %}
+
+</div><!-- <div class="products-hover-box"> -->
+
+        </div><!-- <div class="products-img"> -->
+      </div> <!-- <div class="products-information" > -->
+    </div><!-- <div class="col-sm-4"> -->
+    {% endfor %}
+</div><!-- products-list -->
+</div><!-- row -->
+{% endblock %}

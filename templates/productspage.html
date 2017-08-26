@@ -220,21 +220,21 @@ $(".products-hover-box").mouseenter(function(){
           <div class="score-info" style="margin-bottom: 10px;">
             <!-- <span class="amount">数量：{{item.amount}}</span> -->
             {% if item.status != 1 %}
-            <span class="applyNums">最终人次: <span class="applyNums-size">{{item.one}}</span></span>
+            <span class="applyNums">剩余: <span class="applyNums-size">{{item.one}}</span></span>
              {% else %}            
-            <span class="applyNums">当前人次: <span class="applyNums-size">{{item.one}}</span></span>             
+            <span class="applyNums">剩余: <span class="applyNums-size">{{item.one}}</span></span>             
              {% endif %}
-            <span class="amount">一元购限量：{{item.oneamount}}</span>
+            <span class="amount">折扣试用限量：{{item.oneamount}}</span>
           </div> 
         {% else %} 
           <div class="score-info" style="margin-bottom: 10px;">
             <!-- <span class="amount">数量：{{item.amount}}</span> -->
             {% if item.status != 1 %}
-            <span class="applyNums">最终人次: <span class="applyNums-size" style="text-decoration: line-through;">0</span></span>
+            <span class="applyNums">剩余: <span class="applyNums-size" style="text-decoration: line-through;">0</span></span>
              {% else %}            
-            <span class="applyNums">当前人次: <span class="applyNums-size" style="text-decoration: line-through;">0</span></span>             
+            <span class="applyNums">剩余: <span class="applyNums-size" style="text-decoration: line-through;">0</span></span>             
              {% endif %}
-            <span class="amount">不参与一元购</span>
+            <span class="amount">不参与折扣试用</span>
           </div> 
         {% endif %}
 

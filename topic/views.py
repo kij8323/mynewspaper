@@ -7,7 +7,7 @@ from .models import Daka,  Topiccommentreply,   Topicwritereply, Topicusercommen
 from django.contrib import messages
 from article.form import CommentForm
 from comment.models import Comment
-from accounts.models import MyUser
+from accounts.models import MyUser, Subscription
 import json
 from django.http import HttpResponse
 import traceback 
@@ -67,11 +67,11 @@ def grouplist(request):
 
 def groupallpage(request):
 
-    topic = Topic.objects.all().order_by("-updated").filter(savetext = False).exclude(group=11).exclude(group = 19).exclude(writer=54)
+    topic = Topic.objects.all().order_by("-id").filter(savetext = False).exclude(group=11).exclude(group = 19).exclude(writer=54)
     topicount = topic.count()
     topicstickied = Topic.objects.all().filter(group = 11)
     # 分页
-    paginator = Paginator(topic, 16)
+    paginator = Paginator(topic, 18)
     page = request.session['groupallpage']
     if page and int(page)>1:
             topicstickied = None
@@ -188,12 +188,12 @@ def groupdetailpage(request):
     	group_id = request.session['groupdetailid']
         group = Group.objects.get(pk=group_id)
 #               groupall = Group.objects.all().order_by("-topicount")
-        topic = group.topic_set.all().order_by("-updated").filter(savetext = False).exclude(group=11).exclude(writer=54)
+        topic = group.topic_set.all().order_by("-id").filter(savetext = False).exclude(group=11).exclude(writer=54)
         topicount = topic.count()
         managers = Groupmanager.objects.filter(group = group)
         topicstickied = Topic.objects.all().filter(group = 11)
         # 分页
-        paginator = Paginator(topic, 16)
+        paginator = Paginator(topic, 18)
         page = request.session['groupdetailpage']
         if page and int(page)>1:
                 topicstickied = None
@@ -247,7 +247,7 @@ def groupall_score(request):
                 topicount = topic.count()
 		topicstickied = Topic.objects.all().filter(group = 11)
                 # 分页
-                paginator = Paginator(topic, 16)
+                paginator = Paginator(topic, 18)
                 page = request.GET.get('page')
                 if page and int(page)>1:
                         topicstickied = None
@@ -312,7 +312,7 @@ def group_score(request, group_id):
 		managers = Groupmanager.objects.filter(group = group)
 		topicstickied = Topic.objects.all().filter(group = 11)
 		# 分页
-		paginator = Paginator(topic, 16)
+		paginator = Paginator(topic, 18)
 		page = request.GET.get('page')
 		if page and int(page)>1:
 			topicstickied = None
@@ -357,6 +357,14 @@ def topic_detail(request, topic_id):
 			host = True
 		else:
 			host = False
+
+		try:
+			subscription = Subscription.objects.get(host = user, fans = sender)
+			subscription = True
+		except:
+			subscription = False
+
+
 	except Topic.DoesNotExist:
 		raise Http404("Does not exist")
 
@@ -456,6 +464,7 @@ def topic_detail(request, topic_id):
 		'collection': collection,
 		'host': host,
 		'topiclike': topiclike,
+		"subscription": subscription,
 	}
 	#print "topic_detail"
 	return render(request, 'topic_detail.html',  context)
@@ -479,47 +488,64 @@ def topiccommentpage(request, topic_id):
 		topic = Topic.objects.get(pk=topic_id)
 	except Topic.DoesNotExist:
 		raise Http404("Does not exist")
-	comment = Comment.objects.filter(topic=topic).filter(parent=None).order_by('timestamp')
+	comment = Comment.objects.filter(topic=topic).filter(parent=None).order_by('-id')[0:15]
 	# 前三个回复是最热回复;  readers__gt=3 = readers 大于3
 	commentorderbyreaders = Comment.objects.filter(topic=topic).filter(parent=None).filter(readers__gt=TOPIC_DETAIL_HOTCOMMENT_READERSRANGE).order_by('-readers')[0:3]
 	#最新话题
-	# 分页
-	paginator = Paginator(comment, 12)
-	page =  request.session['topiccommentpage']
-	pagen = 1
-	print 'topiccommentpage'
-	try:
-		contacts = paginator.page(page)
-		pagen = page
-	except PageNotAnInteger:
-	# If page is not an integer, deliver first page.
-		contacts = paginator.page(1)
-		pagen = 1
-	except EmptyPage:
-	# If page is out of range (e.g. 9999), deliver last page of results.
-		contacts = paginator.page(paginator.num_pages)
-		pagen = paginator.num_pages
-
-	#如果页数大于1则不显示最热回复
 	ifhotcomment = True;
-	if page:
-		page = int(page)
-		if page > 1:
-			ifhotcomment = None;
+	if comment.count() > 10:
+		moercomment = True
 	else:
-		page = 1;
+		moercomment = False#链接最热回复和按时间排序的回复
 	context = {
 		"comment": comment,
-		'contacts': contacts,
+		'contacts': comment,
 		"commentorderbyreaders":commentorderbyreaders,#热门回复
 		"ifhotcomment": ifhotcomment,
-		'page': page,
-		'pagen': pagen,
 		"form": CommentForm,
+		"moercomment": moercomment,
+		'topic': topic,
 	}
 	return render(request, 'topiccommentpage.html',  context)
 
 
+#显示更多评论按钮
+def topicmorecomment(request):
+	try:
+		topicid = request.POST.get('topicid')
+		topic = Topic.objects.get(pk=topicid)
+		comment = Comment.objects.filter(topic=topic)
+	except topic.DoesNotExist:
+		raise Http404("topic does not exist")
+	if request.is_ajax():
+		request.session['commentlen'] = request.POST.get('commentlen')
+	if comment.count() == int(request.session['commentlen']):
+		loadcompleted = '已全部加载完成'
+	else:
+		loadcompleted = '点击加载更多'
+	data = {
+		'loadcompleted' : loadcompleted
+	}
+	json_data = json.dumps(data)
+	return HttpResponse(json_data, content_type='application/json')
+
+
+#加载更多评论的页面
+def topicmorecommentpage(request, topic_id):
+	try:
+		topic = Topic.objects.get(pk=topic_id)
+		comment = Comment.objects.filter(topic=topic)
+	except topic.DoesNotExist:
+		raise Http404("topic does not exist")
+	if request.session.get('commentlen', False):
+		commentlen = request.session['commentlen']
+	commentlen = int(commentlen)
+	comment = comment[commentlen:commentlen+5]
+	context = {
+		"contacts": comment,
+		"form": CommentForm,
+	}
+	return render(request, 'topicmorecommentpage.html',  context)
 
 
 

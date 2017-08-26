@@ -187,7 +187,7 @@ a:hover/*, .rightblock a:visited, .rightblock a:hover, .rightblock a:active*/{
 	color: #333;
 	margin-top: 0px;
 	margin-bottom: 0px;
-	line-height: 1.3;
+	line-height: 1.5;
 }
 
 .associatetitle{
@@ -314,9 +314,8 @@ color: #999;
 
 /*v1*/
 .head{
-	font-size: 21px;
+	font-size: 18px;
 	margin-bottom: 0px;
-	color: #999;
 	vertical-align:middle;
 }
 
@@ -433,10 +432,9 @@ color: #999;
 
 /*v1*/
  .nicecommentblock, .hotopicblock, .hotnewsblock, .programshow, .shequpro{
-	background-color: #fafafa;
-	padding: 26px 15px 20px 15px; 
+	padding: 0px 15px 20px 15px; 
 	margin-bottom: 20px;
-	/*margin-left: 60px;*/
+
 }
 
 
@@ -893,7 +891,7 @@ border: 3px solid #eee;
 	line-height: 25px;
 	color: black;
 	display: inline;
-	font-size: 16px;
+	font-size: 14px;
 }
 
 .commentline0{
@@ -959,15 +957,18 @@ margin-right: 5px;
 
 /*v1*/
 .shu-mark{
-	background-color: #5fb760;
 	color: #5fb760;
-	/*margin-right: 10px;*/
-	border-top: solid 2px #5fb760;
-	border-bottom: solid 2px #5fb760;
-	/*border-radius: 6px;*/
-	left: -14px;
-	position: relative;
+	font-size: 20px;
+	margin-left: 6px;
+	margin-right: 10px;
 }
+
+.shu-mark-comment{
+	color: #5fb760;
+	font-size: 20px;
+	margin-right: 10px;
+}
+
 /*v1*/
 .usericon-nicecomment{
 	width: 25px;
@@ -1026,9 +1027,7 @@ margin-right: 5px;
 .hotryshow{
 
 	margin-bottom: 20px;
-	background-color: #fafafa;
 	padding-bottom: 35px;
-	padding-top: 15px;
 	}
 
 
@@ -1053,8 +1052,8 @@ margin-right: 5px;
 
 /*	border: solid 2px white;*/
 	text-align: center;
-	color: #999;
-	font-size: 21px;
+	color: #333;
+	font-size: 18px;
 }
 
 .glyphicon-chevron-right-hotryshow{
@@ -1106,7 +1105,6 @@ width: 100%;
 padding: 16px 16px 0px 16px;
 line-height: 24px;
 font-size: 14px;
-font-weight: bold;
 text-overflow: -o-ellipsis-lastline;
 overflow: hidden;
 text-overflow: ellipsis;display: -webkit-box;
@@ -1583,7 +1581,7 @@ color: #67CA87;
 
 .topicblock-title{
 color: #898989;
-font-size: 22px;
+font-size: 18px;
 font-weight: normal;
 margin-bottom: 20px;
 }
@@ -1606,7 +1604,7 @@ margin-bottom: 20px;
 
 
 .leftcontainer h3{
-	font-size: 18px;
+	font-size: 16px;
 }
 
 
@@ -1619,9 +1617,9 @@ border-radius: 50%;
 }
 
 #carousel-example-generic .carousel-indicators .active {
-width: 12px;
+width: 7px;
 height: 7px;
-border-radius: 38%;
+border-radius: 50%;
 background-color: #5fb760;
 border-color: #5fb760;
 }
@@ -1672,7 +1670,7 @@ height: 23px;
 .jifen-rank-title{  /*v3*/
 	float: left;
 	width: 133px;
-	font-size: 20px;
+	font-size: 18px;
 	margin-top: -12px;
 	text-align: center;
 	margin-right: 11px;
@@ -1711,7 +1709,6 @@ height: 23px;
 }
 
 .jifen-rank-content{
-	background-color: #fafafa;
 /*	opacity: 0.06;*/
 /*	margin-top: 15px;*/
 
@@ -1754,9 +1751,8 @@ height: 23px;
 
 
 #cepingcount-block{  /*v3*/
-	background-color:  #fafafa;
 	width: 100%;
-	padding: 38px 25px 0 25px;
+	padding: 20px 25px 0 25px;
 	margin-bottom: 20px;
 }
 
@@ -1771,7 +1767,6 @@ height: 23px;
 	height: 28px;
 	background-repeat: no-repeat;
 	float: left;
-	margin-top: 4px;
 	margin-left: 6px;
 	display: inline;
 }
@@ -1806,7 +1801,7 @@ height: 23px;
 
 .jifen-rank-content-ul>li>.jifen-rank-name{
 	float: right;
-	font-size: 16px;
+	font-size: 14px;
 	/*color: #999;*/
 	margin-top: 4px;
 	/*width: 50%;*/

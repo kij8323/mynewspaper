@@ -31,7 +31,7 @@ class Group(models.Model):
 	#副标题
 	associatetitle = models.CharField(max_length=500, null=True, blank=True)
 	#文章图标
-	image = models.ImageField(upload_to='images/', null=True, blank=True)
+	image = models.ImageField(upload_to='images/group/', null=True, blank=True)
 	topicount = models.IntegerField(default=0)
 
 	#文章名称

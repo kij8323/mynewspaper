@@ -1,9 +1,5 @@
 {% load time_filter %}
 {% block HeadDoc %}
-<link href="/static/css/productsall.css" rel="stylesheet">
-<script src="/static/js/topic_detail.js"></script>
-
-<link rel="stylesheet" type="text/css" href="/static/css/smallscreenproductsall.css"  media="screen and (max-width: 768px)">
 
 
 
@@ -176,13 +172,13 @@ $(function(){
 
           {% if item.ifone and not item.ifapply  and not item.ifscore  %}
               {% if item.status = 1 %}
-              <span class="mark apply-mark">一元购</span>
+              <span class="mark apply-mark">折扣试用</span>
               {% endif %}
               {% if item.status = 2 %}
-              <span class="mark experience-mark">一元购</span>
+              <span class="mark experience-mark">折扣试用</span>
               {% endif %}
               {% if item.status = 3 %}
-              <span class="mark end-mark">一元购</span>
+              <span class="mark end-mark">折扣试用</span>
               {% endif %}
 
           {% else %}  
@@ -284,7 +280,7 @@ $(function(){
              {% else %}            
             <span class="applyNums">当前人次: <span class="applyNums-size">{{item.one}}</span></span>             
              {% endif %}
-            <span class="amount">一元购限量：{{item.oneamount}}</span>
+            <span class="amount">折扣试用限量：{{item.oneamount}}</span>
           </div> 
         {% else %} 
           <div class="score-info" style="margin-bottom: 10px;">
@@ -294,7 +290,7 @@ $(function(){
              {% else %}            
             <span class="applyNums">当前人次: <span class="applyNums-size" style="text-decoration: line-through;">0</span></span>             
              {% endif %}
-            <span class="amount">不参与一元购</span>
+            <span class="amount">不参与折扣试用</span>
           </div> 
         {% endif %}
 

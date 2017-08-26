@@ -1,0 +1,223 @@
+{% extends "base_1.html" %}
+{% load time_filter %}
+{% block HeadDoc %}
+<link href="/static/css/discovery.css" rel="stylesheet">
+
+
+
+
+
+
+<script>/*加载更多*/
+$(function() {
+  var cur_page_num = 1;
+ $("body").on("click", '#morecomment-btn-block', function(){
+    $(this).text("加载更多......")
+    var $elements = $('.discovery-block');
+    var discoverylen = $elements.length;
+    $.ajaxSetup({
+    data: {csrfmiddlewaretoken: '{{ csrf_token }}', 
+           discoverylen: discoverylen,
+          /* categorytitle: '{{categorytitle}}',*/
+          },
+          });
+
+    $.ajax({
+        url: "{% url 'morediscovery' %}",
+        type: "post",
+        success: function(data) {
+        cur_page_num=cur_page_num+1;                
+        var newnode=document.createElement("div");             
+        newnode.setAttribute("class", "container-fluid grid");            
+        newnode.setAttribute("id","new"+String(cur_page_num));           
+        document.getElementById("morecomment").appendChild(newnode); 
+
+        $('#new'+String(cur_page_num)).load('{% url 'discoverypage' %}');
+
+        $('#morecomment-btn-block').html(data.loadcompleted) 
+          },
+          error: function(data) { 
+              alert("Got an error dude");
+          }
+    });
+  })
+})
+</script>
+
+
+<script>
+$.fn.imgsizeFunction = function() { 
+  width = $(this).css('width');
+  x = (parseFloat(width)*0.622)
+  return  $(this).css('height',x+'px');
+}
+</script>
+
+<script>
+$(function(){ 
+  $('.discovery-block-img').imgsizeFunction();
+}); 
+</script>
+
+<script>
+$(window).resize(function(){
+  $('.discovery-block-img').imgsizeFunction();
+});
+</script>
+
+
+<script>
+$(function(){ 
+  width = $(".discovery-block").css('width');
+  $(".discovery-block .issue").css('width',parseFloat(width)+'px');
+
+}); 
+</script>
+
+<script>
+$(window).resize(function(){
+  width = $(".discovery-block").css('width');
+  $(".discovery-block .issue").css('width',parseFloat(width)+'px');
+
+});
+</script>
+
+
+
+
+
+
+
+<script>/*回到页面顶端*/
+$(function(){ 
+
+  $('.rtotopsctoll').click(function(){
+  $('html,body').animate({scrollTop: '0px'}, 800);}); 
+
+});
+</script>
+
+<script>/*展开*/
+$(function(){ 
+  $('.load-sign').click(function(){
+  $('ul.discover-list-ul').css({'height': 'auto'});
+  $('.ulloadmusk').css({'display': 'none'});
+  }); 
+});
+</script>
+
+{% endblock %}
+
+ {% block content %}
+
+<ul id="rightsidebar">
+<li class="rtotopsctoll">
+ <a href="javascript:void(0)"><em></em></a> 
+</li>
+
+</ul>
+
+    <div class="container discovery-container">
+
+<ul class="discover-list-ul">
+<li class="discover-detail-ul">
+  <a href="/discovery/"> 
+<img src="/static/media/images/usericon/Abstract_Tree_b7BJhdu.jpg">
+  <h5>全部</h5>
+  <p class="discover-detail-update"> {{jiguo.updated|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month|time_blank_n}}前更新</p>
+  </a>
+</li>
+  {% for item in discoveryhost %}
+<li class="discover-detail-ul">
+  <a href="{{item.get_absolute_url}}"> 
+  <img src="{{item.get_image_url}}">
+  <h5>{{item.title}}</h5>
+  <p class="discover-detail-update"> {{item.updated|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month|time_blank_n}}前更新</p>
+  </a>
+</li>
+  {% endfor %}
+</ul>
+
+<div class='ulloadmusk'>
+<div class='ulloadmusk-head' >
+</div>
+<div class='ulloadmusk-content' >
+  <div class="load-sign">
+    <span class="load-txt">展开更多</span>
+    <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+  </div>
+</div>
+</div>
+
+
+      {% for item in discovery %}
+      <div class="col-sm-3">
+        <div class="discovery-block">
+          <a class="discovery-link" href="{{item.addr}}"  target="_blank">
+
+            {% if item.timestamp|discoveriftoday %}
+            <span class="mark today-mark">当日</span>
+            {% endif %}
+
+        <div class="discovery-block-img" data-image-url="{{item.get_image_url}}" style="background-image: url({{item.get_image_url}});">
+        <div class="issue">
+          <span>{{ item.title }}</span>
+        </div>
+        </div>
+        <div class="discovery-infor">
+          <div class="discovery-infor-icon">
+            <img src="{{item.host.get_image_url}}">
+          </div>
+          <div class="discovery-host-title">
+            {{ item.host.title }}
+          </div>
+          <div class="discovery-followinfor">
+
+
+<!--              <div>
+            {{ item.count }}
+            </div> -->
+
+
+            <div style="overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient:vertical;">
+            {{ item.infor }} <i>
+            {% if item.price == '暂无价格' %}
+            {% else %}
+            ·</i> {{ item.price }} <i>
+            {% endif %}
+	·</i> {{ item.amount }}
+            </div>
+
+
+            <div style="overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 1;-webkit-box-orient:vertical;">
+            {{ item.count }}
+            </div>
+
+            <div>
+
+
+            </div>
+          </div>
+          <div class="discovery-check">查看</div>
+        </div>
+        </div>
+        </a>
+      </div>
+      {% endfor %}
+
+
+<div id="morecomment">
+</div>
+<div class="clearfix"></div>
+<div id="btn-div-block">
+ <button  id="morecomment-btn-block" type="button" class='btn btn-default btn-block' >加载更多</button> 
+</div>
+
+
+    </div> <!-- /container -->
+ {% endblock %}
+ 
+
+
+
+

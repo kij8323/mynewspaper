@@ -1,9 +1,6 @@
 {% load ckeditor_filter %}
 {% load time_filter %}
 {% block HeadDoc %}
-<link href="/static/css/group_detail.css" rel="stylesheet">
-<script src="/static/js/topic_detail.js"></script>
-
 
 <script>/*板块固定滚动,板块内width要定长*/
 $.fn.smartFloat = function() { 
@@ -54,14 +51,6 @@ $(function(){
 </script>
 
 
-<script>
-$.fn.widthsizeFunction = function() { 
-  width = $(this).css('width');
-  windowidth = parseFloat($(window).width())
-  x = (parseFloat(width)*1)-71;
-  return  $('.group-list-content').css('width',x+'px');
-}
-</script>
 
 <script>
 $.fn.jiangpaisizeFunction = function() { 
@@ -89,7 +78,6 @@ $.fn.rightblocksizeFunction = function() {
 <script>
 $(function(){ 
   $('.rightblock').rightblocksizeFunction();
-  $('.group-list').widthsizeFunction();
   $('.jifen-rank-content-ul li').jiangpaisizeFunction();
 }); 
 </script>
@@ -97,7 +85,6 @@ $(function(){
 <script>
 $(window).resize(function(){
   $('.rightblock').rightblocksizeFunction();
-  $('.group-list').widthsizeFunction();
   $('.jifen-rank-content-ul li').jiangpaisizeFunction();
 });
 </script>
@@ -189,214 +176,132 @@ $(window).resize(function(){
 
  {% block content %}
 
+<div class='paginationcontain'>
+<div class="pagination">
+    <span class="step-links">
+{% if topic.has_previous %}
+        <a class='paginator paginator_first' title='上一页' href='?page={{ topic.previous_page_number }}'><span>« 上一页</span></a>
+ {% else %}
+         <a class='paginator-none' style="color: #999;"  title='上一页' href=''><span>« 上一页</span></a>
+ {% endif %}
+
+<div class='pagination-group-title'>{{group.title}}</div>
+
+ {% if topic.has_next %}
+    <a class='paginator paginator_first' title='下一页' href='?page={{ topic.next_page_number }}'><span>下一页 »</span></a>
+ {% else %}
+    <a class='paginator-none' style="color: #999;"  title='下一页' href=''><span>下一页 »</span></a>   
+ {% endif %}
+    </span>
+</div><!-- <div class="pagination"> -->
+ </div>
+<div style="clear:both;"></div>
+
+
+
  <div class="group-list-block">
 
-<div class="menu">
-  <ul class=" rightblock">
-      <li class="presentationw1" role="presentation"><a href="javascript:void(0);">{{group.title}} ({{topicount}})</a></li>
-      <li class="presentationw2" role="presentation"><a href="{% url 'group_score' group.id %}"><i class="score-topic-score"></i>精华</a></li>
-    </ul>   
-    </div>
-{% for item in topicstickied %}
- <div class="group-list">
-<div class="group-list-usericon   ">  
-  <a href="{{item.writer.get_absolute_url}}">
- <img  class="commentusericon" src='{{item.writer.get_image_url}}'>
-  </a>
-</div>
 
-
-<div class="group-list-content">
- <a href="{{item.get_absolute_url}}">
- {{item.title}}
- </a>
-
- <span class='topic-page'>
-{% if item.id|topics_page_count %}
-[ {% for pageitem in item.id|topics_page_count %}  
-<a href="{{item.get_absolute_url}}?page={{ pageitem }}">
-{{ pageitem }}
-</a>
-{% endfor %} ]
-{% endif %}
-</span>
-
-<span class='zhiding'>置</span>
-
-
- {% if item.score %}
-<i class="score-topic"></i>
-{% endif %}
-
- <div class="group-information">
- <span class='group-informatio-blank'>
-<!--   <a href="{{item.writer.get_absolute_url}}">
- <img  class="commentusericon" src='{{item.writer.get_image_url}}'>
-  </a> -->
- <a class="group-information-writer" href="{{item.writer.get_absolute_url}}">
-{{item.writer}}
- </a>
- </span>
-
- <span class='group-informatio-blank'>
-
- {{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month|time_blank_n}}前
-
-</span>
-<!--  <span class='group-informatio-blank'>
-回复数:{{item.id|Topic_comment}}
-</span> -->
-
-{%  if item.id|Topic_comment %}
- <span class='group-informatio-blank hidden-xs'>
-<i class="icon icon-line"></i>
-{{item.lastcommentime.user}}回复于
-</span>
-
- <span class='group-informatio-blank hidden-xs'>
-{{item.lastcommentime.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month|time_blank_n}}前
-</span>
-{% endif %}
-
-<span class='topic-reply pull-right'>
-<i class="icon-reply"></i><span>{{item.id|Topic_comment}}</span> 
-</span>  
-
-</div>
-</div><!-- <div class="group-list-content"> -->
-<div style="clear:both;"></div> 
-</div>
- {% endfor %}
 
 
  {% for item in topic %}
- <div class="group-list">
-<div class="group-list-usericon ">  
+ <div class="group-list col-lg-4 col-md-4 col-sm-6 col-xs-12">
+
+<div class="group-list-content">
+
+{% if item.image %}
+  {% if item.ifvideo %}
+  <span class="vedio-sign"><span class="glyphicon glyphicon-play" aria-hidden="true" ></span> {{item.videotime}}</span>
+  {% endif %}
+<div class="group-list-content-img" data-image-url="{{item.get_image_url}}" style="background-image: url({{item.get_image_url}});"></div>
+{% elif item.imagesugg %}
+  {% if item.ifvideo %}
+  <span class="vedio-sign"><span class="glyphicon glyphicon-play" aria-hidden="true" ></span> {{item.videotime}}</span>
+  {% endif %}
+<div class="group-list-content-img" data-image-url="{{item.get_imagesugg_url}}" style="background-image: url({{item.get_imagesugg_url}});"></div>
+{% elif item.imagefst3 %}
+<div class="group-list-content-img" data-image-url="{{item.get_imagefst3_url}}" style="background-image: url({{item.get_imagefst3_url}});"></div>
+{% else %}
+<div class="group-list-content-img" data-image-url="{{item.content|getimg}}" style="background-image: url({{item.content|getimg}});"></div>
+{% endif %}
+
+{% if item.ifvideo %}
+<span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span>
+{% endif %}
+
+
+  <div class="group-list-content-title">
+   <a href="{{item.get_absolute_url}}" >
+   {{item.title}}
+   </a>
+   </div>
+
+<p class="group-list-content-smalltitle">{{item.content|delebq|wordtwoline|safe}}</p>
+
+</div><!-- <div class="group-list-content"> -->
+
+ <div class="group-information">
+
   <a href="{{item.writer.get_absolute_url}}">
  <img  class="commentusericon" src='{{item.writer.get_image_url}}'>
   </a>
-</div>
-
-
-<div class="group-list-content">
- <a href="{{item.get_absolute_url}}">
- {{item.title}}
- </a>
-
- <span class='topic-page'>
-{% if item.id|topics_page_count %}
-[ {% for pageitem in item.id|topics_page_count %}  
-<a href="{{item.get_absolute_url}}?page={{ pageitem }}">
-{{ pageitem }}
-</a>
-{% endfor %} ]
-{% endif %}
-</span>
- 
-
- {% if item.score %}
-<i class="score-topic"></i>
-{% endif %}
-
-
-{% if item.img1 %}
-<div class='img3 visible-xs-block'>
-<img  class="img1-imagefst1" src='{{item.get_imagefst3_url}}'>
-</div>
-<div class='img3 hidden-xs'>
-<img  class="img1-imagefst3" src='{{item.get_imagefst3_url}}'>
-<img  class="img1-imagescd3" src='{{item.get_imagescd3_url}}'>
-<img  class="img1-imagethd3" src='{{item.get_imagethd3_url}}'>
-</div>
-<div style="clear:both;"></div> 
-{% endif %}
-
- <div class="group-information">
  <span class='group-informatio-blank'>
-<!--  	<a href="{{item.writer.get_absolute_url}}">
- <img  class="commentusericon" src='{{item.writer.get_image_url}}'>
-  </a> -->
  <a class="group-information-writer" href="{{item.writer.get_absolute_url}}">
 {{item.writer}}
  </a>
  </span>
+
+<i>·</i>
 
  <span class='group-informatio-blank'>
 
  {{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month|time_blank_n}}前
 
 </span>
-<!--  <span class='group-informatio-blank'>
-回复数:{{item.id|Topic_comment}}
-</span> -->
+<i>·</i>
 
-{%  if item.id|Topic_comment %}
+<span class='topic-reply'>
+<span class="glyphicon glyphicon-comment" aria-hidden="true" style="font-size:12px;"></span> <span>{{item.id|Topic_comment}}</span> 
+</span>  
+<i>·</i>
+<span><a href="{{item.group.get_absolute_url}}">{{item.group.title}}</a></span>
 
-<i class="icon icon-line  hidden-xs"></i>
-
-
- <span class='group-informatio-blank hidden-xs'>
-{{item.lastcommentime.user}}回复于
-</span>
-
- <span class='group-informatio-blank hidden-xs'>
-{{item.lastcommentime.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month|time_blank_n}}前
-</span>
+ {% if item.score %}
+ <i>·</i>
+<i class="score-topic"></i>
 {% endif %}
 
+</div><!-- <div class="group-information"> -->
 
 
-<i class="icon icon-line "></i>
-<span><span class="hidden-xs">来自：</span><a href="{{item.group.get_absolute_url}}">{{item.group.title}}</a>
-</span>
-
-
-
-<span class='topic-reply pull-right'>
-<i class="icon-reply"></i><span>{{item.id|Topic_comment}}</span> 
-</span> 
-
-
-
-</div>
-</div>
 <div style="clear:both;"></div> 
-</div>
+</div> <!-- <div class="group-list"> -->
+
  {% endfor %}
+
+<div style="clear:both;"></div>
+
  </div> <!-- <div class="group-list-block"> -->
 
 <div class='paginationcontain'>
 <div class="pagination">
     <span class="step-links">
 {% if topic.has_previous %}
-        <a class='paginator paginator_first' title='上一页' href='?page={{ topic.previous_page_number }}'><span>上一页</span></a>
+        <a class='paginator paginator_first' title='上一页' href='?page={{ topic.previous_page_number }}'><span>« 上一页</span></a>
+ {% else %}
+         <a class='paginator-none' style="color: #999;" title='上一页' href=''><span>« 上一页</span></a>
  {% endif %}
 
- 
- {% if ellipsis_front %}
-<a class='paginator' href='?page=1' title='1'><span>1</span></a>
- <div class='paginator'><span>...</span></div>
- {% endif %}
- {% for page in pagerange %}
-     {% if page = topic.number %}
-         <a class='paginator_current' title='当前页:{{ page }}'><span>{{ page }}</span></a>
-     {% else %}
-         <a class='paginator' href='?page={{ page }}' title='{{ page }}'><span>{{ page }}</span></a>
-     {% endif %}
- {% endfor %}
- {% if ellipsis_real %}
-<div class='paginator'><span>...</span></div>
-<a class='paginator' href='?page={{last_page}}' title='{{last_page}}'><span>{{last_page}}</span></a>
- {% endif %}
-
-
+<div class='pagination-group-title'>{{group.title}}</div>
 
  {% if topic.has_next %}
-    <a class='paginator paginator_first' title='下一页' href='?page={{ topic.next_page_number }}'><span>下一页</span></a>
+    <a class='paginator paginator_first' title='下一页' href='?page={{ topic.next_page_number }}'><span>下一页 »</span></a>
+ {% else %}
+    <a class='paginator-none' style="color: #999;" title='下一页' href=''><span>下一页 »</span></a> 
  {% endif %}
     </span>
 </div><!-- <div class="pagination"> -->
-</div>
+ </div>
 
 
  {% endblock %}

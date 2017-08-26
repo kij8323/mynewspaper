@@ -14,6 +14,9 @@ import sys
 from django.core.cache import cache
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from company.models import Company
+
+from discovery.models import Discovery, Discoveryhost
+
 from investment.models import Investment
 from products.models import Products, Application
 from updatenew.models import Updatenew
@@ -21,13 +24,13 @@ from judgement.models import Instrument
 from accounts.models import MyUser
 
 # Create your views here.
-ARTICLE_MAINPAGE_TIMERANGE = 8 #首页显示新闻数量
+ARTICLE_MAINPAGE_TIMERANGE = 4 #首页显示新闻数量
 ARTICLE_MAINPAGE_COVER_TIMERANGE = 15	#首页封面文章的发表时间范围
 TOPIC_MAINPAGE_COVER_TIMERANGE = 25 #争议话题的发表时间范围
-TOPIC_MAINPAGE_TIMERANGE = 15 #热门话题的时间范围
+TOPIC_MAINPAGE_TIMERANGE = 2 #热门话题的时间范围
 ARTICLE_MAINPAGE_HOT_TIMERANGE = 5 #一周新闻排行的时间范围
 COMMENT_MAINPAGE_TIMERANGE = 3 #精彩点评的时间范围
-HOTRY_MAINPAGE_RANGE = 3 #首页显示热门试用
+HOTRY_MAINPAGE_RANGE = 4 #首页显示热门试用
 ARTICLE_MAINPAGE_HOT_TODAY = 3 #48小时热门新闻
 
 
@@ -159,6 +162,7 @@ def home(request):
 
 
 	groupall = Group.objects.all().exclude(id=11)
+	jiguo = Discoveryhost.objects.get(id = 1)
 	context = {
 	'topicquery1' : topic[0:2],
 	'topicquery2' : topic[2:5],
@@ -177,9 +181,109 @@ def home(request):
 	'hotry':hotry,
 	'groupall': groupall,
 	'scorerank':scorerank,
+	"jiguo":jiguo,
 	}
-	return render(request, 'home.html', context)
+	return render(request, 'homenew.html', context)
 	#return render(request, 'home.html')
+
+
+def homediscoverylistlgpage(request):
+	discovery = Discovery.objects.all().filter(verify = True).order_by("-id")[0:4]
+	context = {
+	'discovery': discovery,
+	}
+	return render(request, 'homediscoverylistlgpage.html', context)
+
+def homediscoverylistxspage(request):
+	discovery = Discovery.objects.all().filter(verify = True).order_by("-id")[0:4]
+	context = {
+	'discovery': discovery,
+	}
+	return render(request, 'homediscoverylistxspage.html', context)
+
+
+
+
+def homeruleslistxspage(request):
+	coverarticle = Topic.objects.all().filter(cover = True).order_by("-id")[0:3]
+	context = {
+	'coverarticle': coverarticle,
+	}
+	return render(request, 'homeruleslistxspage.html', context)
+
+def homeruleslistlgpage(request):
+	coverarticle = Topic.objects.all().filter(cover = True).order_by("-id")[0:3]
+	context = {
+	'coverarticle': coverarticle,
+	}
+	return render(request, 'homeruleslistlgpage.html', context)
+
+
+def homeupdatelistxspage(request):
+	queryset = Updatenew.objects.all().order_by('-id')[0:ARTICLE_MAINPAGE_TIMERANGE]
+	context = {
+	'queryset': queryset,
+	}
+	return render(request, 'homeupdatelistxspage.html', context)
+
+def homeupdatelistlgpage(request):
+	queryset = Updatenew.objects.all().order_by('-id')[0:ARTICLE_MAINPAGE_TIMERANGE]
+	context = {
+	'queryset': queryset,
+	}
+	return render(request, 'homeupdatelistlgpage.html', context)
+
+
+def homecommentlistxspage(request):
+	nicecomment = Comment.objects.all().filter(timestamp__gte=datetime.date.today() - timedelta(days=COMMENT_MAINPAGE_TIMERANGE)).order_by("-readers")[0:4]
+	context = {
+	'nicecomment': nicecomment,
+	}
+	return render(request, 'homecommentlistxspage.html', context)
+
+
+def homecommentlistlgpage(request):
+	nicecomment = Comment.objects.all().filter(timestamp__gte=datetime.date.today() - timedelta(days=COMMENT_MAINPAGE_TIMERANGE)).order_by("-readers")[0:4]
+	context = {
+	'nicecomment': nicecomment,
+	}
+	return render(request, 'homecommentlistlgpage.html', context)
+
+
+def hometopiclistxspage(request):
+	topic = Topic.objects.all().filter(savetext = False).filter(timestamp__gte=datetime.date.today() - timedelta(days=TOPIC_MAINPAGE_TIMERANGE)).order_by("-readers")[0:5]
+	context = {
+	'topic': topic[0:4],
+	}
+	return render(request, 'hometopiclistxspage.html', context)
+
+
+def hometopiclistlgpage(request):
+	topic = Topic.objects.all().filter(savetext = False).filter(timestamp__gte=datetime.date.today() - timedelta(days=TOPIC_MAINPAGE_TIMERANGE)).order_by("-readers")[0:5]
+	context = {
+	'topic': topic[0:4],
+	}
+	return render(request, 'hometopiclistlgpage.html', context)
+
+
+
+def homeproductslistxspage(request):
+	hotry = Products.objects.filter(verify = True).order_by('-id')[0:HOTRY_MAINPAGE_RANGE]
+	context = {
+	'hotry': hotry,
+	}
+
+	return render(request, 'homeproductslistxspage.html', context)
+
+
+
+def homeproductslistlgpage(request):
+	hotry = Products.objects.filter(verify = True).order_by('-id')[0:HOTRY_MAINPAGE_RANGE]
+	context = {
+	'hotry': hotry,
+	}
+
+	return render(request, 'homeproductslistlgpage.html', context)
 
 def homepage(request):
 	queryset = Updatenew.objects.all().order_by('-id')[0:ARTICLE_MAINPAGE_TIMERANGE]
@@ -272,11 +376,55 @@ def articlepagehome(request):
 	homearticle = Updatenew.objects.all().order_by('-id')
 
 	homearticlelen = int(homearticlelen)
-	articlequery = homearticle[homearticlelen:homearticlelen+5]
+	articlequery = homearticle[homearticlelen:homearticlelen+4]
 	context = {
 		"articlequery": articlequery,
 	}
 	return render(request, 'articlepagehome.html',  context)
+
+
+
+#加载更多文按钮
+def morearticlexshome(request):
+	if request.is_ajax():
+		request.session['homearticlelen'] = request.POST.get('homearticlelen')
+		homearticlelen = int(request.session['homearticlelen'])
+
+		# v1
+		article = Updatenew.objects.all().order_by('-id')
+
+
+		#article = Article.objects.all().order_by('-id')
+		print request.session['homearticlelen']
+	if article.count() == homearticlelen:
+		loadcompleted = '已全部加载完成'
+	else:
+		loadcompleted = '加载更多'
+		print request.session['homearticlelen']
+	print loadcompleted
+	data = {
+		"loadcompleted": loadcompleted,
+	}
+	json_data = json.dumps(data)
+	return HttpResponse(json_data, content_type='application/json')
+
+#加载更多文章页
+def articlepagexshome(request):
+	if request.session.get('homearticlelen', False):
+		homearticlelen = request.session['homearticlelen']
+
+# v1
+	homearticle = Updatenew.objects.all().order_by('-id')
+
+	#homearticle = Article.objects.all().order_by('-id')
+	homearticlelen = int(homearticlelen)
+	print homearticlelen
+	articlequery = homearticle[homearticlelen:homearticlelen+4]
+	context = {
+		"articlequery": articlequery,
+	}
+	return render(request, 'articlepagexshome.html',  context)
+
 
 
 

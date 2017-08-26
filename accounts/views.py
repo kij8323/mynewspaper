@@ -4,7 +4,7 @@
 from django.shortcuts import render
 from .form import LoginForm, RegisterForm, RepasswordForm
 
-from .models import MyUser, MyUserIconForm, Repassworduser, WeiboUser, WeixinUser
+from .models import MyUser, MyUserIconForm, Repassworduser, WeiboUser, WeixinUser, Subscription
 
 from notifications.models import Notification
 # from comment.models import Comment
@@ -468,6 +468,12 @@ def userdashboardinformations(request, user_id):
 			weibousername = '--'
 			weiboset=False
 
+		try:
+			subscription = Subscription.objects.get(host = user, fans = sender)
+			subscription = True
+		except:
+			subscription = False
+
 
 		weixinurl = "https://open.weixin.qq.com/connect/qrconnect?appid=wx59a3f67caac61d02&redirect_uri=http://www.wutongnews.com/user/weixin/connection&response_type=code&scope=snsapi_login&state=STATE#wechat_redirect"
 
@@ -556,11 +562,73 @@ def userdashboardinformations(request, user_id):
 			'weixinurlgongzhong': weixinurlgongzhong,
 			'weixinurl': weixinurl,
 			"weibourl": weibourl,
+			"subscription": subscription,
 			#"action_url": action_url,
 			}
 	except MyUser.DoesNotExist:
 		raise Http404("MyUser does not exist")
 	return render(request, 'user_detailinformations.html',  context)
+
+
+#我的话题
+@login_required(login_url='/user/loggin/')
+def subscription(request, user_id):
+	try:
+		user = MyUser.objects.get(pk=user_id)
+		sender = request.user
+		if user == sender:
+			host = True
+			hostname = '我的'
+		else:
+			host = False
+			hostname = '他的'
+		subscription = Subscription.objects.filter(fans = user).order_by("-id")
+		# 分页
+		paginator = Paginator(subscription, 10)
+		page = request.GET.get('page')
+		try:
+			contacts = paginator.page(page)
+		except PageNotAnInteger:
+		# If page is not an integer, deliver first page.
+			contacts = paginator.page(1)
+		except EmptyPage:
+		# If page is out of range (e.g. 9999), deliver last page of results.
+			contacts = paginator.page(paginator.num_pages)
+		request.session['lastpage'] = request.get_full_path()
+		context = {
+			'subscription' : contacts,
+			'host': host,
+			'userofinfor': user,
+			'hostname': hostname,
+			}
+	except MyUser.DoesNotExist:
+		raise Http404("MyUser does not exist")
+	return render(request, 'user_userdashboardsubscription.html',  context)
+
+#ajax删除我的的评论，我的收藏....
+@login_required(login_url='/user/loggin/')
+def dosubscription(request):
+	try:
+
+		fans = request.user
+		userid = request.POST.get('userid')
+		host = MyUser.objects.get(id = int(userid))
+		try:
+			subscription = Subscription.objects.get(host = host, fans = fans)
+			pass
+		except:
+			subscription = Subscription(host = host, fans = fans)
+			instancesave.delay(subscription)
+
+			data = {
+				"test": 'test',
+			}
+			json_data = json.dumps(data)
+	except:
+		traceback.print_exc()
+	return HttpResponse(json_data, content_type='application/json')
+
+
 
 @login_required(login_url='/user/loggin/')
 def weiboconnection(request):
@@ -1106,6 +1174,7 @@ def deleteinfo(request):
 			'Topic': Topic,
 			'CollectionCompany': CollectionCompany,
 			'CollectionInvestment': CollectionInvestment,
+			'Subscription': Subscription,
 		}
 		instanceid = request.POST.get('instanceid')
 		instancetype = request.POST.get('instancetype')

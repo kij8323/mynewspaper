@@ -128,6 +128,15 @@ class MyUser(AbstractBaseUser):
 	# def get_absolute_url(self):
 	# 	return reverse('home')
 
+
+
+class  Subscription(models.Model):
+	host = models.ForeignKey(MyUser)
+	fans = models.ForeignKey(MyUser, related_name='fans')
+	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False, null=True)
+
+
+
 @receiver(pre_save, sender=MyUser)
 def scorebillsys(sender, **kwargs):
 	user = kwargs.pop("instance")

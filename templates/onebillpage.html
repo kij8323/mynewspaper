@@ -1,6 +1,58 @@
 {% load time_filter %}
 {% block HeadDoc %}
 
+<script type="text/javascript">
+$(function() {
+ $("body").on("click", '.refund', function(){
+
+ 	id = $(this).attr('id')
+ 	way = $(this).parent().attr("class")
+ 	if(way == 'alipay'){
+		    $.ajaxSetup({
+		    data: {csrfmiddlewaretoken: '{{ csrf_token }}', 
+		          financeid: id,
+		          },
+		          });
+		    $.ajax({
+		        url: "{% url 'alipayrefundfinance' %}",
+		        type: "post",
+		        dataType: 'json',
+		        success: function(data) {
+		        	if (data.msg == 'Success'){
+					    $.messager.popup("退款申请成功<br>退款将在24小时内返回您的账户!");
+					    $(".modal.msg-popup .modal-body").css({
+					        'color': '#449d44',
+					        "background-color":"#CCF4D9",
+					        });
+		        	}
+		        	else if (data.msg == 'Business Failed'){
+				    $.messager.popup("退款申请失败，请联系管理员！");
+				    $(".modal.msg-popup .modal-body").css({
+				        'color': '#a94442',
+				        "background-color":"#f2dede",
+				        });
+		        	}
+		        	else{
+				    $.messager.popup("退款申请失败，请联系管理员！");
+				    $(".modal.msg-popup .modal-body").css({
+				        'color': '#a94442',
+				        "background-color":"#f2dede",
+				        });
+		        	}
+		          },
+		          error: function(data) { 
+		               },
+		          });
+
+ 	}/*if*/
+ 	else {
+
+ 	}/*else*/
+
+  })
+})
+</script>
+
 {% endblock %}
 
 {% block content %}
@@ -10,20 +62,43 @@
           <th>订单号</th>
           <th>时间</th>
           <th>产品</th>
+          <th>退款</th>
         </tr>
       </thead>
 		<tbody>
 			{% if onebill %} 
 			{% for item in onebill %}
-			<tr onmouseover="this.style.cursor='pointer'" onclick="document.location='{{item.products.get_absolute_url}}';">
+			<tr>
 				<th>
 					{{item.out_trade_no|onebill}}
 				</th>
 				<td scope="row">
 					{{item.timestamp}}
 				</td>
-				<td scope="row">
+				<td scope="row" onmouseover="this.style.cursor='pointer'" onclick="document.location='{{item.products.get_absolute_url}}';">
 					{{item.products}}
+				</td>
+				<td scope="row" class='{{ item.way }}'>
+					{% if item.products.status == 1 %}
+						{% if  item.refund == True %}
+							<button type="button" class="btn btn-warning btn-sm" id="{{item.id}}" >
+							 已退
+							</button>
+						{% else %}
+							<button type="button" class="btn btn-success btn-sm refund" id="{{item.id}}" >
+							 申请
+							</button>
+						{% endif %}
+					{% else %}
+						<button type="button" class="btn  btn-sm" >
+						{% if  item.refund == True %}
+							已退
+						{% else %}
+						 	结束
+						 {% endif %}
+						</button>
+					{% endif %}
+
 				</td>
 			</tr>
 			{% endfor %}

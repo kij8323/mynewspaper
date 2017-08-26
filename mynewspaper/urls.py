@@ -26,6 +26,33 @@ urlpatterns = [
 
 
 
+    url(r'^home/morearticlexshome/$', 'mainpage.views.morearticlexshome', name='morearticlexshome'),#首页更多文章按钮ajax
+    url(r'^home/articlepagexshome/$', 'mainpage.views.articlepagexshome', name='articlepagexshome'),#首页更多文章加载页面
+
+
+    url(r'^home/products-list-xs-page/$', 'mainpage.views.homeproductslistxspage', name='homeproductslistxspage'),#搜索页面
+    url(r'^home/products-list-lg-page/$', 'mainpage.views.homeproductslistlgpage', name='homeproductslistlgpage'),#搜索页面
+
+    url(r'^home/topic-list-xs-page/$', 'mainpage.views.hometopiclistxspage', name='hometopiclistxspage'),#搜索页面
+    url(r'^home/topic-list-lg-page/$', 'mainpage.views.hometopiclistlgpage', name='hometopiclistlgpage'),#搜索页面
+
+    url(r'^home/comment-list-xs-page/$', 'mainpage.views.homecommentlistxspage', name='homecommentlistxspage'),#搜索页面
+    url(r'^home/comment-list-lg-page/$', 'mainpage.views.homecommentlistlgpage', name='homecommentlistlgpage'),#搜索页面
+
+    url(r'^home/update-list-xs-page/$', 'mainpage.views.homeupdatelistxspage', name='homeupdatelistxspage'),#搜索页面
+    url(r'^home/update-list-lg-page/$', 'mainpage.views.homeupdatelistlgpage', name='homeupdatelistlgpage'),#搜索页面
+
+    url(r'^home/rules-list-xs-page/$', 'mainpage.views.homeruleslistxspage', name='homeruleslistxspage'),#搜索页面
+    url(r'^home/rules-list-lg-page/$', 'mainpage.views.homeruleslistlgpage', name='homeruleslistlgpage'),#搜索页面
+
+
+    url(r'^home/discovery-list-lg-page/$', 'mainpage.views.homediscoverylistlgpage', name='homediscoverylistlgpage'),#搜索页面
+
+    url(r'^home/discovery-list-xs-page/$', 'mainpage.views.homediscoverylistxspage', name='homediscoverylistxspage'),#搜索页面
+
+
+
+
     url(r'^user/(?P<user_id>[0-9]+)/thirdfirstloggin', 'accounts.views.thirdfirstloggin', name='thirdfirstloggin'),
 
     url(r'^user/weixin/disconnection', 'accounts.views.disweixinconnection', name='disweixinconnection'),#已有帐号者的微信链接
@@ -63,6 +90,10 @@ urlpatterns = [
    url(r'^user/(?P<user_id>[0-9]+)/try/$', 'accounts.views.userdashboardtry', name='user_detailtry'),#个人试用
    url(r'^user/notificationsconversation/$', 'accounts.views.notificationsconversation', name='notificationsconversation'),#私信ajax
 
+    url(r'^user/(?P<user_id>[0-9]+)/subscription/$', 'accounts.views.subscription', name='user_subscription'),#个人试用
+    url(r'^user/dosubscription/$', 'accounts.views.dosubscription', name='dosubscription'),#个人试用
+
+
     url(r'^group/index/$', 'topic.views.group_index', name='group_index'),#不用
     url(r'^group/all/$', 'topic.views.group_all', name='group_all'),#话题组首页
     url(r'^group/(?P<group_id>[0-9]+)/$', 'topic.views.group_detail', name='group_detail'),#话题组页
@@ -77,6 +108,8 @@ urlpatterns = [
 
     url(r'^topicdetailpage/(?P<topic_id>[0-9]+)/$', 'topic.views.topicdetailpage', name='topicdetailpage'),#话题页
 
+
+
     url(r'^topic/(?P<topic_id>[0-9]+)/$', 'topic.views.topic_detail', name='topic_detail'),#话题页
     url(r'^topic/newtopic/$', 'topic.views.newtopic', name='newtopic'),#新建话题页
     url(r'^topic/topicomment/$', 'topic.views.topicomment', name='topicomment'),#发表话题评论页ajax
@@ -89,6 +122,8 @@ urlpatterns = [
     url(r'^topic/mobilenew/$', 'topic.views.mobilenew', name='mobilenew'),#编辑话题
     url(r'^topic/dianzan/$', 'topic.views.dianzan', name='topicdianzan'),#编辑话题
     url(r'^topic/daka/$', 'topic.views.daka', name='daka'),#编辑话题
+    url(r'^topic/morecomment/$', 'topic.views.topicmorecomment', name='topicmorecomment'),#文章页显示更多评论按钮
+    url(r'^topic/morecommentpage/(?P<topic_id>[0-9]+)/$', 'topic.views.topicmorecommentpage', name='topicmorecommentpage'),#文章页加载更多评论页面
 
 
 
@@ -172,6 +207,9 @@ urlpatterns = [
     url(r'^newinstru/$', 'judgement.views.newinstru', name='newinstru'),#
 
     url(r'^scorebillpage/(?P<user_id>[0-9]+)/$', 'scorebill.views.scorebillpage', name='scorebillpage'),#搜索页面
+
+    url(r'^scorerankpage/$', 'scorebill.views.scorerankpage', name='scorerankpage'),#搜索页面
+ 
     url(r'^onebillpage/(?P<user_id>[0-9]+)/$', 'finance.views.onebillpage', name='onebillpage'),#搜索页面
 
     url(r'^weixin/financegz/$', 'finance.views.weixinfinancegz', name='weixinfinancegz'),#
@@ -184,6 +222,112 @@ urlpatterns = [
     url(r'^alipay/notify/finance/$', 'finance.views.alipaynotifyfinance', name='alipaynotifyfinance'),#
     url(r'^alipay/gateway/finance/$', 'finance.views.alipaygatewayfinance', name='alipaygatewayfinance'),#
     url(r'^weixin/notify/finance/$', 'finance.views.weixinnotifyfinance', name='weixingnotifyfinance'),#
+
+
+    url(r'^alipay/refund/finance/$', 'finance.views.alipayrefundfinance', name='alipayrefundfinance'),#
+    url(r'^weixin/refund/finance/$', 'finance.views.weixinrefundfinance', name='weixinrefundfinance'),#
+
+
+    url(r'^discovery/updatediscoverytaihuoniao/$', 'discovery.views.updatediscoverytaihuoniao', name='updatediscoverytaihuoniao'),#
+    url(r'^discovery/discoverytaihuoniao/$', 'discovery.views.discoverytaihuoniao', name='discoverytaihuoniao'),#
+
+
+    url(r'^discovery/updatediscoverysmzdm/$', 'discovery.views.updatediscoverysmzdm', name='updatediscoverysmzdm'),#
+    url(r'^discovery/discoverysmzdm/$', 'discovery.views.discoverysmzdm', name='discoverysmzdm'),#
+
+
+
+    url(r'^discovery/updatediscoverytengxuncar/$', 'discovery.views.updatediscoverytengxuncar', name='updatediscoverytengxuncar'),#
+    url(r'^discovery/discoverytengxuncar/$', 'discovery.views.discoverytengxuncar', name='discoverytengxuncar'),#
+
+
+
+    url(r'^discovery/updatediscoveryjuyoufan/$', 'discovery.views.updatediscoveryjuyoufan', name='updatediscoveryjuyoufano'),#
+    url(r'^discovery/discoveryjuyoufan/$', 'discovery.views.discoveryjuyoufan', name='discoveryjuyoufan'),#
+
+
+
+    url(r'^discovery/updatediscoveryairanshao/$', 'discovery.views.updatediscoveryairanshao', name='updatediscoveryairanshao'),#
+    url(r'^discovery/discoveryairanshao/$', 'discovery.views.discoveryairanshao', name='discoveryairanshao'),#
+
+
+
+    url(r'^discovery/updatediscoveryzol/$', 'discovery.views.updatediscoveryzol', name='updatediscoveryzol'),#
+    url(r'^discovery/discoveryzol/$', 'discovery.views.discoveryzol', name='discoveryzol'),#
+
+
+    url(r'^discovery/updatediscoveryzhiyou/$', 'discovery.views.updatediscoveryzhiyou', name='updatediscoveryzhiyou'),#
+    url(r'^discovery/discoveryzhiyou/$', 'discovery.views.discoveryzhiyou', name='discoveryzhiyou'),#
+
+
+
+    url(r'^discovery/updatediscoverywaishetianxia/$', 'discovery.views.updatediscoverywaishetianxia', name='updatediscoverywaishetianxia'),#
+    url(r'^discovery/discoverywaishetianxia/$', 'discovery.views.discoverywaishetianxia', name='discoverywaishetianxia'),#
+
+
+    url(r'^discovery/updatediscoveryzhinengjie/$', 'discovery.views.updatediscoveryzhinengjie', name='updatediscoveryzhinengjie'),#
+    url(r'^discovery/discoveryzhinengjie/$', 'discovery.views.discoveryzhinengjie', name='discoveryzhinengjie'),#
+
+
+
+    url(r'^discovery/updatediscoveryyewan/$', 'discovery.views.updatediscoveryyewan', name='updatediscoveryyewan'),#
+    url(r'^discovery/discoveryyewan/$', 'discovery.views.discoveryyewan', name='discoveryyewan'),#
+
+
+
+    url(r'^discovery/updatediscoverytaipingyang/$', 'discovery.views.updatediscoverytaipingyang', name='updatediscoverytaipingyang'),#
+    url(r'^discovery/discoverytaipingyang/$', 'discovery.views.discoverytaipingyang', name='discoverytaipingyang'),#
+
+
+
+
+    url(r'^discovery/updatediscoveryzhinengbang/$', 'discovery.views.updatediscoveryzhinengbang', name='updatediscoveryzhinengbang'),#
+    url(r'^discovery/discoveryzhinengbang/$', 'discovery.views.discoveryzhinengbang', name='discoveryzhinengbang'),#
+
+
+    url(r'^discovery/updatediscoveryjingdong/$', 'discovery.views.updatediscoveryjingdong', name='updatediscoveryjingdong'),#
+    url(r'^discovery/discoveryjingdong/$', 'discovery.views.discoveryjingdong', name='discoveryjingdong'),#
+
+
+    url(r'^discovery/updatediscoveryit168/$', 'discovery.views.updatediscoveryit168', name='updatediscoveryit168'),#
+    url(r'^discovery/discoveryit168/$', 'discovery.views.discoveryit168', name='discoveryit168'),#
+
+
+
+    url(r'^discovery/updatediscoveryznds/$', 'discovery.views.updatediscoveryznds', name='updatediscoveryznds'),#
+    url(r'^discovery/discoveryznds/$', 'discovery.views.discoveryznds', name='discoveryznds'),#
+
+
+    url(r'^discovery/updatediscoverygaoqing/$', 'discovery.views.updatediscoverygaoqing', name='updatediscoverygaoqing'),#
+    url(r'^discovery/discoverygaoqing/$', 'discovery.views.discoverygaoqing', name='discoverygaoqing'),#
+
+
+
+    url(r'^discovery/updatediscoverysina/$', 'discovery.views.updatediscoverysina', name='updatediscoverysina'),#
+    url(r'^discovery/discoverysina/$', 'discovery.views.discoverysina', name='discoverysina'),#
+
+
+    url(r'^discovery/updatediscoverymogu/$', 'discovery.views.updatediscoverymogu', name='updatediscoverymogu'),#
+    url(r'^discovery/discoverymogu/$', 'discovery.views.discoverymogu', name='discoverymogu'),#
+
+
+
+    url(r'^discovery/updatediscoverygaoji/$', 'discovery.views.updatediscoverygaoji', name='updatediscoverygaoji'),#
+    url(r'^discovery/discoverygaoji/$', 'discovery.views.discoverygaoji', name='discoverygaoji'),#
+
+    url(r'^discovery/updatediscoveryjiguo/$', 'discovery.views.updatediscoveryjiguo', name='updatediscoveryjiguo'),#
+    url(r'^discovery/discoveryjiguo/$', 'discovery.views.discoveryjiguo', name='discoveryjiguo'),#
+    url(r'^discovery/$', 'discovery.views.discovery', name='discovery'),#
+    url(r'^discoverypage/$', 'discovery.views.discoverypage', name='discoverypage'),#试用首页加载
+    url(r'^discovery/morediscovery/$', 'discovery.views.morediscovery', name='morediscovery'),
+
+
+    url(r'^discovery/(?P<category_id>[0-9]+)/$', 'discovery.views.discoverycategory', name='discoverycategory'),#
+    url(r'^discoverypage/category/$', 'discovery.views.discoverycategorypage', name='discoverycategorypage'),#试用首页加载
+    url(r'^discovery/morediscovery/category/$', 'discovery.views.morediscoverycategory', name='morediscoverycategory'),
+
+    url(r'^discovery/strart/$', 'discovery.views.discoverystrart', name='discoverystrart'),
+
 
 
 #    url(r'^products/address/(?P<products_id>[0-9]+)/$', 'products.views.productsaddress', name='productsaddress'),#文章页加载更多评论页面

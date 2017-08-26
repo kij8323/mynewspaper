@@ -48,9 +48,13 @@ def get_ip():
 @login_required(login_url='/user/loggin/')
 def weixinfinancegz(request):
 	state = request.GET.get('state')
-	state = state.split('p')
+	state = state.split('wxp')
 	one = state[0]
 	productsid = state[1]
+	phonenum = state[2]
+	addr = state[3]
+
+	products = Products.objects.get(id = int(productsid))
 
 
 	CODE = request.GET.get('code')
@@ -61,9 +65,10 @@ def weixinfinancegz(request):
 	res = res_data.readline()
 	openid = json.loads(res)['openid']
 
-
-	if int(one)>0 and productsid:
-		products = Products.objects.get(id = int(productsid))
+	if int(one) == int(products.price) and products.zhekouyu > 0 :
+		request.user.phonenumber = phonenum
+		request.user.address = addr
+		request.user.save()
 
 		if len(productsid) == 1:
 			productsid = "000"+productsid
@@ -192,7 +197,7 @@ def weixinfinancegz(request):
 	try:
 		finance = Finance.objects.get(out_trade_no = out_trade_no)
 	except:
-		finance = Finance(user = request.user, out_trade_no = out_trade_no, total_amount = str(one), products = products, start = int(listb), end = int(listl))
+		finance = Finance(user = request.user, out_trade_no = out_trade_no, total_amount = str(one), products = products, start = int(listb), end = int(listl), way = 'weixin')
 		finance.save()
 
 	context = {
@@ -213,9 +218,14 @@ def weixinfinancegz(request):
 def weixinfinance(request):
 	one = request.GET.get('one')
 	productsid = request.GET.get('products')
-
-	if int(one)>0 and productsid:
-		products = Products.objects.get(id = int(productsid))
+	phonenum = request.GET.get('phonenum')
+	addr = request.GET.get('addr')
+	print addr
+	products = Products.objects.get(id = int(productsid))
+	if int(one) == int(products.price) and products.zhekouyu > 0 :
+		request.user.phonenumber = phonenum
+		request.user.address = addr
+		request.user.save()
 
 		if len(productsid) == 1:
 			productsid = "000"+productsid
@@ -324,7 +334,7 @@ def weixinfinance(request):
 	try:
 		finance = Finance.objects.get(out_trade_no = out_trade_no)
 	except:
-		finance = Finance(user = request.user, out_trade_no = out_trade_no, total_amount = str(one), products = products, qrcodeimage = getimgadd, start = int(listb), end = int(listl))
+		finance = Finance(user = request.user, out_trade_no = out_trade_no, total_amount = str(one), products = products, qrcodeimage = getimgadd, start = int(listb), end = int(listl), way = 'weixin')
 		finance.save()
 
 	context = {
@@ -455,11 +465,13 @@ def weixinnotifyfinance(request):
 					finance.out_trade_no = str(userlist)
 					finance.start = int(listb)
 					finance.end = int(listl)
+					finance.transaction_id = transaction_id[0]
 					finance.save()
 
 					products = finance.products
 					products.one = int(listl)
-					products.save(update_fields=['one'])
+					products.zhekouyu = products.zhekouyu - 1
+					products.save()
 
 					updatenew = Updatenew(finance = finance)
 					updatenew.save()
@@ -478,12 +490,96 @@ def weixinnotifyfinance(request):
 
 
 
+@csrf_exempt
+def weixinrefundfinance(request):
+	if request.is_ajax() and request.method == 'POST':
+		financeid = request.POST.get('financeid')
+	else:
+		data = {
+				'msg':'错误',
+				}
+		json_data = json.dumps(data)
+		return HttpResponse(json_data, content_type='application/json')
+	finance = Finance.objects.get(id = int(financeid))
+
+
+	url = "https://api.mch.weixin.qq.com/secapi/pay/refund"
+	key = "192006250b4c09247ec02edce69f6a2d"
+
+
+	appid = 'wxd7c459fd37fa1f3e' #微信支付分配的公众账号ID（企业号corpid即为此appId）
+	mch_id = '1481008902' #微信支付分配的商户号
+	nonce_str = ''.join(random.sample(string.ascii_letters  +  string.digits, 32))  #随机字符串，长度要求在32位以内
+
+	transaction_id = str(finance.transaction_id)
+	out_refund_no = str(finance.out_trade_no)
+	refund_fee = str(int(finance.total_amount)*100) #订单总金额，单位为分
+	total_fee = str(int(finance.total_amount)*100)
+
+
+
+	stringA = "appid="  +  appid  +  "&"\
+	 + "mch_id=" + mch_id + "&"\
+	 + "nonce_str=" + nonce_str + "&"\
+	 + "out_refund_no=" + out_refund_no + "&"\
+	 + "refund_fee=" + refund_fee + "&"\
+	 + "total_fee=" + str(total_fee) + "&"\
+	 + "transaction_id=" + transaction_id + "&"\
+	 + "key=" + key
+
+	stringSignTemp = hashlib.md5()
+	stringSignTemp.update(stringA)
+	sign = stringSignTemp.hexdigest().upper()
+
+	xmlvalues = "<xml><appid>"  +  appid  +  "</appid>"\
+	 + "<mch_id>" + mch_id + "</mch_id>"\
+	 + "<nonce_str>" + nonce_str + "</nonce_str>"\
+	 + "<out_refund_no>" + out_refund_no + "</out_refund_no>"\
+	 + "<refund_fee>" + str(refund_fee) + "</refund_fee>"\
+	 + "<total_fee>" + str(total_fee) + "</total_fee>"\
+	 + "<transaction_id>" + transaction_id + "</transaction_id>"\
+	 + "<sign>" + sign + "</sign></xml>"
+
+
+	req = urllib2.Request(url = url, headers = {'Content-Type' : 'text/xml'}, data=xmlvalues)
+	response = urllib2.urlopen(req)
+	res = response.read()
+	# print res
+
+
+	xml = str(res)
+	xml = xml.replace('[', '<');
+	xml = xml.replace(']', '>');
+	rereturn_code = ".*<return_code><!<CDATA<(.*)>>></return_code>.*"
+	return_code = re.findall(rereturn_code,xml)
+	# print return_code[0]
+
+
+	products = finance.products
+	products.zhekouyu = products.zhekouyu + 1
+	products.save(update_fields=['zhekouyu'])
+
+
+	data = {
+		'msg':res,
+	}
+	json_data = json.dumps(data)
+	return HttpResponse(json_data, content_type='application/json')
+
+
+
 @login_required(login_url='/user/loggin/')
 def alipayfinance(request):
 	one = request.GET.get('one')
 	productsid = request.GET.get('products')
-	if int(one)>0 and productsid:
-		products = Products.objects.get(id = int(productsid))
+	phonenum = request.GET.get('phonenum')
+
+	addr = request.GET.get('addr')
+	products = Products.objects.get(id = int(productsid))
+	if int(one) == int(products.price) and products.zhekouyu > 0 :
+		request.user.phonenumber = phonenum
+		request.user.address = addr
+		request.user.save()
 
 		if len(productsid) == 1:
 			productsid = "000"+productsid
@@ -547,12 +643,14 @@ def alipayfinance(request):
 	subject = str(productsid)
 	biz_content = str({"out_trade_no":out_trade_no,"product_code":product_code,"subject":subject,"total_amount":total_amount})
 	notify_url = "http://www.wutongnews.com/alipay/notify/finance/"
+	return_url = "http://www.wutongnews.com" + reverse("products_detail", kwargs={"products_id": products.id})
 
 	stringA = "app_id="  +  app_id  +  "&"\
 	 + "biz_content=" + biz_content + "&"\
 	 + "charset=" + charset + "&"\
 	 + "method=" + method + "&"\
 	 + "notify_url=" + notify_url + "&"\
+         + "return_url=" + return_url + "&"\
 	 + "sign_type=" + sign_type + "&"\
 	 + "timestamp=" + timestamp + "&"\
 	 + "version=" + version
@@ -571,6 +669,7 @@ def alipayfinance(request):
 	 + "charset=" + quote(charset) + "&"\
 	 + "method=" + quote(method) + "&"\
 	 + "notify_url=" + quote(notify_url) + "&"\
+         + "return_url=" + quote(return_url) + "&"\
 	 + "sign_type=" + quote(sign_type) + "&"\
 	 + "timestamp=" + quote(timestamp) + "&"\
 	 + "version=" + quote(version) + "&"\
@@ -581,7 +680,7 @@ def alipayfinance(request):
 	try:
 		finance = Finance.objects.get(out_trade_no = out_trade_no)
 	except:
-		finance = Finance(user = request.user, out_trade_no = out_trade_no, total_amount = total_amount, products = products, start = int(listb), end = int(listl))
+		finance = Finance(user = request.user, out_trade_no = out_trade_no, total_amount = total_amount, products = products, start = int(listb), end = int(listl), way = "alipay")
 		finance.save()
 
 	return HttpResponseRedirect(requesturl)
@@ -734,7 +833,8 @@ def alipaynotifyfinance(request):
 				finance.save()
 				products = finance.products
 				products.one = int(listl) 
-				products.save(update_fields=['one'])
+				products.zhekouyu = products.zhekouyu - 1
+				products.save()
 				updatenew = Updatenew(finance = finance)
 				updatenew.save()
 				return HttpResponse("success")
@@ -744,6 +844,76 @@ def alipaynotifyfinance(request):
 			return HttpResponse("failure") 
 	except:
 		return HttpResponse("failure") 
+
+
+
+@csrf_exempt
+def alipayrefundfinance(request):
+	if request.is_ajax() and request.method == 'POST':
+		financeid = request.POST.get('financeid')
+	else:
+		data = {
+				'msg':'错误',
+				}
+		json_data = json.dumps(data)
+		return HttpResponse(json_data, content_type='application/json')
+
+
+	finance = Finance.objects.get(id = int(financeid))
+
+	url = "https://openapi.alipay.com/gateway.do"
+	app_id = "2017052407326498"
+	method = "alipay.trade.refund"
+	charset = "utf-8"
+	sign_type = "RSA2"
+	timestamp = str(time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time())))
+	version = "1.0"
+	trade_no = str(finance.trade_no)
+	refund_amount = str(finance.total_amount) 
+	biz_content = str({"refund_amount":refund_amount, "trade_no":trade_no})
+	stringA = "app_id="  +  app_id  +  "&"\
+	 + "biz_content=" + biz_content + "&"\
+	 + "charset=" + charset + "&"\
+	 + "method=" + method + "&"\
+	 + "sign_type=" + sign_type + "&"\
+	 + "timestamp=" + timestamp + "&"\
+	 + "version=" + version
+
+	with open('/home/shen/Documents/paperproject/mynewspaper/finance/privkey.txt','r') as f:
+	    privkey = rsa.PrivateKey.load_pkcs1(f.read())
+
+	signature = rsa.sign(stringA, privkey, 'SHA-256')
+	signature = base64.b64encode(signature)
+	sign = signature
+
+	stringB = "app_id=" + quote(app_id) + "&"\
+	 + "biz_content=" + quote(biz_content) + "&"\
+	 + "charset=" + quote(charset) + "&"\
+	 + "method=" + quote(method) + "&"\
+	 + "sign_type=" + quote(sign_type) + "&"\
+	 + "timestamp=" + quote(timestamp) + "&"\
+	 + "version=" + quote(version) + "&"\
+	 + "sign=" + quote(sign)
+
+	requesturl = url + "?" + stringB
+
+	request = urllib2.Request(requesturl)  
+	response = urllib2.urlopen(request)
+	msg = json.loads(response.read())['alipay_trade_refund_response']['msg']
+	if msg == 'Success':
+		finance.refund = True
+		finance.save(update_fields=['refund'])
+		products = finance.products
+		products.zhekouyu = products.zhekouyu + 1
+		products.save(update_fields=['zhekouyu'])
+	else:
+		pass
+	data = {
+		'msg':msg,
+	}
+	json_data = json.dumps(data)
+	return HttpResponse(json_data, content_type='application/json')
+
 
 
 def alipayredirectfinance(request):

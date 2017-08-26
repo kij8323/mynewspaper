@@ -1,0 +1,38 @@
+{% load time_filter %}
+{% block HeadDoc %}
+
+{% endblock %}
+
+{% block content %}
+	<table class="table table-striped">
+     <thead>
+        <tr>
+          <th>用户</th>
+
+          <th>积分</th>
+        </tr>
+      </thead>
+		<tbody>
+
+			{% for item in scorerank %}
+			<tr>
+				<th>
+					<a href="{{item.get_absolute_url}}">
+					<img class="img-circle oneicon" src="{{item.get_image_url}}" >
+					</a>
+					<a href="{{item.get_absolute_url}}" style="color:#333">
+					{{item.username}}
+					</a>
+				</th>
+
+				<td scope="row">
+					{{item.score}}
+				</td>
+			</tr>
+			{% endfor %}
+
+		</tbody>
+	</table>
+{% endblock %}
+
+ 

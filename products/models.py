@@ -35,6 +35,10 @@ class Products(models.Model):
 	#一元购数量
 	oneamount = models.IntegerField(default=0)
 
+
+	#折扣剩余
+	zhekouyu = models.IntegerField(default=0)
+
 	#是否积分竞拍
 	ifscore = models.BooleanField(default=False, db_index=True)
 

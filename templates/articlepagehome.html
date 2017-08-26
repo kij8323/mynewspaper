@@ -1,372 +1,137 @@
- {% block HeadDoc %}
 {% load time_filter %}
-<script>/*去除&nbsp;*/
-$(function(){ 
-    $('.posttime').each(function() {
-      var $this = $(this);
-      $this.html($this.html().replace(/&nbsp;/g, ''));
-    })
-}); 
-</script>
-
-
-<script>
-$.fn.imgsizeFunction = function() { 
-  width = $(this).css('width');
-  x = (parseFloat(width)*0.636)
-  return  $(this).css('height',x+'px');
-}
-</script>
-
-<script>
-$(function(){ 
-$('.hotnewsblock table img').imgsizeFunction();
- $('.img3-imagefst3').imgsizeFunction();
-  $('.img3-imagescd3').imgsizeFunction();
-  $('.img3-imagethd3').imgsizeFunction();
-  $('.img1-imagefst1').imgsizeFunction();
-  $('.img1-imagefst3').imgsizeFunction();
-  $('.img1-imagescd3').imgsizeFunction();
-  $('.img1-imagethd3').imgsizeFunction();
-
-}); 
-</script>
-
-<script>
-$(window).resize(function(){
-$('.hotnewsblock table img').imgsizeFunction();
- $('.img3-imagefst3').imgsizeFunction();
-  $('.img3-imagescd3').imgsizeFunction();
-  $('.img3-imagethd3').imgsizeFunction();
-  $('.img1-imagefst1').imgsizeFunction();
-  $('.img1-imagefst3').imgsizeFunction();
-  $('.img1-imagescd3').imgsizeFunction();
-  $('.img1-imagethd3').imgsizeFunction();
-});
-</script>
+{% block HeadDoc %}
 
 
 
 {% endblock %}
-{% for item in articlequery %}
 
-{% if item.topic and  item.score = False %}
-    <div class="col-xs-11 newsblock" id="{{item.id}}">
-    <div class="rightwordblock">
+{% block content %}
 
-    <div class="usericon-line">
-    <span><img  class="img-circle usericon" src='{{item.topic.writer.get_image_url}}'></span>
-    <span class="writer"><a href="{{item.topic.writer.get_absolute_url}}">{{item.topic.writer}}</a></span>
-    <span class="nomline">发布了话题:</span>
-    <span class="hidden-xs"><a href="{{item.topic.get_absolute_url}}">{{item.topic.title}}</a></span>
+        {% for item in articlequery %}
+        <div class="col-sm-3 newsblock">
+          <div class="update-information">
 
 
-    <span class="posttime hidden-xs">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</span>
-    </div>
-
-   <!--  <h3><a href="{{item.topic.get_absolute_url}}">{{item.topic.title}}</a></h3> -->
-
-    <div class="topic-title visible-xs-block"><a href="{{item.topic.get_absolute_url}}">{{item.topic.title}}</a></div>
-
-    <div class="posttime-vis visible-xs-block">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</div>
-</div> 
-</div> <!-- newsblock -->
-
-{% elif item.topic and  item.score = True %}
-    <div class="col-xs-11 newsblock" id="{{item.id}}">
-    <div class="rightwordblock">
-
-    <div class="usericon-line">
-    <span><img  class="img-circle usericon" src='{{item.topic.writer.get_image_url}}'></span>
-    <span class="writer"><a href="{{item.topic.writer.get_absolute_url}}">{{item.topic.writer}}</a></span>
-    <span class="nomline">的话题</span>
-    <span class="hidden-xs"><a href="{{item.topic.get_absolute_url}}">{{item.topic.title}}</a></span>
-    <span class="nomline">被加了金币</span><i class="score-topic"></i>
-
-    <span class="posttime hidden-xs">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</span>
-    </div>
-
-    <div class="topic-title visible-xs-block"><a href="{{item.topic.get_absolute_url}}">{{item.topic.title}}</a></div>
-
-    <div class="posttime-vis visible-xs-block">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</div>
-
-{% if item.topic.img1 %}
-<div class='img3 visible-xs-block'>
-<img  class="img1-imagefst1" src='{{item.topic.get_imagefst3_url}}'>
-</div>
-
-<div class='img3 hidden-xs'>
-<img  class="img1-imagefst3" src='{{item.topic.get_imagefst3_url}}'>
-<img  class="img1-imagescd3" src='{{item.topic.get_imagescd3_url}}'>
-<img  class="img1-imagethd3" src='{{item.topic.get_imagethd3_url}}'>
-</div>
-<div style="clear:both;"></div> 
-{% elif item.topic.img3 %}
-
-
-<div class='img3'>
-<img  class="img3-imagefst3" src='{{item.topic.get_imagefst3_url}}'>
-<img  class="img3-imagescd3" src='{{item.topic.get_imagescd3_url}}'>
-<img  class="img3-imagethd3" src='{{item.topic.get_imagethd3_url}}'>
-</div>
-<div style="clear:both;"></div> 
+              {% if item.topic %}
+              <div class="group-list-content-img" data-image-url="{{item.topic.content|getimg}}" style="background-image: url({{item.topic.content|getimg}});">
+{% if item.topic.ifvideo %}
+<span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span>
 {% endif %}
+</div>
+              <div class="update-information-content">
+                  <a href="{{item.topic.writer.get_absolute_url}}">
+                   <img  class="topicusericon" src='{{item.topic.writer.get_image_url}}'>
+                    </a>
 
-</div> 
-</div> <!-- newsblock -->
-
-{% elif item.payscore %}
-    <div class="col-xs-11 newsblock" id="{{item.id}}">
-    <div class="rightwordblock">
-
-    <div class="usericon-line">
-    <span><img  class="img-circle usericon" src='{{item.payscore.user.get_image_url}}'></span>
-    <span class="writer"><a href="{{item.payscore.user.get_absolute_url}}">{{item.payscore.user}}</a></span>
-    <span class="nomline">参与了</span>
-    <span class="hidden-xs"><a href="{{item.payscore.products.get_absolute_url}}">{{item.payscore.products.title}}</a></span>
-    <span class="nomline">积分拍 出价</span>
-    <span><a href="{{item.payscore.products.get_payscore_url}}">{{item.payscore.payscore}}</a></span>
-    <span class="nomline">积分</span>
-    <i class="score-topic"></i>
-
-    <span class="posttime hidden-xs">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</span>
-    </div>
-
-   <!--  <h3><a href="{{item.topic.get_absolute_url}}">{{item.topic.title}}</a></h3> -->
-
-    <div class="topic-title visible-xs-block"><a href="{{item.payscore.products.get_absolute_url}}">{{item.payscore.products.title}}</a></div>
-    <div class="posttime-vis visible-xs-block">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</div>
-
-    <div class='img3'>
-    <img  class="img3-imagefst3" src='{{item.payscore.products.get_image_url}}'>
-    </div>
-    <div style="clear:both;"></div> 
-
-</div> 
-</div> <!-- newsblock -->
+                <span class="writer"><a href="{{item.topic.writer.get_absolute_url}}">{{item.topic.writer}}</a></span>
+                <span class="nomline">发布了话题:</span>
+                <div class="update-topic"><a href="{{item.topic.get_absolute_url}}">{{item.topic.title}}</a></div>
+              </div>
+                <div class="posttime">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</div>
+            
 
 
-{% elif item.finance %}
-    <div class="col-xs-11 newsblock" id="{{item.id}}">
-    <div class="rightwordblock">
+              {% elif item.comment.topic %}
+              <div class="group-list-content-img" data-image-url="{{item.comment.topic.content|getimg}}" style="background-image: url({{item.comment.topic.content|getimg}});">
+{% if item.comment.topic.ifvideo %}
+<span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span>
+{% endif %}
+</div>
+              <div class="update-information-content">
+                  <span class="writerinfor">
+                  <a href="{{item.comment.user.get_absolute_url}}">
+                   <img  class="topicusericon" src='{{item.comment.user.get_image_url}}'>
+                    </a>
 
-    <div class="usericon-line">
-    <span><img  class="img-circle usericon" src='{{item.finance.user.get_image_url}}'></span>
-    <span class="writer"><a href="{{item.finance.user.get_absolute_url}}">{{item.finance.user}}</a></span>
-    <span class="nomline">参与了</span>
-    <span class="hidden-xs"><a href="{{item.finance.products.get_absolute_url}}">{{item.finance.products.title}}</a></span>
-    <span class="nomline">一元购 人次:</span>
-    <span><a href="{{item.finance.products.get_absolute_url}}">{{item.finance.total_amount}}</a></span>
-    <span class="glyphicon glyphicon-usd" style = "color: #ec971f;" aria-hidden="true"></span>
-
-    <span class="posttime hidden-xs">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</span>
-    </div>
-
-
-    <div class="topic-title visible-xs-block"><a href="{{item.finance.products.get_absolute_url}}">{{item.finance.products.title}}</a></div>
-    <div class="posttime-vis visible-xs-block">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</div>
-
-    <div class='img3'>
-    <img  class="img3-imagefst3" src='{{item.finance.products.get_image_url}}'>
-    </div>
-    <div style="clear:both;"></div> 
-
-</div> 
-</div> <!-- newsblock -->
-
-
-{% elif item.comment.topic %}
-    <div class="col-xs-11 newsblock" id="{{item.id}}">
-    <div class="rightwordblock">
-
-    <div class="usericon-line">
-    <span><img  class="img-circle usericon" src='{{item.comment.user.get_image_url}}'></span>
-    <span class="writer"><a href="{{item.comment.user.get_absolute_url}}">{{item.comment.user}}</a></span>
-    <span class="nomline">评论了话题</span>
-    <span class="hidden-xs"><a href="{{item.comment.topic.get_absolute_url}}">{{item.comment.topic.title}}</a></span>
-    
-
-    <span class="posttime hidden-xs">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</span>
-    </div>
-
-    <div class="topic-title visible-xs-block"><a href="{{item.comment.topic.get_absolute_url}}">{{item.comment.topic.title}}</a></div>
-
-    <div class='comment-block'  onmouseover="this.style.cursor='pointer'" onclick="document.location='{{item.comment.get_absolute_url}}'">{{item.comment.text|AtWhoUser|safe}}</div>
-
-    <div class="posttime-vis visible-xs-block">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</div>
-</div> 
-</div> <!-- newsblock -->
+                <span class="writer"><a href="{{item.comment.user.get_absolute_url}}">{{item.comment.user}}</a></span>
+                <span class="nomline">评论了话题:</span>
+                </span>
+                <div class="update-topic"><a href="{{item.comment.topic.get_absolute_url}}">{{item.comment.topic.title}}</a></div>
+                <div class="update-comment"><a href="{{item.comment.get_absolute_url}}">{{item.comment.text|safe}}</a></div>
+              </div>
+                <div class="posttime">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</div>
 
 
 
-{% elif item.comment.instrument and item.comment.grade != 0 %}
-    <div class="col-xs-11 newsblock" id="{{item.id}}">
-    <div class="rightwordblock">
+              {% elif item.comment.products %}
+              <div class="products-list-content-img" data-image-url="{{item.comment.products.get_image_url}}" style="background-image: url({{item.comment.products.get_image_url}});"></div>
+              <div class="update-information-content">
+                  <span class="writerinfor">
+                   <a href="{{item.comment.user.get_absolute_url}}">
+                   <img  class="topicusericon" src='{{item.comment.user.get_image_url}}'>
+                    </a>
 
-    <div class="usericon-line">
-    <span><img  class="img-circle usericon" src='{{item.comment.user.get_image_url}}'></span>
-    <span class="writer"><a href="{{item.comment.user.get_absolute_url}}">{{item.comment.user}}</a></span>
-    <span class="nomline">参与了</span>
-    <span class="hidden-xs"><a href="{{item.comment.instrument.get_absolute_url}}">{{item.comment.instrument.model}}</a></span> <span class="nomline">评分</span>
-
-    
-
-    <span class="posttime hidden-xs">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</span>
-    </div>
-
-    <div class="topic-title visible-xs-block"><a href="{{item.comment.instrument.get_absolute_url}}">{{item.comment.instrument.model}}</a></div>
-
-    <div class='comment-block' onmouseover="this.style.cursor='pointer'" onclick="document.location='{{item.comment.get_absolute_instrument_url}}'" >
+                <span class="writer"><a href="{{item.comment.user.get_absolute_url}}">{{item.comment.user}}</a></span>
+                <span class="nomline">评论了试用产品:</span>
+                </span>
+                <div class="update-topic"><a href="{{item.comment.products.get_absolute_url}}">{{item.comment.products.title}}</a></div>
+                <div class="update-comment">{{item.comment.text|safe}}</div>
+              </div>
+                <div class="posttime">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</div>
 
 
-    <span class="instrugrade">
 
-    {% if item.comment.grade = 0 %}
-    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
-    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
-    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
-    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
-    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
-    {% elif item.comment.grade = 1 %}
-    <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
-    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
-    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
-    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
-    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
-    {% elif item.comment.grade = 2 %}
-    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
-    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
-    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
-    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
-    {% elif item.comment.grade = 3 %}
-    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-    <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
-    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
-    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
-    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
-    {% elif item.comment.grade = 4 %}
-    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-    <span class="glyphicon glyphicon-star  glyphicon-gray" aria-hidden="true"></span>
-    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
-    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
-    {% elif item.comment.grade = 5 %}
-    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-    <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
-    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
-    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
-    {% elif item.comment.grade = 6 %}
-    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
-    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
-    {% elif item.comment.grade = 7 %}
-    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-    <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
-    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
-    {% elif item.comment.grade = 8 %}
-    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-    <span class="glyphicon glyphicon-star glyphicon-gray" aria-hidden="true"></span>
-    {% elif item.comment.grade = 9 %}
-    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-    <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
-    {% elif item.comment.grade = 10 %}
-    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+              {% elif item.payscore %}
+              <div class="products-list-content-img" data-image-url="{{item.payscore.products.get_image_url}}" style="background-image: url({{item.payscore.products.get_image_url}});"></div>
+              <div class="update-information-content">
+
+
+                   <a href="{{item.payscore.user.get_absolute_url}}">
+                   <img  class="topicusericon" src='{{item.payscore.user.get_image_url}}'>
+                    </a>
+
+                <span class="writer"><a href="{{item.payscore.user.get_absolute_url}}">{{item.payscore.user}}</a></span>
+                <span class="nomline">拍出积分
+                  <i class="score-topic"></i>
+                  {{item.payscore.payscore}}
+                </span>
+                <div class="update-topic"><a href="{{item.payscore.products.get_absolute_url}}">{{item.payscore.products.title}}</a></div>
+              </div>
+                <div class="posttime">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</div>
+
+
+
+              {% elif item.finance %}
+              <div class="products-list-content-img" data-image-url="{{item.finance.products.get_image_url}}" style="background-image: url({{item.finance.products.get_image_url}});"></div>
+              <div class="update-information-content">
+
+                   <a href="{{item.finance.user.get_absolute_url}}">
+                   <img  class="topicusericon" src='{{item.finance.user.get_image_url}}'>
+                    </a>
+
+                <span class="writer"><a href="{{item.finance.user.get_absolute_url}}">{{item.finance.user}}</a></span>
+                <span class="nomline">参与一元购
+                 <span class="glyphicon glyphicon-usd" style = "color: #ec971f;" aria-hidden="true"></span>
+                  {{item.finance.total_amount}}
+                </span>
+                <div class="update-topic"><a href="{{item.finance.products.get_absolute_url}}">{{item.finance.products.title}}</a></div>
+              </div>
+                <div class="posttime">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</div>
+
+
+
+
+              {% elif item.products %}
+
+              <div class="update-information-content-new">
+
+    {% if item.products.ifone and not item.products.ifapply  and not item.products.ifscore  %}
+    <span class="nomline" >新一期一元购已上线</span>
+    {% else %}
+    <span class="nomline" >新一期试用已上线</span>
     {% endif %}
-    <span class="commentgrade">{{item.comment.grade}}</span></span>
-{{item.comment.text|AtWhoUser|safe}}</div>
 
-    <div class="posttime-vis visible-xs-block">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</div>
-</div> 
-</div> <!-- newsblock -->
+                <div class="update-topic"><a href="{{item.products.get_absolute_url}}">{{item.products.title}}</a></div>
 
+              <div class="products-list-new-content-img" data-image-url="{{item.products.get_image_url}}" style="background-image: url({{item.products.get_image_url}});"></div>
 
-{% elif item.comment.instrument and item.comment.grade = 0 %}
-    <div class="col-xs-11 newsblock" id="{{item.id}}">
-    <div class="rightwordblock">
+              </div>
+                <div class="posttime">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前 总限量:{{item.products.amount}}</div>
 
-    <div class="usericon-line">
-    <span><img  class="img-circle usericon" src='{{item.comment.user.get_image_url}}'></span>
-    <span class="writer"><a href="{{item.comment.user.get_absolute_url}}">{{item.comment.user}}</a></span>
-    <span class="nomline">评论了</span>
-    <span class="hidden-xs"><a href="{{item.comment.instrument.get_absolute_url}}">{{item.comment.instrument.model}}</a></span>
-   
-
-    <span class="posttime hidden-xs">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</span>
-    </div>
-
-    <div class="topic-title visible-xs-block"><a href="{{item.comment.instrument.get_absolute_url}}">{{item.comment.instrument.model}}</a></div>
-
-    <div class='comment-block' onmouseover="this.style.cursor='pointer'" onclick="document.location='{{item.comment.get_absolute_instrument_url}}'" >{{item.comment.text|AtWhoUser|safe}}</div>
-
-    <div class="posttime-vis visible-xs-block">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</div>
-</div> 
-</div> <!-- newsblock -->
-
-{% elif item.comment.products %}
-    <div class="col-xs-11 newsblock" id="{{item.id}}">
-    <div class="rightwordblock">
-
-    <div class="usericon-line">
-    <span><img  class="img-circle usericon" src='{{item.comment.user.get_image_url}}'></span>
-    <span class="writer"><a href="{{item.comment.user.get_absolute_url}}">{{item.comment.user}}</a></span>
-    <span class="nomline">评论了试用产品</span>
-    <span class="hidden-xs"><a href="{{item.comment.products.get_absolute_url}}">{{item.comment.products.title}}</a></span>
-    
-
-    <span class="posttime hidden-xs">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</span>
-    </div>
-
-    <div class="topic-title visible-xs-block"><a href="{{item.comment.products.get_absolute_url}}">{{item.comment.products.title}}</a></div>
-
-    <div class='comment-block'>{{item.comment.text|AtWhoUser|safe}}</div>
-
-    <div class="posttime-vis visible-xs-block">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</div>
-</div> 
-</div> <!-- newsblock -->
+              {% endif %}
+          </div>
+          </div>
+        {% endfor %}
 
 
-
-
-{% elif item.products %}
-    <div class="col-xs-11 newsblock" id="{{item.id}}">
-    <div class="rightwordblock">
-
-    <div class="usericon-line">
-    <span class="nomline" style="color:#5fb760">新一期试用</span>
-    <span class="hidden-xs"><a href="{{item.products.get_absolute_url}}">{{item.products.title}}</a></span>
-    <span class="nomline">已上线</span>
-    <span class="posttime hidden-xs">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</span>
-    </div>
-
-   <!--  <h3><a href="{{item.topic.get_absolute_url}}">{{item.topic.title}}</a></h3> -->
-
-    <div class="topic-title visible-xs-block"><a href="{{item.products.get_absolute_url}}">{{item.products.title}}</a></div>
-    <div class="posttime-vis visible-xs-block">{{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month }}前</div>
-
-    <div class='img3'>
-    <img  class="img3-imagefst3" src='{{item.products.get_image_url}}'>
-    </div>
-    <div style="clear:both;"></div> 
-
-</div> 
-</div> <!-- newsblock -->
-{% endif %}
-
-
-{% endfor %}
+{% endblock %}

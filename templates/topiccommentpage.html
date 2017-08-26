@@ -1,12 +1,56 @@
 {% block HeadDoc %}
 {% load staticfiles %}
 {% load time_filter %}
-<link href="/static/css/topic_detail.css" rel="stylesheet">
-<script src="/static/js/topic_detail.js"></script>
-<script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
-<script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
 
 
+<script>/*去除&nbsp;*/
+$(function(){ 
+    $('.author-time').each(function() {
+      var $this = $(this);
+      $this.html($this.html().replace(/&nbsp;/g, ''));
+    })
+}); 
+</script>
+
+
+
+
+<script>/*加载更多*/
+$(function() {
+  var cur_page_num = 1;
+ $("body").on("click", '#morecomment-btn-block', function(){
+    $('#morecomment-btn-block').text("加载更多......")
+    var $elements = $('.comment');
+    var commentlen = $elements.length;
+    $.ajaxSetup({
+    data: {csrfmiddlewaretoken: '{{ csrf_token }}', 
+           commentlen: commentlen,
+           topicid: {{topic.id}},
+          },
+          });
+    $.ajax({
+        url: "{% url 'topicmorecomment' %}",
+        type: "post",
+        success: function(data) {
+        cur_page_num=cur_page_num+1;          
+        /*alert(cur_page_num); */          
+        var newnode=document.createElement("div");             
+        newnode.setAttribute("class", "container-fluid grid");            
+        newnode.setAttribute("id","new"+String(cur_page_num));           
+        document.getElementById("morecomment").appendChild(newnode);           
+        $('#new'+String(cur_page_num)).load('{% url 'topicmorecommentpage' topic.id %}');
+
+        $('#morecomment-btn-block').text("加载更多......")
+
+        $('#morecomment-btn-block').html(data.loadcompleted)
+          },
+          error: function(data) { 
+              alert("Got an error dude");
+          }
+    });
+  })
+})
+</script>
 {% endblock %}
 
 
@@ -112,6 +156,8 @@
 
 
 <!--                            最新回复                         -->
+<div class="freshcomment">
+</div>
 {% for item in contacts %}
     <div class="comment">
       <img  class="commentusericon" src='{{item.user.get_image_url}}'>
@@ -119,14 +165,11 @@
       <span class="author-name"><a href="{{item.user.get_absolute_url}}">{{item.user}}</a></span>
 
       <span class="author-time">
-      {{item.timestamp}}
+      {{item.timestamp|timesince|time_chinese_weeks|time_chinese_week|time_chinese_minus|time_chinese_minu|time_chinese_days|time_chinese_day|time_chinese_hours|time_chinese_hour|timeblank|comma|time_chinese_months|time_chinese_month|time_blank_n}}前
       </span>
       {% if item.score %}
       <span style="margin-left:8px; color:#e48f15;" class="glyphicon glyphicon-fire" aria-hidden="true"></span>
       {% endif %}
-      <span class="author-floor pull-right">
-      {{forloop.counter|pageaculate:page}}楼
-      </span>
 
       <div class="pl-content">{{item.text|AtWhoUser|safe}}</div>
 
@@ -202,29 +245,14 @@
 <!--                            最新回复                         -->
 
 
-<div class="freshcomment">
+<div id='morecomment'>
 </div>
 
-<div class='paginationcontain'>
-<div class="pagination">
-    <span class="step-links">
-{% if contacts.has_previous %}
-         <a class='paginator paginator_first' title='上一页' href='?page={{ contacts.previous_page_number }}'><span>上一页</span></a>
-{% endif %}
- {% for page in contacts.paginator.page_range %}
-     {% if page = contacts.number %}
-         <a class='paginator_current' title='当前页:{{ page }}'><span>{{ page }}</span></a>
-     {% else %}
-         <a class='paginator' href='?page={{ page }}' title='{{ page }}'><span>{{ page }}</span></a>
-     {% endif %}
- {% endfor %}
- {% if contacts.has_next %}
-     <a class='paginator paginator_first' title='下一页' href='?page={{ contacts.next_page_number }}'><span>下一页</span></a>
-{% endif %}
-    </span>
-</div><!-- <div class="pagination"> -->
-</div>
 
+{% if moercomment %}
+ <div  id="morecomment-btn-block" class='btn btn-default btn-block' >点击加载更多</div> 
+{% else %}
+{% endif %} 
 
 
  {% endblock %}

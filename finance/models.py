@@ -19,6 +19,13 @@ class Finance(models.Model):
 	start = models.IntegerField(default=0)
 	end = models.IntegerField(default=0)
 
+
+	way = models.CharField(max_length=100, null=True, blank=True)
+	refund = models.BooleanField(default=False)
+	transaction_id = models.CharField(max_length=28, null=True, blank=True)
+
+
+
 	def __unicode__(self):
 		return self.out_trade_no
 

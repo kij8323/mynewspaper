@@ -115,7 +115,6 @@ overflow: auto;
 float: right;
 margin-top: 8px;
 margin-bottom: 8px;
-color: #999;
 }
 
 .container-user .dashboard .iconline a{
@@ -125,11 +124,22 @@ color: #333;
 
 
 .user-icon-background{
-	height: 75px;
-	background-color: #f0f4fb;
+	background-image: url(/static/media/images/usericon/屏幕快照_2017-07-21_下午1.44.00.png);
+	height: 275px;
+background-repeat: no-repeat;
+background-size: cover;
+background-position: center 19%;
 }
 
 
 .container-user{
-	margin-top: -18px;
+}
+
+body{
+	background-color: #f0f0f0;
+}
+
+
+.container-user .dashboard .iconline .glyphicon{
+	color: #449d44;
 } 

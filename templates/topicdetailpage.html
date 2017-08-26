@@ -1,10 +1,7 @@
+
 {% block HeadDoc %}
 {% load staticfiles %}
 {% load time_filter %}
-<link href="/static/css/topic_detail.css" rel="stylesheet">
-<script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
-<script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
-<script src="/static/js/jquerypage.js"></script>
 
 <script>
 $.fn.qqvideosizeFunction = function() { 
@@ -46,11 +43,10 @@ $(window).resize(function(){
 
 {% endblock %}
 
-
  {% block content %}
 
 <div class="article-content-wrap">
-     <p>{{topic.content|AtWhoUser|safe}}</p>
+     <p>{{topic.content|safe}}</p>
 </div>
 
  {% endblock %}

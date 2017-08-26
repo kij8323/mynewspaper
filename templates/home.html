@@ -275,7 +275,7 @@ $(function() {
       <div class="row">
         <div class="col-sm-3  hidden-xs">
           <div class='hotnewsblock'>
-                   <div class='head'>          <span class='shu-mark'>|</span>热门话题</div>
+                   <div class='head' >      <span class='shu-mark'>|</span>     热门话题</div>
 
               <table class="table table-hover hotnews">
                 <tbody>
@@ -361,9 +361,8 @@ $(function() {
 
     </div><!-- <div class="col-xs-12 newsblock"> -->
 
-
 <div id="homepage">
- <img src="/static/media/images/usericon/wutongloading.gif"  style= "margin:30px 48% 30px" alt="" />
+ <img id="loadinggif" src="/static/media/images/usericon/wutongloading.gif"  style= "margin:30px 48% 30px" alt="" />
 </div>
 
 
@@ -509,7 +508,7 @@ $(function() {
 
 
 <div class='nicecommentblock'>
-<div class='head'>          <span class='shu-mark'>|</span>精彩点评</div>
+<div class='head'>          <span class='shu-mark-comment'>|</span>精彩点评</div>
     <table class="table table-hover nicecomment">
       <tbody>
 {% for item in nicecomment %}

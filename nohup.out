@@ -1,2 +1,13 @@
 python: can't open file 'manage.': [Errno 2] No such file or directory
 python: can't open file 'manage.': [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/home/shen/Documents/paperproject/mynewspaper/pachongstart.py", line 14, in <module>
+    driver1 = webdriver.PhantomJS()
+  File "/usr/local/lib/python2.7/dist-packages/selenium/webdriver/phantomjs/webdriver.py", line 52, in __init__
+    self.service.start()
+  File "/usr/local/lib/python2.7/dist-packages/selenium/webdriver/common/service.py", line 96, in start
+    self.assert_process_still_running()
+  File "/usr/local/lib/python2.7/dist-packages/selenium/webdriver/common/service.py", line 109, in assert_process_still_running
+    % (self.path, return_code)
+selenium.common.exceptions.WebDriverException: Message: Service phantomjs unexpectedly exited. Status code was: 8
+

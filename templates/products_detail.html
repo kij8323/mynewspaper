@@ -465,10 +465,11 @@ $(document).ready(function(){
 <script type="text/javascript">
 $(document).ready(function(){
   $('#applyoneconform').click(function(){
-    one = String($('.numone').text())
+    one = String($('#num-one').text())
     products = String({{products.id}})
-
-    url = "http://www.wutongnews.com/alipay/finance?code=/αβγδθηζεικλμποξνρφΑΕσχΒΖτψΓΗυωΔΘΦΡΝΙΚΣΞΛΟΤΨΧΩΥΠΜмиедзлабвёйнокжгьычшщэюъцтсхфрпуЛЗДГЖКМИЕБВЁЙНБАяЬЫЪЦУФРÈÉÊÇÂÆÀÀäÞÚÕÜÑÒØÖÏÓÝÚæîëçãííïðèáâìöýüûõøíîòïóöôЯЮЪЫЧЩЬЭЩ┓├┏↙┯↘ô┓┱&one="+one+"&products="+products
+    phonenum = String($('#discountphoneinput').val())
+    addr = String($('#discountaddressinput').val())
+    url = "http://www.wutongnews.com/alipay/finance?code=/αβγδθηζεικλμποξνρφΑΕσχΒΖτψΓΗυωΔΘΦΡΝΙΚΣΞΛΟΤΨΧΩΥΠΜмиедзлабвёйнокжгьычшщэюъцтсхфрпуЛЗДГЖКМИЕБВЁЙНБАяЬЫЪЦУФРÈÉÊÇÂÆÀÀäÞÚÕÜÑÒØÖÏÓÝÚæîëçãííïðèáâìöýüûõøíîòïóöôЯЮЪЫЧЩЬЭЩ┓├┏↙┯↘ô┓┱&one="+one+"&products="+products+"&phonenum="+phonenum+"&addr="+addr
     window.open(url);
   });
   });
@@ -490,14 +491,16 @@ return false;
 <script type="text/javascript">
 $(document).ready(function(){
   $('#applywechatoneconform').click(function(){
-    one = String($('.numone').text())
+    one = String($('#num-one').text())
     products = String({{products.id}})
+    phonenum = String($('#discountphoneinput').val())
+    addr = String($('#discountaddressinput').val())
     if(isWeiXin()){ 
-    url="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxd7c459fd37fa1f3e&redirect_uri=http%3A%2F%2Fwww.wutongnews.com%2Fweixin%2Ffinancegz&response_type=code&scope=snsapi_base&state="+one+'p'+products+"#wechat_redirect"
+    url="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxd7c459fd37fa1f3e&redirect_uri=http%3A%2F%2Fwww.wutongnews.com%2Fweixin%2Ffinancegz&response_type=code&scope=snsapi_base&state="+one+'wxp'+products+'wxp'+phonenum+'wxp'+addr+"#wechat_redirect"
     window.open(url);
       } 
     else{
-    url = "http://www.wutongnews.com/weixin/finance?code=/αβγδθηζεικλμποξνρφΑΕσχΒΖτψΓΗυωΔΘΦΡΝΙΚΣΞΛΟΤΨΧΩΥΠΜмиедзлабвёйнокжгьычшщэюъцтсхфрпуЛЗДГЖКМИЕБВЁЙНБАяЬЫЪЦУФРÈÉÊÇÂÆÀÀäÞÚÕÜÑÒØÖÏÓÝÚæîëçãííïðèáâìöýüûõøíîòïóöôЯЮЪЫЧЩЬЭЩ┓├┏↙┯↘ô┓┱&one="+one+"&products="+products
+    url = "http://www.wutongnews.com/weixin/finance?code=/αβγδθηζεικλμποξνρφΑΕσχΒΖτψΓΗυωΔΘΦΡΝΙΚΣΞΛΟΤΨΧΩΥΠΜмиедзлабвёйнокжгьычшщэюъцтсхфрпуЛЗДГЖКМИЕБВЁЙНБАяЬЫЪЦУФРÈÉÊÇÂÆÀÀäÞÚÕÜÑÒØÖÏÓÝÚæîëçãííïðèáâìöýüûõøíîòïóöôЯЮЪЫЧЩЬЭЩ┓├┏↙┯↘ô┓┱&one="+one+"&products="+products+"&phonenum="+phonenum+"&addr="+addr
     window.open(url);
     }
 
@@ -596,27 +599,24 @@ $(document).ready(function(){
       <div class="modal-body">
 
               <div class="payone">
-                <span>参与</span>   
                       <div class="controlone">
-                          <span class="subtractone">-</span>
+                      {% if user.phonenumber %}
+                        <input  id='discountphoneinput' class="form-control" type="tel" name="discountphoneinput" placeholder="常用手机号" value="{{user.phonenumber}}" />
+                      {% else %}
+                          <input  id='discountphoneinput' class="form-control" type="tel" name="discountphoneinput" placeholder="常用手机号"  />
+                      {% endif %}
+
+                      {% if user.address %}
+                          <input id='discountaddressinput'  class="form-control " type="text" name="discountaddressinput" placeholder="收货地址 + 收货人姓名" value="{{user.address}}"/>
+                      {% else %}
+                          <input id='discountaddressinput'  class="form-control " type="text" name="discountaddressinput" placeholder="收货地址 + 收货人姓名" />
+                      {% endif %}
                           {% if products.ifone %}
-                          <span class="numone" id="num-one">1</span>
+                          <span class="money-tag" >应付：</span><span class="numone">￥</span><span class="numone" id="num-one">{{products.price}}</span>
                           {% endif %}
-                          <span class="addone">+</span>
                       </div>
-                <span class="addstepone">人次</span>
-
-                <div class="one-list">
-                  <span class="one-list-num">10</span>
-                  <span class="one-list-num">50</span>
-                  <span class="one-list-num">100</span>
-                  <span class="one-list-num">200</span>
-                  <span class="one-list-renci">人次</span>
-                </div>
-
               </div>
-<p>注：一元购不需要提交测评</p>
-<div class="applink"><a href="http://www.wutongnews.com/topic/1023/">《一元购规则》</a></div>  
+<div class="applink"><a href="http://www.wutongnews.com/topic/1023/">《折扣试用规则》</a></div>  
         <button type="button" class="btn btn-default btn-one myModalbtn" data-dismiss="modal" id="applyoneconform">支付宝</button>
         <button type="button" class="btn btn-default btn-success myModalbtn" data-dismiss="modal" id="applywechatoneconform">微信支付</button>
 
@@ -697,19 +697,23 @@ $(document).ready(function(){
                 {% endif %}
         </div>
         <div class='small_try_info' style="border-left: 1px dashed #ddd;">
-          <div>一元限量: {{products.oneamount}}</div>
-          <div>当前人次: {{products.one}}</div>
+          <div>折扣限量: {{products.oneamount}}</div>
+          <div>剩余: {{products.zhekouyu}}</div>
 
                 {% if products.status = 1 %}
                       {% if user.is_authenticated %}
                       {% if products.ifone %}
-                            <button type="button" class="btn btn-one" id='applyone-small'>一元购</button>
+                            {% if products.zhekouyu > 0 %}
+                            <button type="button" class="btn btn-one" id='applyone-small'>折扣结算</button>
+                            {% else %}
+                            <button type="button" class="btn">售罄</button>
+                            {% endif %}
                       {% else %}
-                            <button type="button" class="btn" >一元购</button>
+                            <button type="button" class="btn" >折扣结算</button>
                       {% endif %}
 
                       {% else %}
-                      <button type="button" class="btn btn-one" onclick="window.location.href='{% url 'loggin' %}'" >一元购</button>
+                      <button type="button" class="btn btn-one" onclick="window.location.href='{% url 'loggin' %}'" >折扣结算</button>
                       {% endif %}
                 {% elif products.status = 2 %}
                           <button type="button" class="btn btn-warning " >已结束</button>
@@ -849,20 +853,24 @@ $(document).ready(function(){
 
 <div class="products-score col-sm-3">
 <div class="products-one-block">
-             <p><div class="glyphicon glyphicon-usd" aria-hidden="true"></div></p><p>一元购限量:<span>{{products.oneamount}}份</span></p>
-                <p><div class="glyphicon glyphicon-list-alt" aria-hidden="true"></div></p><p>当前人次:<span>{{products.one}}人次</span> </p>
+             <p><div class="glyphicon glyphicon-usd" aria-hidden="true"></div></p><p>折扣试用限量:<span>{{products.oneamount}}份</span></p>
+                <p><div class="glyphicon glyphicon-list-alt" aria-hidden="true"></div></p><p>剩余:<span>{{products.zhekouyu}}</span> </p>
               <div class="apply-bottom">
 
                 {% if products.status = 1 %}
                       {% if user.is_authenticated %}
                       {% if products.ifone %}
-                            <button type="button" class="btn btn-one" id='applyone'>一元购</button>
+                            {% if products.zhekouyu > 0 %}
+                            <button type="button" class="btn btn-one" id='applyone'>折扣试用</button>
+                            {% else %}
+                            <button type="button" class="btn">售罄</button>
+                            {% endif %}
                       {% else %}
-                            <button type="button" class="btn" >一元购</button>
+                            <button type="button" class="btn" >折扣结算</button>
                       {% endif %}
 
                       {% else %}
-                      <button type="button" class="btn btn-one" onclick="window.location.href='{% url 'loggin' %}'" >一元购</button>
+                      <button type="button" class="btn btn-one" onclick="window.location.href='{% url 'loggin' %}'" >折扣结算</button>
                       {% endif %}
                 {% elif products.status = 2 %}
                           <button type="button" class="btn btn-warning " >已结束</button>
@@ -886,7 +894,7 @@ $(document).ready(function(){
 				  <ul class="rightblock">
 				      <li class="presentationw1" role="presentation"><a href="{% url 'products_detail' products.id %}">商品详情</a></li>
 
-              <li class="presentationw5" role="presentation"><a href="{% url 'productsone' products.id %}">一元购记录({{products.one}})</a></li>
+              <li class="presentationw5" role="presentation"><a href="{% url 'productsone' products.id %}">折扣试用({{products.one}})</a></li>
               <li class="presentationw4" role="presentation"><a href="{% url 'payscorerecord' products.id %}">积分记录({{products.id|products_payscore_count}})</a></li>
 
 				      <li class="presentationw2" role="presentation"><a href="{% url 'productsapply' products.id %}">申请名单</a></li>

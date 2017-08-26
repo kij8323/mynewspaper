@@ -1,4 +1,4 @@
-{% extends "base_1.html" %}
+{% extends "base_6.html" %}
 {% load time_filter %}
 {% block HeadDoc %}
 <link href="/static/css/user_userdashboardcollectionstopic.css" rel="stylesheet">
@@ -106,6 +106,9 @@ $(function() {
       <li class="presentationw1" role="presentation"><a href="{% url 'user_detailinformations' userofinfor.id%}">帐号</a></li>
       <li class="presentationw2" role="presentation"><a href="{% url 'user_userdashboardarticletopic' userofinfor.id%}">
       话题</a></li>
+
+      <li class="presentationw8" role="presentation"><a href="{% url 'user_subscription' userofinfor.id%}">
+      关注</a></li>
       <li class="presentationw3" role="presentation"><a href="{% url 'user_detailcomments' userofinfor.id%}">评论</a></li>
 
 {% if host %}
